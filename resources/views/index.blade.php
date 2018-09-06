@@ -10,7 +10,7 @@
         <!-- Fonts -->
         <link href="https://fonts.googleapis.com/css?family=Raleway:100,600" rel="stylesheet" type="text/css">
         <!-- Vue js -->
-        <link rel="stylesheet" href="{{asset('public/css/app.css')}}">
+        <link href="{{asset('public/css/app.css')}}">
 
         {{--Template --}}
         <link rel="icon" type="image/png" sizes="16x16" href="public/assets/images/favicon.png">
@@ -50,8 +50,9 @@
         </div>
 
         {{--Vue js--}}
-        <script src="{{asset('public/js/app.js')}}"></script>
-
+        {{-- <script src="{{asset('public/js/app.js')}}"></script> --}}
+        <script type="" src="public/js/app.js"></script>
+        
         {{--PLUG IN--}}
         <script src="public/assets/plugins/jquery/jquery.min.js"></script>
         <!-- Bootstrap tether Core JavaScript -->
