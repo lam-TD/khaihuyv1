@@ -59,7 +59,7 @@
                             custom.setAttribute('src',"public/template/js/custom.js");
                             custom.setAttribute('id','custom');
                             document.body.appendChild(custom);
-                        },1000);
+                        },2000);
 
                     })
                     .catch((error) => {
