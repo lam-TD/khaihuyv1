@@ -74,7 +74,7 @@
                     custom.setAttribute('src',"public/template/js/custom.js");
                     custom.setAttribute('id','custom');
                     document.body.appendChild(custom);
-                },2000);
+                },4000);
             },
             beforeDestroy() {
 
