@@ -188,29 +188,21 @@ $(function () {
     // ============================================================== 
     // Collapsable cards
     // ==============================================================
-        $('body').on('click','a[data-action="collapse"]',function(e){
+        $('a[data-action="collapse"]').on('click',function(e){
             e.preventDefault();
             $(this).closest('.card').find('[data-action="collapse"] i').toggleClass('ti-minus ti-plus');
             $(this).closest('.card').children('.card-body').collapse('toggle');
            
         }); 
-
-        // $('a[data-action="collapse"]').on('click',function(e){
-        //     e.preventDefault();
-        //     $(this).closest('.card').find('[data-action="collapse"] i').toggleClass('ti-minus ti-plus');
-        //     $(this).closest('.card').children('.card-body').collapse('toggle');
-           
-        // }); 
-
         // Toggle fullscreen
-        $('body').on('click','a[data-action="expand"]',function(e){
+        $('a[data-action="expand"]').on('click',function(e){
             e.preventDefault();
             $(this).closest('.card').find('[data-action="expand"] i').toggleClass('mdi-arrow-expand mdi-arrow-compress');
             $(this).closest('.card').toggleClass('card-fullscreen');
         });
 
         // Close Card
-        $('body').on('click','a[data-action="close"]',function(){
+        $('a[data-action="close"]').on('click',function(){
             $(this).closest('.card').removeClass().slideUp('fast');
         });
     
