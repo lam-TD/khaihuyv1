@@ -53,12 +53,12 @@
                                             <!-- Modal body -->
                                             <div class="modal-body">
                                                 <div class="form-group">
-                                                    <label><b>Mã nhóm</b></label>
+                                                    <label><b>Mã bộ phận</b></label>
                                                     <input v-model="bo_phan.ma_bo_phan" :disabled="flag_input_bo_phan" v-validate="'required'" :class="{'border-danger' : errors.has('txtmabophan')}" type="text" name="txtmabophan" class="form-control" id="txtmabophan" aria-describedby="" autofocus>
                                                     <small v-show="errors.has('txtmabophan')" class="help text-muted is-danger">Vui lòng nhập mã bộ phận</small>
                                                 </div>
                                                 <div class="form-group">
-                                                    <label><b>Tên nhóm</b></label>
+                                                    <label><b>Tên bộ phận</b></label>
                                                     <input v-model="bo_phan.ten_bo_phan" v-validate="'required'" :class="{'border-danger' : errors.has('txttenbophan')}" type="text" name="txttenbophan" class="form-control" id="txttenbophan" placeholder="">
                                                     <small v-show="errors.has('txttenbophan')" class="help text-muted is-danger">Vui lòng nhập tên bộ phận</small>
                                                 </div>
@@ -111,7 +111,7 @@
                     <div class="card">
                         <div class="card-body">
                             <h4 class="card-title">Danh sách phòng ban</h4>
-                            <button id="add_ds" type="button" @click="_phong_ban('add')" class="btn btn-success btn-sm" data-toggle="modal" data-target="#modal_phong">
+                            <button :disabled="flag_btn_add_phong" id="add_ds" type="button" @click="_phong_ban('add')" class="btn btn-success btn-sm" data-toggle="modal" data-target="#modal_phong">
                                 <i class="fa fa-plus-circle"></i> Thêm mới
                             </button>
                             <button v-bind:disabled="flag_btn_phong_ban" @click="_phong_ban('edit')" id="edit_ds" type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#modal_phong">
@@ -247,6 +247,7 @@
                 total_phong_ban: 0,
                 phong_ban: { id: '', ma_phong: '', ten_phong: '', dien_giai: '', id_bo_phan: ''},
                 loading_phong_ban: false,
+                flag_btn_add_phong: true;
                 flag_btn_phong_ban: true,
                 flag_input_phong_ban: false,
                 flag_submit_phong_ban: true
@@ -288,6 +289,7 @@
                 this.bo_phan.ten_bo_phan = bp.ten_bo_phan
                 this.bo_phan.dien_giai = bp.dien_giai;
                 this.flag_btn = false;
+                this.flag_btn_add_phong = false;
                 $('.row-nhom').removeClass("active-click-row");
                 $('#n' + bp.id).addClass("active-click-row");
                 this.get_danh_sach_phong_theo_bo_phan(bp.id, 1);
