@@ -16,7 +16,7 @@ class PhanQuyenChucNangController extends Controller
         $credentials = request(['user_id', 'id_nhom_nguoi_dung']);
 
         $nhom_ng = User::where('id', $credentials['user_id'])->where('id_nhom_nguoi_dung',$credentials['id_nhom_nguoi_dung'])->first();
-        $nhom_cn_user = DB::select('SELECT pq.id_nhom_chuc_nang, pq.ten_nhom, pq.icon, pq.thu_tu_nhom FROM phan_quyen as pq WHERE pq.id_nhom_nguoi_dung ='.$nhom_ng->id_nhom_nguoi_dung.' GROUP BY pq.id_nhom_chuc_nang, pq.ten_nhom, pq.icon, pa.thu_tu ORDER BY pq.thu_tu_nhom ASC');
+        $nhom_cn_user = DB::select('SELECT pq.id_nhom_chuc_nang, pq.ten_nhom, pq.icon, pq.thu_tu_nhom FROM phan_quyen as pq WHERE pq.id_nhom_nguoi_dung ='.$nhom_ng->id_nhom_nguoi_dung.' GROUP BY pq.id_nhom_chuc_nang, pq.ten_nhom, pq.icon, pq.thu_tu ORDER BY pq.thu_tu_nhom ASC');
         $list_chuc_nang = [];
         if($nhom_cn_user) {
             foreach ($nhom_cn_user as $value) {
