@@ -69,12 +69,12 @@
             },
             updated () {
                 $('#custom').remove();
-                // setTimeout(function () {
-                //     let custom = document.createElement('script');
-                //     custom.setAttribute('src',"public/template/js/custom.js");
-                //     custom.setAttribute('id','custom');
-                //     document.body.appendChild(custom);
-                // },4000);
+                setTimeout(function () {
+                    let custom = document.createElement('script');
+                    custom.setAttribute('src',"public/template/js/custom.js");
+                    custom.setAttribute('id','custom');
+                    document.body.appendChild(custom);
+                },4000);
             },
             beforeDestroy() {
 
