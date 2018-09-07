@@ -108905,6 +108905,10 @@ if (false) {
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
+function injectStyle (ssrContext) {
+  if (disposed) return
+  __webpack_require__(275)
+}
 var normalizeComponent = __webpack_require__(1)
 /* script */
 var __vue_script__ = __webpack_require__(214)
@@ -108913,7 +108917,7 @@ var __vue_template__ = __webpack_require__(215)
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
-var __vue_styles__ = null
+var __vue_styles__ = injectStyle
 /* scopeId */
 var __vue_scopeId__ = null
 /* moduleIdentifier (server only) */
@@ -108953,6 +108957,42 @@ module.exports = Component.exports
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__phong_ban__ = __webpack_require__(277);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -109050,8 +109090,81 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 
+
+
+
+
+
 /* harmony default export */ __webpack_exports__["default"] = ({
-  name: 'phongban'
+    name: 'phongban',
+    mounted: function mounted() {
+        this.danh_sach_phong_ban();
+    },
+    data: function data() {
+        return {
+            loading_phong_ban: true,
+            list_phong_ban: [],
+            total_phong_ban: 0,
+            phong_ban: { idi: 0, ma_phong_ban: '', ten_phong_ban: '', dien_giai: '' },
+            flag_btn: true,
+            flag_submit_phong_ban: true,
+            flag_input_phong_ban: false
+        };
+    },
+
+    methods: {
+        danh_sach_phong_ban: function danh_sach_phong_ban() {
+            var page = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 1;
+
+            Object(__WEBPACK_IMPORTED_MODULE_0__phong_ban__["d" /* api_get_phong_ban */])(this, page);
+        },
+        _phong_ban: function _phong_ban(state) {
+            if (state == 'add') {
+                console.log('add nhom');
+                this.flag_btn = true;
+                $('.row-nhom').removeClass("active-click-row");
+                this.flag_submit_phong_ban = true;
+                this.flag_input_phong_ban = false;
+                this.phong_ban.id = this.phong_ban.ma_phong_ban = this.phong_ban.ten_phong_ban = this.phong_ban.dien_giai = '';
+            } else {
+                console.log('edit nhom');
+                this.flag_submit_phong_ban = false;
+                this.flag_input_phong_ban = true;
+            }
+        },
+        submit_phong_ban: function submit_phong_ban() {
+            if (this.flag_submit_phong_ban) {
+                this.flag_input_phong_ban = false;
+                this.add_phong_ban();
+            } else {
+                this.nhom = this.nhom_selected;
+                this.flag_input_phong_ban = true;
+                this.edit_phong_ban();
+            }
+        },
+        click_phong_ban: function click_phong_ban(bp) {
+            this.phong_ban.id = bp.id;
+            this.phong_ban.ma_phong_ban = bp.ma_phong_ban;
+            this.phong_ban.ten_phong_ban = bp.ten_phong_ban;
+            this.phong_ban.dien_giai = bp.dien_giai;
+            this.flag_btn = false;
+            this.flag_btn_add_phong = false;
+            // console.log(bp);
+            this.loading_phong_ban = true;
+            $('.row-nhom').removeClass("active-click-row");
+            $('#n' + bp.id).addClass("active-click-row");
+        },
+        add_phong_ban: function add_phong_ban() {
+            Object(__WEBPACK_IMPORTED_MODULE_0__phong_ban__["a" /* api_add_phong_ban */])(this);
+        },
+        edit_phong_ban: function edit_phong_ban() {
+            Object(__WEBPACK_IMPORTED_MODULE_0__phong_ban__["c" /* api_edit_phong_ban */])(this);
+        },
+        delete_nhom: function delete_nhom() {
+            if (this.phong_ban.id <= 0) return -1;
+            Object(__WEBPACK_IMPORTED_MODULE_0__phong_ban__["b" /* api_delete_phong_ban */])(this);
+        }
+    }
 });
 
 /***/ }),
@@ -109062,151 +109175,440 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _vm._m(0)
+  return _c(
+    "div",
+    { staticClass: "page-wrapper", staticStyle: { "min-height": "291px" } },
+    [
+      _vm._m(0),
+      _vm._v(" "),
+      _c("div", { staticClass: "container-fluid" }, [
+        _c("div", { staticClass: "row" }, [
+          _c("div", { staticClass: "col-md-12" }, [
+            _c("div", { staticClass: "card" }, [
+              _c("div", { staticClass: "card-body" }, [
+                _c("h4", { staticClass: "card-title" }, [
+                  _vm._v("Danh sách vị trí")
+                ]),
+                _vm._v(" "),
+                _c(
+                  "button",
+                  {
+                    staticClass: "btn btn-success btn-sm",
+                    attrs: {
+                      id: "add_nhom",
+                      type: "button",
+                      "data-toggle": "modal",
+                      "data-target": "#myModal"
+                    },
+                    on: {
+                      click: function($event) {
+                        _vm._phong_ban("add")
+                      }
+                    }
+                  },
+                  [
+                    _c("i", { staticClass: "fa fa-plus-circle" }),
+                    _vm._v(" Thêm mới\n                        ")
+                  ]
+                ),
+                _vm._v(" "),
+                _c(
+                  "button",
+                  {
+                    staticClass: "btn btn-info btn-sm",
+                    attrs: {
+                      disabled: _vm.flag_btn,
+                      id: "edit_nhom",
+                      type: "button",
+                      "data-toggle": "modal",
+                      "data-target": "#myModal"
+                    },
+                    on: {
+                      click: function($event) {
+                        _vm._phong_ban("edit")
+                      }
+                    }
+                  },
+                  [
+                    _c("i", { staticClass: "fa fa-edit" }),
+                    _vm._v(" Sửa\n                        ")
+                  ]
+                ),
+                _vm._v(" "),
+                _c(
+                  "button",
+                  {
+                    staticClass: "btn btn-danger btn-sm",
+                    attrs: { disabled: _vm.flag_btn, type: "button" },
+                    on: { click: _vm.delete_nhom }
+                  },
+                  [
+                    _c("i", { staticClass: "fa fa-trash" }),
+                    _vm._v(" Xóa\n                        ")
+                  ]
+                ),
+                _vm._v(" "),
+                _c("div", { staticClass: "modal", attrs: { id: "myModal" } }, [
+                  _c("div", { staticClass: "modal-dialog" }, [
+                    _c("div", { staticClass: "modal-content" }, [
+                      _c(
+                        "form",
+                        {
+                          attrs: { id: "form_bophan" },
+                          on: {
+                            submit: function($event) {
+                              $event.preventDefault()
+                              return _vm.submit_phong_ban($event)
+                            }
+                          }
+                        },
+                        [
+                          _vm._m(1),
+                          _vm._v(" "),
+                          _c("div", { staticClass: "modal-body" }, [
+                            _c("div", { staticClass: "form-group" }, [
+                              _vm._m(2),
+                              _vm._v(" "),
+                              _c("input", {
+                                directives: [
+                                  {
+                                    name: "model",
+                                    rawName: "v-model",
+                                    value: _vm.phong_ban.ma_phong_ban,
+                                    expression: "phong_ban.ma_phong_ban"
+                                  },
+                                  {
+                                    name: "validate",
+                                    rawName: "v-validate",
+                                    value: "required",
+                                    expression: "'required'"
+                                  }
+                                ],
+                                staticClass: "form-control",
+                                class: {
+                                  "border-danger": _vm.errors.has("txtmabophan")
+                                },
+                                attrs: {
+                                  disabled: _vm.flag_input_phong_ban,
+                                  type: "text",
+                                  name: "txtmabophan",
+                                  id: "txtmabophan",
+                                  "aria-describedby": "",
+                                  autofocus: ""
+                                },
+                                domProps: { value: _vm.phong_ban.ma_phong_ban },
+                                on: {
+                                  input: function($event) {
+                                    if ($event.target.composing) {
+                                      return
+                                    }
+                                    _vm.$set(
+                                      _vm.phong_ban,
+                                      "ma_phong_ban",
+                                      $event.target.value
+                                    )
+                                  }
+                                }
+                              }),
+                              _vm._v(" "),
+                              _c(
+                                "small",
+                                {
+                                  directives: [
+                                    {
+                                      name: "show",
+                                      rawName: "v-show",
+                                      value: _vm.errors.has("txtmabophan"),
+                                      expression: "errors.has('txtmabophan')"
+                                    }
+                                  ],
+                                  staticClass: "help text-muted is-danger"
+                                },
+                                [_vm._v("Vui lòng nhập mã vị trí")]
+                              )
+                            ]),
+                            _vm._v(" "),
+                            _c("div", { staticClass: "form-group" }, [
+                              _vm._m(3),
+                              _vm._v(" "),
+                              _c("input", {
+                                directives: [
+                                  {
+                                    name: "model",
+                                    rawName: "v-model",
+                                    value: _vm.phong_ban.ten_phong_ban,
+                                    expression: "phong_ban.ten_phong_ban"
+                                  },
+                                  {
+                                    name: "validate",
+                                    rawName: "v-validate",
+                                    value: "required",
+                                    expression: "'required'"
+                                  }
+                                ],
+                                staticClass: "form-control",
+                                class: {
+                                  "border-danger": _vm.errors.has(
+                                    "txttenbophan"
+                                  )
+                                },
+                                attrs: {
+                                  type: "text",
+                                  name: "txttenbophan",
+                                  id: "txttenbophan",
+                                  placeholder: ""
+                                },
+                                domProps: {
+                                  value: _vm.phong_ban.ten_phong_ban
+                                },
+                                on: {
+                                  input: function($event) {
+                                    if ($event.target.composing) {
+                                      return
+                                    }
+                                    _vm.$set(
+                                      _vm.phong_ban,
+                                      "ten_phong_ban",
+                                      $event.target.value
+                                    )
+                                  }
+                                }
+                              }),
+                              _vm._v(" "),
+                              _c(
+                                "small",
+                                {
+                                  directives: [
+                                    {
+                                      name: "show",
+                                      rawName: "v-show",
+                                      value: _vm.errors.has("txttenbophan"),
+                                      expression: "errors.has('txttenbophan')"
+                                    }
+                                  ],
+                                  staticClass: "help text-muted is-danger"
+                                },
+                                [_vm._v("Vui lòng nhập tên vị trí")]
+                              )
+                            ]),
+                            _vm._v(" "),
+                            _c("div", { staticClass: "form-group" }, [
+                              _vm._m(4),
+                              _vm._v(" "),
+                              _c("textarea", {
+                                directives: [
+                                  {
+                                    name: "model",
+                                    rawName: "v-model",
+                                    value: _vm.phong_ban.dien_giai,
+                                    expression: "phong_ban.dien_giai"
+                                  }
+                                ],
+                                staticClass: "form-control",
+                                attrs: {
+                                  type: "text",
+                                  name: "txtdiengiai",
+                                  id: "txtdiengiai"
+                                },
+                                domProps: { value: _vm.phong_ban.dien_giai },
+                                on: {
+                                  input: function($event) {
+                                    if ($event.target.composing) {
+                                      return
+                                    }
+                                    _vm.$set(
+                                      _vm.phong_ban,
+                                      "dien_giai",
+                                      $event.target.value
+                                    )
+                                  }
+                                }
+                              })
+                            ])
+                          ]),
+                          _vm._v(" "),
+                          _vm._m(5)
+                        ]
+                      )
+                    ])
+                  ])
+                ]),
+                _vm._v(" "),
+                _c(
+                  "div",
+                  { staticClass: "table-responsive" },
+                  [
+                    _c("table", { staticClass: "table table-hover" }, [
+                      _vm._m(6),
+                      _vm._v(" "),
+                      _c(
+                        "tbody",
+                        { staticClass: "body-table loading-item" },
+                        [
+                          _vm.loading_phong_ban
+                            ? _c("tr", [_vm._m(7)])
+                            : _vm._e(),
+                          _vm._v(" "),
+                          _vm._l(_vm.list_phong_ban, function(n) {
+                            return _c(
+                              "tr",
+                              {
+                                staticClass: "row-nhom",
+                                attrs: { id: "n" + n.id },
+                                on: {
+                                  click: function($event) {
+                                    _vm.click_phong_ban(n)
+                                  }
+                                }
+                              },
+                              [
+                                _c("td", [_vm._v(_vm._s(n.ma_phong_ban))]),
+                                _vm._v(" "),
+                                _c("td", [_vm._v(_vm._s(n.ten_phong_ban))]),
+                                _vm._v(" "),
+                                _c("td", [_vm._v(_vm._s(n.dien_giai))])
+                              ]
+                            )
+                          })
+                        ],
+                        2
+                      )
+                    ]),
+                    _vm._v(" "),
+                    _c("el-pagination", {
+                      attrs: {
+                        "page-size": 10,
+                        layout: "prev, pager, next",
+                        total: _vm.total_phong_ban
+                      },
+                      on: { "current-change": _vm.danh_sach_phong_ban }
+                    })
+                  ],
+                  1
+                )
+              ])
+            ])
+          ])
+        ])
+      ])
+    ]
+  )
 }
 var staticRenderFns = [
   function() {
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c(
-      "div",
-      { staticClass: "page-wrapper", staticStyle: { "min-height": "291px" } },
-      [
-        _c("div", { staticClass: "row page-titles" }, [
-          _c("div", { staticClass: "col-md-5 align-self-center" }, [
-            _c("h3", { staticClass: "text-themecolor" }, [
-              _vm._v("Danh sách nhân viên")
+    return _c("div", { staticClass: "row page-titles" }, [
+      _c("div", { staticClass: "col-md-5 align-self-center" }),
+      _vm._v(" "),
+      _c("div", { staticClass: "col-md-7 align-self-center" }, [
+        _c("ol", { staticClass: "breadcrumb" }, [
+          _c("li", { staticClass: "breadcrumb-item" }, [
+            _c("a", { attrs: { href: "javascript:void(0)" } }, [
+              _vm._v("Nhân sự")
             ])
           ]),
           _vm._v(" "),
-          _c("div", { staticClass: "col-md-7 align-self-center" }, [
-            _c("ol", { staticClass: "breadcrumb" }, [
-              _c("li", { staticClass: "breadcrumb-item" }, [
-                _c("a", { attrs: { href: "javascript:void(0)" } }, [
-                  _vm._v("Nhân sự")
-                ])
-              ]),
-              _vm._v(" "),
-              _c("li", { staticClass: "breadcrumb-item" }, [
-                _vm._v("Danh sách nhân viên")
-              ])
-            ])
-          ])
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "container-fluid" }, [
-          _c("div", { staticClass: "row" }, [
-            _c("div", { staticClass: "col-md-12" }, [
-              _c("div", { staticClass: "card" }, [
-                _c("div", { staticClass: "card-body" }, [
-                  _c("h4", { staticClass: "card-title" }, [
-                    _vm._v("Data Table")
-                  ]),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "table-responsive" }, [
-                    _c(
-                      "table",
-                      {
-                        staticClass: "table table-bordered table-striped",
-                        attrs: { id: "myTable" }
-                      },
-                      [
-                        _c("thead", [
-                          _c("tr", [
-                            _c("th", [_vm._v("Mã")]),
-                            _vm._v(" "),
-                            _c("th", { staticStyle: { width: "200px" } }, [
-                              _vm._v("Tên nhân viên")
-                            ]),
-                            _vm._v(" "),
-                            _c("th", [_vm._v("G/T")]),
-                            _vm._v(" "),
-                            _c("th", [_vm._v("Ngày sinh")]),
-                            _vm._v(" "),
-                            _c("th", [_vm._v("Nơi sinh")]),
-                            _vm._v(" "),
-                            _c("th", [_vm._v("Số CMND")]),
-                            _vm._v(" "),
-                            _c("th", [_vm._v("Ngày cấp")]),
-                            _vm._v(" "),
-                            _c("th", [_vm._v("Nơi cấp")]),
-                            _vm._v(" "),
-                            _c("th", [_vm._v("Tạm trú")])
-                          ])
-                        ]),
-                        _vm._v(" "),
-                        _c("tbody", [
-                          _c("tr", [
-                            _c("td", [_vm._v("1")]),
-                            _vm._v(" "),
-                            _c("td", [_vm._v("System Architect")]),
-                            _vm._v(" "),
-                            _c("td", [_vm._v("Edinburgh")]),
-                            _vm._v(" "),
-                            _c("td", [_vm._v("61")]),
-                            _vm._v(" "),
-                            _c("td", [_vm._v("2011/04/25dadsadadasdadasd")]),
-                            _vm._v(" "),
-                            _c("td", [_vm._v("$320,800")]),
-                            _vm._v(" "),
-                            _c("td", [_vm._v("$320,800")]),
-                            _vm._v(" "),
-                            _c("td", [_vm._v("$320,800")]),
-                            _vm._v(" "),
-                            _c("td", [_vm._v("$320,800")])
-                          ]),
-                          _vm._v(" "),
-                          _c("tr", [
-                            _c("td", [_vm._v("1")]),
-                            _vm._v(" "),
-                            _c("td", [_vm._v("System Architect")]),
-                            _vm._v(" "),
-                            _c("td", [_vm._v("Edinburgh")]),
-                            _vm._v(" "),
-                            _c("td", [_vm._v("61")]),
-                            _vm._v(" "),
-                            _c("td", [_vm._v("2011/04/25")]),
-                            _vm._v(" "),
-                            _c("td", [_vm._v("$320,800")]),
-                            _vm._v(" "),
-                            _c("td", [_vm._v("$320,800")]),
-                            _vm._v(" "),
-                            _c("td", [_vm._v("$320,800")]),
-                            _vm._v(" "),
-                            _c("td", [_vm._v("$320,800")])
-                          ]),
-                          _vm._v(" "),
-                          _c("tr", [
-                            _c("td", [_vm._v("1")]),
-                            _vm._v(" "),
-                            _c("td", [_vm._v("System Architect")]),
-                            _vm._v(" "),
-                            _c("td", [_vm._v("Edinburgh")]),
-                            _vm._v(" "),
-                            _c("td", [_vm._v("61")]),
-                            _vm._v(" "),
-                            _c("td", [_vm._v("2011/04/25")]),
-                            _vm._v(" "),
-                            _c("td", [_vm._v("$320,800")]),
-                            _vm._v(" "),
-                            _c("td", [_vm._v("$320,800")]),
-                            _vm._v(" "),
-                            _c("td", [_vm._v("$320,800")]),
-                            _vm._v(" "),
-                            _c("td", [_vm._v("$320,800")])
-                          ])
-                        ])
-                      ]
-                    )
-                  ])
-                ])
-              ])
-            ])
-          ])
+          _c("li", { staticClass: "breadcrumb-item" }, [_vm._v("Phòng ban")])
         ])
-      ]
-    )
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "modal-header" }, [
+      _c("h4", { staticClass: "modal-title" }, [
+        _c("b", [_vm._v("Thông tin vị trí")])
+      ]),
+      _vm._v(" "),
+      _c(
+        "button",
+        {
+          staticClass: "close",
+          attrs: { type: "button", "data-dismiss": "modal" }
+        },
+        [_vm._v("×")]
+      )
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("label", [_c("b", [_vm._v("Mã vị trí")])])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("label", [_c("b", [_vm._v("Tên vị trí")])])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("label", [_c("b", [_vm._v("Diễn giải")])])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "modal-footer" }, [
+      _c(
+        "button",
+        { staticClass: "btn btn-primary", attrs: { type: "submit" } },
+        [_vm._v("Lưu lại")]
+      ),
+      _vm._v(" "),
+      _c(
+        "button",
+        {
+          staticClass: "btn btn-danger",
+          attrs: { type: "button", "data-dismiss": "modal" }
+        },
+        [_vm._v("Hủy")]
+      )
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("thead", [
+      _c("tr", [
+        _c("th", [_vm._v("Mã vị trí")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Tên vị trí")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Diễn giải")])
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("td", { staticClass: "text-center", attrs: { colspan: "3" } }, [
+      _c("div", { staticClass: "fa-3x" }, [
+        _c("i", { staticClass: "fas fa-spinner fa-spin" }),
+        _vm._v(" "),
+        _c("i", { staticClass: "fas fa-circle-notch fa-spin" }),
+        _vm._v(" "),
+        _c("i", { staticClass: "fas fa-sync fa-spin" }),
+        _vm._v(" "),
+        _c("i", { staticClass: "fas fa-cog fa-spin" }),
+        _vm._v(" "),
+        _c("i", { staticClass: "fas fa-spinner fa-pulse" }),
+        _vm._v(" "),
+        _c("i", { staticClass: "fas fa-stroopwafel fa-spin" })
+      ]),
+      _vm._v(
+        "\n                                        Loading...\n                                    "
+      )
+    ])
   }
 ]
 render._withStripped = true
@@ -109319,6 +109721,64 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__bo_phan_js__ = __webpack_require__(267);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__bo_phan__ = __webpack_require__(267);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__phong_ban_bo_phan__ = __webpack_require__(268);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -109702,7 +110162,132 @@ var render = function() {
       _vm._v(" "),
       _c("div", { staticClass: "container-fluid" }, [
         _c("div", { staticClass: "row" }, [
-          _c("div", { staticClass: "col-md-6" }, [
+          _c("div", { staticClass: "col-lg-12 col-md-12" }, [
+            _c("div", { staticClass: "card" }, [
+              _vm._m(1),
+              _vm._v(" "),
+              _c("div", { staticClass: "card-body" }, [
+                _c("div", { staticClass: "message-box contact-box" }, [
+                  _vm._m(2),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "message-widget contact-widget" }, [
+                    _c(
+                      "div",
+                      { staticClass: "table-responsive" },
+                      [
+                        _c("table", { staticClass: "table table-hover" }, [
+                          _vm._m(3),
+                          _vm._v(" "),
+                          _c(
+                            "tbody",
+                            { staticClass: "body-table loading-item" },
+                            [
+                              _vm.loading_bo_phan
+                                ? _c("tr", [
+                                    _c(
+                                      "td",
+                                      {
+                                        staticClass: "text-center",
+                                        attrs: { colspan: "6" }
+                                      },
+                                      [_vm._v("Loading...")]
+                                    )
+                                  ])
+                                : _vm._e(),
+                              _vm._v(" "),
+                              _vm._l(_vm.list_bo_phan, function(n) {
+                                return _c(
+                                  "tr",
+                                  {
+                                    staticClass: "row-nhom",
+                                    attrs: { id: "n" + n.id },
+                                    on: {
+                                      click: function($event) {
+                                        _vm.click_bo_phan(n)
+                                      }
+                                    }
+                                  },
+                                  [
+                                    _c("td", [_vm._v(_vm._s(n.ma_bo_phan))]),
+                                    _vm._v(" "),
+                                    _c("td", [_vm._v(_vm._s(n.ten_bo_phan))]),
+                                    _vm._v(" "),
+                                    _c("td", [_vm._v(_vm._s(n.dien_giai))]),
+                                    _vm._v(" "),
+                                    _c("td", [_vm._v(_vm._s(n.created_at))]),
+                                    _vm._v(" "),
+                                    _c("td", [_vm._v("Ẩn")]),
+                                    _vm._v(" "),
+                                    _c("td", [
+                                      _c(
+                                        "button",
+                                        {
+                                          staticClass: "btn btn-info btn-sm",
+                                          attrs: {
+                                            id: "edit_nhom",
+                                            type: "button",
+                                            "data-toggle": "modal",
+                                            "data-target": "#myModal"
+                                          },
+                                          on: {
+                                            click: function($event) {
+                                              _vm._bo_phan("edit")
+                                            }
+                                          }
+                                        },
+                                        [
+                                          _c("i", {
+                                            staticClass: "fa fa-edit"
+                                          }),
+                                          _vm._v(
+                                            " Sửa\n                                                "
+                                          )
+                                        ]
+                                      ),
+                                      _vm._v(" "),
+                                      _c(
+                                        "button",
+                                        {
+                                          staticClass: "btn btn-danger btn-sm",
+                                          attrs: { type: "button" },
+                                          on: { click: _vm.delete_nhom }
+                                        },
+                                        [
+                                          _c("i", {
+                                            staticClass: "fa fa-trash"
+                                          }),
+                                          _vm._v(
+                                            " Xóa\n                                                "
+                                          )
+                                        ]
+                                      )
+                                    ])
+                                  ]
+                                )
+                              })
+                            ],
+                            2
+                          )
+                        ]),
+                        _vm._v(" "),
+                        _c("el-pagination", {
+                          attrs: {
+                            "page-size": 10,
+                            layout: "prev, pager, next",
+                            total: _vm.total_bo_phan
+                          },
+                          on: { "current-change": _vm.danh_sach_bo_phan }
+                        })
+                      ],
+                      1
+                    )
+                  ])
+                ])
+              ])
+            ])
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "col-md-12" }, [
             _c("div", { staticClass: "card" }, [
               _c("div", { staticClass: "card-body" }, [
                 _c("h4", { staticClass: "card-title" }, [
@@ -109731,42 +110316,6 @@ var render = function() {
                   ]
                 ),
                 _vm._v(" "),
-                _c(
-                  "button",
-                  {
-                    staticClass: "btn btn-info btn-sm",
-                    attrs: {
-                      disabled: _vm.flag_btn,
-                      id: "edit_nhom",
-                      type: "button",
-                      "data-toggle": "modal",
-                      "data-target": "#myModal"
-                    },
-                    on: {
-                      click: function($event) {
-                        _vm._bo_phan("edit")
-                      }
-                    }
-                  },
-                  [
-                    _c("i", { staticClass: "fa fa-edit" }),
-                    _vm._v(" Sửa\n                        ")
-                  ]
-                ),
-                _vm._v(" "),
-                _c(
-                  "button",
-                  {
-                    staticClass: "btn btn-danger btn-sm",
-                    attrs: { disabled: _vm.flag_btn, type: "button" },
-                    on: { click: _vm.delete_nhom }
-                  },
-                  [
-                    _c("i", { staticClass: "fa fa-trash" }),
-                    _vm._v(" Xóa\n                        ")
-                  ]
-                ),
-                _vm._v(" "),
                 _c("div", { staticClass: "modal", attrs: { id: "myModal" } }, [
                   _c("div", { staticClass: "modal-dialog" }, [
                     _c("div", { staticClass: "modal-content" }, [
@@ -109782,11 +110331,11 @@ var render = function() {
                           }
                         },
                         [
-                          _vm._m(1),
+                          _vm._m(4),
                           _vm._v(" "),
                           _c("div", { staticClass: "modal-body" }, [
                             _c("div", { staticClass: "form-group" }, [
-                              _vm._m(2),
+                              _vm._m(5),
                               _vm._v(" "),
                               _c("input", {
                                 directives: [
@@ -109848,7 +110397,7 @@ var render = function() {
                             ]),
                             _vm._v(" "),
                             _c("div", { staticClass: "form-group" }, [
-                              _vm._m(3),
+                              _vm._m(6),
                               _vm._v(" "),
                               _c("input", {
                                 directives: [
@@ -109910,7 +110459,7 @@ var render = function() {
                             ]),
                             _vm._v(" "),
                             _c("div", { staticClass: "form-group" }, [
-                              _vm._m(4),
+                              _vm._m(7),
                               _vm._v(" "),
                               _c("textarea", {
                                 directives: [
@@ -109944,7 +110493,7 @@ var render = function() {
                             ])
                           ]),
                           _vm._v(" "),
-                          _vm._m(5)
+                          _vm._m(8)
                         ]
                       )
                     ])
@@ -109956,7 +110505,7 @@ var render = function() {
                   { staticClass: "table-responsive" },
                   [
                     _c("table", { staticClass: "table table-hover" }, [
-                      _vm._m(6),
+                      _vm._m(9),
                       _vm._v(" "),
                       _c(
                         "tbody",
@@ -110012,443 +110561,6 @@ var render = function() {
                 )
               ])
             ])
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "col-md-6" }, [
-            _c("div", { staticClass: "card" }, [
-              _c("div", { staticClass: "card-body" }, [
-                _c("h4", { staticClass: "card-title" }, [
-                  _vm._v("Danh sách phòng ban")
-                ]),
-                _vm._v(" "),
-                _c(
-                  "button",
-                  {
-                    staticClass: "btn btn-success btn-sm",
-                    attrs: {
-                      disabled: _vm.flag_btn_add_phong,
-                      id: "add_ds",
-                      type: "button",
-                      "data-toggle": "modal",
-                      "data-target": "#modal_phong"
-                    },
-                    on: {
-                      click: function($event) {
-                        _vm._phong_ban("add")
-                      }
-                    }
-                  },
-                  [
-                    _c("i", { staticClass: "fa fa-plus-circle" }),
-                    _vm._v(" Thêm mới\n                        ")
-                  ]
-                ),
-                _vm._v(" "),
-                _c(
-                  "button",
-                  {
-                    staticClass: "btn btn-info btn-sm",
-                    attrs: {
-                      disabled: _vm.flag_btn_phong_ban,
-                      id: "edit_ds",
-                      type: "button",
-                      "data-toggle": "modal",
-                      "data-target": "#modal_phong"
-                    },
-                    on: {
-                      click: function($event) {
-                        _vm._phong_ban("edit")
-                      }
-                    }
-                  },
-                  [
-                    _c("i", { staticClass: "fa fa-edit" }),
-                    _vm._v(" Sửa\n                        ")
-                  ]
-                ),
-                _vm._v(" "),
-                _c(
-                  "button",
-                  {
-                    staticClass: "btn btn-danger btn-sm",
-                    attrs: { disabled: _vm.flag_btn_phong_ban, type: "button" },
-                    on: { click: _vm.delete_phong_ban }
-                  },
-                  [
-                    _c("i", { staticClass: "fa fa-trash" }),
-                    _vm._v(" Xóa\n                        ")
-                  ]
-                ),
-                _vm._v(" "),
-                _c(
-                  "div",
-                  { staticClass: "modal", attrs: { id: "modal_phong" } },
-                  [
-                    _c("div", { staticClass: "modal-dialog" }, [
-                      _c("div", { staticClass: "modal-content" }, [
-                        _c(
-                          "form",
-                          {
-                            attrs: { id: "form_phong" },
-                            on: {
-                              submit: function($event) {
-                                $event.preventDefault()
-                                return _vm.submit_phong_ban($event)
-                              }
-                            }
-                          },
-                          [
-                            _vm._m(7),
-                            _vm._v(" "),
-                            _c("div", { staticClass: "modal-body" }, [
-                              _c("div", { staticClass: "form-group" }, [
-                                _vm._m(8),
-                                _vm._v(" "),
-                                _c("input", {
-                                  directives: [
-                                    {
-                                      name: "model",
-                                      rawName: "v-model",
-                                      value: _vm.bo_phan.ten_bo_phan,
-                                      expression: "bo_phan.ten_bo_phan"
-                                    },
-                                    {
-                                      name: "validate",
-                                      rawName: "v-validate",
-                                      value: "required",
-                                      expression: "'required'"
-                                    }
-                                  ],
-                                  staticClass: "form-control",
-                                  class: {
-                                    "border-danger": _vm.errors.has(
-                                      "txtten_bophan"
-                                    )
-                                  },
-                                  attrs: {
-                                    disabled: true,
-                                    type: "text",
-                                    name: "txtten_bophan",
-                                    id: "txtten_bophan"
-                                  },
-                                  domProps: { value: _vm.bo_phan.ten_bo_phan },
-                                  on: {
-                                    input: function($event) {
-                                      if ($event.target.composing) {
-                                        return
-                                      }
-                                      _vm.$set(
-                                        _vm.bo_phan,
-                                        "ten_bo_phan",
-                                        $event.target.value
-                                      )
-                                    }
-                                  }
-                                }),
-                                _vm._v(" "),
-                                _c("input", {
-                                  directives: [
-                                    {
-                                      name: "model",
-                                      rawName: "v-model",
-                                      value: _vm.phong_ban.id_bo_phan,
-                                      expression: "phong_ban.id_bo_phan"
-                                    },
-                                    {
-                                      name: "validate",
-                                      rawName: "v-validate",
-                                      value: "required",
-                                      expression: "'required'"
-                                    }
-                                  ],
-                                  staticClass: "form-control",
-                                  class: {
-                                    "border-danger": _vm.errors.has(
-                                      "txtma_bophan"
-                                    )
-                                  },
-                                  attrs: {
-                                    hidden: "",
-                                    disabled: "",
-                                    type: "text",
-                                    name: "txtma_bophan",
-                                    id: "txtma_bophan"
-                                  },
-                                  domProps: { value: _vm.phong_ban.id_bo_phan },
-                                  on: {
-                                    input: function($event) {
-                                      if ($event.target.composing) {
-                                        return
-                                      }
-                                      _vm.$set(
-                                        _vm.phong_ban,
-                                        "id_bo_phan",
-                                        $event.target.value
-                                      )
-                                    }
-                                  }
-                                }),
-                                _vm._v(" "),
-                                _c(
-                                  "small",
-                                  {
-                                    directives: [
-                                      {
-                                        name: "show",
-                                        rawName: "v-show",
-                                        value: _vm.errors.has("txtma_bophan"),
-                                        expression: "errors.has('txtma_bophan')"
-                                      }
-                                    ],
-                                    staticClass: "help text-muted is-danger"
-                                  },
-                                  [_vm._v("Vui chọn bộ phận")]
-                                )
-                              ]),
-                              _vm._v(" "),
-                              _c("div", { staticClass: "form-group" }, [
-                                _vm._m(9),
-                                _vm._v(" "),
-                                _c("input", {
-                                  directives: [
-                                    {
-                                      name: "model",
-                                      rawName: "v-model",
-                                      value: _vm.phong_ban.ma_phong,
-                                      expression: "phong_ban.ma_phong"
-                                    },
-                                    {
-                                      name: "validate",
-                                      rawName: "v-validate",
-                                      value: "required",
-                                      expression: "'required'"
-                                    }
-                                  ],
-                                  staticClass: "form-control",
-                                  class: {
-                                    "border-danger": _vm.errors.has(
-                                      "txtmaphong"
-                                    )
-                                  },
-                                  attrs: {
-                                    disabled: _vm.flag_input_phong_ban,
-                                    type: "text",
-                                    name: "txtmaphong",
-                                    id: "txtmaphong"
-                                  },
-                                  domProps: { value: _vm.phong_ban.ma_phong },
-                                  on: {
-                                    input: function($event) {
-                                      if ($event.target.composing) {
-                                        return
-                                      }
-                                      _vm.$set(
-                                        _vm.phong_ban,
-                                        "ma_phong",
-                                        $event.target.value
-                                      )
-                                    }
-                                  }
-                                }),
-                                _vm._v(" "),
-                                _c(
-                                  "small",
-                                  {
-                                    directives: [
-                                      {
-                                        name: "show",
-                                        rawName: "v-show",
-                                        value: _vm.errors.has("txtmaphong"),
-                                        expression: "errors.has('txtmaphong')"
-                                      }
-                                    ],
-                                    staticClass: "help text-muted is-danger"
-                                  },
-                                  [_vm._v("Vui lòng nhập mã phòng")]
-                                )
-                              ]),
-                              _vm._v(" "),
-                              _c("div", { staticClass: "form-group" }, [
-                                _vm._m(10),
-                                _vm._v(" "),
-                                _c("input", {
-                                  directives: [
-                                    {
-                                      name: "model",
-                                      rawName: "v-model",
-                                      value: _vm.phong_ban.ten_phong,
-                                      expression: "phong_ban.ten_phong"
-                                    },
-                                    {
-                                      name: "validate",
-                                      rawName: "v-validate",
-                                      value: "required",
-                                      expression: "'required'"
-                                    }
-                                  ],
-                                  staticClass: "form-control",
-                                  class: {
-                                    "border-danger": _vm.errors.has(
-                                      "txttenphong"
-                                    )
-                                  },
-                                  attrs: {
-                                    type: "text",
-                                    name: "txttenbophan",
-                                    id: "txttenphong"
-                                  },
-                                  domProps: { value: _vm.phong_ban.ten_phong },
-                                  on: {
-                                    input: function($event) {
-                                      if ($event.target.composing) {
-                                        return
-                                      }
-                                      _vm.$set(
-                                        _vm.phong_ban,
-                                        "ten_phong",
-                                        $event.target.value
-                                      )
-                                    }
-                                  }
-                                }),
-                                _vm._v(" "),
-                                _c(
-                                  "small",
-                                  {
-                                    directives: [
-                                      {
-                                        name: "show",
-                                        rawName: "v-show",
-                                        value: _vm.errors.has("txttenphong"),
-                                        expression: "errors.has('txttenphong')"
-                                      }
-                                    ],
-                                    staticClass: "help text-muted is-danger"
-                                  },
-                                  [_vm._v("Vui lòng nhập tên phòng")]
-                                )
-                              ]),
-                              _vm._v(" "),
-                              _c("div", { staticClass: "form-group" }, [
-                                _vm._m(11),
-                                _vm._v(" "),
-                                _c("textarea", {
-                                  directives: [
-                                    {
-                                      name: "model",
-                                      rawName: "v-model",
-                                      value: _vm.phong_ban.dien_giai,
-                                      expression: "phong_ban.dien_giai"
-                                    }
-                                  ],
-                                  staticClass: "form-control",
-                                  attrs: {
-                                    type: "text",
-                                    name: "txtdiengiai",
-                                    id: "phongdiengiai"
-                                  },
-                                  domProps: { value: _vm.phong_ban.dien_giai },
-                                  on: {
-                                    input: function($event) {
-                                      if ($event.target.composing) {
-                                        return
-                                      }
-                                      _vm.$set(
-                                        _vm.phong_ban,
-                                        "dien_giai",
-                                        $event.target.value
-                                      )
-                                    }
-                                  }
-                                })
-                              ])
-                            ]),
-                            _vm._v(" "),
-                            _vm._m(12)
-                          ]
-                        )
-                      ])
-                    ])
-                  ]
-                ),
-                _vm._v(" "),
-                _c(
-                  "div",
-                  { staticClass: "table-responsive" },
-                  [
-                    _c("table", { staticClass: "table table-hover" }, [
-                      _vm._m(13),
-                      _vm._v(" "),
-                      _c(
-                        "tbody",
-                        [
-                          _vm.list_phong_ban.length <= 0
-                            ? _c(
-                                "tr",
-                                {
-                                  directives: [
-                                    {
-                                      name: "loading",
-                                      rawName: "v-loading",
-                                      value: _vm.loading_phong_ban,
-                                      expression: "loading_phong_ban"
-                                    }
-                                  ]
-                                },
-                                [
-                                  _c(
-                                    "td",
-                                    {
-                                      staticClass: "text-center",
-                                      attrs: { colspan: "3" }
-                                    },
-                                    [_vm._v("Chưa có phòng")]
-                                  )
-                                ]
-                              )
-                            : _vm._e(),
-                          _vm._v(" "),
-                          _vm._l(_vm.list_phong_ban, function(n) {
-                            return _c(
-                              "tr",
-                              {
-                                staticClass: "row-phong",
-                                attrs: { id: "p" + n.id },
-                                on: {
-                                  click: function($event) {
-                                    _vm.click_phong_ban(n)
-                                  }
-                                }
-                              },
-                              [
-                                _c("td", [_vm._v(_vm._s(n.ma_phong))]),
-                                _vm._v(" "),
-                                _c("td", [_vm._v(_vm._s(n.ten_phong))]),
-                                _vm._v(" "),
-                                _c("td", [_vm._v(_vm._s(n.dien_giai))])
-                              ]
-                            )
-                          })
-                        ],
-                        2
-                      )
-                    ]),
-                    _vm._v(" "),
-                    _c("el-pagination", {
-                      attrs: {
-                        "page-size": 10,
-                        layout: "prev, pager, next",
-                        total: _vm.total_phong_ban
-                      },
-                      on: {
-                        "current-change": _vm.get_danh_sach_phong_theo_bo_phan
-                      }
-                    })
-                  ],
-                  1
-                )
-              ])
-            ])
           ])
         ])
       ])
@@ -110473,6 +110585,61 @@ var staticRenderFns = [
           _vm._v(" "),
           _c("li", { staticClass: "breadcrumb-item" }, [_vm._v("Phòng ban")])
         ])
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "card-body bg-inverse" }, [
+      _c("h4", { staticClass: "text-white card-title" }, [
+        _vm._v("Danh sách bộ phận")
+      ]),
+      _vm._v(" "),
+      _c("h6", { staticClass: "card-subtitle text-white m-0 op-5" }, [
+        _vm._v("Quản lý bộ phận")
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("h2", { staticClass: "add-ct-btn" }, [
+      _c(
+        "button",
+        {
+          staticClass:
+            "btn btn-circle btn-lg btn-success waves-effect waves-dark",
+          attrs: {
+            title: "Thêm mới bộ phận",
+            type: "button",
+            "data-toggle": "modal",
+            "data-target": "#myModal"
+          }
+        },
+        [_vm._v("+")]
+      )
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("thead", [
+      _c("tr", [
+        _c("th", [_vm._v("Mã bộ phận")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Tên tên bộ phận")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Diễn giải")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Ngày tạo")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Ẩn hiện")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("#")])
       ])
     ])
   },
@@ -110543,84 +110710,6 @@ var staticRenderFns = [
         _c("th", [_vm._v("Mã bộ phận")]),
         _vm._v(" "),
         _c("th", [_vm._v("Tên tên bộ phận")]),
-        _vm._v(" "),
-        _c("th", [_vm._v("Diễn giải")])
-      ])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "modal-header" }, [
-      _c("h4", { staticClass: "modal-title" }, [
-        _c("b", [_vm._v("Thông tin phòng ban")])
-      ]),
-      _vm._v(" "),
-      _c(
-        "button",
-        {
-          staticClass: "close",
-          attrs: { type: "button", "data-dismiss": "modal" }
-        },
-        [_vm._v("×")]
-      )
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("label", [_c("b", [_vm._v("Bộ phận")])])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("label", [_c("b", [_vm._v("Mã phòng")])])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("label", [_c("b", [_vm._v("Tên phòng")])])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("label", [_c("b", [_vm._v("Diễn giải")])])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "modal-footer" }, [
-      _c(
-        "button",
-        { staticClass: "btn btn-primary", attrs: { type: "submit" } },
-        [_vm._v("Lưu lại")]
-      ),
-      _vm._v(" "),
-      _c(
-        "button",
-        {
-          staticClass: "btn btn-danger",
-          attrs: { type: "button", "data-dismiss": "modal" }
-        },
-        [_vm._v("Hủy")]
-      )
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("thead", [
-      _c("tr", [
-        _c("th", [_vm._v("Mã phòng")]),
-        _vm._v(" "),
-        _c("th", [_vm._v("Tên phòng")]),
         _vm._v(" "),
         _c("th", [_vm._v("Diễn giải")])
       ])
@@ -118152,6 +118241,18 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -118506,18 +118607,7 @@ var render = function() {
                         "tbody",
                         { staticClass: "body-table loading-item" },
                         [
-                          _vm.loading_vi_tri
-                            ? _c("tr", [
-                                _c(
-                                  "td",
-                                  {
-                                    staticClass: "text-center",
-                                    attrs: { colspan: "3" }
-                                  },
-                                  [_vm._v("Loading...")]
-                                )
-                              ])
-                            : _vm._e(),
+                          _vm.loading_vi_tri ? _c("tr", [_vm._m(7)]) : _vm._e(),
                           _vm._v(" "),
                           _vm._l(_vm.list_vi_tri, function(n) {
                             return _c(
@@ -118656,6 +118746,29 @@ var staticRenderFns = [
         _c("th", [_vm._v("Diễn giải")])
       ])
     ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("td", { staticClass: "text-center", attrs: { colspan: "3" } }, [
+      _c("div", { staticClass: "fa-3x" }, [
+        _c("i", { staticClass: "fas fa-spinner fa-spin" }),
+        _vm._v(" "),
+        _c("i", { staticClass: "fas fa-circle-notch fa-spin" }),
+        _vm._v(" "),
+        _c("i", { staticClass: "fas fa-sync fa-spin" }),
+        _vm._v(" "),
+        _c("i", { staticClass: "fas fa-cog fa-spin" }),
+        _vm._v(" "),
+        _c("i", { staticClass: "fas fa-spinner fa-pulse" }),
+        _vm._v(" "),
+        _c("i", { staticClass: "fas fa-stroopwafel fa-spin" })
+      ]),
+      _vm._v(
+        "\n                                            Loading...\n                                        "
+      )
+    ])
   }
 ]
 render._withStripped = true
@@ -118706,6 +118819,147 @@ exports.push([module.i, "\n.row-nhom:hover {\n    cursor: pointer;\n    color: b
 
 // exports
 
+
+/***/ }),
+/* 275 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+var content = __webpack_require__(276);
+if(typeof content === 'string') content = [[module.i, content, '']];
+if(content.locals) module.exports = content.locals;
+// add the styles to the DOM
+var update = __webpack_require__(10)("5755dd37", content, false, {});
+// Hot Module Replacement
+if(false) {
+ // When the styles change, update the <style> tags
+ if(!content.locals) {
+   module.hot.accept("!!../../../../../../node_modules/css-loader/index.js!../../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-70e9ec73\",\"scoped\":false,\"hasInlineConfig\":true}!../../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./PhongBan.vue", function() {
+     var newContent = require("!!../../../../../../node_modules/css-loader/index.js!../../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-70e9ec73\",\"scoped\":false,\"hasInlineConfig\":true}!../../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./PhongBan.vue");
+     if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+     update(newContent);
+   });
+ }
+ // When the module is disposed, remove the <style> tags
+ module.hot.dispose(function() { update(); });
+}
+
+/***/ }),
+/* 276 */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(6)(false);
+// imports
+
+
+// module
+exports.push([module.i, "\n.row-nhom:hover {\n    cursor: pointer;\n    color: black;\n}\n", ""]);
+
+// exports
+
+
+/***/ }),
+/* 277 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (immutable) */ __webpack_exports__["d"] = api_get_phong_ban;
+/* harmony export (immutable) */ __webpack_exports__["a"] = api_add_phong_ban;
+/* harmony export (immutable) */ __webpack_exports__["c"] = api_edit_phong_ban;
+/* harmony export (immutable) */ __webpack_exports__["b"] = api_delete_phong_ban;
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_axios__ = __webpack_require__(52);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_axios___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_axios__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__helper_sweetalert__ = __webpack_require__(251);
+
+
+
+function api_get_phong_ban(vm, page) {
+    console.log("get...");
+    __WEBPACK_IMPORTED_MODULE_0_axios___default()({
+        method: 'GET',
+        url: 'api/get-phong-ban?page=' + page,
+        headers: { 'Authorization': 'Bearer ' + vm.$store.state.currentUser.token }
+    }).then(function (response) {
+        vm.list_phong_ban = response.data.data;
+        vm.total_phong_ban = response.data.total;
+        vm.loading_phong_ban = false;
+        console.log(response.data.data);
+    }).catch(function (error) {
+        console.log(error);
+    });
+}
+
+function api_add_phong_ban(vm) {
+    __WEBPACK_IMPORTED_MODULE_0_axios___default()({
+        method: 'POST',
+        url: 'api/add-phong-ban',
+        headers: { 'Authorization': 'Bearer ' + vm.$store.state.currentUser.token },
+        data: vm.$data.phong_ban
+    }).then(function (response) {
+        if (response.data == 1) {
+            Object(__WEBPACK_IMPORTED_MODULE_1__helper_sweetalert__["a" /* sweetalert */])(1, 'Thêm thành công!');
+            $('#myModal').modal('hide');
+            $('.modal-backdrop').css('display', 'none');
+            vm.danh_sach_phong_ban();
+        } else if (response.data == 0) {
+            Object(__WEBPACK_IMPORTED_MODULE_1__helper_sweetalert__["a" /* sweetalert */])(0, 'Mã vị trí đã tồn tại!');
+            vm.loading_phong_ban = false;
+        } else Object(__WEBPACK_IMPORTED_MODULE_1__helper_sweetalert__["a" /* sweetalert */])(2, 'Lỗi không thêm được!');
+    }).catch(function (error) {
+        console.log(error);
+        Object(__WEBPACK_IMPORTED_MODULE_1__helper_sweetalert__["a" /* sweetalert */])(2, 'Lỗi không thực hiện được chức năng này!');
+    });
+}
+
+function api_edit_phong_ban(vm) {
+    __WEBPACK_IMPORTED_MODULE_0_axios___default()({
+        method: 'POST',
+        url: 'api/edit-phong-ban',
+        headers: { 'Authorization': 'Bearer ' + vm.$store.state.currentUser.token },
+        data: vm.$data.phong_ban
+    }).then(function (response) {
+        if (response.data == 1) {
+            Object(__WEBPACK_IMPORTED_MODULE_1__helper_sweetalert__["a" /* sweetalert */])(1, 'Cập nhật thành công!');
+            $('#myModal').modal('hide');
+            $('.modal-backdrop').css('display', 'none');
+            vm.danh_sach_phong_ban();
+        } else Object(__WEBPACK_IMPORTED_MODULE_1__helper_sweetalert__["a" /* sweetalert */])(2, 'Lỗi không cập nhật được!');
+    }).catch(function (error) {
+        console.log(error);
+        Object(__WEBPACK_IMPORTED_MODULE_1__helper_sweetalert__["a" /* sweetalert */])(2, 'Lỗi không thực hiện được chức năng này!');
+    });
+}
+
+function api_delete_phong_ban(vm) {
+    swal({
+        title: "Bạn có chắc chắn muốn xóa vị trí vừa chọn?",
+        type: "warning",
+        showCancelButton: true,
+        confirmButtonClass: "btn-danger",
+        confirmButtonText: "Đồng ý",
+        closeOnConfirm: true
+    }, function () {
+        __WEBPACK_IMPORTED_MODULE_0_axios___default()({
+            method: 'GET',
+            url: 'api/delete-phong-ban/' + vm.phong_ban.id,
+            headers: { 'Authorization': 'Bearer ' + vm.$store.state.currentUser.token }
+        }).then(function (response) {
+            if (response.data == 1) {
+                Object(__WEBPACK_IMPORTED_MODULE_1__helper_sweetalert__["a" /* sweetalert */])(1, 'Nhóm ' + vm.phong_ban.ma_phong_ban + ' đã được xóa!');
+                $('.row-nhom').removeClass("active-click-row");
+                vm.flag_btn = true;
+                vm.danh_sach_phong_ban();
+                vm.loading_phong_ban = false;
+            } else {
+                Object(__WEBPACK_IMPORTED_MODULE_1__helper_sweetalert__["a" /* sweetalert */])(2, 'Lỗi không xóa được!');vm.loading_phong_ban = false;
+            };
+        }).catch(function (error) {
+            Object(__WEBPACK_IMPORTED_MODULE_1__helper_sweetalert__["a" /* sweetalert */])(2, 'Lỗi không thực hiện được chức năng này!');
+        });
+    });
+}
 
 /***/ })
 /******/ ]);

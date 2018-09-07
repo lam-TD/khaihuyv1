@@ -89,7 +89,19 @@
                                         </tr>
                                     </thead>
                                     <tbody class="body-table loading-item">
-                                        <tr v-if="loading_vi_tri"><td colspan="3" class="text-center">Loading...</td></tr>
+                                        <tr v-if="loading_vi_tri">
+                                            <td colspan="3" class="text-center">
+                                                <div class="fa-3x">
+                                                    <i class="fas fa-spinner fa-spin"></i>
+                                                    <i class="fas fa-circle-notch fa-spin"></i>
+                                                    <i class="fas fa-sync fa-spin"></i>
+                                                    <i class="fas fa-cog fa-spin"></i>
+                                                    <i class="fas fa-spinner fa-pulse"></i>
+                                                    <i class="fas fa-stroopwafel fa-spin"></i>
+                                                </div>
+                                                Loading...
+                                            </td>
+                                        </tr>
                                         <tr v-for="n in list_vi_tri" :id="'n' + n.id" class="row-nhom" @click="click_vi_tri(n)">
                                             <td>{{n.ma_vi_tri}}</td>
                                             <td>{{n.ten_vi_tri}}</td>

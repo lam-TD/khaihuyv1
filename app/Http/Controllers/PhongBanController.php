@@ -8,6 +8,12 @@ use App\nhan_vien;
 
 class PhongBanController extends Controller
 {
+    public function get_phong_ban($id_bo_phan)
+    {
+//        $pb = phong_ban::join('bo_phan',)
+//        return json_encode($pb);
+    }
+
     public function get_phong_ban_theo_id_bo_phan($id_bo_phan)
     {
         $pb = phong_ban::where('id_bo_phan', $id_bo_phan)->orderby('id', 'desc')->paginate(10);

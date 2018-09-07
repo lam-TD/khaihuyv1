@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use App\bo_phan;
 use App\phong_ban;
@@ -23,10 +24,12 @@ class BoPhanController extends Controller
                 $bo_phan->ma_bo_phan = $request->ma_bo_phan;
                 $bo_phan->ten_bo_phan = $request->ten_bo_phan;
                 $bo_phan->dien_giai = $request->dien_giai;
+                $bo_phan->an_hien = $request->an_hien;
+                $bo_phan->created_at = Carbon::now()->toDateString('d-m-Y');
                 $bo_phan->save();
                 return 1;
             }catch (\Exception $e) {
-                return -1;
+                return $e;
             }
         }
     }
