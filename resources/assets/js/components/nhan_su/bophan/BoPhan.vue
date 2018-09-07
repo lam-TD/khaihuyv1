@@ -88,7 +88,8 @@
                                         <th>Diễn giải</th>
                                     </tr>
                                     </thead>
-                                    <tbody v-loading="loading_bo_phan" class="body-table">
+                                    <tbody class="body-table loading-item">
+                                    <tr v-if="loading_bo_phan" colspan="3" class="text-center">Loading...</tr>
                                     <tr v-for="n in list_bo_phan" :id="'n' + n.id" class="row-nhom" @click="click_bo_phan(n)">
                                         <td>{{n.ma_bo_phan}}</td>
                                         <td>{{n.ten_bo_phan}}</td>
@@ -235,6 +236,7 @@
         },
         data () {
             return {
+                loading_bo_phan: true,
                 list_bo_phan: [],
                 total_bo_phan: 0,
                 bo_phan: { id_bo_phan: 0, ma_bo_phan: '', ten_bo_phan: '', dien_giai: '' },
@@ -242,12 +244,11 @@
                 flag_btn: true,
                 flag_submit_bo_phan: true,
                 flag_input_bo_phan: false,
-                loading_bo_phan: false,
+                loading_phong_ban: false,
                 list_phong_ban: [],
                 total_phong_ban: 0,
                 phong_ban: { id: '', ma_phong: '', ten_phong: '', dien_giai: '', id_bo_phan: ''},
-                loading_phong_ban: false,
-                flag_btn_add_phong: true;
+                flag_btn_add_phong: true,
                 flag_btn_phong_ban: true,
                 flag_input_phong_ban: false,
                 flag_submit_phong_ban: true
@@ -290,6 +291,8 @@
                 this.bo_phan.dien_giai = bp.dien_giai;
                 this.flag_btn = false;
                 this.flag_btn_add_phong = false;
+
+                this.loading_phong_ban = true;
                 $('.row-nhom').removeClass("active-click-row");
                 $('#n' + bp.id).addClass("active-click-row");
                 this.get_danh_sach_phong_theo_bo_phan(bp.id, 1);
@@ -387,4 +390,5 @@
         width: 100%;
         height: 100%;
     }
+
 </style>

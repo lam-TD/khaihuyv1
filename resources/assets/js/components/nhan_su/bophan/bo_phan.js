@@ -124,8 +124,7 @@ export function api_bophan_get_danh_sach_phong_theo_bo_phan(vm, id_bo_phan, page
         .then((response) => {
             vm.list_phong_ban = response.data.data;
             vm.total_phong_ban = response.data.total;
-            // vm.loading_phong_ban = false;
-            vm.loading_bo_phan = false;
+            vm.loading_phong_ban = false;
             console.log(response.data.data);
         })
         .catch((error) => {
