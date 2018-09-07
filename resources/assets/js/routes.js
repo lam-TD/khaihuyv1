@@ -4,6 +4,7 @@ import dashboard from './components/dashboard/Dashboard';
 //======= NHAN SU =======
 import phongban from './components/nhan_su/phongban/PhongBan.vue';
 import bophan from './components/nhan_su/bophan/BoPhan.vue';
+import vitri from './components/nhan_su/vitri/ViTri';
 import bangluong from './components/nhan_su/bangluong/BangLuong.vue';
 import bangthuong from './components/nhan_su/bangthuong/BangThuong.vue';
 import mainnhanvien from './components/nhan_su/danhsachnhanvien/MainNhanVien';
@@ -35,6 +36,10 @@ export const routes = [
     {
         path: '/bophan',
         component: bophan
+    },
+    {
+        path: '/vitri',
+        component: vitri
     },
     {
         path: '/bangluong',

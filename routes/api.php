@@ -45,6 +45,14 @@ Route::group(['middleware' => 'jwt.auth'], function ($router) {
     Route::get('get-phong-theo-bo-phan/{id_bo_phan}', 'PhongBanController@get_phong_ban_theo_id_bo_phan');
 });
 
+// VI TRI
+Route::group(['middleware' => 'jwt.auth'], function ($router) {
+    Route::get('get-vi-tri', 'ViTriController@get_vi_tri');
+    Route::post('add-vi-tri', 'ViTriController@add_vi_tri');
+    Route::post('edit-vi-tri', 'ViTriController@edit_vi_tri');
+    Route::get('delete-vi-tri/{id}', 'ViTriController@delete_vi_tri');
+});
+
 
 Route::group(['middleware' => 'jwt.auth'], function ($router) {
     Route::get('nhan-vien', 'NhanVienController@get_all');

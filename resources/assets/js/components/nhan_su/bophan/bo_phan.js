@@ -39,7 +39,7 @@ export function api_add_bo_phan(vm) {
                 vm.danh_sach_bo_phan();
             }
             else if(response.data == 0){
-                sweetalert(0, 'Mã bộ đã tồn tại!');
+                sweetalert(0, 'Mã bộ phận đã tồn tại!');
                 vm.loading_bo_phan = false;
             }
             else sweetalert(2, 'Lỗi không thêm được!');
