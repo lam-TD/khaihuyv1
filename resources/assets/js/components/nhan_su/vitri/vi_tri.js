@@ -1,11 +1,28 @@
 import axios from 'axios';
 import {sweetalert} from "../../../helper/sweetalert";
 
-export function api_get_vi_tri(vm, page) {
-    console.log("get...");
+
+export function api_get_all_vi_tri(vm, page) {
     axios({
         method: 'GET',
-        url: 'api/get-vi-tri?page=' + page,
+        url: 'api/get-all-vi-tri?page=' + page,
+        headers: {'Authorization':'Bearer ' + vm.$store.state.currentUser.token}
+    })
+        .then((response) => {
+            vm.list_vi_tri = response.data.data;
+            vm.total_vi_tri = response.data.total;
+            vm.loading_vi_tri = false;
+            console.log(response.data.data);
+        })
+        .catch((error) => {
+            console.log(error);
+        })
+}
+
+export function api_get_vi_tri_theo_phong(vm, id, page) {
+    axios({
+        method: 'GET',
+        url: 'api/get-vi-tri-theo-phong/'+ id +'?page=' + page,
         headers: {'Authorization':'Bearer ' + vm.$store.state.currentUser.token}
     })
         .then((response) => {
@@ -84,7 +101,7 @@ export function api_delete_vi_tri(vm) {
             })
                 .then((response) => {
                     if(response.data == 1) {
-                        sweetalert(1, 'Nhóm ' + vm.vi_tri.ma_vi_tri + ' đã được xóa!');
+                        sweetalert(1, 'Vị trí ' + vm.vi_tri.ma_vi_tri + ' đã được xóa!');
                         $('.row-nhom').removeClass("active-click-row");
                         vm.flag_btn = true;
                         vm.danh_sach_vi_tri();

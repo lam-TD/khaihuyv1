@@ -2,12 +2,21 @@ import axios from 'axios';
 import {sweetalert} from '../../../helper/sweetalert';
 
 
-export function api_bophan_get(vm, page) {
-    // axios.interceptors.request.use(function(config) {
-    //     vm.loading_bo_phan = true;
-    //     return config;
-    // });
+export function api_get_all_bo_phan(vm) {
+    axios({
+        method: 'GET',
+        url: 'api/get-all-bo-phan',
+        headers: {'Authorization':'Bearer ' + vm.$store.state.currentUser.token}
+    })
+        .then((response) => {
+            vm.list_bo_phan = response.data;
+        })
+        .catch((error) => {
+            console.log(error);
+        })
+}
 
+export function api_bophan_get(vm, page) {
     axios({
         method: 'GET',
         url: 'api/get-bo-phan?page=' + page,
@@ -33,6 +42,7 @@ export function api_add_bo_phan(vm) {
     })
         .then((response) => {
             if(response.data == 1){
+                vm.un_change_bnt_save();
                 sweetalert(1, 'Thêm thành công!');
                 $('#myModal').modal('hide');
                 $('.modal-backdrop').css('display','none');
@@ -51,6 +61,7 @@ export function api_add_bo_phan(vm) {
 }
 
 export function api_edit_bo_phan(vm) {
+    console.log('bp: ' + vm.$data.bo_phan);
     axios({
         method: 'POST',
         url: 'api/edit-bo-phan',
@@ -58,6 +69,7 @@ export function api_edit_bo_phan(vm) {
         data: vm.$data.bo_phan
     })
         .then((response) => {
+            vm.un_change_bnt_save();
             if(response.data == 1){
                 sweetalert(1, 'Cập nhật thành công!');
                 $('#myModal').modal('hide');
@@ -88,7 +100,7 @@ export function api_delete_bo_phan(vm) {
         function() {
             axios({
                 method: 'GET',
-                url: 'api/delete-bo-phan/' + vm.bo_phan.id_bo_phan,
+                url: 'api/delete-bo-phan/' + vm.bo_phan.id,
                 headers: {'Authorization':'Bearer ' + vm.$store.state.currentUser.token}
             })
                 .then((response) => {
@@ -108,17 +120,12 @@ export function api_delete_bo_phan(vm) {
         });
 }
 
-export function api_bophan_get_danh_sach_phong_theo_bo_phan(vm, id_bo_phan, page) {
-    // axios.interceptors.request.use(function(config) {
-    //     vm.loading_phong_ban = true;
-    //     vm.loading_phong_ban = false;
-    //     return config;
-    // });
-    var lam = 'api/get-phong-theo-bo-phan/'+ id_bo_phan +'?page=' + page;
+export function api_bophan_get_danh_sach_phong_theo_bo_phan(vm, id, page) {
+    var lam = 'api/get-phong-theo-bo-phan/'+ id +'?page=' + page;
     console.log(lam);
     axios({
         method: 'GET',
-        url: 'api/get-phong-theo-bo-phan/'+ id_bo_phan +'?page=' + page,
+        url: 'api/get-phong-theo-bo-phan/'+ id +'?page=' + page,
         headers: {'Authorization':'Bearer ' + vm.$store.state.currentUser.token}
     })
         .then((response) => {

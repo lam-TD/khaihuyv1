@@ -8,10 +8,14 @@ use App\nhan_vien;
 
 class PhongBanController extends Controller
 {
-    public function get_phong_ban($id_bo_phan)
+    public function get_all_phong_ban_no_paginate(){
+        return phong_ban::all();
+    }
+
+    public function get_all_phong_ban()
     {
-//        $pb = phong_ban::join('bo_phan',)
-//        return json_encode($pb);
+        $p = phong_ban::paginate(10);
+        return json_encode($p);
     }
 
     public function get_phong_ban_theo_id_bo_phan($id_bo_phan)

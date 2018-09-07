@@ -25,42 +25,103 @@
             <!-- Start Page Content -->
             <!-- ============================================================== -->
             <div class="row">
-                <div class="col-md-12">
+                <div class="col-lg-12 col-md-12">
+                    <!-- Column -->
                     <div class="card">
+                        <div class="card-body bg-inverse">
+                            <h4 class="text-white card-title">Danh sách phòng ban</h4>
+                            <h6 class="card-subtitle text-white m-0 op-5"></h6>
+                            <!--<select v-model="select_bo_phan" id="select_phong_1" class="select2 form-control custom-select" style="width: 100%; height:36px;" v-on:change="change_phong_ban">-->
+                                <!--<option value="0">Tất cả</option>-->
+                                <!--<option v-for="n in list_bo_phan" :value="n.id">{{n.ten_bo_phan}}</option>-->
+                            <!--</select>-->
+                            <select id="select_phong_1" class="form-control custom-select" style="width: 80%; height:36px;" v-on:change="change_phong_ban">
+                                <option value="" selected disabled>-----Chọn bộ phận-----</option>
+                                <option value="0">Tất cả</option>
+                                <option v-for="n in list_bo_phan" :value="n.id">{{n.ten_bo_phan}}</option>
+                            </select>
+                        </div>
                         <div class="card-body">
-                            <h4 class="card-title">Danh sách vị trí</h4>
-                            <button id="add_nhom" type="button" @click="_phong_ban('add')" class="btn btn-success btn-sm" data-toggle="modal" data-target="#myModal">
-                                <i class="fa fa-plus-circle"></i> Thêm mới
-                            </button>
-                            <button v-bind:disabled="flag_btn" @click="_phong_ban('edit')" id="edit_nhom" type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#myModal">
-                                <i class="fa fa-edit"></i> Sửa
-                            </button>
-                            <button v-bind:disabled="flag_btn" @click="delete_nhom" type="button" class="btn btn-danger btn-sm">
-                                <i class="fa fa-trash"></i> Xóa
-                            </button>
+                            <div class="message-box contact-box">
+                                <h2 class="add-ct-btn">
+                                    <button @click="_phong_ban('add')" title="Thêm mới phòng" type="button" data-toggle="modal" data-target="#myModal" class="btn btn-circle btn-lg btn-success waves-effect waves-dark"><i class="fa fa-plus"></i></button>
+                                </h2>
+                                <div class="message-widget contact-widget">
+                                    <div class="table-responsive">
+                                        <table class="table table-hover">
+                                            <thead>
+                                                <tr>
+                                                    <th>Mã phòng</th>
+                                                    <th>Tên phòng</th>
+                                                    <th>Diễn giải</th>
+                                                    <th>Ngày tạo</th>
+                                                    <th>Ẩn hiện</th>
+                                                    <th class="text-center">#</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody class="body-table loading-item">
+                                                <tr v-if="loading_phong_ban">
+                                                    <td class="text-center" colspan="6"><b><i>Loading...</i></b></td>
+                                                </tr>
+                                                <!--<tr v-if="list_phong_ban.length <= 0">-->
+                                                    <!--<td class="text-center" colspan="6"><b><i>Chưa có phòng</i></b></td>-->
+                                                <!--</tr>-->
+                                                <tr v-if="list_phong_ban.length > 0" v-for="n in list_phong_ban" :id="'n' + n.id" class="row-nhom" @click="click_phong_ban(n)">
+                                                    <td>{{n.ma_phong}}</td>
+                                                    <td>{{n.ten_phong}}</td>
+                                                    <td>{{n.dien_giai}}</td>
+                                                    <td>{{n.created_at}}</td>
+                                                    <td>Ẩn</td>
+                                                    <td class="text-center">
+                                                        <button @click="_phong_ban('edit',n)" id="edit_nhom" type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#myModal">
+                                                            <i class="fa fa-edit"></i> Sửa
+                                                        </button>
+                                                        <button @click="delete_phong_ban(n.id)" type="button" class="btn btn-danger btn-sm">
+                                                            <i class="fa fa-trash"></i> Xóa
+                                                        </button>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                        <el-pagination
+                                                :page-size="10"
+                                                layout="prev, pager, next"
+                                                :total="total_phong_ban"
+                                                @current-change="danh_sach_phong_ban">
+                                        </el-pagination>
+                                    </div>
+                                </div>
+                            </div>
 
-                            <!-- The Modal NHOM -->
                             <div class="modal" id="myModal">
                                 <div class="modal-dialog">
                                     <div class="modal-content">
                                         <form @submit.prevent="submit_phong_ban" id="form_bophan">
                                             <!-- Modal Header -->
                                             <div class="modal-header">
-                                                <h4 class="modal-title"><b>Thông tin vị trí</b></h4>
+                                                <h4 class="modal-title"><b>Thông tin phòng</b></h4>
                                                 <button type="button" class="close" data-dismiss="modal">&times;</button>
                                             </div>
 
                                             <!-- Modal body -->
-                                            <div class="modal-body">
+                                            <div :disabled="flag_body_modal" class="modal-body">
                                                 <div class="form-group">
-                                                    <label><b>Mã vị trí</b></label>
-                                                    <input v-model="phong_ban.ma_phong_ban" :disabled="flag_input_phong_ban" v-validate="'required'" :class="{'border-danger' : errors.has('txtmabophan')}" type="text" name="txtmabophan" class="form-control" id="txtmabophan" aria-describedby="" autofocus>
-                                                    <small v-show="errors.has('txtmabophan')" class="help text-muted is-danger">Vui lòng nhập mã vị trí</small>
+                                                    <label><b>Bộ phận</b></label>
+                                                    <!--<input v-model="phong_ban.id_bo_phan" :disabled="flag_input_phong_ban" v-validate="'required'" >-->
+                                                    <select :disabled="flag_input_phong_ban" v-model="phong_ban.id_bo_phan" id="select_phong_2" class=" form-control custom-select" style="width: 100%; height:36px;">
+                                                        <option v-for="n in list_phong_ban" :value="n.id">{{n.ten_bo_phan}}</option>
+                                                    </select>
+                                                    <small v-show="errors.has('txtmabophan')" class="help text-muted is-danger">Vui lòng nhập mã bộ phận</small>
                                                 </div>
                                                 <div class="form-group">
-                                                    <label><b>Tên vị trí</b></label>
-                                                    <input v-model="phong_ban.ten_phong_ban" v-validate="'required'" :class="{'border-danger' : errors.has('txttenbophan')}" type="text" name="txttenbophan" class="form-control" id="txttenbophan" placeholder="">
-                                                    <small v-show="errors.has('txttenbophan')" class="help text-muted is-danger">Vui lòng nhập tên vị trí</small>
+                                                    <label><b>Mã phòng</b></label>
+                                                    <input v-model="phong_ban.ma_phong" :disabled="flag_input_phong_ban" v-validate="'required'" :class="{'border-danger' : errors.has('txtmabophan')}" type="text" name="txtmabophan" class="form-control" id="txtmabophan" aria-describedby="" autofocus>
+                                                    <small v-show="errors.has('txtmabophan')" class="help text-muted is-danger">Vui lòng nhập mã bộ phận</small>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label><b>Tên phòng</b></label>
+                                                    <input v-model="phong_ban.ten_phong" v-validate="'required'" :class="{'border-danger' : errors.has('txttenbophan')}" type="text" name="txttenbophan" class="form-control" id="txttenbophan" placeholder="">
+                                                    <small v-show="errors.has('txttenbophan')" class="help text-muted is-danger">Vui lòng nhập tên bộ phận</small>
                                                 </div>
                                                 <div class="form-group">
                                                     <label><b>Diễn giải</b></label>
@@ -70,55 +131,17 @@
 
                                             <!-- Modal footer -->
                                             <div class="modal-footer">
-                                                <button type="submit" class="btn btn-primary">Lưu lại</button>
+                                                <button id="save" type="submit" class="btn btn-primary">Lưu lại</button>
                                                 <button type="button" class="btn btn-danger" data-dismiss="modal">Hủy</button>
                                             </div>
                                         </form>
                                     </div>
                                 </div>
                             </div>
-                            <!-- EMD Modal NHOM -->
-
-                            <div class="table-responsive">
-                                <table class="table table-hover">
-                                    <thead>
-                                    <tr>
-                                        <th>Mã vị trí</th>
-                                        <th>Tên vị trí</th>
-                                        <th>Diễn giải</th>
-                                    </tr>
-                                    </thead>
-                                    <tbody class="body-table loading-item">
-                                    <tr v-if="loading_phong_ban">
-                                        <td colspan="3" class="text-center">
-                                            <div class="fa-3x">
-                                                <i class="fas fa-spinner fa-spin"></i>
-                                                <i class="fas fa-circle-notch fa-spin"></i>
-                                                <i class="fas fa-sync fa-spin"></i>
-                                                <i class="fas fa-cog fa-spin"></i>
-                                                <i class="fas fa-spinner fa-pulse"></i>
-                                                <i class="fas fa-stroopwafel fa-spin"></i>
-                                            </div>
-                                            Loading...
-                                        </td>
-                                    </tr>
-                                    <tr v-for="n in list_phong_ban" :id="'n' + n.id" class="row-nhom" @click="click_phong_ban(n)">
-                                        <td>{{n.ma_phong_ban}}</td>
-                                        <td>{{n.ten_phong_ban}}</td>
-                                        <td>{{n.dien_giai}}</td>
-                                    </tr>
-                                    </tbody>
-                                </table>
-                                <el-pagination
-                                        :page-size="10"
-                                        layout="prev, pager, next"
-                                        :total="total_phong_ban"
-                                        @current-change="danh_sach_phong_ban">
-                                </el-pagination>
-                            </div>
                         </div>
                     </div>
                 </div>
+
             </div>
             <!-- ============================================================== -->
             <!-- End PAge Content -->
@@ -130,47 +153,87 @@
 </template>
 
 <script>
-    import {api_get_phong_ban} from "./phong_ban";
+    import {api_get_all_bo_phan} from "../bophan/bo_phan";
+    import {api_get_all_phong_ban} from "./phong_ban";
+    import {api_get_danh_sach_phong_theo_bo_phan} from './phong_ban';
     import {api_add_phong_ban} from "./phong_ban";
     import {api_edit_phong_ban} from "./phong_ban";
     import {api_delete_phong_ban} from "./phong_ban";
 
     export default {
-        name: 'phongban',
-        mounted (){
-            this.danh_sach_phong_ban();
+        name: 'bophan',
+        mounted () {
+            this.danh_sach_bo_phan();
+            // this.change_phong_ban();
+        },
+        updated () {
+            // let vm = this;
+            // $(document).ready(function() {
+            //     $('.select2').select2({
+            //         placeholder: 'Chọn bộ phận'
+            //     });
+            //     $('#select_phong_1').on('select2:select', function (e) {
+            //         vm.change_phong_ban();
+            //     });
+            // });
         },
         data () {
             return {
-                loading_phong_ban : true,
+                loading_bo_phan: true,
+                select_bo_phan: '',
+                bo_phan: [],
+                list_bo_phan: [],
+                loading_phong_ban: true,
                 list_phong_ban: [],
                 total_phong_ban: 0,
-                phong_ban: { idi: 0, ma_phong_ban: '', ten_phong_ban: '', dien_giai: '' },
+                phong_ban: { id: 0, ma_phong: '', ten_phong: '', dien_giai: '', id_bo_phan: '' },
                 flag_btn: true,
                 flag_submit_phong_ban: true,
-                flag_input_phong_ban: false
+                flag_input_phong_ban: false,
+                flag_body_modal: false
             }
         },
         methods: {
-            danh_sach_phong_ban: function (page = 1) {
-                api_get_phong_ban(this, page);
+            danh_sach_bo_phan: function () {
+                api_get_all_bo_phan(this);
             },
-            _phong_ban: function (state) {
+            danh_sach_phong_ban: function (page = 1) {
+                if($('#select_phong_1').val() == 0){
+                    api_get_all_phong_ban(this, page);
+                }
+                else{
+                    api_get_danh_sach_phong_theo_bo_phan(this, page);
+                }
+            },
+            change_phong_ban: function () {
+                // this.bo_phan =
+                this.loading_phong_ban = true;
+                this.list_phong_ban = [];
+                if($('#select_phong_1').val() == 0){
+                    api_get_all_phong_ban(this, 1);
+                }
+                else{
+                    api_get_danh_sach_phong_theo_bo_phan(this, $('#select_phong_1').val(),1);
+                }
+            },
+            _phong_ban: function (state, bophan = null) {
                 if(state == 'add') {
-                    console.log('add nhom');
+                    $('#select_phong_2').removeAttr('disabled');
                     this.flag_btn = true;
                     $('.row-nhom').removeClass("active-click-row");
                     this.flag_submit_phong_ban = true;
                     this.flag_input_phong_ban = false;
-                    this.phong_ban.id = this.phong_ban.ma_phong_ban = this.phong_ban.ten_phong_ban = this.phong_ban.dien_giai = '';
+                    this.phong_ban.id = this.phong_ban.ma_phong = this.phong_ban.ten_phong = this.phong_ban.dien_giai = '';
                 }
                 else {
-                    console.log('edit nhom');
+                    $('#select_phong_2').attr('disabled', 'disabled');
+                    this.phong_ban = bophan;
                     this.flag_submit_phong_ban = false;
                     this.flag_input_phong_ban = true;
                 }
             },
             submit_phong_ban: function () {
+                // this.change_bnt_save();
                 if(this.flag_submit_phong_ban) {
                     this.flag_input_phong_ban = false;
                     this.add_phong_ban();
@@ -182,14 +245,6 @@
                 }
             },
             click_phong_ban: function (bp) {
-                this.phong_ban.id = bp.id;
-                this.phong_ban.ma_phong_ban = bp.ma_phong_ban;
-                this.phong_ban.ten_phong_ban = bp.ten_phong_ban
-                this.phong_ban.dien_giai = bp.dien_giai;
-                this.flag_btn = false;
-                this.flag_btn_add_phong = false;
-                // console.log(bp);
-                this.loading_phong_ban = true;
                 $('.row-nhom').removeClass("active-click-row");
                 $('#n' + bp.id).addClass("active-click-row");
             },
@@ -197,19 +252,51 @@
                 api_add_phong_ban(this);
             },
             edit_phong_ban: function() {
+                console.log(this.phong_ban);
                 api_edit_phong_ban(this);
             },
-            delete_nhom: function() {
+            delete_phong_ban: function(id) {
+                this.phong_ban.id = id;
                 if(this.phong_ban.id <= 0) return -1;
                 api_delete_phong_ban(this);
+            },
+            change_bnt_save: function () {
+                this.flag_body_modal = true;
+                $('#save').attr('disabled', 'disabled');
+                $('#save').text('Đang xử lý...');
+            },
+            un_change_bnt_save: function () {
+                console.log("unchange");
+                this.flag_body_modal = false;
+                $('#save').removeAttr('disabled');
+                $('#save').text('Lưu lại');
             }
         }
     }
 </script>
 
-<style>
+<style scoped>
     .row-nhom:hover {
         cursor: pointer;
         color: black;
     }
+
+    .row-phong:hover {
+        cursor: pointer;
+        color: black;
+    }
+
+    .demo-checkbox label, .demo-radio-button label{
+        min-width: 0px !important;
+        height: 0;
+    }
+
+    .body-table::before {
+        background-color: black;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+    }
+
 </style>

@@ -9,6 +9,13 @@ use App\phong_ban;
 
 class BoPhanController extends Controller
 {
+
+    public function get_all_bo_phan()
+    {
+        $ds_bo_phan = bo_phan::all();
+        return json_encode($ds_bo_phan);
+    }
+
     public function get_danh_sach_bo_phan()
     {
         $ds_bo_phan = bo_phan::orderby('id','desc')->paginate(10);
@@ -24,7 +31,7 @@ class BoPhanController extends Controller
                 $bo_phan->ma_bo_phan = $request->ma_bo_phan;
                 $bo_phan->ten_bo_phan = $request->ten_bo_phan;
                 $bo_phan->dien_giai = $request->dien_giai;
-                $bo_phan->an_hien = $request->an_hien;
+                $bo_phan->an_hien = 1;
                 $bo_phan->created_at = Carbon::now()->toDateString('d-m-Y');
                 $bo_phan->save();
                 return 1;
@@ -37,13 +44,15 @@ class BoPhanController extends Controller
     public function edit_bo_phan(Request $request)
     {
         try {
-            $bo_phan = bo_phan::find($request->id_bo_phan);
+            $bo_phan = bo_phan::find($request->id);
             $bo_phan->ten_bo_phan = $request->ten_bo_phan;
             $bo_phan->dien_giai = $request->dien_giai;
+            $bo_phan->an_hien = 1;
+            $bo_phan->updated_at = Carbon::now()->toDateString('d-m-Y');
             $bo_phan->save();
             return 1;
         } catch (\Exception $e) {
-            return -1;
+            return $e;
         }
     }
 
