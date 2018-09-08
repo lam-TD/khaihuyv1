@@ -5,7 +5,7 @@
         <!-- ============================================================== -->
         <div class="row page-titles">
             <div class="col-md-5 align-self-center">
-                <!--<h3 class="text-themecolor">Danh sách nhóm người dùng</h3>-->
+                <h4 class="text-themecolor">Danh sách phòng ban</h4>
             </div>
             <div class="col-md-7 align-self-center">
                 <ol class="breadcrumb">
@@ -29,23 +29,30 @@
                     <!-- Column -->
                     <div class="card">
                         <div class="card-body bg-inverse">
-                            <h4 class="text-white card-title">Danh sách phòng ban</h4>
-                            <h6 class="card-subtitle text-white m-0 op-5"></h6>
-                            <!--<select v-model="select_bo_phan" id="select_phong_1" class="select2 form-control custom-select" style="width: 100%; height:36px;" v-on:change="change_phong_ban">-->
-                                <!--<option value="0">Tất cả</option>-->
-                                <!--<option v-for="n in list_bo_phan" :value="n.id">{{n.ten_bo_phan}}</option>-->
-                            <!--</select>-->
-                            <select id="select_phong_1" class="form-control custom-select" style="width: 80%; height:36px;" v-on:change="change_phong_ban">
-                                <option value="" selected disabled>-----Chọn bộ phận-----</option>
-                                <option value="0">Tất cả</option>
-                                <option v-for="n in list_bo_phan" :value="n.id">{{n.ten_bo_phan}}</option>
-                            </select>
+                            <div class="row row-title">
+                                <div class="col-md-10 col-sm-6">
+                                    <div class="dropdown">
+                                        <button @click="dropdown('dropdown_bo_phan')" class="btn btn-outline-primary dropdown-toggle btn-full-width" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            Tất cả bộ phận
+                                        </button>
+                                        <ul id="dropdown_bo_phan" class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                            <li @click="selected_item(0, 'Tất cả bộ phận', 'dropdown_bo_phan')" data-id-bo-phan="0" class="dropdown-item">Tất cả bộ phận</li>
+                                            <li v-for="n in list_bo_phan" @click="selected_item(n.id, n.ten_bo_phan, 'dropdown_bo_phan','dropdownMenuButton')" class="dropdown-item">{{n.ten_bo_phan}}</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="col-md-2 col-sm-6 col-12">
+                                    <button @click="_phong_ban('add')" title="Thêm mới phòng" type="button" data-toggle="modal" data-target="#myModal" class="btn btn-success waves-effect waves-dark pull-right btn-full-width">
+                                        <i class="fa fa-plus-circle"></i> Thêm mới
+                                    </button>
+                                </div>
+                            </div>
                         </div>
                         <div class="card-body">
                             <div class="message-box contact-box">
-                                <h2 class="add-ct-btn">
-                                    <button @click="_phong_ban('add')" title="Thêm mới phòng" type="button" data-toggle="modal" data-target="#myModal" class="btn btn-circle btn-lg btn-success waves-effect waves-dark"><i class="fa fa-plus"></i></button>
-                                </h2>
+                                <!--<h2 class="add-ct-btn">-->
+                                    <!--&lt;!&ndash;<button @click="_phong_ban('add')" title="Thêm mới phòng" type="button" data-toggle="modal" data-target="#myModal" class="btn btn-circle btn-lg btn-success waves-effect waves-dark"><i class="fa fa-plus"></i></button>&ndash;&gt;-->
+                                <!--</h2>-->
                                 <div class="message-widget contact-widget">
                                     <div class="table-responsive">
                                         <table class="table table-hover">
@@ -55,24 +62,24 @@
                                                     <th>Tên phòng</th>
                                                     <th>Diễn giải</th>
                                                     <th>Ngày tạo</th>
-                                                    <th>Ẩn hiện</th>
+                                                    <th class="text-center">Ẩn hiện</th>
                                                     <th class="text-center">#</th>
                                                 </tr>
                                             </thead>
                                             <tbody class="body-table loading-item">
                                                 <tr v-if="loading_phong_ban">
-                                                    <td class="text-center" colspan="6"><b><i>Loading...</i></b></td>
+                                                    <td class="text-center" colspan="6"><b><i>Đang tải danh sách phòng...</i></b></td>
                                                 </tr>
-                                                <!--<tr v-if="list_phong_ban.length <= 0">-->
-                                                    <!--<td class="text-center" colspan="6"><b><i>Chưa có phòng</i></b></td>-->
-                                                <!--</tr>-->
-                                                <tr v-if="list_phong_ban.length > 0" v-for="n in list_phong_ban" :id="'n' + n.id" class="row-nhom" @click="click_phong_ban(n)">
+                                                <tr v-else-if="list_phong_ban.length <= 0">
+                                                    <td class="text-center" colspan="6"><b><i>Chưa có phòng</i></b></td>
+                                                </tr>
+                                                <tr v-else-if="list_phong_ban.length > 0" v-for="n in list_phong_ban" :id="'n' + n.id" class="row-nhom" @click="click_phong_ban(n)">
                                                     <td>{{n.ma_phong}}</td>
                                                     <td>{{n.ten_phong}}</td>
                                                     <td>{{n.dien_giai}}</td>
                                                     <td>{{n.created_at}}</td>
-                                                    <td>Ẩn</td>
-                                                    <td class="text-center">
+                                                    <td class="text-center">Hiện</td>
+                                                    <td class="text-right" style="padding-right: 0">
                                                         <button @click="_phong_ban('edit',n)" id="edit_nhom" type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#myModal">
                                                             <i class="fa fa-edit"></i> Sửa
                                                         </button>
@@ -108,10 +115,16 @@
                                                 <div class="form-group">
                                                     <label><b>Bộ phận</b></label>
                                                     <!--<input v-model="phong_ban.id_bo_phan" :disabled="flag_input_phong_ban" v-validate="'required'" >-->
-                                                    <select :disabled="flag_input_phong_ban" v-model="phong_ban.id_bo_phan" id="select_phong_2" class=" form-control custom-select" style="width: 100%; height:36px;">
-                                                        <option v-for="n in list_phong_ban" :value="n.id">{{n.ten_bo_phan}}</option>
-                                                    </select>
-                                                    <small v-show="errors.has('txtmabophan')" class="help text-muted is-danger">Vui lòng nhập mã bộ phận</small>
+                                                    <div class="dropdown">
+                                                        <button @click="dropdown('dropdown_bo_phan2')" v-model="phong_ban._bo_phan" class="btn btn-outline-primary dropdown-toggle btn-full-width" type="button" id="dropdownMenuButton2" data-toggle="dropdown" style="width: 100%">
+                                                            --- Chọn bộ phận ---
+                                                        </button>
+                                                        <ul id="dropdown_bo_phan2" class="dropdown-menu" aria-labelledby="dropdownMenuButton" style="width: 100%">
+                                                            <li @click="selected_item(0, '--- Chọn bộ phận ---', 'dropdown_bo_phan2')" disabled data-id-bo-phan="0" class="dropdown-item">--- Chọn bộ phận ---</li>
+                                                            <li v-for="n in list_bo_phan" @click="selected_item(n.id, n.ten_bo_phan, 'dropdown_bo_phan2','dropdownMenuButton2')" class="dropdown-item">{{n.ten_bo_phan}}</li>
+                                                        </ul>
+                                                    </div>
+                                                    <small v-show="errors.has('txtmabophan')" class="help text-muted is-danger">Vui lòng chọn bộ phận</small>
                                                 </div>
                                                 <div class="form-group">
                                                     <label><b>Mã phòng</b></label>
@@ -164,7 +177,7 @@
         name: 'bophan',
         mounted () {
             this.danh_sach_bo_phan();
-            // this.change_phong_ban();
+            this.danh_sach_phong_ban(0, 1);
         },
         updated () {
             // let vm = this;
@@ -194,15 +207,26 @@
             }
         },
         methods: {
+            dropdown: function (id_con) {
+                $('#' + id_con).toggleClass("show");
+            },
+            selected_item: function (id_bo_phan, ten_bo_phan, id_dropdown, id_btn) {
+                $('#' + id_btn).text(ten_bo_phan);
+                $('#' + id_btn).val(id_bo_phan);
+                $('#' + id_dropdown).removeClass("show");
+                this.phong_ban.id_bo_phan = id_bo_phan;
+                this.danh_sach_phong_ban(id_bo_phan);
+            },
             danh_sach_bo_phan: function () {
                 api_get_all_bo_phan(this);
             },
-            danh_sach_phong_ban: function (page = 1) {
-                if($('#select_phong_1').val() == 0){
+            danh_sach_phong_ban: function (id_bo_phan, page = 1) {
+                this.loading_phong_ban = true;
+                if(id_bo_phan == 0){
                     api_get_all_phong_ban(this, page);
                 }
                 else{
-                    api_get_danh_sach_phong_theo_bo_phan(this, page);
+                    api_get_danh_sach_phong_theo_bo_phan(this, id_bo_phan, page);
                 }
             },
             change_phong_ban: function () {
@@ -218,7 +242,6 @@
             },
             _phong_ban: function (state, bophan = null) {
                 if(state == 'add') {
-                    $('#select_phong_2').removeAttr('disabled');
                     this.flag_btn = true;
                     $('.row-nhom').removeClass("active-click-row");
                     this.flag_submit_phong_ban = true;
@@ -297,6 +320,42 @@
         left: 0;
         width: 100%;
         height: 100%;
+    }
+
+    .bg-inverse {
+        background-color: white;
+        padding-bottom: 0;
+    }
+
+    .card-body {
+        padding-top: 10px;
+    }
+
+    .row-title {
+        padding-top: 10px;
+    }
+
+    .dropdown-menu {
+        border-radius: 0 !important;
+    }
+
+    .dropdown-item{
+        cursor: pointer;
+    }
+
+    #dropdownMenuButton2::after {
+        position: absolute;
+        top: 50%;
+        width: 0;
+        height: 0;
+        right: 10px;
+        margin-left: .255em;
+        vertical-align: .255em;
+        content: "";
+        border-top: .3em solid;
+        border-right: .3em solid transparent;
+        border-bottom: 0;
+        border-left: .3em solid transparent;
     }
 
 </style>

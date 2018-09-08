@@ -29,19 +29,28 @@
                     <!-- Column -->
                     <div class="card">
                         <div class="card-body bg-inverse">
-                            <h4 class="text-white card-title">Danh sách bộ phận</h4>
-                            <h6 class="card-subtitle text-white m-0 op-5">Quản lý bộ phận</h6>
+                            <div class="row row-title">
+                                <div class="col-md-10">
+                                    <h4 class="card-title">Danh sách bộ phận</h4>
+                                    <h6 class="card-subtitle m-0 op-5">Tổng số bộ phận: {{total_bo_phan}}</h6>
+                                </div>
+                                <div class="col-md-2">
+                                    <button @click="_bo_phan('add')" title="Thêm mới bộ phận" type="button" data-toggle="modal" data-target="#myModal" class="btn btn-success waves-effect waves-dark pull-right">
+                                        <i class="fa fa-plus-circle"></i> Thêm mới
+                                    </button>
+                                </div>
+                            </div>
                         </div>
                         <div class="card-body">
                             <div class="message-box contact-box">
-                                <h2 class="add-ct-btn">
-                                    <button @click="_bo_phan('add')" title="Thêm mới bộ phận" type="button" data-toggle="modal" data-target="#myModal" class="btn btn-circle btn-lg btn-success waves-effect waves-dark">+</button>
-                                </h2>
+                                <!--<h2 class="add-ct-btn">-->
+
+                                <!--</h2>-->
                                 <div class="message-widget contact-widget">
                                     <div class="table-responsive">
                                         <table class="table table-hover">
                                             <thead>
-                                            <tr>
+                                            <tr style="border-top: 1px solid #ddd">
                                                 <th>Mã bộ phận</th>
                                                 <th>Tên bộ phận</th>
                                                 <th>Diễn giải</th>
@@ -246,4 +255,20 @@
         height: 100%;
     }
 
+    .bg-inverse {
+        background-color: white;
+        padding-bottom: 0;
+    }
+
+    .card-body {
+        padding-top: 10px;
+    }
+
+    .card-title {
+        font-weight: 600;
+    }
+
+    .row-title {
+        padding-top: 6px;
+    }
 </style>

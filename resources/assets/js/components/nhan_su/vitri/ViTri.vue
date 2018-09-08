@@ -28,8 +28,8 @@
                 <div class="col-lg-12 col-md-12">
                     <!-- Column -->
                     <div class="card">
-                        <div class="card-body bg-inverse">
-                            <h4 class="text-white card-title">Danh sách vị trí</h4>
+                        <div class="card-body bg-inverse form-chung">
+                            <h4 class="card-title">Danh sách vị trí</h4>
                             <h6 class="card-subtitle text-white m-0 op-5"></h6>
                             <!--<select v-model="select_bo_phan" id="select_phong_1" class="select2 form-control custom-select" style="width: 100%; height:36px;" v-on:change="change_vi_tri">-->
                             <!--<option value="0">Tất cả</option>-->

@@ -109427,7 +109427,7 @@ exports = module.exports = __webpack_require__(5)(false);
 
 
 // module
-exports.push([module.i, "\n.row-nhom[data-v-70e9ec73]:hover {\n    cursor: pointer;\n    color: black;\n}\n.row-phong[data-v-70e9ec73]:hover {\n    cursor: pointer;\n    color: black;\n}\n.demo-checkbox label[data-v-70e9ec73], .demo-radio-button label[data-v-70e9ec73]{\n    min-width: 0px !important;\n    height: 0;\n}\n.body-table[data-v-70e9ec73]::before {\n    background-color: black;\n    top: 0;\n    left: 0;\n    width: 100%;\n    height: 100%;\n}\n\n", ""]);
+exports.push([module.i, "\n.row-nhom[data-v-70e9ec73]:hover {\n    cursor: pointer;\n    color: black;\n}\n.row-phong[data-v-70e9ec73]:hover {\n    cursor: pointer;\n    color: black;\n}\n.demo-checkbox label[data-v-70e9ec73], .demo-radio-button label[data-v-70e9ec73]{\n    min-width: 0px !important;\n    height: 0;\n}\n.body-table[data-v-70e9ec73]::before {\n    background-color: black;\n    top: 0;\n    left: 0;\n    width: 100%;\n    height: 100%;\n}\n.bg-inverse[data-v-70e9ec73] {\n    background-color: white;\n    padding-bottom: 0;\n}\n.card-body[data-v-70e9ec73] {\n    padding-top: 10px;\n}\n.row-title[data-v-70e9ec73] {\n    padding-top: 10px;\n}\n.dropdown-menu[data-v-70e9ec73] {\n    border-radius: 0 !important;\n}\n.dropdown-item[data-v-70e9ec73]{\n    cursor: pointer;\n}\n#dropdownMenuButton2[data-v-70e9ec73]::after {\n    position: absolute;\n    top: 50%;\n    width: 0;\n    height: 0;\n    right: 10px;\n    margin-left: .255em;\n    vertical-align: .255em;\n    content: \"\";\n    border-top: .3em solid;\n    border-right: .3em solid transparent;\n    border-bottom: 0;\n    border-left: .3em solid transparent;\n}\n\n", ""]);
 
 // exports
 
@@ -109594,6 +109594,19 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -109606,7 +109619,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     name: 'bophan',
     mounted: function mounted() {
         this.danh_sach_bo_phan();
-        // this.change_phong_ban();
+        this.danh_sach_phong_ban(0, 1);
     },
     updated: function updated() {
         // let vm = this;
@@ -109637,16 +109650,27 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     },
 
     methods: {
+        dropdown: function dropdown(id_con) {
+            $('#' + id_con).toggleClass("show");
+        },
+        selected_item: function selected_item(id_bo_phan, ten_bo_phan, id_dropdown, id_btn) {
+            $('#' + id_btn).text(ten_bo_phan);
+            $('#' + id_btn).val(id_bo_phan);
+            $('#' + id_dropdown).removeClass("show");
+            this.phong_ban.id_bo_phan = id_bo_phan;
+            this.danh_sach_phong_ban(id_bo_phan);
+        },
         danh_sach_bo_phan: function danh_sach_bo_phan() {
             Object(__WEBPACK_IMPORTED_MODULE_0__bophan_bo_phan__["e" /* api_get_all_bo_phan */])(this);
         },
-        danh_sach_phong_ban: function danh_sach_phong_ban() {
-            var page = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 1;
+        danh_sach_phong_ban: function danh_sach_phong_ban(id_bo_phan) {
+            var page = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 1;
 
-            if ($('#select_phong_1').val() == 0) {
+            this.loading_phong_ban = true;
+            if (id_bo_phan == 0) {
                 Object(__WEBPACK_IMPORTED_MODULE_1__phong_ban__["d" /* api_get_all_phong_ban */])(this, page);
             } else {
-                Object(__WEBPACK_IMPORTED_MODULE_1__phong_ban__["f" /* api_get_danh_sach_phong_theo_bo_phan */])(this, page);
+                Object(__WEBPACK_IMPORTED_MODULE_1__phong_ban__["f" /* api_get_danh_sach_phong_theo_bo_phan */])(this, id_bo_phan, page);
             }
         },
         change_phong_ban: function change_phong_ban() {
@@ -109663,7 +109687,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             var bophan = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : null;
 
             if (state == 'add') {
-                $('#select_phong_2').removeAttr('disabled');
                 this.flag_btn = true;
                 $('.row-nhom').removeClass("active-click-row");
                 this.flag_submit_phong_ban = true;
@@ -109736,47 +109759,93 @@ var render = function() {
           _c("div", { staticClass: "col-lg-12 col-md-12" }, [
             _c("div", { staticClass: "card" }, [
               _c("div", { staticClass: "card-body bg-inverse" }, [
-                _c("h4", { staticClass: "text-white card-title" }, [
-                  _vm._v("Danh sách phòng ban")
-                ]),
-                _vm._v(" "),
-                _c("h6", { staticClass: "card-subtitle text-white m-0 op-5" }),
-                _vm._v(" "),
-                _c(
-                  "select",
-                  {
-                    staticClass: "form-control custom-select",
-                    staticStyle: { width: "80%", height: "36px" },
-                    attrs: { id: "select_phong_1" },
-                    on: { change: _vm.change_phong_ban }
-                  },
-                  [
-                    _c(
-                      "option",
-                      { attrs: { value: "", selected: "", disabled: "" } },
-                      [_vm._v("-----Chọn bộ phận-----")]
-                    ),
-                    _vm._v(" "),
-                    _c("option", { attrs: { value: "0" } }, [_vm._v("Tất cả")]),
-                    _vm._v(" "),
-                    _vm._l(_vm.list_bo_phan, function(n) {
-                      return _c("option", { domProps: { value: n.id } }, [
-                        _vm._v(_vm._s(n.ten_bo_phan))
-                      ])
-                    })
-                  ],
-                  2
-                )
-              ]),
-              _vm._v(" "),
-              _c("div", { staticClass: "card-body" }, [
-                _c("div", { staticClass: "message-box contact-box" }, [
-                  _c("h2", { staticClass: "add-ct-btn" }, [
+                _c("div", { staticClass: "row row-title" }, [
+                  _c("div", { staticClass: "col-md-10 col-sm-6" }, [
+                    _c("div", { staticClass: "dropdown" }, [
+                      _c(
+                        "button",
+                        {
+                          staticClass:
+                            "btn btn-outline-primary dropdown-toggle btn-full-width",
+                          attrs: {
+                            type: "button",
+                            id: "dropdownMenuButton",
+                            "data-toggle": "dropdown",
+                            "aria-haspopup": "true",
+                            "aria-expanded": "false"
+                          },
+                          on: {
+                            click: function($event) {
+                              _vm.dropdown("dropdown_bo_phan")
+                            }
+                          }
+                        },
+                        [
+                          _vm._v(
+                            "\n                                        Tất cả bộ phận\n                                    "
+                          )
+                        ]
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "ul",
+                        {
+                          staticClass: "dropdown-menu",
+                          attrs: {
+                            id: "dropdown_bo_phan",
+                            "aria-labelledby": "dropdownMenuButton"
+                          }
+                        },
+                        [
+                          _c(
+                            "li",
+                            {
+                              staticClass: "dropdown-item",
+                              attrs: { "data-id-bo-phan": "0" },
+                              on: {
+                                click: function($event) {
+                                  _vm.selected_item(
+                                    0,
+                                    "Tất cả bộ phận",
+                                    "dropdown_bo_phan"
+                                  )
+                                }
+                              }
+                            },
+                            [_vm._v("Tất cả bộ phận")]
+                          ),
+                          _vm._v(" "),
+                          _vm._l(_vm.list_bo_phan, function(n) {
+                            return _c(
+                              "li",
+                              {
+                                staticClass: "dropdown-item",
+                                on: {
+                                  click: function($event) {
+                                    _vm.selected_item(
+                                      n.id,
+                                      n.ten_bo_phan,
+                                      "dropdown_bo_phan",
+                                      "dropdownMenuButton"
+                                    )
+                                  }
+                                }
+                              },
+                              [_vm._v(_vm._s(n.ten_bo_phan))]
+                            )
+                          })
+                        ],
+                        2
+                      )
+                    ])
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "col-md-2 col-sm-6 col-12" }, [
                     _c(
                       "button",
                       {
                         staticClass:
-                          "btn btn-circle btn-lg btn-success waves-effect waves-dark",
+                          "btn btn-success waves-effect waves-dark pull-right btn-full-width",
                         attrs: {
                           title: "Thêm mới phòng",
                           type: "button",
@@ -109789,10 +109858,17 @@ var render = function() {
                           }
                         }
                       },
-                      [_c("i", { staticClass: "fa fa-plus" })]
+                      [
+                        _c("i", { staticClass: "fa fa-plus-circle" }),
+                        _vm._v(" Thêm mới\n                                ")
+                      ]
                     )
-                  ]),
-                  _vm._v(" "),
+                  ])
+                ])
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "card-body" }, [
+                _c("div", { staticClass: "message-box contact-box" }, [
                   _c("div", { staticClass: "message-widget contact-widget" }, [
                     _c(
                       "div",
@@ -109807,92 +109883,112 @@ var render = function() {
                             [
                               _vm.loading_phong_ban
                                 ? _c("tr", [_vm._m(2)])
-                                : _vm._e(),
-                              _vm._v(" "),
-                              _vm._l(_vm.list_phong_ban, function(n) {
-                                return _vm.list_phong_ban.length > 0
-                                  ? _c(
-                                      "tr",
-                                      {
-                                        staticClass: "row-nhom",
-                                        attrs: { id: "n" + n.id },
-                                        on: {
-                                          click: function($event) {
-                                            _vm.click_phong_ban(n)
-                                          }
-                                        }
-                                      },
-                                      [
-                                        _c("td", [_vm._v(_vm._s(n.ma_phong))]),
-                                        _vm._v(" "),
-                                        _c("td", [_vm._v(_vm._s(n.ten_phong))]),
-                                        _vm._v(" "),
-                                        _c("td", [_vm._v(_vm._s(n.dien_giai))]),
-                                        _vm._v(" "),
-                                        _c("td", [
-                                          _vm._v(_vm._s(n.created_at))
-                                        ]),
-                                        _vm._v(" "),
-                                        _c("td", [_vm._v("Ẩn")]),
-                                        _vm._v(" "),
-                                        _c(
-                                          "td",
-                                          { staticClass: "text-center" },
+                                : _vm.list_phong_ban.length <= 0
+                                  ? _c("tr", [_vm._m(3)])
+                                  : _vm.list_phong_ban.length > 0
+                                    ? _vm._l(_vm.list_phong_ban, function(n) {
+                                        return _c(
+                                          "tr",
+                                          {
+                                            staticClass: "row-nhom",
+                                            attrs: { id: "n" + n.id },
+                                            on: {
+                                              click: function($event) {
+                                                _vm.click_phong_ban(n)
+                                              }
+                                            }
+                                          },
                                           [
+                                            _c("td", [
+                                              _vm._v(_vm._s(n.ma_phong))
+                                            ]),
+                                            _vm._v(" "),
+                                            _c("td", [
+                                              _vm._v(_vm._s(n.ten_phong))
+                                            ]),
+                                            _vm._v(" "),
+                                            _c("td", [
+                                              _vm._v(_vm._s(n.dien_giai))
+                                            ]),
+                                            _vm._v(" "),
+                                            _c("td", [
+                                              _vm._v(_vm._s(n.created_at))
+                                            ]),
+                                            _vm._v(" "),
                                             _c(
-                                              "button",
-                                              {
-                                                staticClass:
-                                                  "btn btn-info btn-sm",
-                                                attrs: {
-                                                  id: "edit_nhom",
-                                                  type: "button",
-                                                  "data-toggle": "modal",
-                                                  "data-target": "#myModal"
-                                                },
-                                                on: {
-                                                  click: function($event) {
-                                                    _vm._phong_ban("edit", n)
-                                                  }
-                                                }
-                                              },
-                                              [
-                                                _c("i", {
-                                                  staticClass: "fa fa-edit"
-                                                }),
-                                                _vm._v(
-                                                  " Sửa\n                                                    "
-                                                )
-                                              ]
+                                              "td",
+                                              { staticClass: "text-center" },
+                                              [_vm._v("Hiện")]
                                             ),
                                             _vm._v(" "),
                                             _c(
-                                              "button",
+                                              "td",
                                               {
-                                                staticClass:
-                                                  "btn btn-danger btn-sm",
-                                                attrs: { type: "button" },
-                                                on: {
-                                                  click: function($event) {
-                                                    _vm.delete_phong_ban(n.id)
-                                                  }
+                                                staticClass: "text-right",
+                                                staticStyle: {
+                                                  "padding-right": "0"
                                                 }
                                               },
                                               [
-                                                _c("i", {
-                                                  staticClass: "fa fa-trash"
-                                                }),
-                                                _vm._v(
-                                                  " Xóa\n                                                    "
+                                                _c(
+                                                  "button",
+                                                  {
+                                                    staticClass:
+                                                      "btn btn-info btn-sm",
+                                                    attrs: {
+                                                      id: "edit_nhom",
+                                                      type: "button",
+                                                      "data-toggle": "modal",
+                                                      "data-target": "#myModal"
+                                                    },
+                                                    on: {
+                                                      click: function($event) {
+                                                        _vm._phong_ban(
+                                                          "edit",
+                                                          n
+                                                        )
+                                                      }
+                                                    }
+                                                  },
+                                                  [
+                                                    _c("i", {
+                                                      staticClass: "fa fa-edit"
+                                                    }),
+                                                    _vm._v(
+                                                      " Sửa\n                                                    "
+                                                    )
+                                                  ]
+                                                ),
+                                                _vm._v(" "),
+                                                _c(
+                                                  "button",
+                                                  {
+                                                    staticClass:
+                                                      "btn btn-danger btn-sm",
+                                                    attrs: { type: "button" },
+                                                    on: {
+                                                      click: function($event) {
+                                                        _vm.delete_phong_ban(
+                                                          n.id
+                                                        )
+                                                      }
+                                                    }
+                                                  },
+                                                  [
+                                                    _c("i", {
+                                                      staticClass: "fa fa-trash"
+                                                    }),
+                                                    _vm._v(
+                                                      " Xóa\n                                                    "
+                                                    )
+                                                  ]
                                                 )
                                               ]
                                             )
                                           ]
                                         )
-                                      ]
-                                    )
-                                  : _vm._e()
-                              })
+                                      })
+                                    : _vm._e()
                             ],
                             2
                           )
@@ -109927,7 +110023,7 @@ var render = function() {
                           }
                         },
                         [
-                          _vm._m(3),
+                          _vm._m(4),
                           _vm._v(" "),
                           _c(
                             "div",
@@ -109937,59 +110033,99 @@ var render = function() {
                             },
                             [
                               _c("div", { staticClass: "form-group" }, [
-                                _vm._m(4),
+                                _vm._m(5),
                                 _vm._v(" "),
-                                _c(
-                                  "select",
-                                  {
-                                    directives: [
-                                      {
-                                        name: "model",
-                                        rawName: "v-model",
-                                        value: _vm.phong_ban.id_bo_phan,
-                                        expression: "phong_ban.id_bo_phan"
+                                _c("div", { staticClass: "dropdown" }, [
+                                  _c(
+                                    "button",
+                                    {
+                                      staticClass:
+                                        "btn btn-outline-primary dropdown-toggle btn-full-width",
+                                      staticStyle: { width: "100%" },
+                                      attrs: {
+                                        type: "button",
+                                        id: "dropdownMenuButton2",
+                                        "data-toggle": "dropdown"
+                                      },
+                                      on: {
+                                        click: function($event) {
+                                          _vm.dropdown("dropdown_bo_phan2")
+                                        }
+                                      },
+                                      model: {
+                                        value: _vm.phong_ban._bo_phan,
+                                        callback: function($$v) {
+                                          _vm.$set(
+                                            _vm.phong_ban,
+                                            "_bo_phan",
+                                            $$v
+                                          )
+                                        },
+                                        expression: "phong_ban._bo_phan"
                                       }
-                                    ],
-                                    staticClass: " form-control custom-select",
-                                    staticStyle: {
-                                      width: "100%",
-                                      height: "36px"
                                     },
-                                    attrs: {
-                                      disabled: _vm.flag_input_phong_ban,
-                                      id: "select_phong_2"
+                                    [
+                                      _vm._v(
+                                        "\n                                                        --- Chọn bộ phận ---\n                                                    "
+                                      )
+                                    ]
+                                  ),
+                                  _vm._v(" "),
+                                  _c(
+                                    "ul",
+                                    {
+                                      staticClass: "dropdown-menu",
+                                      staticStyle: { width: "100%" },
+                                      attrs: {
+                                        id: "dropdown_bo_phan2",
+                                        "aria-labelledby": "dropdownMenuButton"
+                                      }
                                     },
-                                    on: {
-                                      change: function($event) {
-                                        var $$selectedVal = Array.prototype.filter
-                                          .call($event.target.options, function(
-                                            o
-                                          ) {
-                                            return o.selected
-                                          })
-                                          .map(function(o) {
-                                            var val =
-                                              "_value" in o ? o._value : o.value
-                                            return val
-                                          })
-                                        _vm.$set(
-                                          _vm.phong_ban,
-                                          "id_bo_phan",
-                                          $event.target.multiple
-                                            ? $$selectedVal
-                                            : $$selectedVal[0]
+                                    [
+                                      _c(
+                                        "li",
+                                        {
+                                          staticClass: "dropdown-item",
+                                          attrs: {
+                                            disabled: "",
+                                            "data-id-bo-phan": "0"
+                                          },
+                                          on: {
+                                            click: function($event) {
+                                              _vm.selected_item(
+                                                0,
+                                                "--- Chọn bộ phận ---",
+                                                "dropdown_bo_phan2"
+                                              )
+                                            }
+                                          }
+                                        },
+                                        [_vm._v("--- Chọn bộ phận ---")]
+                                      ),
+                                      _vm._v(" "),
+                                      _vm._l(_vm.list_bo_phan, function(n) {
+                                        return _c(
+                                          "li",
+                                          {
+                                            staticClass: "dropdown-item",
+                                            on: {
+                                              click: function($event) {
+                                                _vm.selected_item(
+                                                  n.id,
+                                                  n.ten_bo_phan,
+                                                  "dropdown_bo_phan2",
+                                                  "dropdownMenuButton2"
+                                                )
+                                              }
+                                            }
+                                          },
+                                          [_vm._v(_vm._s(n.ten_bo_phan))]
                                         )
-                                      }
-                                    }
-                                  },
-                                  _vm._l(_vm.list_phong_ban, function(n) {
-                                    return _c(
-                                      "option",
-                                      { domProps: { value: n.id } },
-                                      [_vm._v(_vm._s(n.ten_bo_phan))]
-                                    )
-                                  })
-                                ),
+                                      })
+                                    ],
+                                    2
+                                  )
+                                ]),
                                 _vm._v(" "),
                                 _c(
                                   "small",
@@ -110004,12 +110140,12 @@ var render = function() {
                                     ],
                                     staticClass: "help text-muted is-danger"
                                   },
-                                  [_vm._v("Vui lòng nhập mã bộ phận")]
+                                  [_vm._v("Vui lòng chọn bộ phận")]
                                 )
                               ]),
                               _vm._v(" "),
                               _c("div", { staticClass: "form-group" }, [
-                                _vm._m(5),
+                                _vm._m(6),
                                 _vm._v(" "),
                                 _c("input", {
                                   directives: [
@@ -110073,7 +110209,7 @@ var render = function() {
                               ]),
                               _vm._v(" "),
                               _c("div", { staticClass: "form-group" }, [
-                                _vm._m(6),
+                                _vm._m(7),
                                 _vm._v(" "),
                                 _c("input", {
                                   directives: [
@@ -110135,7 +110271,7 @@ var render = function() {
                               ]),
                               _vm._v(" "),
                               _c("div", { staticClass: "form-group" }, [
-                                _vm._m(7),
+                                _vm._m(8),
                                 _vm._v(" "),
                                 _c("textarea", {
                                   directives: [
@@ -110170,7 +110306,7 @@ var render = function() {
                             ]
                           ),
                           _vm._v(" "),
-                          _vm._m(8)
+                          _vm._m(9)
                         ]
                       )
                     ])
@@ -110190,7 +110326,11 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("div", { staticClass: "row page-titles" }, [
-      _c("div", { staticClass: "col-md-5 align-self-center" }),
+      _c("div", { staticClass: "col-md-5 align-self-center" }, [
+        _c("h4", { staticClass: "text-themecolor" }, [
+          _vm._v("Danh sách phòng ban")
+        ])
+      ]),
       _vm._v(" "),
       _c("div", { staticClass: "col-md-7 align-self-center" }, [
         _c("ol", { staticClass: "breadcrumb" }, [
@@ -110219,7 +110359,7 @@ var staticRenderFns = [
         _vm._v(" "),
         _c("th", [_vm._v("Ngày tạo")]),
         _vm._v(" "),
-        _c("th", [_vm._v("Ẩn hiện")]),
+        _c("th", { staticClass: "text-center" }, [_vm._v("Ẩn hiện")]),
         _vm._v(" "),
         _c("th", { staticClass: "text-center" }, [_vm._v("#")])
       ])
@@ -110230,7 +110370,15 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("td", { staticClass: "text-center", attrs: { colspan: "6" } }, [
-      _c("b", [_c("i", [_vm._v("Loading...")])])
+      _c("b", [_c("i", [_vm._v("Đang tải danh sách phòng...")])])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("td", { staticClass: "text-center", attrs: { colspan: "6" } }, [
+      _c("b", [_c("i", [_vm._v("Chưa có phòng")])])
     ])
   },
   function() {
@@ -110396,7 +110544,7 @@ exports = module.exports = __webpack_require__(5)(false);
 
 
 // module
-exports.push([module.i, "\n.row-nhom[data-v-0aec015a]:hover {\n    cursor: pointer;\n    color: black;\n}\n.row-phong[data-v-0aec015a]:hover {\n    cursor: pointer;\n    color: black;\n}\n.demo-checkbox label[data-v-0aec015a], .demo-radio-button label[data-v-0aec015a]{\n    min-width: 0px !important;\n    height: 0;\n}\n.body-table[data-v-0aec015a]::before {\n    background-color: black;\n    top: 0;\n    left: 0;\n    width: 100%;\n    height: 100%;\n}\n\n", ""]);
+exports.push([module.i, "\n.row-nhom[data-v-0aec015a]:hover {\n    cursor: pointer;\n    color: black;\n}\n.row-phong[data-v-0aec015a]:hover {\n    cursor: pointer;\n    color: black;\n}\n.demo-checkbox label[data-v-0aec015a], .demo-radio-button label[data-v-0aec015a]{\n    min-width: 0px !important;\n    height: 0;\n}\n.body-table[data-v-0aec015a]::before {\n    background-color: black;\n    top: 0;\n    left: 0;\n    width: 100%;\n    height: 100%;\n}\n.bg-inverse[data-v-0aec015a] {\n    background-color: white;\n    padding-bottom: 0;\n}\n.card-body[data-v-0aec015a] {\n    padding-top: 10px;\n}\n.card-title[data-v-0aec015a] {\n    font-weight: 600;\n}\n.row-title[data-v-0aec015a] {\n    padding-top: 6px;\n}\n", ""]);
 
 // exports
 
@@ -110409,6 +110557,15 @@ exports.push([module.i, "\n.row-nhom[data-v-0aec015a]:hover {\n    cursor: point
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__bo_phan_js__ = __webpack_require__(23);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__bo_phan__ = __webpack_require__(23);
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -110653,16 +110810,24 @@ var render = function() {
         _c("div", { staticClass: "row" }, [
           _c("div", { staticClass: "col-lg-12 col-md-12" }, [
             _c("div", { staticClass: "card" }, [
-              _vm._m(1),
-              _vm._v(" "),
-              _c("div", { staticClass: "card-body" }, [
-                _c("div", { staticClass: "message-box contact-box" }, [
-                  _c("h2", { staticClass: "add-ct-btn" }, [
+              _c("div", { staticClass: "card-body bg-inverse" }, [
+                _c("div", { staticClass: "row row-title" }, [
+                  _c("div", { staticClass: "col-md-10" }, [
+                    _c("h4", { staticClass: "card-title" }, [
+                      _vm._v("Danh sách bộ phận")
+                    ]),
+                    _vm._v(" "),
+                    _c("h6", { staticClass: "card-subtitle m-0 op-5" }, [
+                      _vm._v("Tổng số bộ phận: " + _vm._s(_vm.total_bo_phan))
+                    ])
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "col-md-2" }, [
                     _c(
                       "button",
                       {
                         staticClass:
-                          "btn btn-circle btn-lg btn-success waves-effect waves-dark",
+                          "btn btn-success waves-effect waves-dark pull-right",
                         attrs: {
                           title: "Thêm mới bộ phận",
                           type: "button",
@@ -110675,24 +110840,31 @@ var render = function() {
                           }
                         }
                       },
-                      [_vm._v("+")]
+                      [
+                        _c("i", { staticClass: "fa fa-plus-circle" }),
+                        _vm._v(" Thêm mới\n                                ")
+                      ]
                     )
-                  ]),
-                  _vm._v(" "),
+                  ])
+                ])
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "card-body" }, [
+                _c("div", { staticClass: "message-box contact-box" }, [
                   _c("div", { staticClass: "message-widget contact-widget" }, [
                     _c(
                       "div",
                       { staticClass: "table-responsive" },
                       [
                         _c("table", { staticClass: "table table-hover" }, [
-                          _vm._m(2),
+                          _vm._m(1),
                           _vm._v(" "),
                           _c(
                             "tbody",
                             { staticClass: "body-table loading-item" },
                             [
                               _vm.loading_bo_phan
-                                ? _c("tr", [_vm._m(3)])
+                                ? _c("tr", [_vm._m(2)])
                                 : _vm._e(),
                               _vm._v(" "),
                               _vm._l(_vm.list_bo_phan, function(n) {
@@ -110803,7 +110975,7 @@ var render = function() {
                           }
                         },
                         [
-                          _vm._m(4),
+                          _vm._m(3),
                           _vm._v(" "),
                           _c(
                             "div",
@@ -110813,7 +110985,7 @@ var render = function() {
                             },
                             [
                               _c("div", { staticClass: "form-group" }, [
-                                _vm._m(5),
+                                _vm._m(4),
                                 _vm._v(" "),
                                 _c("input", {
                                   directives: [
@@ -110877,7 +111049,7 @@ var render = function() {
                               ]),
                               _vm._v(" "),
                               _c("div", { staticClass: "form-group" }, [
-                                _vm._m(6),
+                                _vm._m(5),
                                 _vm._v(" "),
                                 _c("input", {
                                   directives: [
@@ -110939,7 +111111,7 @@ var render = function() {
                               ]),
                               _vm._v(" "),
                               _c("div", { staticClass: "form-group" }, [
-                                _vm._m(7),
+                                _vm._m(6),
                                 _vm._v(" "),
                                 _c("textarea", {
                                   directives: [
@@ -110974,7 +111146,7 @@ var render = function() {
                             ]
                           ),
                           _vm._v(" "),
-                          _vm._m(8)
+                          _vm._m(7)
                         ]
                       )
                     ])
@@ -111013,22 +111185,8 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "card-body bg-inverse" }, [
-      _c("h4", { staticClass: "text-white card-title" }, [
-        _vm._v("Danh sách bộ phận")
-      ]),
-      _vm._v(" "),
-      _c("h6", { staticClass: "card-subtitle text-white m-0 op-5" }, [
-        _vm._v("Quản lý bộ phận")
-      ])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
     return _c("thead", [
-      _c("tr", [
+      _c("tr", { staticStyle: { "border-top": "1px solid #ddd" } }, [
         _c("th", [_vm._v("Mã bộ phận")]),
         _vm._v(" "),
         _c("th", [_vm._v("Tên bộ phận")]),
@@ -111517,8 +111675,8 @@ var render = function() {
         _c("div", { staticClass: "row" }, [
           _c("div", { staticClass: "col-lg-12 col-md-12" }, [
             _c("div", { staticClass: "card" }, [
-              _c("div", { staticClass: "card-body bg-inverse" }, [
-                _c("h4", { staticClass: "text-white card-title" }, [
+              _c("div", { staticClass: "card-body bg-inverse form-chung" }, [
+                _c("h4", { staticClass: "card-title" }, [
                   _vm._v("Danh sách vị trí")
                 ]),
                 _vm._v(" "),

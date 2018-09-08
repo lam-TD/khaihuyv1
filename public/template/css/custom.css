@@ -98,3 +98,29 @@ label {
     top: 0;
     left: 0;
 }
+
+.form-chung{
+    background-color: white;
+}
+
+.select_item {
+    position: relative;
+}
+
+.select_bo_phan {
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+.btn-full-width {
+    position: relative;
+}
+
+@media (max-width: 576px){
+    .btn-full-width {
+        width: 100% !important;
+        margin-bottom: 5px;
+    }
+}
+
