@@ -51,13 +51,16 @@ class NhanVienController extends Controller
 
     public function edit_nhan_vien_thong_tin_ca_nhan(Request $request) {
         $avatar = '';
-        if($request->get('image'))
-        {
-            $image = $request->get('image');
-            $name = time().'.' . explode('/', explode(':', substr($image, 0, strpos($image, ';')))[1])[1];
-            Image::make($request->get('image'))->save(public_path('/image_nhan_vien/').$name);
-            $avatar = $name;
-        }
+        try{
+            if($request->get('image'))
+            {
+                $image = $request->get('image');
+                $name = time().'.' . explode('/', explode(':', substr($image, 0, strpos($image, ';')))[1])[1];
+                Image::make($request->get('image'))->save(public_path('/image_nhan_vien/').$name);
+                $avatar = $name;
+            }
+        }catch (\Exception $exception){return $exception;}
+
         $nv = nhan_vien::find($request->id);
         $nv->ho_ten = $request->ho_ten;
         $nv->gioi_tinh = $request->gioi_tinh;
