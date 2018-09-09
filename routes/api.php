@@ -62,6 +62,10 @@ Route::group(['middleware' => 'jwt.auth'], function ($router) {
     Route::post('add-nhan-vien-thong-tin-ca-nhan', 'NhanVienController@add_nhan_vien_thong_tin_ca_nhan');
     Route::post('edit-nhan-vien-thong-tin-ca-nhan', 'NhanVienController@edit_nhan_vien_thong_tin_ca_nhan');
     Route::post('image-upload', 'NhanVienController@upload_image');
+
+    Route::post('add-nhan-vien-thong-tin-lao-dong', 'NhanVienController@add_nhan_vien_thong_tin_lao_dong');
+    Route::post('edit-nhan-vien-thong-tin-lao-dong', 'NhanVienController@edit_nhan_vien_thong_tin_lao_dong');
+    Route::get('get-nhan-vien-thong-tin-lao-dong/{nv_id}', 'NhanVienController@get_thong_tin_lao_dong_theo_nhan_vien');
 });
 
 // ================= HE THONG =====================

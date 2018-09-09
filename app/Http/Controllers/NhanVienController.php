@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\nhan_vien;
+use App\nhan_vien_lao_dong;
 use Carbon\Carbon;
 use Intervention\Image\Facades\Image;
 
@@ -91,7 +92,57 @@ class NhanVienController extends Controller
     }
 
     public function add_nhan_vien_thong_tin_lao_dong(Request $request) {
+        $nv1 = nhan_vien_lao_dong::where('nv_id',$request->nv_id)->get();
+        if(count($nv1) > 0){
+            $this->edit_nhan_vien_thong_tin_lao_dong($request);
+        }
+        else{
+            $nv= new nhan_vien_lao_dong();
+            $nv->nv_id = $request->nv_id;
+            $nv->vao_cty = $request->vao_cty;
+            $nv->thoi_viec = $request->thoi_viec;
+            $nv->nam = $request->nam;
+            $nv->thang = $request->ngay;
+            $nv->ngay = $request->vao_cty;
+            $nv->so_hdld = $request->so_hdld;
+            $nv->ngay_ky = $request->ngay_ky;
+            $nv->thoi_han = $request->thoi_han;
+            $nv->het_han = $request->het_han;
+            $nv->so_bhxh = $request->so_bhxh;
+            $nv->so_bhyt = $request->so_bhyt;
+            $nv->noi_kham = $request->noi_kham;
+            $nv->dia_chi_kham = $request->dia_chi_kham;
+            $nv->ghi_chu = $request->ghi_chu;
+            $nv->save();
+            return 1;
+        }
 
+    }
+
+    public function edit_nhan_vien_thong_tin_lao_dong(Request $request) {
+        $nv = nhan_vien_lao_dong::find($request->nv_id);
+        $nv->vao_cty = $request->vao_cty;
+        $nv->thoi_viec = $request->thoi_viec;
+        $nv->nam = $request->nam;
+        $nv->thang = $request->ngay;
+        $nv->ngay = $request->vao_cty;
+        $nv->so_hdld = $request->so_hdld;
+        $nv->ngay_ky = $request->ngay_ky;
+        $nv->thoi_han = $request->thoi_han;
+        $nv->het_han = $request->het_han;
+        $nv->so_bhxh = $request->so_bhxh;
+        $nv->so_bhyt = $request->so_bhyt;
+        $nv->noi_kham = $request->noi_kham;
+        $nv->dia_chi_kham = $request->dia_chi_kham;
+        $nv->ghi_chu = $request->ghi_chu;
+        $nv->save();
+        return 1;
+    }
+
+    public function get_thong_tin_lao_dong_theo_nhan_vien($nv_id)
+    {
+        $nv = nhan_vien_lao_dong::where('nv_id',$nv_id)->first();
+        return json_encode($nv);
     }
 
     public function upload_image(Request $request)
