@@ -56,9 +56,12 @@ Route::group(['middleware' => 'jwt.auth'], function ($router) {
     Route::get('delete-vi-tri/{id}', 'ViTriController@delete_vi_tri');
 });
 
-
+// NHAN VIEN
 Route::group(['middleware' => 'jwt.auth'], function ($router) {
     Route::get('nhan-vien', 'NhanVienController@get_all');
+    Route::post('add-nhan-vien-thong-tin-ca-nhan', 'NhanVienController@add_nhan_vien_thong_tin_ca_nhan');
+    Route::post('edit-nhan-vien-thong-tin-ca-nhan', 'NhanVienController@edit_nhan_vien_thong_tin_ca_nhan');
+    Route::post('image-upload', 'NhanVienController@upload_image');
 });
 
 // ================= HE THONG =====================

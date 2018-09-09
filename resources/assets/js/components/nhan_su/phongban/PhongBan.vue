@@ -37,7 +37,7 @@
                                         </button>
                                         <ul id="dropdown_bo_phan" class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                                             <li @click="selected_item(0, 'Tất cả bộ phận', 'dropdown_bo_phan')" data-id-bo-phan="0" class="dropdown-item">Tất cả bộ phận</li>
-                                            <li v-for="n in list_bo_phan" @click="selected_item(n.id, n.ten_bo_phan, 'dropdown_bo_phan','dropdownMenuButton')" class="dropdown-item">{{n.ten_bo_phan}}</li>
+                                            <li v-for="n in list_bo_phan" @click="selected_item(n.id, n.ten_bo_phan, 'dropdown_bo_phan','dropdownMenuButton','dropdownMenuButton2')" class="dropdown-item">{{n.ten_bo_phan}}</li>
                                         </ul>
                                     </div>
                                 </div>
@@ -57,7 +57,7 @@
                                     <div class="table-responsive">
                                         <table class="table table-hover">
                                             <thead>
-                                                <tr>
+                                                <tr style="border-top: 1px solid #ddd">
                                                     <th>Mã phòng</th>
                                                     <th>Tên phòng</th>
                                                     <th>Diễn giải</th>
@@ -120,8 +120,8 @@
                                                             --- Chọn bộ phận ---
                                                         </button>
                                                         <ul id="dropdown_bo_phan2" class="dropdown-menu" aria-labelledby="dropdownMenuButton" style="width: 100%">
-                                                            <li @click="selected_item(0, '--- Chọn bộ phận ---', 'dropdown_bo_phan2')" disabled data-id-bo-phan="0" class="dropdown-item">--- Chọn bộ phận ---</li>
-                                                            <li v-for="n in list_bo_phan" @click="selected_item(n.id, n.ten_bo_phan, 'dropdown_bo_phan2','dropdownMenuButton2')" class="dropdown-item">{{n.ten_bo_phan}}</li>
+                                                            <!--<li @click="selected_item(0, '-&#45;&#45; Chọn bộ phận -&#45;&#45;', 'dropdown_bo_phan2')" disabled data-id-bo-phan="0" class="dropdown-item">-&#45;&#45; Chọn bộ phận -&#45;&#45;</li>-->
+                                                            <li v-for="n in list_bo_phan" @click="selected_item(n.id, n.ten_bo_phan, 'dropdown_bo_phan2','dropdownMenuButton2','dropdownMenuButton')" class="dropdown-item">{{n.ten_bo_phan}}</li>
                                                         </ul>
                                                     </div>
                                                     <small v-show="errors.has('txtmabophan')" class="help text-muted is-danger">Vui lòng chọn bộ phận</small>
@@ -144,8 +144,8 @@
 
                                             <!-- Modal footer -->
                                             <div class="modal-footer">
-                                                <button id="save" type="submit" class="btn btn-primary">Lưu lại</button>
-                                                <button type="button" class="btn btn-danger" data-dismiss="modal">Hủy</button>
+                                                <button id="save" type="submit" class="btn btn-primary"><i class="fa fa-save"></i> Lưu lại</button>
+                                                <button type="button" class="btn btn-danger" data-dismiss="modal"><font-awesome-icon :icon="['fas', 'spinner']" /> Hủy</button>
                                             </div>
                                         </form>
                                     </div>
@@ -177,7 +177,7 @@
         name: 'bophan',
         mounted () {
             this.danh_sach_bo_phan();
-            this.danh_sach_phong_ban(0, 1);
+            api_get_all_phong_ban(this, 1);
         },
         updated () {
             // let vm = this;
@@ -210,9 +210,11 @@
             dropdown: function (id_con) {
                 $('#' + id_con).toggleClass("show");
             },
-            selected_item: function (id_bo_phan, ten_bo_phan, id_dropdown, id_btn) {
+            selected_item: function (id_bo_phan, ten_bo_phan, id_dropdown, id_btn, id_btn2) {
                 $('#' + id_btn).text(ten_bo_phan);
                 $('#' + id_btn).val(id_bo_phan);
+                $('#' + id_btn2).text(ten_bo_phan);
+                $('#' + id_btn2).text(ten_bo_phan);
                 $('#' + id_dropdown).removeClass("show");
                 this.phong_ban.id_bo_phan = id_bo_phan;
                 this.danh_sach_phong_ban(id_bo_phan);
@@ -220,9 +222,9 @@
             danh_sach_bo_phan: function () {
                 api_get_all_bo_phan(this);
             },
-            danh_sach_phong_ban: function (id_bo_phan, page = 1) {
+            danh_sach_phong_ban: function (page = 1) {
                 this.loading_phong_ban = true;
-                if(id_bo_phan == 0){
+                if(this.phong_ban.id_bo_phan == 0){
                     api_get_all_phong_ban(this, page);
                 }
                 else{
@@ -272,6 +274,7 @@
                 $('#n' + bp.id).addClass("active-click-row");
             },
             add_phong_ban: function () {
+                this.change_bnt_save();
                 api_add_phong_ban(this);
             },
             edit_phong_ban: function() {
@@ -281,6 +284,7 @@
             delete_phong_ban: function(id) {
                 this.phong_ban.id = id;
                 if(this.phong_ban.id <= 0) return -1;
+                this.change_bnt_save();
                 api_delete_phong_ban(this);
             },
             change_bnt_save: function () {

@@ -82,7 +82,7 @@ export function api_add_phong_ban(vm) {
                 sweetalert(1, 'Thêm thành công!');
                 $('#myModal').modal('hide');
                 $('.modal-backdrop').css('display','none');
-                vm.danh_sach_phong_ban();
+                api_get_danh_sach_phong_theo_bo_phan(vm, vm.$data.phong_ban.id_bo_phan,1);
             }
             else if(response.data == 0){
                 sweetalert(0, 'Mã vị trí đã tồn tại!');
@@ -139,7 +139,7 @@ export function api_delete_phong_ban(vm) {
                         sweetalert(1, 'Nhóm ' + vm.phong_ban.ma_phong_ban + ' đã được xóa!');
                         $('.row-nhom').removeClass("active-click-row");
                         vm.flag_btn = true;
-                        vm.danh_sach_phong_ban();
+                        api_get_danh_sach_phong_theo_bo_phan(vm, vm.$data.phong_ban.id_bo_phan,1);
                         vm.loading_phong_ban = false;
                     }
                     else {sweetalert(2, 'Lỗi không xóa được!'); vm.loading_phong_ban = false;};
