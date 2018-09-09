@@ -9,7 +9,7 @@ export function api_get_all_phong_ban_no_paginate(vm) {
     })
         .then((response) => {
             vm.list_phong_ban = response.data;
-            console.log(response.data);
+            console.log(response);
         })
         .catch((error) => {
             console.log(error);
@@ -141,6 +141,9 @@ export function api_delete_phong_ban(vm) {
                         vm.flag_btn = true;
                         api_get_danh_sach_phong_theo_bo_phan(vm, vm.$data.phong_ban.id_bo_phan,1);
                         vm.loading_phong_ban = false;
+                    }
+                    else if(response.data == 0){
+                        sweetalert(0, 'Phòng này có chứa vị trí, vui lòng xóa vị trí trước');
                     }
                     else {sweetalert(2, 'Lỗi không xóa được!'); vm.loading_phong_ban = false;};
                 })

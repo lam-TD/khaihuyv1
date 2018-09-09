@@ -12,7 +12,7 @@
                         </div>
                         <div class="col-md-6">
                             <button @click="_nhan_vien('add')" class="btn btn-primary pull-right" data-toggle="modal" data-target="#modal_nv_tt_ca_nhan"><i class="fa fa-plus-circle"></i> Thêm mới</button>
-                            <!-- Modal -->
+                            <!-- Modal thong tin ca nhan -->
                             <div class="modal" id="modal_nv_tt_ca_nhan"  tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                 <div class="modal-dialog modal-lg" role="document">
                                     <div class="modal-content">
@@ -29,7 +29,7 @@
                                                         <div class="row">
                                                             <div class="form-group col-md-3">
                                                                 <label class="label-form">Mã NV</label>
-                                                                <input v-model="nhan_vien.ma_nv" name="txtma_nv" type="text" class="form-control form-control-sm" id="manv" v-validate="'required'" :class="{'border-danger' : errors.has('txtma_nv')}">
+                                                                <input :disabled="flag_input_nhan_vien_tt" v-model="nhan_vien.ma_nv" name="txtma_nv" type="text" class="form-control form-control-sm" id="manv" v-validate="'required'" :class="{'border-danger' : errors.has('txtma_nv')}">
                                                                 <small v-show="errors.has('txtma_nv')" class="help text-muted is-danger">Vui lòng nhập mã nhân viên</small>
                                                             </div>
                                                             <div class="form-group col-md-6">
@@ -125,8 +125,113 @@
                                             </div>
                                             <div class="modal-footer">
                                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Hủy</button>
-                                                <button id="save" type="submit" class="btn btn-primary">Lưu lại</button>
-                                                <button @click="upload_img" id="anh" type="" class="btn btn-primary">Lưu ảnh</button>
+                                                <button id="save" type="submit" class="btn btn-primary">
+                                                    <i v-if="flag_xu_ly_tt_ca_nhan" class="fa fa-save"></i>
+                                                    <i v-else class="fa fa-spin fa-spinner"></i>
+                                                    Lưu lại
+                                                </button>
+                                                <!--<button @click="upload_img" id="anh" type="" class="btn btn-primary">Lưu ảnh</button>-->
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Modal thong tin lao dong -->
+                            <div class="modal" id="modal_nv_tt_lao_dong"  tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                <div class="modal-dialog modal-lg" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h4 class="modal-title" id="exampleModalLabe2"><b>Thông tin lao động</b></h4>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                        <form @submit.prevent="submit_nhan_vien_thong_tin_ca_nhan" id="form_nhan_vien_thong_tin_lao_dong">
+                                            <div class="modal-body">
+                                                <div class="row">
+                                                    <div class="form-group col-md-6">
+                                                        <label class="label-form">Vào công ty</label>
+                                                        <input v-model="nhan_vien.so_cmnd" name="txtvaocty" type="text" class="form-control form-control-sm" id="txtvaocty" v-validate="'required'" :class="{'border-danger' : errors.has('txtvaocty')}">
+                                                        <small v-show="errors.has('txtvaocty')" class="help text-muted is-danger">Vui lòng nhập số CMND</small>
+                                                    </div>
+                                                    <div class="form-group col-md-6">
+                                                        <label class="label-form">Thôi việc</label>
+                                                        <input v-model="nhan_vien.scmnd_ngay_cap" name="scmnd_ngay_cap" type="text" class="form-control form-control-sm" id="scmnd_ngay_cap" placeholder="">
+                                                    </div>
+                                                    <div class="form-group col-md-3">
+                                                        <label class="label-form">Tổng thời gian làm việc</label>
+                                                        <input v-model="nhan_vien.scmnd_ngay_cap" name="scmnd_ngay_cap" type="text" class="form-control form-control-sm" id="scmnd_ngay_cap" placeholder="">
+                                                    </div>
+                                                    <div class="form-group col-md-3">
+                                                        <label class="label-form">Năm</label>
+                                                        <input v-model="nhan_vien.scmnd_noi_cap" name="scmnd_noi_cap" type="text" class="form-control form-control-sm" id="scmnd_noi_cap" placeholder="">
+                                                    </div>
+
+                                                    <div class="form-group col-md-3">
+                                                        <label class="label-form">Tháng</label>
+                                                        <input v-model="nhan_vien.scmnd_noi_cap" name="scmnd_noi_cap" type="text" class="form-control form-control-sm" id="scmnd_noi_cap" placeholder="">
+                                                    </div>
+                                                    <div class="form-group col-md-3">
+                                                        <label class="label-form">Ngày</label>
+                                                        <input v-model="nhan_vien.scmnd_noi_cap" name="scmnd_noi_cap" type="text" class="form-control form-control-sm" id="scmnd_noi_cap" placeholder="">
+                                                    </div>
+
+                                                    <div class="form-group col-md-6">
+                                                        <label class="label-form">Số HĐLĐ</label>
+                                                        <input v-model="nhan_vien.so_cmnd" name="txtvaocty" type="text" class="form-control form-control-sm" id="txtvaocty" v-validate="'required'" :class="{'border-danger' : errors.has('txtvaocty')}">
+                                                        <small v-show="errors.has('txtvaocty')" class="help text-muted is-danger">Vui lòng nhập số CMND</small>
+                                                    </div>
+                                                    <div class="form-group col-md-6">
+                                                        <label class="label-form">Ngày ký</label>
+                                                        <input v-model="nhan_vien.scmnd_ngay_cap" name="scmnd_ngay_cap" type="text" class="form-control form-control-sm" id="scmnd_ngay_cap" placeholder="">
+                                                    </div>
+
+                                                    <div class="form-group col-md-6">
+                                                        <label class="label-form">Thời hạn</label>
+                                                        <input v-model="nhan_vien.so_cmnd" name="txtvaocty" type="text" class="form-control form-control-sm" id="txtvaocty" v-validate="'required'" :class="{'border-danger' : errors.has('txtvaocty')}">
+                                                        <small v-show="errors.has('txtvaocty')" class="help text-muted is-danger">Vui lòng nhập số CMND</small>
+                                                    </div>
+                                                    <div class="form-group col-md-6">
+                                                        <label class="label-form">Hết hạn</label>
+                                                        <input v-model="nhan_vien.scmnd_ngay_cap" name="scmnd_ngay_cap" type="text" class="form-control form-control-sm" id="scmnd_ngay_cap" placeholder="">
+                                                    </div>
+
+                                                    <div class="form-group col-md-6">
+                                                        <label class="label-form">Số BHXH</label>
+                                                        <input v-model="nhan_vien.so_cmnd" name="txtvaocty" type="text" class="form-control form-control-sm" id="txtvaocty" v-validate="'required'" :class="{'border-danger' : errors.has('txtvaocty')}">
+                                                        <small v-show="errors.has('txtvaocty')" class="help text-muted is-danger">Vui lòng nhập số CMND</small>
+                                                    </div>
+                                                    <div class="form-group col-md-6">
+                                                        <label class="label-form">Số BHYT</label>
+                                                        <input v-model="nhan_vien.scmnd_ngay_cap" name="scmnd_ngay_cap" type="text" class="form-control form-control-sm" id="scmnd_ngay_cap" placeholder="">
+                                                    </div>
+
+                                                    <div class="form-group col-md-6">
+                                                        <label class="label-form">Nơi khám</label>
+                                                        <input v-model="nhan_vien.so_cmnd" name="txtvaocty" type="text" class="form-control form-control-sm" id="txtvaocty" v-validate="'required'" :class="{'border-danger' : errors.has('txtvaocty')}">
+                                                        <small v-show="errors.has('txtvaocty')" class="help text-muted is-danger">Vui lòng nhập số CMND</small>
+                                                    </div>
+                                                    <div class="form-group col-md-6">
+                                                        <label class="label-form">Địa chỉ khám</label>
+                                                        <input v-model="nhan_vien.scmnd_ngay_cap" name="scmnd_ngay_cap" type="text" class="form-control form-control-sm" id="scmnd_ngay_cap" placeholder="">
+                                                    </div>
+
+                                                    <div class="form-group col-md-12">
+                                                        <label class="label-form">Ghi chú</label>
+                                                        <input v-model="nhan_vien.scmnd_ngay_cap" name="scmnd_ngay_cap" type="text" class="form-control form-control-sm" id="scmnd_ngay_cap" placeholder="">
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Hủy</button>
+                                                <button id="save2" type="submit" class="btn btn-primary">
+                                                    <i v-if="flag_xu_ly_tt_ca_nhan" class="fa fa-save"></i>
+                                                    <i v-else class="fa fa-spin fa-spinner"></i>
+                                                    Lưu lại
+                                                </button>
+                                                <!--<button @click="upload_img" id="anh" type="" class="btn btn-primary">Lưu ảnh</button>-->
                                             </div>
                                         </form>
                                     </div>
@@ -162,10 +267,10 @@
                                 <tr v-if="flag"><td colspan="17" class=""><b class="error_load_nv">Lỗi không tải được danh sách vui lòng tải lại trang...</b></td></tr>
                                 <tr v-if="dsnhanvien.length>0" v-for="n in dsnhanvien">
                                     <td class="text-nowrap">
-                                        <button class="btn btn-info btn-sm" data-toggle="tooltip" data-original-title="Cập nhật"> <i class="fa fa-edit"></i> </button>
-                                        <button class="btn btn-info btn-sm" data-toggle="tooltip" data-original-title="Thông tin lao động"><font-awesome-icon icon="coffee" /></button>
-                                        <button class="btn btn-info btn-sm" data-toggle="tooltip" data-original-title="Thông tin công việc hiện tại"><i class="fas fa-id-card"></i></button>
-                                        <button class="btn btn-danger btn-sm" data-toggle="tooltip" data-original-title="Xóa"> <i class="fa fa-trash-o"></i> </button>
+                                        <button @click="_nhan_vien('edit', n)" data-toggle="modal" data-target="#modal_nv_tt_ca_nhan" class="btn btn-success btn-sm" title="Cập nhật thông tin cá nhân"> <i class="fa fa-edit"></i> </button>
+                                        <button class="btn btn-primary btn-sm" data-toggle="modal" data-target="#modal_nv_tt_lao_dong" title="Thông tin lao động"><i class="fa fa-address-book-o"></i></button>
+                                        <button class="btn btn-info btn-sm" title="Thông tin công việc hiện tại"><i class="fa fa-id-card-o"></i></button>
+                                        <button class="btn btn-danger btn-sm" title="Xóa"> <i class="fa fa-trash-o"></i> </button>
                                     </td>
                                     <td style="width:100px;">{{n.ma_nv}}</td>
                                     <td>{{n.ho_ten}}</td>
@@ -203,6 +308,7 @@
 <script>
     import {api_add_nhan_vien_thong_tin_ca_nhan} from "./nhan_vien";
     import {api_get_nhan_vien} from "./nhan_vien";
+    import {api_edit_nhan_vien_thong_tin_ca_nhan} from "./nhan_vien";
 
     export default {
         name: 'danhsachnhanvien',
@@ -225,6 +331,7 @@
                 flag: false,
                 flag_submit_nhan_vien_tt_ca_nhan: true,
                 flag_input_nhan_vien_tt: false,
+                flag_xu_ly_tt_ca_nhan: true,
                 nhan_vien: {
                     id: 0,
                     ma_nv: '',
@@ -279,6 +386,9 @@
             add_nhan_vien_thong_tin_ca_nhan: function () {
                 api_add_nhan_vien_thong_tin_ca_nhan(this);
             },
+            edit_nhan_vien_thong_tin_ca_nhan: function () {
+                api_edit_nhan_vien_thong_tin_ca_nhan(this);
+            },
             _nhan_vien: function (state, nv= null) {
                 if(state == 'add') {
                     console.log('add');
@@ -289,24 +399,26 @@
                 }
                 else {
                     this.nhan_vien = nv;
+                    if (nv.avatar != null){
+                        $('#wizardPicturePreview').attr('src', 'public/image_nhan_vien/' + nv.avatar).fadeIn('slow');
+                    }else{$('#wizardPicturePreview').attr('src', 'https://cdn0.vox-cdn.com/images/verge/default-avatar.v9899025.gif').fadeIn('slow');}
                     this.flag_submit_nhan_vien_tt_ca_nhan = false;
                     this.flag_input_nhan_vien_tt = true;
                 }
             },
             submit_nhan_vien_thong_tin_ca_nhan: function () {
-                // console.log('submit');
+                this.change_bnt_save();
                 if(this.flag_submit_nhan_vien_tt_ca_nhan) {
                     this.flag_input_nhan_vien_tt = false;
+                    this.flag_xu_ly_tt_ca_nhan = false;
                     this.add_nhan_vien_thong_tin_ca_nhan();
-                    this.upload_img();
-                    // if (this.nhan_vien.image != null){
-                    //     this.upload_img();
-                    // }
                 }
                 else {
+                    this.change_bnt_save();
                     this.nhom = this.nhom_selected;
                     this.flag_input_nhan_vien_tt = true;
-                    this.edit_phong_ban();
+                    this.flag_xu_ly_tt_ca_nhan = false;
+                    this.edit_nhan_vien_thong_tin_ca_nhan();
                 }
             },
             change_bnt_save: function () {

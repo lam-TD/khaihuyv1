@@ -9,7 +9,8 @@ use App\nhan_vien;
 class PhongBanController extends Controller
 {
     public function get_all_phong_ban_no_paginate(){
-        return phong_ban::all();
+        $p = phong_ban::orderby('id','desc')->get();
+        return ($p);
     }
 
     public function get_all_phong_ban()

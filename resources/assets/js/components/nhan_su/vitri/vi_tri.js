@@ -44,11 +44,12 @@ export function api_add_vi_tri(vm) {
         data: vm.$data.vi_tri
     })
         .then((response) => {
+            vm.un_change_bnt_save();
             if(response.data == 1){
                 sweetalert(1, 'Thêm thành công!');
                 $('#myModal').modal('hide');
                 $('.modal-backdrop').css('display','none');
-                vm.danh_sach_vi_tri();
+                api_get_vi_tri_theo_phong(vm, vm.$data.vi_tri.id_phong_ban, 1);
             }
             else if(response.data == 0){
                 sweetalert(0, 'Mã vị trí đã tồn tại!');
@@ -70,11 +71,12 @@ export function api_edit_vi_tri(vm) {
         data: vm.$data.vi_tri
     })
         .then((response) => {
+            vm.un_change_bnt_save();
             if(response.data == 1){
                 sweetalert(1, 'Cập nhật thành công!');
                 $('#myModal').modal('hide');
                 $('.modal-backdrop').css('display','none');
-                vm.danh_sach_vi_tri();
+                api_get_vi_tri_theo_phong(vm, vm.$data.vi_tri.id_phong_ban, 1);
             }
             else sweetalert(2, 'Lỗi không cập nhật được!');
         })
@@ -106,6 +108,9 @@ export function api_delete_vi_tri(vm) {
                         vm.flag_btn = true;
                         vm.danh_sach_vi_tri();
                         vm.loading_phong_ban = false;
+                    }
+                    else if(response.data == 0){
+                        sweetalert(0, 'Vị trí này có nhân viên, vui lòng xóa nhân viên ra khỏi vị trí này');
                     }
                     else {sweetalert(2, 'Lỗi không xóa được!'); vm.loading_vi_tri = false;};
                 })

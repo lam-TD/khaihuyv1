@@ -111,6 +111,9 @@ export function api_delete_bo_phan(vm) {
                         vm.danh_sach_bo_phan();
                         vm.loading_phong_ban = false;
                     }
+                    else if(response.data == 0){
+                        sweetalert(0, 'Bộ phận này có chứa phòng, vui lòng xóa phòng trước');
+                    }
                     else {sweetalert(2, 'Lỗi không xóa được!'); vm.loading_bo_phan = false; vm.loading_phong_ban = false;};
                 })
                 .catch((error) => {

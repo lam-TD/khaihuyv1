@@ -145,7 +145,7 @@
                                             <!-- Modal footer -->
                                             <div class="modal-footer">
                                                 <button id="save" type="submit" class="btn btn-primary"><i class="fa fa-save"></i> Lưu lại</button>
-                                                <button type="button" class="btn btn-danger" data-dismiss="modal"><font-awesome-icon :icon="['fas', 'spinner']" /> Hủy</button>
+                                                <button type="button" class="btn btn-danger" data-dismiss="modal">Hủy</button>
                                             </div>
                                         </form>
                                     </div>
@@ -228,7 +228,7 @@
                     api_get_all_phong_ban(this, page);
                 }
                 else{
-                    api_get_danh_sach_phong_theo_bo_phan(this, id_bo_phan, page);
+                    api_get_danh_sach_phong_theo_bo_phan(this, this.phong_ban.id_bo_phan, page);
                 }
             },
             change_phong_ban: function () {
