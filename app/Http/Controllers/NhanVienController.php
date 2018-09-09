@@ -90,6 +90,10 @@ class NhanVienController extends Controller
         return $result;
     }
 
+    public function add_nhan_vien_thong_tin_lao_dong(Request $request) {
+
+    }
+
     public function upload_image(Request $request)
     {
         return $request->all();
