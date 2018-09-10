@@ -5,11 +5,19 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\nhan_vien;
 use App\nhan_vien_lao_dong;
+use App\nhan_vien_cong_viec_hien_tai;
 use Carbon\Carbon;
 use Intervention\Image\Facades\Image;
 
+
 class NhanVienController extends Controller
 {
+    public function get_all_thong_tin_nhan_vien()
+    {
+        $tt = nhan_vien::leftjoin('nhan_vien_lao_dong as ld', 'nhan_vien.id', '=', 'ld.nv_id')->paginate(10);
+        return $tt;
+    }
+
     public function get_all()
     {
         $nv = nhan_vien::orderby('id','desc')->paginate(10);
@@ -47,6 +55,16 @@ class NhanVienController extends Controller
         $nv->cc_thue_cap = $request->cc_thue_cap;
         $nv->avatar = $avatar;
         $nv->save();
+
+        $nv_id = nhan_vien::max('id');
+        $lao_dong = new nhan_vien_lao_dong();
+        $lao_dong->nv_id = $nv_id;
+        $lao_dong->save();
+
+        $cong_viec = new nhan_vien_cong_viec_hien_tai();
+        $cong_viec->nv_id = $nv_id;
+        $cong_viec->save();
+
         return 1;
     }
 
@@ -94,7 +112,8 @@ class NhanVienController extends Controller
     public function add_nhan_vien_thong_tin_lao_dong(Request $request) {
         $nv1 = nhan_vien_lao_dong::where('nv_id',$request->nv_id)->get();
         if(count($nv1) > 0){
-            $this->edit_nhan_vien_thong_tin_lao_dong($request);
+            $result = $this->edit_nhan_vien_thong_tin_lao_dong($request);
+            return $result;
         }
         else{
             $nv= new nhan_vien_lao_dong();
@@ -120,22 +139,23 @@ class NhanVienController extends Controller
     }
 
     public function edit_nhan_vien_thong_tin_lao_dong(Request $request) {
-        $nv = nhan_vien_lao_dong::find($request->nv_id);
-        $nv->vao_cty = $request->vao_cty;
-        $nv->thoi_viec = $request->thoi_viec;
-        $nv->nam = $request->nam;
-        $nv->thang = $request->ngay;
-        $nv->ngay = $request->vao_cty;
-        $nv->so_hdld = $request->so_hdld;
-        $nv->ngay_ky = $request->ngay_ky;
-        $nv->thoi_han = $request->thoi_han;
-        $nv->het_han = $request->het_han;
-        $nv->so_bhxh = $request->so_bhxh;
-        $nv->so_bhyt = $request->so_bhyt;
-        $nv->noi_kham = $request->noi_kham;
-        $nv->dia_chi_kham = $request->dia_chi_kham;
-        $nv->ghi_chu = $request->ghi_chu;
-        $nv->save();
+        $nv = nhan_vien_lao_dong::where('nv_id', $request->nv_id);
+        $nv->update([
+            'vao_cty' => $request->vao_cty,
+            'thoi_viec' => $request->thoi_viec,
+            'nam' => $request->nam,
+            'thang' => $request->ngay,
+            'ngay' => $request->vao_cty,
+            'so_hdld' => $request->so_hdld,
+            'ngay_ky' => $request->ngay_ky,
+            'thoi_han' => $request->thoi_han,
+            'het_han' => $request->het_han,
+            'so_bhxh' => $request->so_bhxh,
+            'so_bhyt' => $request->so_bhyt,
+            'noi_kham' => $request->noi_kham,
+            'dia_chi_kham' => $request->dia_chi_kham,
+            'ghi_chu' => $request->ghi_chu
+        ]);
         return 1;
     }
 
@@ -143,6 +163,47 @@ class NhanVienController extends Controller
     {
         $nv = nhan_vien_lao_dong::where('nv_id',$nv_id)->first();
         return json_encode($nv);
+    }
+
+    public function get_thong_tin_cong_viec_theo_nhan_vien($nv_id)
+    {
+        $cv = nhan_vien_cong_viec_hien_tai::where('nv_id', $nv_id)->paginate(10);
+        return $cv;
+    }
+
+    public function add_nhan_vien_thong_tin_cong_viec(Request $request)
+    {
+        $cv = nhan_vien_cong_viec_hien_tai::where('nv_id', $request->nv_id);
+        $cv->id_elpv            = $request->id_elpv;
+        $cv->nv_id              = $request->nv_id;
+        $cv->id_phong           = $request->id_phong;
+        $cv->id_vi_tri          = $request->id_vi_tri;
+        $cv->he_so              = $request->he_so;
+        $cv->luong_co_ban       = $request->luong_co_ban;
+        $cv->luong_htcv         = $request->luong_htcv;
+        $cv->thoi_gian_lam_viec = $request->thoi_gian_lam_viec;
+        $cv->tinh_trang         = $request->tinh_trang;
+        $cv->cham_cong          = $request->cham_cong;
+        $cv->ghi_chu            = $request->ghi_chu;
+        return 1;
+    }
+
+    public function edit_nhan_vien_thong_tin_cong_viec(Request $request)
+    {
+        $cv = nhan_vien_cong_viec_hien_tai::where('nv_id', $request->nv_id);
+        $cv->update([
+            'id_elpv'            => $request->id_elpv,
+            'id_phong'           => $request->id_phong,
+            'id_vi_tri'          => $request->id_vi_tri,
+            'he_so'              => $request->he_so,
+            'luong_co_ban'       => $request->luong_co_ban,
+            'luong_htcv'         => $request->luong_htcv,
+            'thoi_gian_lam_viec' => $request->thoi_gian_lam_viec,
+            'tinh_trang'         => $request->tinh_trang,
+            'cham_cong'          => $request->cham_cong,
+            'ghi_chu'            => $request->ghi_chu
+        ]);
+        return 1;
     }
 
     public function upload_image(Request $request)
@@ -160,5 +221,17 @@ class NhanVienController extends Controller
             return -1;
         }
 
+    }
+
+    public function search_thong_tin_nhan_vien(Request $request)
+    {
+        $nv = nhan_vien::where('ho_ten', 'LIKE', "%{$request->keyword}%")
+                ->orwhere('ma_nv', 'like', "%{$request->keyword}%")
+                ->orwhere('so_cmnd', 'like', "%{$request->keyword}%")
+                ->orwhere('di_dong_1', 'like', "%{$request->keyword}%")
+                ->orwhere('di_dong_1', 'like', "%{$request->keyword}%")
+                ->orwhere('di_dong_2', 'like', "%{$request->keyword}%")
+                ->paginate(10);
+        return $nv;
     }
 }

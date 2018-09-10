@@ -58,14 +58,24 @@ Route::group(['middleware' => 'jwt.auth'], function ($router) {
 
 // NHAN VIEN
 Route::group(['middleware' => 'jwt.auth'], function ($router) {
+    Route::get('get-nhan-vien-all-thong-tin', 'NhanVienController@get_all_thong_tin_nhan_vien');
     Route::get('nhan-vien', 'NhanVienController@get_all');
     Route::post('add-nhan-vien-thong-tin-ca-nhan', 'NhanVienController@add_nhan_vien_thong_tin_ca_nhan');
     Route::post('edit-nhan-vien-thong-tin-ca-nhan', 'NhanVienController@edit_nhan_vien_thong_tin_ca_nhan');
     Route::post('image-upload', 'NhanVienController@upload_image');
 
+//    Thong Tin Lao Dong
     Route::post('add-nhan-vien-thong-tin-lao-dong', 'NhanVienController@add_nhan_vien_thong_tin_lao_dong');
     Route::post('edit-nhan-vien-thong-tin-lao-dong', 'NhanVienController@edit_nhan_vien_thong_tin_lao_dong');
     Route::get('get-nhan-vien-thong-tin-lao-dong/{nv_id}', 'NhanVienController@get_thong_tin_lao_dong_theo_nhan_vien');
+
+//    Thong Tin Cong Viec
+    Route::get('get-nhan-vien-thong-tin-cong-viec/{nv_id}', 'NhanVienController@get_thong_tin_cong_viec_theo_nhan_vien');
+    Route::post('add-nhan-vien-thong-tin-cong-viec', 'NhanVienController@add_nhan_vien_thong_tin_cong_viec');
+    Route::post('add-nhan-vien-thong-tin-cong-viec', 'NhanVienController@edit_nhan_vien_thong_tin_cong_viec');
+
+//    Tim kiem
+    Route::post('search-thong-tin-nhan-vien', 'NhanVienController@search_thong_tin_nhan_vien');
 });
 
 // ================= HE THONG =====================
