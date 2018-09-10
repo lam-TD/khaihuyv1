@@ -151,3 +151,20 @@ export function api_add_nhan_vien_thong_tin_lao_dong(vm) {
             sweetalert(2, 'Lỗi không thực hiện được chức năng này!');
         })
 }
+
+export function api_search_thong_tin_nhan_vien(vm, page) {
+    axios({
+        method: 'GET',
+        url: 'api/search-thong-tin-nhan-vien/'+ vm.key_word +'?page=' + page,
+        headers: {'Authorization':'Bearer ' + vm.$store.state.currentUser.token}
+    })
+        .then((response) => {
+            vm.loading_dsnv = false;
+            vm.dsnhanvien = response.data.data;
+            vm.dsnhanvien_total = response.data.total;
+        })
+        .catch((error) => {
+            console.log(error);
+            this.flag = true;
+        })
+}

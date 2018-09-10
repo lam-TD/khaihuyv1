@@ -75,7 +75,7 @@ Route::group(['middleware' => 'jwt.auth'], function ($router) {
     Route::post('add-nhan-vien-thong-tin-cong-viec', 'NhanVienController@edit_nhan_vien_thong_tin_cong_viec');
 
 //    Tim kiem
-    Route::post('search-thong-tin-nhan-vien', 'NhanVienController@search_thong_tin_nhan_vien');
+    Route::get('search-thong-tin-nhan-vien/{keyword}', 'NhanVienController@search_thong_tin_nhan_vien');
 });
 
 // ================= HE THONG =====================

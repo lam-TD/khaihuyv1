@@ -6,8 +6,10 @@
                     <div class="row" style="margin-bottom: 15px;">
                         <div class="col-md-6">
                             <div class="form-group">
-                                <input type="text" id="timkiem" class="form-control" placeholder="Nhập từ khóa để tìm kiếm...">
-                                <button type="button" class="btn btn-info btn-sm btntimkiem" name="button">Tìm kiếm</button>
+                                <form @submit.prevent="submit_search_thong_tin_nhan_vien">
+                                    <input v-model="key_word" type="text" id="timkiem" class="form-control" placeholder="Nhập từ khóa để tìm kiếm...">
+                                    <button type="submit" class="btn btn-info btn-sm btntimkiem" name="button">Tìm kiếm</button>
+                                </form>
                             </div>
                         </div>
                         <div class="col-md-6">
@@ -400,6 +402,7 @@
     import {api_edit_nhan_vien_thong_tin_ca_nhan} from "./nhan_vien";
     import {api_add_nhan_vien_thong_tin_lao_dong} from "./nhan_vien";
     import {api_get_nhan_vien_thong_tin_lao_dong} from "./nhan_vien";
+    import {api_search_thong_tin_nhan_vien} from "./nhan_vien";
 
     export default {
         name: 'danhsachnhanvien',
@@ -417,6 +420,7 @@
         data(){
             return {
                 dsnhanvien: [],
+                key_word: '',
                 dsnhanvien_total: 0,
                 loading_dsnv: false,
                 flag: false,
@@ -571,6 +575,10 @@
             },
             submit_nhan_vien_thong_tin_cong_viec: function () {
 
+            },
+            submit_search_thong_tin_nhan_vien: function () {
+                this.loading_dsnv = true;
+                api_search_thong_tin_nhan_vien(this, 1);
             }
         }
     }
