@@ -7,7 +7,7 @@
             <nav class="sidebar-nav active">
                 <ul id="sidebarnav">
                     <li>
-                        <router-link to="/dashboard" class="waves-effect waves-dark" aria-expanded="false"><i class="mdi mdi-gauge"></i>
+                        <router-link to="/dashboard" class="waves-effect waves-dark" aria-expanded="false"><i class="mdi mdi-gauge row-nhom-cn"></i>
                             <span class="hide-menu">Dashboard</span>
                         </router-link>
                     </li>
@@ -17,7 +17,7 @@
                             <span class="hide-menu">{{list.ten_nhom}}</span>
                         </a>
                         <ul aria-expanded="false" class="ul-chuc-nang collapse" :id="'ul' + key">
-                            <li v-for="cn in list_chuc_nang[key].chuc_nang">
+                            <li v-for="cn in list_chuc_nang[key].chuc_nang" @click="active_chuc_nang(cn.id)" :id="'cn' + cn.id" class="row-chuc-nang">
                                 <router-link :to="cn.link">{{cn.ten_chuc_nang}}</router-link>
                             </li>
                         </ul>
@@ -77,8 +77,14 @@
                 },4000);
             },
             active_nhom: function (key) {
-                // $('.row-nhom-cn').removeClass()
-                // $('#mcn' + key).addClass("active");
+                $('.row-nhom-cn').removeClass("active");
+                $('.ul-chuc-nang').removeClass("in");
+                $('#mcn' + key).addClass("active");
+                $('#ul' + key).addClass("in");
+            },
+            active_chuc_nang: function (key) {
+                $('.row-chuc-nang').removeClass("active");
+                $('#cn' + key).addClass("active");
             }
         }
     }
