@@ -263,7 +263,18 @@
                                                                     <div class="row">
                                                                         <div class="form-group col-md-3">
                                                                             <label class="label-form">BPLV</label>
-                                                                            <input v-model="cong_viec.id_eplv" name="id_eplv" type="text" class="form-control form-control-sm" id="id_eplv" v-validate="'required'" :class="{'border-danger' : errors.has('id_eplv')}">
+                                                                            <div class="select-lam">
+                                                                                <input  v-model="cong_viec.id_bplv" id="id_bplv" name="id_eplv" type="text" class="form-control form-control-sm" v-validate="'required'" :class="{'border-danger' : errors.has('id_eplv')}">
+                                                                                <div class="body-select-lam" id="bplv">
+                                                                                    <ul>
+                                                                                        <li @click="show_select_lam(n,'id_bplv')" v-for="n in list_bo_phan">
+                                                                                            <span>VT-001</span>
+                                                                                            <span class="pull-right">{{n.ten_bo_phan}}</span>
+                                                                                        </li>
+                                                                                    </ul>
+                                                                                </div>
+                                                                            </div>
+
                                                                             <small v-show="errors.has('id_bplv')" class="help text-muted is-danger"></small>
                                                                         </div>
                                                                         <div class="form-group col-md-3">
@@ -272,7 +283,7 @@
                                                                         </div>
                                                                         <div class="form-group col-md-3">
                                                                             <label class="label-form">Phòng</label>
-                                                                            <input v-model="cong_viec.id_phong" readonly class="form-control form-control-sm" value="">
+                                                                            <input v-model="cong_viec.id_phong" class="form-control form-control-sm" value="">
                                                                         </div>
                                                                         <div class="form-group col-md-3">
                                                                             <label class="label-form"></label>
@@ -295,7 +306,8 @@
                                                                         </div>
                                                                         <div class="form-group col-md-3">
                                                                             <label class="label-form">Lương cơ bản</label>
-                                                                            <input v-model="cong_viec.luong_co_ban" name="luong_co_ban" type="text" class="form-control form-control-sm" id="luong_co_ban" placeholder="">
+                                                                            <!--<input v-model="cong_viec.luong_co_ban" name="luong_co_ban" type="text" class="form-control form-control-sm" id="luong_co_ban" placeholder="">-->
+                                                                            <vue-numeric v-model="cong_viec.luong_co_ban" class="form-control form-control-sm" separator=","></vue-numeric>
                                                                         </div>
 
                                                                         <div class="form-group col-md-3">
@@ -331,7 +343,7 @@
                                                                         <div class="form-group col-md-2">
                                                                             <label class="label-form"></label>
                                                                             <!--<button class="btn btn-success btn-sm">Lưu lại</button>-->
-                                                                            <input @click="" type="button" class="form-control form-control-sm btn btn-danger btn-sm btn-cong-viec-cancel" value="Hủy">
+                                                                            <input @click="flag_form_cong_viec = false" type="button" class="form-control form-control-sm btn btn-danger btn-sm btn-cong-viec-cancel" value="Hủy">
                                                                         </div>
                                                                     </div>
                                                                 </form>
@@ -341,6 +353,9 @@
                                                     </div>
                                                 </div>
                                                 <div v-if="!flag_form_cong_viec" class="row row-lao-dong">
+                                                    <div class="col-md-12">
+                                                        <h5>Danh sách công việc</h5>
+                                                    </div>
                                                     <div class="col-md-12">
                                                         <div class="card">
                                                             <div class="card-body">
@@ -357,7 +372,7 @@
                                                                         </div>
                                                                         <div class="form-group col-md-3">
                                                                             <label class="label-form">Phòng</label>
-                                                                            <input v-model="cong_viec.id_phong" readonly class="form-control form-control-sm" value="">
+                                                                            <input v-model="cong_viec.id_phong" class="form-control form-control-sm" value="">
                                                                         </div>
                                                                         <div class="form-group col-md-3">
                                                                             <label class="label-form"></label>
@@ -434,6 +449,7 @@
                             <thead>
                                 <tr style="border-top: 1px solid #ddd;">
                                     <th class="text-center">#</th>
+                                    <th class="text-center">TT</th>
                                     <th style="">Mã</th>
                                     <th style="">Tên nhân viên</th>
                                     <th>G/T</th>
@@ -450,18 +466,20 @@
                                     <th>MST CN</th>
                                     <th>Ngày cấp</th>
                                     <th>Nơi cấp</th>
+                                    <th class="text-center">Trạng thái</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <tr v-if="loading_dsnv"><td colspan="17" class=""><b><i class="fa fa-spin fa-spinner"></i> Đang tải danh sách...</b></td></tr>
                                 <tr v-if="flag"><td colspan="17" class=""><b class="error_load_nv">Lỗi không tải được danh sách vui lòng tải lại trang...</b></td></tr>
-                                <tr v-if="dsnhanvien.length>0" v-for="n in dsnhanvien">
+                                <tr v-if="dsnhanvien.length>0" v-for="(n, index) in dsnhanvien">
                                     <td class="text-nowrap">
                                         <button @click="_nhan_vien('edit', n)" data-toggle="modal" data-target="#modal_nv_tt_ca_nhan" class="btn btn-success btn-sm" title="Cập nhật thông tin cá nhân"> <i class="fa fa-edit"></i> </button>
                                         <button @click="_lao_dong(n)" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#modal_nv_tt_lao_dong" title="Thông tin lao động"><i class="fa fa-address-book-o"></i></button>
                                         <button class="btn btn-info btn-sm" data-toggle="modal" data-target="#modal_nv_tt_cong_viec" title="Thông tin công việc hiện tại"><i class="fa fa-id-card-o"></i></button>
                                         <button @click="delete_all_thong_tin_nv(n.id)" class="btn btn-danger btn-sm" title="Xóa"> <i class="fa fa-trash-o"></i> </button>
                                     </td>
+                                    <td class="text-center">{{index + 1}}</td>
                                     <td style="width:100px;">{{n.ma_nv}}</td>
                                     <td>{{n.ho_ten}}</td>
                                     <td><span v-if="n.gioi_tinh">Nam</span><span v-else>Nữ</span></td>
@@ -478,6 +496,7 @@
                                     <td>{{n.mst_cn}}</td>
                                     <td>{{n.mst_cn_noi_cap}}</td>
                                     <td class="hidden-text">{{n.cc_thue_cap}}</td>
+                                    <td class="text-center">Chính thức</td>
                                 </tr>
                             </tbody>
                         </table>
@@ -502,6 +521,8 @@
     import {api_get_nhan_vien_thong_tin_lao_dong} from "./nhan_vien";
     import {api_search_thong_tin_nhan_vien} from "./nhan_vien";
     import {api_delete_all_thong_tin_nhan_vien} from "./nhan_vien";
+
+    import {api_get_all_bo_phan} from "../bophan/bo_phan";
 
     export default {
         name: 'danhsachnhanvien',
@@ -581,10 +602,16 @@
                     cham_cong: '',
                     ghi_chu: ''
                 },
-                flag_form_cong_viec: false
+                flag_form_cong_viec: false,
+                list_bo_phan: [],
+                list_phong_ban: [],
+                list_vi_tri: []
             }
         },
         methods: {
+            show_select_lam: function (data_select, id_select) {
+                $('#' + id_select).val(data_select.ten_bo_phan);
+            },
             only_number_input: function (evt) {
                 evt = (evt) ? evt : window.event;
                 var charCode = (evt.which) ? evt.which : evt.keyCode;
@@ -718,10 +745,8 @@
                 api_add_nhan_vien_thong_tin_lao_dong(this);
             },
             _cong_viec_show_hide: function (state) {
-                console.log(state);
-                console.log(this.flag_form_cong_viec);
                 this.flag_form_cong_viec = true;
-                console.log('flag' + this.flag_form_cong_viec);
+                api_get_all_bo_phan(this);
             },
             submit_nhan_vien_thong_tin_cong_viec: function (id) {
                 console.log("Dang submit day" + id);
@@ -857,6 +882,48 @@
 
     .btn-cong-viec-cancel {
         color: #fff;
+    }
+
+    .select-lam {
+        position: relative !important;
+    }
+    .select-lam:hover .body-select-lam {
+        display: block;
+    }
+
+    .body-select-lam {
+        position: absolute;
+        top: 33px;
+        left: 0;
+        width: 100%;
+        z-index: 200;
+        max-height: 200px;
+        overflow-y: auto;
+        display: none;
+        transition: ease;
+    }
+
+    .body-select-lam ul {
+        padding: 0;
+        border: 1px solid #ddddff;
+        background-color: #fff;
+        font-size: 13px;
+        color: black;
+        font-weight: 500;
+    }
+
+    .body-select-lam ul li {
+        list-style-type: none;
+        padding: 5px;
+        cursor: pointer;
+    }
+
+    .body-select-lam ul li:hover {
+        background-color: #ddd;
+    }
+
+    .active-select-lamv {
+        display: block;
     }
 
 </style>

@@ -58,12 +58,10 @@
                                         <table class="table table-hover">
                                             <thead>
                                             <tr style="border-top: 1px solid #ddd">
+                                                <th class="text-left">#</th>
                                                 <th>Mã vị trí</th>
                                                 <th>Tên vị trí</th>
                                                 <th>Diễn giải</th>
-                                                <!--<th>Ngày tạo</th>-->
-                                                <th class="text-center">Ẩn hiện</th>
-                                                <th class="text-center">#</th>
                                             </tr>
                                             </thead>
                                             <tbody class="body-table loading-item">
@@ -74,12 +72,7 @@
                                                 <td class="text-center" colspan="6"><b><i>Chưa có vị trí</i></b></td>
                                             </tr>
                                             <tr v-else-if="list_vi_tri.length > 0" v-for="n in list_vi_tri" :id="'n' + n.id" class="row-nhom" @click="click_vi_tri(n)">
-                                                <td>{{n.ma_vi_tri}}</td>
-                                                <td>{{n.ten_vi_tri}}</td>
-                                                <td>{{n.dien_giai}}</td>
-                                                <!--<td>{{n.created_at}}</td>-->
-                                                <td class="text-center">Hiện</td>
-                                                <td class="text-right" style="padding-right: 0">
+                                                <td class="text-left" style="padding-right: 0">
                                                     <button @click="_vi_tri('edit',n)" id="edit_nhom" type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#myModal">
                                                         <i class="fa fa-edit"></i> Sửa
                                                     </button>
@@ -87,6 +80,9 @@
                                                         <i class="fa fa-trash"></i> Xóa
                                                     </button>
                                                 </td>
+                                                <td>{{n.ma_vi_tri}}</td>
+                                                <td>{{n.ten_vi_tri}}</td>
+                                                <td>{{n.dien_giai}}</td>
                                             </tr>
                                             </tbody>
                                         </table>

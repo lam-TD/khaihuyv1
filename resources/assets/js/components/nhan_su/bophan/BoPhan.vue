@@ -51,11 +51,11 @@
                                         <table class="table table-hover">
                                             <thead>
                                             <tr style="border-top: 1px solid #ddd">
+                                                <th class="text-left">#</th>
                                                 <th>Mã bộ phận</th>
                                                 <th>Tên bộ phận</th>
                                                 <th>Diễn giải</th>
                                                 <!--<th>Ngày tạo</th>-->
-                                                <th class="text-center">#</th>
                                             </tr>
                                             </thead>
                                             <tbody class="body-table loading-item">
@@ -63,11 +63,7 @@
                                                 <td class="text-center" colspan="6"><b><i>Loading...</i></b></td>
                                             </tr>
                                             <tr v-for="n in list_bo_phan" :id="'n' + n.id" class="row-nhom" @click="click_bo_phan(n)">
-                                                <td>{{n.ma_bo_phan}}</td>
-                                                <td>{{n.ten_bo_phan}}</td>
-                                                <td>{{n.dien_giai}}</td>
-                                                <!--<td>{{n.created_at}}</td>-->
-                                                <td class="text-center" style="padding-right: 0">
+                                                <td class="text-left" style="padding-right: 0">
                                                     <button @click="_bo_phan('edit',n)" id="edit_nhom" type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#myModal">
                                                         <i class="fa fa-edit"></i> Sửa
                                                     </button>
@@ -75,6 +71,10 @@
                                                         <i class="fa fa-trash"></i> Xóa
                                                     </button>
                                                 </td>
+                                                <td>{{n.ma_bo_phan}}</td>
+                                                <td>{{n.ten_bo_phan}}</td>
+                                                <td>{{n.dien_giai}}</td>
+                                                <!--<td>{{n.created_at}}</td>-->
                                             </tr>
                                             </tbody>
                                         </table>
