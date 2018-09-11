@@ -71,7 +71,7 @@ class NhanVienController extends Controller
     public function edit_nhan_vien_thong_tin_ca_nhan(Request $request) {
         $avatar = '';
         try{
-            if($request->get('image'))
+            if($request->get('image') != null)
             {
                 $image = $request->get('image');
                 $name = time().'.' . explode('/', explode(':', substr($image, 0, strpos($image, ';')))[1])[1];
@@ -97,7 +97,7 @@ class NhanVienController extends Controller
         $nv->mst_cn = $request->mst_cn;
         $nv->mst_cn_noi_cap = $request->mst_cn_noi_cap;
         $nv->cc_thue_cap = $request->cc_thue_cap;
-        $nv->avatar = $avatar;
+        ($avatar == '') ? $avatar = '' : $nv->avatar = $avatar;
         $nv->save();
         return 1;
     }

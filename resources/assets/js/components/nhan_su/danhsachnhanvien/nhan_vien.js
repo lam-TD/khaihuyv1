@@ -112,6 +112,7 @@ export function api_edit_nhan_vien_thong_tin_ca_nhan(vm) {
     })
         .then((response) => {
             if(response.data == 1){
+                vm.nhan_vien.image = null;
                 vm.flag_xu_ly_tt_ca_nhan = true;
                 vm.un_change_bnt_save('save');
                 sweetalert(1, 'Cập nhật thành công!');

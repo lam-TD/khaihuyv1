@@ -31,8 +31,9 @@
                                                         <div class="row">
                                                             <div class="form-group col-md-3">
                                                                 <label class="label-form">Mã NV</label>
-                                                                <input :disabled="flag_input_nhan_vien_tt" v-model="nhan_vien.ma_nv" name="txtma_nv" type="text" class="form-control form-control-sm" id="manv" v-validate="'required'" :class="{'border-danger' : errors.has('txtma_nv')}">
-                                                                <small v-show="errors.has('txtma_nv')" class="help text-muted is-danger">Vui lòng nhập mã nhân viên</small>
+                                                                <input :disabled="flag_input_nhan_vien_tt" v-model="nhan_vien.ma_nv" @input="validate_ma_nv" name="txtma_nv" type="text" class="form-control form-control-sm" id="manv" v-validate="'required'" :class="{'border-danger' : errors.has('txtma_nv')}">
+                                                                <small v-show="errors.has('txtma_nv')" class="help text-muted is-danger">Vui lòng nhập mã NV</small>
+                                                                <small v-if="flag_input_ma_nv" class="help text-muted is-danger">Mã NV phải có 7 ký tự, bắt đầu bằng KH</small>
                                                             </div>
                                                             <div class="form-group col-md-6">
                                                                 <label class="label-form">Họ tên</label>
@@ -52,7 +53,7 @@
                                                             </div>
                                                             <div class="form-group col-md-4">
                                                                 <label class="label-form">Ngày sinh</label>
-                                                                <input v-model="nhan_vien.ngay_sinh" type="text" class="form-control form-control-sm" id="sss" placeholder="">
+                                                                <input v-model="nhan_vien.ngay_sinh" type="date" class="form-control form-control-sm" id="sss" placeholder="">
                                                             </div>
                                                             <div class="form-group col-md-3">
                                                                 <label class="label-form">Quốc tịch</label>
@@ -75,14 +76,14 @@
                                                         <div class="row">
                                                             <div class="form-group col-md-3">
                                                                 <label class="label-form">Số CMND</label>
-                                                                <input v-model="nhan_vien.so_cmnd" name="txtsocmnd" type="text" class="form-control form-control-sm" id="txtsocmnd" v-validate="'required'" :class="{'border-danger' : errors.has('txtsocmnd')}">
+                                                                <input v-model="nhan_vien.so_cmnd" v-on:keypress="only_number_input(event)" name="txtsocmnd" type="text" class="form-control form-control-sm" id="txtsocmnd" v-validate="'required'" :class="{'border-danger' : errors.has('txtsocmnd')}">
                                                                 <small v-show="errors.has('txtsocmnd')" class="help text-muted is-danger">Vui lòng nhập số CMND</small>
                                                             </div>
-                                                            <div class="form-group col-md-6">
+                                                            <div class="form-group col-md-4">
                                                                 <label class="label-form">Ngày cấp</label>
-                                                                <input v-model="nhan_vien.scmnd_ngay_cap" name="scmnd_ngay_cap" type="text" class="form-control form-control-sm" id="scmnd_ngay_cap" placeholder="">
+                                                                <input v-model="nhan_vien.scmnd_ngay_cap" name="scmnd_ngay_cap" type="date" class="form-control form-control-sm" id="scmnd_ngay_cap" placeholder="">
                                                             </div>
-                                                            <div class="form-group col-md-3">
+                                                            <div class="form-group col-md-5">
                                                                 <label class="label-form">Nơi cấp</label>
                                                                 <input v-model="nhan_vien.scmnd_noi_cap" name="scmnd_noi_cap" type="text" class="form-control form-control-sm" id="scmnd_noi_cap" placeholder="">
                                                             </div>
@@ -96,15 +97,15 @@
                                                                 <textarea v-model="nhan_vien.thuong_tru" name="txtthuongtru" class="form-control form-control-sm" id="txtthuongtru"></textarea>
                                                             </div>
 
-                                                            <div class="form-group col-md-3">
+                                                            <div class="form-group col-md-4">
                                                                 <label class="label-form">ĐT bàn</label>
                                                                 <input v-model="nhan_vien.dt_ban" name="txtdtban" type="text" class="form-control form-control-sm" id="txtdtban" placeholder="">
                                                             </div>
-                                                            <div class="form-group col-md-6">
+                                                            <div class="form-group col-md-4">
                                                                 <label class="label-form">Di động 1</label>
                                                                 <input v-model="nhan_vien.di_dong_1" type="text" name="txtdd1" class="form-control form-control-sm" id="txtdd1" placeholder="">
                                                             </div>
-                                                            <div class="form-group col-md-3">
+                                                            <div class="form-group col-md-4">
                                                                 <label class="label-form">Di động 2</label>
                                                                 <input v-model="nhan_vien.di_dong_2" type="text" class="form-control form-control-sm" name="txtdd2" id="txtdd2" placeholder="">
                                                             </div>
@@ -127,7 +128,7 @@
                                             </div>
                                             <div class="modal-footer">
                                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Hủy</button>
-                                                <button id="save" type="submit" class="btn btn-primary">
+                                                <button :disabled="flag_disabled_tt_ca_nhan" id="save" type="submit" class="btn btn-primary">
                                                     <span v-if="flag_xu_ly_tt_ca_nhan"><i class="fa fa-save"></i> Lưu lại</span>
                                                     <span v-if="!flag_xu_ly_tt_ca_nhan"><i class="fa fa-spin fa-spinner"></i> Đang xử lý...</span>
                                                 </button>
@@ -263,7 +264,7 @@
                                                                         <div class="form-group col-md-3">
                                                                             <label class="label-form">BPLV</label>
                                                                             <input v-model="cong_viec.id_eplv" name="id_eplv" type="text" class="form-control form-control-sm" id="id_eplv" v-validate="'required'" :class="{'border-danger' : errors.has('id_eplv')}">
-                                                                            <small v-show="errors.has('id_bplv')" class="help text-muted is-danger">Vui lòng nhập số CMND</small>
+                                                                            <small v-show="errors.has('id_bplv')" class="help text-muted is-danger"></small>
                                                                         </div>
                                                                         <div class="form-group col-md-3">
                                                                             <label class="label-form"></label>
@@ -289,7 +290,7 @@
 
                                                                         <div class="form-group col-md-3">
                                                                             <label class="label-form">Hệ số lương</label>
-                                                                            <input v-model="cong_viec.he_so" name="he_so" type="text" class="form-control form-control-sm" id="he_so" v-validate="'required'" :class="{'border-danger' : errors.has('he_so')}">
+                                                                            <input v-model="cong_viec.he_so" v-on:keypress="only_number_input(event)" name="he_so" type="text" class="form-control form-control-sm" id="he_so" v-validate="'required'" :class="{'border-danger' : errors.has('he_so')}">
                                                                             <!--<small v-show="errors.has('txtvaocty')" class="help text-muted is-danger">Vui lòng nhập số CMND</small>-->
                                                                         </div>
                                                                         <div class="form-group col-md-3">
@@ -299,7 +300,8 @@
 
                                                                         <div class="form-group col-md-3">
                                                                             <label class="label-form">Lương CVHT</label>
-                                                                            <input v-model="cong_viec.luong_cvht" name="luong_cvht" type="text" class="form-control form-control-sm" id="luong_cvht" v-validate="'required'" :class="{'border-danger' : errors.has('luong_cvht')}">
+                                                                            <vue-numeric class="form-control form-control-sm" separator="," v-model="cong_viec.luong_cvht"></vue-numeric>
+                                                                            <!--<input v-model="cong_viec.luong_cvht" name="luong_cvht" type="text" class="form-control form-control-sm" id="luong_cvht" v-validate="'required'" :class="{'border-danger' : errors.has('luong_cvht')}">-->
                                                                             <!--<small v-show="errors.has('txtvaocty')" class="help text-muted is-danger">Vui lòng nhập số CMND</small>-->
                                                                         </div>
                                                                         <div class="form-group col-md-3">
@@ -345,7 +347,7 @@
                                                                 <form @submit.prevent="submit_nhan_vien_thong_tin_cong_viec('1')">
                                                                     <div class="row">
                                                                         <div class="form-group col-md-3">
-                                                                            <label class="label-form">BPLV aaaaaa</label>
+                                                                            <label class="label-form">BPLV</label>
                                                                             <input v-model="cong_viec.id_eplv" name="id_eplv" type="text" class="form-control form-control-sm" v-validate="'required'" :class="{'border-danger' : errors.has('id_eplv')}">
                                                                             <small v-show="errors.has('id_bplv')" class="help text-muted is-danger">Vui lòng nhập số CMND</small>
                                                                         </div>
@@ -515,12 +517,14 @@
         },
         data(){
             return {
+                flag_input_ma_nv: false,
                 dsnhanvien: [],
                 key_word: '',
                 dsnhanvien_total: 0,
                 loading_dsnv: false,
                 flag: false,
                 flag_submit_nhan_vien_tt_ca_nhan: true,
+                flag_disabled_tt_ca_nhan: false,
                 flag_input_nhan_vien_tt: false,
                 flag_xu_ly_tt_ca_nhan: true,
                 nhan_vien: {
@@ -580,6 +584,28 @@
             }
         },
         methods: {
+            only_number_input: function (evt) {
+                evt = (evt) ? evt : window.event;
+                var charCode = (evt.which) ? evt.which : evt.keyCode;
+                if ((charCode > 31 && (charCode < 48 || charCode > 57)) && charCode !== 46) {
+                    evt.preventDefault();;
+                } else {
+                    return true;
+                }
+            },
+            validate_ma_nv: function () {
+                console.log(this.nhan_vien.ma_nv);
+                var length_nv = this.nhan_vien.ma_nv.length;
+                var value_nv  = this.nhan_vien.ma_nv;
+                if((length_nv > 7 || length_nv < 7) || value_nv.indexOf('KH') == -1){
+                    this.flag_input_ma_nv = true;
+                    this.flag_disabled_tt_ca_nhan = true;
+                }
+                else{
+                    this.flag_input_ma_nv = false;
+                    this.flag_disabled_tt_ca_nhan = true;
+                }
+            },
             onFileChange: function (e) {
                 let files = e.target.files || e.dataTransfer.files;
                 if (!files.length) return;
@@ -608,10 +634,31 @@
             },
             _nhan_vien: function (state, nv= null) {
                 if(state == 'add') {
-                    // $('.row-nhom').removeClass("active-click-row");
                     this.flag_submit_nhan_vien_tt_ca_nhan = true;
                     this.flag_input_nhan_vien_tt = false;
-                    // this.phong_ban.id = this.phong_ban.ma_phong = this.phong_ban.ten_phong = this.phong_ban.dien_giai = '';
+                    $('#wizardPicturePreview').attr('src', 'https://cdn0.vox-cdn.com/images/verge/default-avatar.v9899025.gif').fadeIn('slow');
+                    this.nhan_vien = {
+                        id: 0,
+                        ma_nv: '',
+                        ho_ten: '',
+                        ngay_sinh: '',
+                        noi_sinh: '',
+                        quoc_tich: '',
+                        gioi_tinh: '',
+                        so_cmnd: '',
+                        scmnd_noi_cap: '',
+                        scmnd_ngay_cap: '',
+                        thuong_tru: '',
+                        tam_tru: '',
+                        di_dong_1: '',
+                        di_dong_2: '',
+                        dt_ban: '',
+                        mst_cn: '',
+                        mst_cn_noi_cap: '',
+                        cc_thue_cap: '',
+                        avatar: '',
+                        image: ''
+                    }
                 }
                 else {
                     this.nhan_vien = nv;

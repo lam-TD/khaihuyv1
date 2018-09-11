@@ -61,7 +61,7 @@
                                                 <th>Mã vị trí</th>
                                                 <th>Tên vị trí</th>
                                                 <th>Diễn giải</th>
-                                                <th>Ngày tạo</th>
+                                                <!--<th>Ngày tạo</th>-->
                                                 <th class="text-center">Ẩn hiện</th>
                                                 <th class="text-center">#</th>
                                             </tr>
@@ -77,7 +77,7 @@
                                                 <td>{{n.ma_vi_tri}}</td>
                                                 <td>{{n.ten_vi_tri}}</td>
                                                 <td>{{n.dien_giai}}</td>
-                                                <td>{{n.created_at}}</td>
+                                                <!--<td>{{n.created_at}}</td>-->
                                                 <td class="text-center">Hiện</td>
                                                 <td class="text-right" style="padding-right: 0">
                                                     <button @click="_vi_tri('edit',n)" id="edit_nhom" type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#myModal">

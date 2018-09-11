@@ -54,7 +54,7 @@
                                                 <th>Mã bộ phận</th>
                                                 <th>Tên bộ phận</th>
                                                 <th>Diễn giải</th>
-                                                <th>Ngày tạo</th>
+                                                <!--<th>Ngày tạo</th>-->
                                                 <th class="text-center">#</th>
                                             </tr>
                                             </thead>
@@ -66,7 +66,7 @@
                                                 <td>{{n.ma_bo_phan}}</td>
                                                 <td>{{n.ten_bo_phan}}</td>
                                                 <td>{{n.dien_giai}}</td>
-                                                <td>{{n.created_at}}</td>
+                                                <!--<td>{{n.created_at}}</td>-->
                                                 <td class="text-center" style="padding-right: 0">
                                                     <button @click="_bo_phan('edit',n)" id="edit_nhom" type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#myModal">
                                                         <i class="fa fa-edit"></i> Sửa
