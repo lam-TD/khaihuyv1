@@ -244,86 +244,182 @@
                                 <div class="modal-dialog modal-lg" role="document">
                                     <div class="modal-content">
                                         <div class="modal-header">
-                                            <h4 class="modal-title" id="exampleModalLabe3"><b>Thông tin công việc</b></h4>
+                                            <h4 style="margin-right: 10px;" class="modal-title" id="exampleModalLabe3"><b>Thông tin công việc</b></h4>
+
+                                            <button v-on:click="_cong_viec_show_hide('add')" class="btn btn-success btn-sm">Thêm mới</button>
+
                                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                 <span aria-hidden="true">&times;</span>
                                             </button>
                                         </div>
-                                        <form @submit.prevent="submit_nhan_vien_thong_tin_cong_viec" id="form_nhan_vien_thong_tin_cong_viec">
-                                            <div v-loading="false" class="modal-body modal-lao-dong">
-                                                <div class="row">
-                                                    <div class="form-group col-md-3">
-                                                        <label class="label-form">EPLV</label>
-                                                        <input v-model="cong_viec.id_eplv" name="id_eplv" type="text" class="form-control form-control-sm" id="id_eplv" v-validate="'required'" :class="{'border-danger' : errors.has('id_eplv')}">
-                                                        <small v-show="errors.has('id_eplv')" class="help text-muted is-danger">Vui lòng nhập số CMND</small>
-                                                    </div>
-                                                    <div class="form-group col-md-3">
-                                                        <label class="label-form"></label>
-                                                        <input name="scmnd_ngay_cap" type="text" class="form-control form-control-sm" id="1ss" placeholder="">
-                                                    </div>
-                                                    <div class="form-group col-md-3">
-                                                        <label class="label-form">Phòng</label>
-                                                        <input v-model="cong_viec.id_phong" readonly class="form-control form-control-sm" value="">
-                                                    </div>
-                                                    <div class="form-group col-md-3">
-                                                        <label class="label-form"></label>
-                                                        <input name="scmnd_noi_cap" type="text" class="form-control form-control-sm" id="121d" placeholder="">
-                                                    </div>
+                                        <form id="form_nhan_vien_thong_tin_cong_viec">
+                                            <div v-loading="false" class="modal-body modal-cong-viec">
+                                                <div v-if="flag_form_cong_viec" class="row">
+                                                    <div class="col-md-12">
+                                                        <div class="card">
+                                                            <div class="card-body">
+                                                                <form @submit.prevent="submit_nhan_vien_thong_tin_cong_viec('2')">
+                                                                    <div class="row">
+                                                                        <div class="form-group col-md-3">
+                                                                            <label class="label-form">BPLV</label>
+                                                                            <input v-model="cong_viec.id_eplv" name="id_eplv" type="text" class="form-control form-control-sm" id="id_eplv" v-validate="'required'" :class="{'border-danger' : errors.has('id_eplv')}">
+                                                                            <small v-show="errors.has('id_bplv')" class="help text-muted is-danger">Vui lòng nhập số CMND</small>
+                                                                        </div>
+                                                                        <div class="form-group col-md-3">
+                                                                            <label class="label-form"></label>
+                                                                            <input name="scmnd_ngay_cap" type="text" class="form-control form-control-sm" id="1ss" placeholder="">
+                                                                        </div>
+                                                                        <div class="form-group col-md-3">
+                                                                            <label class="label-form">Phòng</label>
+                                                                            <input v-model="cong_viec.id_phong" readonly class="form-control form-control-sm" value="">
+                                                                        </div>
+                                                                        <div class="form-group col-md-3">
+                                                                            <label class="label-form"></label>
+                                                                            <input name="scmnd_noi_cap" type="text" class="form-control form-control-sm" id="121d" placeholder="">
+                                                                        </div>
 
-                                                    <div class="form-group col-md-6">
-                                                        <label class="label-form">Vị trí</label>
-                                                        <input v-model="cong_viec.id_vi_tri" name="id_vi_tri" type="text" class="form-control form-control-sm" id="id_vi_tri" placeholder="">
-                                                    </div>
-                                                    <div class="form-group col-md-6">
-                                                        <label class="label-form"></label>
-                                                        <input name="scmnd_noi_cap" type="text" class="form-control form-control-sm" id="5fv6" placeholder="">
-                                                    </div>
+                                                                        <div class="form-group col-md-3">
+                                                                            <label class="label-form">Vị trí</label>
+                                                                            <input v-model="cong_viec.id_vi_tri" name="id_vi_tri" type="text" class="form-control form-control-sm" id="id_vi_tri" placeholder="">
+                                                                        </div>
+                                                                        <div class="form-group col-md-3">
+                                                                            <label class="label-form"></label>
+                                                                            <input name="scmnd_noi_cap" type="text" class="form-control form-control-sm" id="5fv6" placeholder="">
+                                                                        </div>
 
-                                                    <div class="form-group col-md-6">
-                                                        <label class="label-form">Hệ số lương</label>
-                                                        <input v-model="cong_viec.he_so" name="he_so" type="text" class="form-control form-control-sm" id="he_so" v-validate="'required'" :class="{'border-danger' : errors.has('he_so')}">
-                                                        <!--<small v-show="errors.has('txtvaocty')" class="help text-muted is-danger">Vui lòng nhập số CMND</small>-->
-                                                    </div>
-                                                    <div class="form-group col-md-6">
-                                                        <label class="label-form">Lương cơ bản</label>
-                                                        <input v-model="cong_viec.luong_co_ban" name="luong_co_ban" type="text" class="form-control form-control-sm" id="luong_co_ban" placeholder="">
-                                                    </div>
+                                                                        <div class="form-group col-md-3">
+                                                                            <label class="label-form">Hệ số lương</label>
+                                                                            <input v-model="cong_viec.he_so" name="he_so" type="text" class="form-control form-control-sm" id="he_so" v-validate="'required'" :class="{'border-danger' : errors.has('he_so')}">
+                                                                            <!--<small v-show="errors.has('txtvaocty')" class="help text-muted is-danger">Vui lòng nhập số CMND</small>-->
+                                                                        </div>
+                                                                        <div class="form-group col-md-3">
+                                                                            <label class="label-form">Lương cơ bản</label>
+                                                                            <input v-model="cong_viec.luong_co_ban" name="luong_co_ban" type="text" class="form-control form-control-sm" id="luong_co_ban" placeholder="">
+                                                                        </div>
 
-                                                    <div class="form-group col-md-6">
-                                                        <label class="label-form">Lương CVHT</label>
-                                                        <input v-model="cong_viec.luong_cvht" name="luong_cvht" type="text" class="form-control form-control-sm" id="luong_cvht" v-validate="'required'" :class="{'border-danger' : errors.has('luong_cvht')}">
-                                                        <!--<small v-show="errors.has('txtvaocty')" class="help text-muted is-danger">Vui lòng nhập số CMND</small>-->
-                                                    </div>
-                                                    <div class="form-group col-md-6">
-                                                        <label class="label-form">Thời gian làm việc</label>
-                                                        <input v-model="cong_viec.thoi_gian_lam_viec" name="scmnd_thoi_gian_lam_viecngay_cap" type="text" class="form-control form-control-sm" id="thoi_gian_lam_viec" placeholder="">
-                                                    </div>
+                                                                        <div class="form-group col-md-3">
+                                                                            <label class="label-form">Lương CVHT</label>
+                                                                            <input v-model="cong_viec.luong_cvht" name="luong_cvht" type="text" class="form-control form-control-sm" id="luong_cvht" v-validate="'required'" :class="{'border-danger' : errors.has('luong_cvht')}">
+                                                                            <!--<small v-show="errors.has('txtvaocty')" class="help text-muted is-danger">Vui lòng nhập số CMND</small>-->
+                                                                        </div>
+                                                                        <div class="form-group col-md-3">
+                                                                            <label class="label-form">Thời gian làm việc</label>
+                                                                            <input v-model="cong_viec.thoi_gian_lam_viec" name="scmnd_thoi_gian_lam_viecngay_cap" type="text" class="form-control form-control-sm" id="thoi_gian_lam_viec" placeholder="">
+                                                                        </div>
 
-                                                    <div class="form-group col-md-6">
-                                                        <label class="label-form">Tình trạng</label>
-                                                        <input v-model="cong_viec.tinh_trang" name="txtvaocty" type="text" class="form-control form-control-sm" id="txtvareeocty" v-validate="'required'" :class="{'border-danger' : errors.has('txtvaocty')}">
-                                                        <!--<small v-show="errors.has('txtvaocty')" class="help text-muted is-danger">Vui lòng nhập số CMND</small>-->
-                                                    </div>
-                                                    <div class="form-group col-md-6">
-                                                        <label class="label-form">Chấm công</label>
-                                                        <input v-model="cong_viec.cham_cong" name="cham_cong" type="text" class="form-control form-control-sm" id="cham_cong" placeholder="">
-                                                    </div>
+                                                                        <div class="form-group col-md-3">
+                                                                            <label class="label-form">Tình trạng</label>
+                                                                            <input v-model="cong_viec.tinh_trang" name="tinh_trang" type="text" class="form-control form-control-sm" id="tinh_trang" v-validate="'required'" :class="{'border-danger' : errors.has('tinh_trang')}">
+                                                                            <!--<small v-show="errors.has('txtvaocty')" class="help text-muted is-danger">Vui lòng nhập số CMND</small>-->
+                                                                        </div>
+                                                                        <div class="form-group col-md-3">
+                                                                            <label class="label-form">Chấm công</label>
+                                                                            <input v-model="cong_viec.cham_cong" name="cham_cong" type="text" class="form-control form-control-sm" id="cham_cong" placeholder="">
+                                                                        </div>
 
-                                                    <div class="form-group col-md-12">
-                                                        <label class="label-form">Ghi chú</label>
-                                                        <input v-model="cong_viec.ghi_chu" name="ghi_chu" type="text" class="form-control form-control-sm" id="ghi_chu">
+                                                                        <div class="form-group col-md-7">
+                                                                            <label class="label-form">Ghi chú</label>
+                                                                            <input v-model="cong_viec.ghi_chu" name="ghi_chu" type="text" class="form-control form-control-sm" id="ghi_chu">
+                                                                        </div>
+                                                                        <div class="form-group col-md-3">
+                                                                            <label class="label-form"></label>
+                                                                            <!--<button class="btn btn-success btn-sm">Lưu lại</button>-->
+                                                                            <input type="submit" class="form-control form-control-sm btn-cong-viec-sub btn btn-primary btn-sm" value="Lưu lại">
+                                                                        </div>
+                                                                        <div class="form-group col-md-2">
+                                                                            <label class="label-form"></label>
+                                                                            <!--<button class="btn btn-success btn-sm">Lưu lại</button>-->
+                                                                            <input @click="" type="button" class="form-control form-control-sm btn btn-danger btn-sm btn-cong-viec-cancel" value="Hủy">
+                                                                        </div>
+                                                                    </div>
+                                                                </form>
+
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div v-if="!flag_form_cong_viec" class="row row-lao-dong">
+                                                    <div class="col-md-12">
+                                                        <div class="card">
+                                                            <div class="card-body">
+                                                                <form @submit.prevent="submit_nhan_vien_thong_tin_cong_viec('1')">
+                                                                    <div class="row">
+                                                                        <div class="form-group col-md-3">
+                                                                            <label class="label-form">BPLV aaaaaa</label>
+                                                                            <input v-model="cong_viec.id_eplv" name="id_eplv" type="text" class="form-control form-control-sm" v-validate="'required'" :class="{'border-danger' : errors.has('id_eplv')}">
+                                                                            <small v-show="errors.has('id_bplv')" class="help text-muted is-danger">Vui lòng nhập số CMND</small>
+                                                                        </div>
+                                                                        <div class="form-group col-md-3">
+                                                                            <label class="label-form"></label>
+                                                                            <input name="scmnd_ngay_cap" type="text" class="form-control form-control-sm" placeholder="">
+                                                                        </div>
+                                                                        <div class="form-group col-md-3">
+                                                                            <label class="label-form">Phòng</label>
+                                                                            <input v-model="cong_viec.id_phong" readonly class="form-control form-control-sm" value="">
+                                                                        </div>
+                                                                        <div class="form-group col-md-3">
+                                                                            <label class="label-form"></label>
+                                                                            <input name="scmnd_noi_cap" type="text" class="form-control form-control-sm" placeholder="">
+                                                                        </div>
+
+                                                                        <div class="form-group col-md-3">
+                                                                            <label class="label-form">Vị trí</label>
+                                                                            <input v-model="cong_viec.id_vi_tri" name="id_vi_tri" type="text" class="form-control form-control-sm" placeholder="">
+                                                                        </div>
+                                                                        <div class="form-group col-md-3">
+                                                                            <label class="label-form"></label>
+                                                                            <input name="scmnd_noi_cap" type="text" class="form-control form-control-sm" placeholder="">
+                                                                        </div>
+
+                                                                        <div class="form-group col-md-3">
+                                                                            <label class="label-form">Hệ số lương</label>
+                                                                            <input v-model="cong_viec.he_so" name="he_so" type="text" class="form-control form-control-sm" v-validate="'required'" :class="{'border-danger' : errors.has('he_so')}">
+                                                                            <!--<small v-show="errors.has('txtvaocty')" class="help text-muted is-danger">Vui lòng nhập số CMND</small>-->
+                                                                        </div>
+                                                                        <div class="form-group col-md-3">
+                                                                            <label class="label-form">Lương cơ bản</label>
+                                                                            <input v-model="cong_viec.luong_co_ban" name="luong_co_ban" type="text" class="form-control form-control-sm" placeholder="">
+                                                                        </div>
+
+                                                                        <div class="form-group col-md-3">
+                                                                            <label class="label-form">Lương CVHT</label>
+                                                                            <input v-model="cong_viec.luong_cvht" name="luong_cvht" type="text" class="form-control form-control-sm" v-validate="'required'" :class="{'border-danger' : errors.has('luong_cvht')}">
+                                                                            <!--<small v-show="errors.has('txtvaocty')" class="help text-muted is-danger">Vui lòng nhập số CMND</small>-->
+                                                                        </div>
+                                                                        <div class="form-group col-md-3">
+                                                                            <label class="label-form">Thời gian làm việc</label>
+                                                                            <input v-model="cong_viec.thoi_gian_lam_viec" name="scmnd_thoi_gian_lam_viecngay_cap" type="text" class="form-control form-control-sm" placeholder="">
+                                                                        </div>
+
+                                                                        <div class="form-group col-md-3">
+                                                                            <label class="label-form">Tình trạng</label>
+                                                                            <input v-model="cong_viec.tinh_trang" name="tinh_trang" type="text" class="form-control form-control-sm" v-validate="'required'" :class="{'border-danger' : errors.has('tinh_trang')}">
+                                                                            <!--<small v-show="errors.has('txtvaocty')" class="help text-muted is-danger">Vui lòng nhập số CMND</small>-->
+                                                                        </div>
+                                                                        <div class="form-group col-md-3">
+                                                                            <label class="label-form">Chấm công</label>
+                                                                            <input v-model="cong_viec.cham_cong" name="cham_cong" type="text" class="form-control form-control-sm">
+                                                                        </div>
+
+                                                                        <div class="form-group col-md-9">
+                                                                            <label class="label-form">Ghi chú</label>
+                                                                            <input v-model="cong_viec.ghi_chu" name="ghi_chu" type="text" class="form-control form-control-sm">
+                                                                        </div>
+                                                                        <div class="form-group col-md-3">
+                                                                            <label class="label-form"></label>
+                                                                            <!--<button class="btn btn-success btn-sm">Lưu lại</button>-->
+                                                                            <input type="submit" class="form-control form-control-sm btn-cong-viec-sub btn btn-primary btn-sm" value="Lưu lại">
+                                                                        </div>
+                                                                    </div>
+                                                                </form>
+
+                                                            </div>
+                                                        </div>
                                                     </div>
 
                                                 </div>
                                             </div>
-                                            <div class="modal-footer">
-                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Hủy</button>
-                                                <button id="save3" type="submit" class="btn btn-primary">
-                                                    <span v-if="flag_xu_ly_tt_ca_nhan"><i class="fa fa-save"></i> Lưu lại</span>
-                                                    <span v-if="!flag_xu_ly_tt_ca_nhan"><i class="fa fa-spin fa-spinner"></i> Đang xử lý...</span>
-                                                </button>
-                                                <!--<button @click="upload_img" id="anh" type="" class="btn btn-primary">Lưu ảnh</button>-->
-                                            </div>
+
                                         </form>
                                     </div>
                                 </div>
@@ -361,7 +457,7 @@
                                     <td class="text-nowrap">
                                         <button @click="_nhan_vien('edit', n)" data-toggle="modal" data-target="#modal_nv_tt_ca_nhan" class="btn btn-success btn-sm" title="Cập nhật thông tin cá nhân"> <i class="fa fa-edit"></i> </button>
                                         <button @click="_lao_dong(n)" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#modal_nv_tt_lao_dong" title="Thông tin lao động"><i class="fa fa-address-book-o"></i></button>
-                                        <button @click="_cong_viec(n)"class="btn btn-info btn-sm" data-toggle="modal" data-target="#modal_nv_tt_cong_viec" title="Thông tin công việc hiện tại"><i class="fa fa-id-card-o"></i></button>
+                                        <button class="btn btn-info btn-sm" data-toggle="modal" data-target="#modal_nv_tt_cong_viec" title="Thông tin công việc hiện tại"><i class="fa fa-id-card-o"></i></button>
                                         <button class="btn btn-danger btn-sm" title="Xóa"> <i class="fa fa-trash-o"></i> </button>
                                     </td>
                                     <td style="width:100px;">{{n.ma_nv}}</td>
@@ -469,7 +565,7 @@
                 loading_lao_dong: true,
                 flag_xu_ly_tt_lao_dong: true,
                 cong_viec: {
-                    id_eplv: '',
+                    id_bplv: '',
                     id_phong: '',
                     id_vi_tri: '',
                     he_so: 0,
@@ -479,7 +575,8 @@
                     tinh_trang: '',
                     cham_cong: '',
                     ghi_chu: ''
-                }
+                },
+                flag_form_cong_viec: false
             }
         },
         methods: {
@@ -511,7 +608,6 @@
             },
             _nhan_vien: function (state, nv= null) {
                 if(state == 'add') {
-                    console.log('add');
                     // $('.row-nhom').removeClass("active-click-row");
                     this.flag_submit_nhan_vien_tt_ca_nhan = true;
                     this.flag_input_nhan_vien_tt = false;
@@ -570,11 +666,14 @@
                 this.change_bnt_save('save2');
                 api_add_nhan_vien_thong_tin_lao_dong(this);
             },
-            _cong_viec: function (nv) {
-
+            _cong_viec_show_hide: function (state) {
+                console.log(state);
+                console.log(this.flag_form_cong_viec);
+                this.flag_form_cong_viec = true;
+                console.log('flag' + this.flag_form_cong_viec);
             },
-            submit_nhan_vien_thong_tin_cong_viec: function () {
-
+            submit_nhan_vien_thong_tin_cong_viec: function (id) {
+                console.log("Dang submit day" + id);
             },
             submit_search_thong_tin_nhan_vien: function () {
                 this.loading_dsnv = true;
@@ -694,4 +793,19 @@
         top: 0;
         left: 0;
     }
+
+    .modal-cong-viec{
+        background-color: #ddddff;
+        max-height: 480px;
+        overflow: auto;
+    }
+
+    .btn-cong-viec-sub{
+        color: #fff;
+    }
+
+    .btn-cong-viec-cancel {
+        color: #fff;
+    }
+
 </style>

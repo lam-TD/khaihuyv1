@@ -11,12 +11,12 @@
                             <span class="hide-menu">Dashboard</span>
                         </router-link>
                     </li>
-                    <li v-for="(list, key) in list_chuc_nang">
+                    <li v-for="(list, key) in list_chuc_nang" @click="active_nhom(key)" :id="'mcn' + key" class="row-nhom-cn">
                         <a class="has-arrow waves-effect waves-dark" href="#" aria-expanded="false">
                             <i v-bind:class="list.icon"></i>
                             <span class="hide-menu">{{list.ten_nhom}}</span>
                         </a>
-                        <ul aria-expanded="false" class="collapse">
+                        <ul aria-expanded="false" class="ul-chuc-nang collapse" :id="'ul' + key">
                             <li v-for="cn in list_chuc_nang[key].chuc_nang">
                                 <router-link :to="cn.link">{{cn.ten_chuc_nang}}</router-link>
                             </li>
@@ -76,8 +76,9 @@
                     document.body.appendChild(custom);
                 },4000);
             },
-            beforeDestroy() {
-
+            active_nhom: function (key) {
+                // $('.row-nhom-cn').removeClass()
+                // $('#mcn' + key).addClass("active");
             }
         }
     }
