@@ -74,8 +74,11 @@ Route::group(['middleware' => 'jwt.auth'], function ($router) {
     Route::post('add-nhan-vien-thong-tin-cong-viec', 'NhanVienController@add_nhan_vien_thong_tin_cong_viec');
     Route::post('add-nhan-vien-thong-tin-cong-viec', 'NhanVienController@edit_nhan_vien_thong_tin_cong_viec');
 
-//    Tim kiem
+//    Tim Kiem
     Route::get('search-thong-tin-nhan-vien/{keyword}', 'NhanVienController@search_thong_tin_nhan_vien');
+
+//    Xoa All Thong Tin Nhan Vien
+    Route::get('delete-all-thong-tin-nhan-vien/{id_nhan_vien}', 'NhanVienController@delete_all_thong_tin_nhan_vien');
 });
 
 // ================= HE THONG =====================

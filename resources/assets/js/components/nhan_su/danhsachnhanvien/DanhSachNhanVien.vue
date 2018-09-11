@@ -460,7 +460,7 @@
                                         <button @click="_nhan_vien('edit', n)" data-toggle="modal" data-target="#modal_nv_tt_ca_nhan" class="btn btn-success btn-sm" title="Cập nhật thông tin cá nhân"> <i class="fa fa-edit"></i> </button>
                                         <button @click="_lao_dong(n)" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#modal_nv_tt_lao_dong" title="Thông tin lao động"><i class="fa fa-address-book-o"></i></button>
                                         <button class="btn btn-info btn-sm" data-toggle="modal" data-target="#modal_nv_tt_cong_viec" title="Thông tin công việc hiện tại"><i class="fa fa-id-card-o"></i></button>
-                                        <button class="btn btn-danger btn-sm" title="Xóa"> <i class="fa fa-trash-o"></i> </button>
+                                        <button @click="delete_all_thong_tin_nv(n.id)" class="btn btn-danger btn-sm" title="Xóa"> <i class="fa fa-trash-o"></i> </button>
                                     </td>
                                     <td style="width:100px;">{{n.ma_nv}}</td>
                                     <td>{{n.ho_ten}}</td>
@@ -501,6 +501,7 @@
     import {api_add_nhan_vien_thong_tin_lao_dong} from "./nhan_vien";
     import {api_get_nhan_vien_thong_tin_lao_dong} from "./nhan_vien";
     import {api_search_thong_tin_nhan_vien} from "./nhan_vien";
+    import {api_delete_all_thong_tin_nhan_vien} from "./nhan_vien";
 
     export default {
         name: 'danhsachnhanvien',
@@ -603,7 +604,7 @@
                 }
                 else{
                     this.flag_input_ma_nv = false;
-                    this.flag_disabled_tt_ca_nhan = true;
+                    this.flag_disabled_tt_ca_nhan = false;
                 }
             },
             onFileChange: function (e) {
@@ -621,6 +622,9 @@
                     // console.log(vm.nhan_vien.image);
                 };
                 reader.readAsDataURL(file);
+            },
+            delete_all_thong_tin_nv: function (id_nhan_vien) {
+                api_delete_all_thong_tin_nhan_vien(this, id_nhan_vien);
             },
             getNhanVien(page = 1) {
                 this.loading_dsnv = true;

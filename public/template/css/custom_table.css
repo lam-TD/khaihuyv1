@@ -14,7 +14,7 @@
 }
 
 #table_nhanvien tr th:nth-child(5){
-  min-width: 100px;
+  min-width: 105px;
 }
 #table_nhanvien tr th:nth-child(6){
   min-width: 200px;

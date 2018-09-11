@@ -1,5 +1,6 @@
 import axios from "axios";
 import {sweetalert} from "../../../helper/sweetalert";
+import {api_get_danh_sach_phong_theo_bo_phan} from "../phongban/phong_ban";
 
 export function api_get_thong_tin_nhan_vien_ca_nhan_lao_dong(vm, page) {
     axios({
@@ -168,4 +169,36 @@ export function api_search_thong_tin_nhan_vien(vm, page) {
             console.log(error);
             this.flag = true;
         })
+}
+
+export function api_delete_all_thong_tin_nhan_vien(vm, id_nhan_vien) {
+    swal({
+            title: "Bạn có chắc chắn muốn thông tin nhân viên vừa chọn?",
+            type: "warning",
+            showCancelButton: true,
+            confirmButtonClass: "btn-danger",
+            confirmButtonText: "Đồng ý",
+            closeOnConfirm: true
+        },
+        function() {
+            axios({
+                method: 'GET',
+                url: 'api/delete-all-thong-tin-nhan-vien/' + id_nhan_vien,
+                headers: {'Authorization':'Bearer ' + vm.$store.state.currentUser.token}
+            })
+                .then((response) => {
+                    if(response.data == 1) {
+                        vm.getNhanVien();
+                        vm.loading_dsnv = false;
+                        sweetalert(1, 'Nhân viên có mã ' + vm.nhan_vien.ma_nv + ' đã được xóa!');
+                        $('.row-nhom').removeClass("active-click-row");
+                        vm.flag_btn = true;
+                    }
+                    else {sweetalert(2, 'Lỗi không xóa được!')};
+                })
+                .catch((error) => {
+                    sweetalert(2, 'Lỗi không thực hiện được chức năng này!');
+                })
+
+        });
 }

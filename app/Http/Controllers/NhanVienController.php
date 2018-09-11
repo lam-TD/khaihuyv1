@@ -234,4 +234,16 @@ class NhanVienController extends Controller
                 ->paginate(10);
         return $nv;
     }
+
+    public function delete_all_thong_tin_nhan_vien($id_nv)
+    {
+        $lao_dong = nhan_vien_lao_dong::where('nv_id', $id_nv)->delete();
+
+        $cong_viec = nhan_vien_cong_viec_hien_tai::where('nv_id', $id_nv)->delete();
+
+        $nv = nhan_vien::find($id_nv);
+        $nv->delete();
+
+        return 1;
+    }
 }
