@@ -9,6 +9,7 @@ export function api_get_all_bo_phan(vm) {
         headers: {'Authorization':'Bearer ' + vm.$store.state.currentUser.token}
     })
         .then((response) => {
+            vm.loading_bo_phan = false;
             vm.list_bo_phan = response.data;
         })
         .catch((error) => {
@@ -23,9 +24,9 @@ export function api_bophan_get(vm, page) {
         headers: {'Authorization':'Bearer ' + vm.$store.state.currentUser.token}
     })
         .then((response) => {
+            vm.loading_bo_phan = false;
             vm.list_bo_phan = response.data.data;
             vm.total_bo_phan = response.data.total;
-            vm.loading_bo_phan = false;
         })
         .catch((error) => {
             console.log(error);
@@ -41,8 +42,8 @@ export function api_add_bo_phan(vm) {
         data: vm.$data.bo_phan
     })
         .then((response) => {
+            vm.un_change_bnt_save();
             if(response.data == 1){
-                vm.un_change_bnt_save();
                 sweetalert(1, 'Thêm thành công!');
                 $('#myModal').modal('hide');
                 $('.modal-backdrop').css('display','none');
@@ -105,11 +106,11 @@ export function api_delete_bo_phan(vm) {
             })
                 .then((response) => {
                     if(response.data == 1) {
-                        sweetalert(1, 'Nhóm ' + vm.bo_phan.ma_bo_phan + ' đã được xóa!');
+                        sweetalert(1, 'Bộ phận ' + vm.bo_phan.ma_bo_phan + ' đã được xóa!');
                         $('.row-nhom').removeClass("active-click-row");
                         vm.flag_btn = true;
                         vm.danh_sach_bo_phan();
-                        vm.loading_phong_ban = false;
+                        vm.loading_bo_phan = false;
                     }
                     else if(response.data == 0){
                         sweetalert(0, 'Bộ phận này có chứa phòng, vui lòng xóa phòng trước');

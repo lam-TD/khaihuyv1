@@ -30,18 +30,29 @@
                     <div class="card">
                         <div class="card-body bg-inverse">
                             <div class="row row-title">
-                                <div class="col-md-10 col-sm-6">
-                                    <div class="dropdown">
-                                        <button @click="dropdown('dropdown_bo_phan')" class="btn btn-outline-primary dropdown-toggle btn-full-width" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="min-width: 200px;">
-                                            Tất cả phòng ban
-                                        </button>
-                                        <ul id="dropdown_bo_phan" class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                            <li @click="selected_item(0, 'Tất cả phòng ban', 'dropdown_bo_phan')" data-id-bo-phan="0" class="dropdown-item">Tất cả phòng ban</li>
-                                            <li v-for="n in list_phong_ban" @click="selected_item(n.id, n.ten_phong, 'dropdown_bo_phan','dropdownMenuButton','dropdownMenuButton2')" class="dropdown-item">{{n.ten_phong}}</li>
-                                        </ul>
+                                <div class="col-md-4 col-sm-6">
+                                    <!--<div class="dropdown">-->
+                                        <!--<button @click="dropdown('dropdown_bo_phan')" class="btn btn-outline-primary dropdown-toggle btn-full-width" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="min-width: 200px;">-->
+                                            <!--Tất cả phòng ban-->
+                                        <!--</button>-->
+                                        <!--<ul id="dropdown_bo_phan" class="dropdown-menu" aria-labelledby="dropdownMenuButton">-->
+                                            <!--<li @click="selected_item(0, 'Tất cả phòng ban', 'dropdown_bo_phan')" data-id-bo-phan="0" class="dropdown-item">Tất cả phòng ban</li>-->
+                                            <!--<li v-for="n in list_phong_ban" @click="selected_item(n.id, n.ten_phong, 'dropdown_bo_phan','dropdownMenuButton','dropdownMenuButton2')" class="dropdown-item">{{n.ten_phong}}</li>-->
+                                        <!--</ul>-->
+                                    <!--</div>-->
+                                    <div class="">
+                                        <el-select v-model="vi_tri.id_phong_ban" value-key="vi_tri.id_phong_ban" filterable placeholder="Tất cả phòng ban" @change="select_vi_tri_theo_phong">
+                                            <el-option :key="''" :label="'Tất cả phòng'" :value="''"></el-option>
+                                            <el-option-group v-for="item in list_phong_ban" :key="item.ten_bo_phan" :label="item.ten_bo_phan">
+                                                <el-option v-for="p in item.phong" :key="p.id" :label="p.ten_phong" :value="p.id">
+                                                    <span style="float: left">{{ p.ten_phong }}</span>
+                                                    <span style="float: right; color: #8492a6; font-size: 13px">{{ p.ma_phong }}</span>
+                                                </el-option>
+                                            </el-option-group>
+                                        </el-select>
                                     </div>
                                 </div>
-                                <div class="col-md-2 col-sm-6 col-12">
+                                <div class="col-md-8 col-sm-6 col-12">
                                     <button @click="_vi_tri('add')" title="Thêm mới phòng" type="button" data-toggle="modal" data-target="#myModal" class="btn btn-success waves-effect waves-dark pull-right btn-full-width">
                                         <i class="fa fa-plus-circle"></i> Thêm mới
                                     </button>
@@ -76,7 +87,7 @@
                                                     <button @click="_vi_tri('edit',n)" id="edit_nhom" type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#myModal">
                                                         <i class="fa fa-edit"></i> Sửa
                                                     </button>
-                                                    <button @click="delete_vi_tri(n.id)" type="button" class="btn btn-danger btn-sm">
+                                                    <button @click="delete_vi_tri(n)" type="button" class="btn btn-danger btn-sm">
                                                         <i class="fa fa-trash"></i> Xóa
                                                     </button>
                                                 </td>
@@ -107,25 +118,34 @@
                                             </div>
 
                                             <!-- Modal body -->
-                                            <div :disabled="flag_body_modal" class="modal-body">
+                                            <div class="modal-body">
                                                 <div class="form-group">
-                                                    <label><b>Bộ phận</b></label>
+                                                    <label><b>Phòng ban</b></label>
                                                     <!--<input v-model="vi_tri.id_bo_phan" :disabled="flag_input_vi_tri" v-validate="'required'" >-->
-                                                    <div class="dropdown">
-                                                        <button @click="dropdown('dropdown_bo_phan2')" v-model="vi_tri._bo_phan" class="btn btn-outline-primary dropdown-toggle btn-full-width" type="button" id="dropdownMenuButton2" data-toggle="dropdown" style="width: 100%">
-                                                            --- Chọn phòng ---
-                                                        </button>
-                                                        <ul id="dropdown_bo_phan2" class="dropdown-menu" aria-labelledby="dropdownMenuButton" style="width: 100%">
-                                                            <!--<li @click="selected_item(0, '-&#45;&#45; Chọn bộ phận -&#45;&#45;', 'dropdown_bo_phan2')" disabled data-id-bo-phan="0" class="dropdown-item">-&#45;&#45; Chọn bộ phận -&#45;&#45;</li>-->
-                                                            <li v-for="n in list_phong_ban" @click="selected_item(n.id, n.ten_phong, 'dropdown_bo_phan2','dropdownMenuButton2','dropdownMenuButton')" class="dropdown-item">{{n.ten_phong}}</li>
-                                                        </ul>
-                                                    </div>
-                                                    <small v-show="errors.has('txtmabophan')" class="help text-muted is-danger">Vui lòng chọn bộ phận</small>
+                                                    <!--<div class="dropdown">-->
+                                                        <!--<button @click="dropdown('dropdown_bo_phan2')" v-model="vi_tri._bo_phan" class="btn btn-outline-primary dropdown-toggle btn-full-width" type="button" id="dropdownMenuButton2" data-toggle="dropdown" style="width: 100%">-->
+                                                            <!-- -&#45;&#45; Chọn phòng -&#45;&#45;-->
+                                                        <!--</button>-->
+                                                        <!--<ul id="dropdown_bo_phan2" class="dropdown-menu" aria-labelledby="dropdownMenuButton" style="width: 100%">-->
+                                                            <!--&lt;!&ndash;<li @click="selected_item(0, '-&#45;&#45; Chọn bộ phận -&#45;&#45;', 'dropdown_bo_phan2')" disabled data-id-bo-phan="0" class="dropdown-item">-&#45;&#45; Chọn bộ phận -&#45;&#45;</li>&ndash;&gt;-->
+                                                            <!--<li v-for="n in list_phong_ban" @click="selected_item(n.id, n.ten_phong, 'dropdown_bo_phan2','dropdownMenuButton2','dropdownMenuButton')" class="dropdown-item">{{n.ten_phong}}</li>-->
+                                                        <!--</ul>-->
+                                                    <!--</div>-->
+                                                    <el-select v-model="vi_tri.id_phong_ban" value-key="vi_tri.id_phong_ban" filterable placeholder="Tất cả phòng ban" @change="select_vi_tri_theo_phong">
+                                                        <el-option-group v-for="item in list_phong_ban" :label="item.ten_bo_phan" :key="item.ten_bo_phan">
+                                                            <el-option v-for="p in item.phong" :key="p.id" :label="p.ten_phong" :value="p.id">
+                                                                <span style="float: left">{{ p.ten_phong }}</span>
+                                                                <span style="float: right; color: #8492a6; font-size: 13px">{{ p.ma_phong }}</span>
+                                                            </el-option>
+                                                        </el-option-group>
+                                                    </el-select>
+                                                    <small v-if="error_select_phong" class="help text-muted is-danger">Vui lòng chọn phòng</small>
                                                 </div>
                                                 <div class="form-group">
                                                     <label><b>Mã vị trí</b></label>
-                                                    <input v-model="vi_tri.ma_vi_tri" :disabled="flag_input_vi_tri" v-validate="'required'" :class="{'border-danger' : errors.has('txtmabophan')}" type="text" name="txtmabophan" class="form-control" id="txtmabophan" aria-describedby="" autofocus>
+                                                    <input v-model="vi_tri.ma_vi_tri" @input="validate_ma_vt" :disabled="flag_input_vi_tri" v-validate="'required'" :class="{'border-danger' : errors.has('txtmabophan')}" type="text" name="txtmabophan" class="form-control" id="txtmabophan" aria-describedby="" autofocus>
                                                     <small v-show="errors.has('txtmabophan')" class="help text-muted is-danger">Vui lòng nhập mã vị trí</small>
+                                                    <small v-if="flag_input_ma_vt" class="help text-muted is-danger">Mã Vị trí phải có 8 ký tự, bắt đầu bằng VT</small>
                                                 </div>
                                                 <div class="form-group">
                                                     <label><b>Tên vị trí</b></label>
@@ -140,8 +160,12 @@
 
                                             <!-- Modal footer -->
                                             <div class="modal-footer">
-                                                <button id="save" type="submit" class="btn btn-primary"><i class="fa fa-save"></i> Lưu lại</button>
+                                                <!--<button :disabled="flag_select_phong || vi_tri.ten_vi_tri.length == 0 || flag_disabled_submit" id="save" type="submit" class="btn btn-primary"><i class="fa fa-save"></i> Lưu lại</button>-->
                                                 <button type="button" class="btn btn-danger" data-dismiss="modal">Hủy</button>
+                                                <button :disabled="flag_disabled_submit || vi_tri.ten_vi_tri.length == 0 || vi_tri.id_phong_ban == ''" id="save" type="submit" class="btn btn-primary">
+                                                    <span v-if="flag_btn_save"><i class="fa fa-save"></i> Lưu lại</span>
+                                                    <span v-if="!flag_btn_save"><i class="fa fa-spin fa-spinner"></i> Đang xử lý...</span>
+                                                </button>
                                             </div>
                                         </form>
                                     </div>
@@ -169,11 +193,13 @@
     import {api_add_vi_tri} from "./vi_tri";
     import {api_edit_vi_tri} from "./vi_tri";
     import {api_delete_vi_tri} from "./vi_tri";
+    import {api_group_all_phong_ban_theo_bo_phan} from "../phongban/phong_ban";
 
     export default {
         name: 'bophan',
         mounted () {
-            this.danh_sach_phong_ban();
+            // this.danh_sach_phong_ban();
+            api_group_all_phong_ban_theo_bo_phan(this);
             api_get_all_vi_tri(this);
         },
         updated () {
@@ -192,10 +218,26 @@
                 flag_btn: true,
                 flag_submit_vi_tri: true,
                 flag_input_vi_tri: false,
-                flag_body_modal: false
+                flag_input_ma_vt: false,
+                flag_disabled_submit: false,
+                flag_select_phong: true,
+                flag_btn_save: true,
+                error_select_phong: true
             }
         },
         methods: {
+            validate_ma_vt: function () {
+                var length_nv = this.vi_tri.ma_vi_tri.length;
+                var value_nv  = this.vi_tri.ma_vi_tri;
+                if((length_nv > 8 || length_nv < 8) || value_nv.indexOf('VT') == -1 || value_nv.indexOf(' ') > -1){
+                    this.flag_input_ma_vt = true;
+                    this.flag_disabled_submit = true;
+                }
+                else{
+                    this.flag_input_ma_vt = false;
+                    this.flag_disabled_submit = false;
+                }
+            },
             dropdown: function (id_con) {
                 $('#' + id_con).toggleClass("show");
             },
@@ -207,6 +249,11 @@
                 $('#' + id_dropdown).removeClass("show");
                 this.vi_tri.id_phong_ban = id_bo_phan;
                 this.danh_sach_vi_tri(id_bo_phan);
+            },
+            select_vi_tri_theo_phong: function (id_phong) {
+                this.error_select_phong = false;
+                this.vi_tri.id_phong_ban = id_phong;
+                this.danh_sach_vi_tri(1);
             },
             danh_sach_phong_ban: function () {
                 api_get_all_phong_ban_no_paginate(this);
@@ -267,25 +314,22 @@
                 api_add_vi_tri(this);
             },
             edit_vi_tri: function() {
-                console.log(this.vi_tri);
+                this.change_bnt_save();
                 api_edit_vi_tri(this);
             },
-            delete_vi_tri: function(id) {
-                this.vi_tri.id = id;
+            delete_vi_tri: function(n) {
+                this.vi_tri = n;
                 if(this.vi_tri.id <= 0) return -1;
-                this.change_bnt_save();
                 api_delete_vi_tri(this);
             },
             change_bnt_save: function () {
-                this.flag_body_modal = true;
+                this.flag_btn_save = false;
                 $('#save').attr('disabled', 'disabled');
-                $('#save').text('Đang xử lý...');
             },
             un_change_bnt_save: function () {
                 console.log("unchange");
-                this.flag_body_modal = false;
+                this.flag_btn_save = true;
                 $('#save').removeAttr('disabled');
-                $('#save').text('Lưu lại');
             }
         }
     }
@@ -352,6 +396,10 @@
         border-right: .3em solid transparent;
         border-bottom: 0;
         border-left: .3em solid transparent;
+    }
+
+    .el-select {
+        width: 100%;
     }
 
 </style>

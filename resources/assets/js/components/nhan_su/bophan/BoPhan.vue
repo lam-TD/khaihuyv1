@@ -60,9 +60,12 @@
                                             </thead>
                                             <tbody class="body-table loading-item">
                                             <tr v-if="loading_bo_phan">
-                                                <td class="text-center" colspan="6"><b><i>Loading...</i></b></td>
+                                                <td class="text-center" colspan="6"><b><i><i class="fa fa-spin fa-spinner"></i> Đang tải danh sách bộ phận...</i></b></td>
                                             </tr>
-                                            <tr v-for="n in list_bo_phan" :id="'n' + n.id" class="row-nhom" @click="click_bo_phan(n)">
+                                            <tr v-else-if="list_bo_phan.length <= 0">
+                                                <td class="text-center" colspan="6"><b><i>Chưa có bộ phận</i></b></td>
+                                            </tr>
+                                            <tr v-else v-for="n in list_bo_phan" :id="'n' + n.id" class="row-nhom" @click="click_bo_phan(n)">
                                                 <td class="text-left" style="padding-right: 0">
                                                     <button @click="_bo_phan('edit',n)" id="edit_nhom" type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#myModal">
                                                         <i class="fa fa-edit"></i> Sửa
@@ -102,8 +105,9 @@
                                             <div :disabled="flag_body_modal" class="modal-body">
                                                 <div class="form-group">
                                                     <label><b>Mã bộ phận</b></label>
-                                                    <input v-model="bo_phan.ma_bo_phan" :disabled="flag_input_bo_phan" v-validate="'required'" :class="{'border-danger' : errors.has('txtmabophan')}" type="text" name="txtmabophan" class="form-control" id="txtmabophan" aria-describedby="" autofocus>
-                                                    <small v-show="errors.has('txtmabophan')" class="help text-muted is-danger">Vui lòng nhập mã bộ phận</small>
+                                                    <input @input="validate_ma_bp" v-model="bo_phan.ma_bo_phan" :disabled="flag_input_bo_phan" v-validate="'required'" :class="{'border-danger' : errors.has('txtmabophan')}" type="text" name="txtmabophan" class="form-control" id="txtmabophan" aria-describedby="" autofocus>
+                                                    <!--<small v-show="errors.has('txtmabophan')" class="help text-muted is-danger">Vui lòng nhập mã bộ phận</small>-->
+                                                    <small v-if="flag_input_ma_bo_phan" class="help text-muted is-danger">Mã bộ phận phải có 8 ký tự, bắt đầu bằng BP</small>
                                                 </div>
                                                 <div class="form-group">
                                                     <label><b>Tên bộ phận</b></label>
@@ -118,8 +122,12 @@
 
                                             <!-- Modal footer -->
                                             <div class="modal-footer">
-                                                <button id="save" type="submit" class="btn btn-primary">Lưu lại</button>
                                                 <button type="button" class="btn btn-danger" data-dismiss="modal">Hủy</button>
+                                                <!--<button id="save" type="submit" class="btn btn-primary">Lưu lại</button>-->
+                                                <button :disabled="flag_disabled_submit || errors.has('txttenbophan')" id="save" type="submit" class="btn btn-primary">
+                                                    <span v-if="flag_btn_save"><i class="fa fa-save"></i> Lưu lại</span>
+                                                    <span v-if="!flag_btn_save"><i class="fa fa-spin fa-spinner"></i> Đang xử lý...</span>
+                                                </button>
                                             </div>
                                         </form>
                                     </div>
@@ -164,11 +172,27 @@
                 flag_btn: true,
                 flag_submit_bo_phan: true,
                 flag_input_bo_phan: false,
-                flag_body_modal: false
+                flag_body_modal: false,
+                flag_btn_save: true,
+                flag_disabled_submit: false,
+                flag_input_ma_bo_phan: false
             }
         },
         methods: {
+            validate_ma_bp: function () {
+                var length_nv = this.bo_phan.ma_bo_phan.length;
+                var value_nv  = this.bo_phan.ma_bo_phan;
+                if((length_nv > 8 || length_nv < 8) || value_nv.indexOf('BP') == -1 || value_nv.indexOf(' ') > -1){
+                    this.flag_input_ma_bo_phan = true;
+                    this.flag_disabled_submit = true;
+                }
+                else{
+                    this.flag_input_ma_bo_phan = false;
+                    this.flag_disabled_submit = false;
+                }
+            },
             danh_sach_bo_phan: function (page = 1) {
+                this.loading_bo_phan = true;
                 api_bophan_get(this, page);
             },
             _bo_phan: function (state, bophan = null) {
@@ -216,14 +240,12 @@
                 api_delete_bo_phan(this);
             },
             change_bnt_save: function () {
-                this.flag_body_modal = true;
+                this.flag_btn_save = false;
                 $('#save').attr('disabled', 'disabled');
-                $('#save').text('Đang xử lý...');
             },
             un_change_bnt_save: function () {
-                this.flag_body_modal = false;
+                this.flag_btn_save = true;
                 $('#save').removeAttr('disabled');
-                $('#save').text('Lưu lại');
             }
         }
     }

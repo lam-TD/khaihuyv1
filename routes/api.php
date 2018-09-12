@@ -45,6 +45,7 @@ Route::group(['middleware' => 'jwt.auth'], function ($router) {
     Route::post('edit-phong-ban', 'PhongBanController@edit_phong_ban');
     Route::get('delete-phong-ban/{id}', 'PhongBanController@delete_phong_ban');
     Route::get('get-phong-theo-bo-phan/{id_bo_phan}', 'PhongBanController@get_phong_ban_theo_id_bo_phan');
+    Route::get('group-all-phong-theo-bo-phan', 'PhongBanController@group_all_phong_ban_theo_bo_phan');
 });
 
 // VI TRI

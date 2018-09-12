@@ -14,7 +14,7 @@
 
         {{--Template --}}
         <link rel="icon" type="image/png" sizes="16x16" href="public/assets/images/favicon.png">
-        <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
+        <link rel="stylesheet" href="https://unpkg.com/element-ui@2.4.6/lib/theme-chalk/index.css">
         <!-- Bootstrap Core CSS -->
         <link href="public/assets/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 

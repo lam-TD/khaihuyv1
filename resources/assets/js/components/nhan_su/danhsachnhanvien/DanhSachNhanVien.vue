@@ -539,6 +539,7 @@
         },
         data(){
             return {
+                loading_bo_phan: true,
                 flag_input_ma_nv: false,
                 dsnhanvien: [],
                 key_word: '',

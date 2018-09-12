@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\phong_ban;
 use App\nhan_vien;
+use App\bo_phan;
 
 class PhongBanController extends Controller
 {
@@ -70,5 +71,21 @@ class PhongBanController extends Controller
         $nv = nhan_vien::where('id_phong', $id_phong)->get();
         (count($nv) == 0) ? $result = -1 : $result = 1;
         return $result;
+    }
+
+    public function group_all_phong_ban_theo_bo_phan()
+    {
+        $bo_phan = bo_phan::all();
+        $arr_result = [];
+        if(count($bo_phan) > 0){
+            foreach ($bo_phan as $b) {
+                $phong = phong_ban::where('id_bo_phan', $b->id)->get();
+                $arr_result[] = array(
+                    'ten_bo_phan' => $b->ten_bo_phan,
+                    'phong'       => $phong
+                );
+            }
+        }
+        return $arr_result;
     }
 }

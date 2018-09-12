@@ -62,7 +62,23 @@ export function api_get_phong_ban(vm, page) {
             vm.list_phong_ban = response.data.data;
             vm.total_phong_ban = response.data.total;
             vm.loading_phong_ban = false;
-            console.log(response.data.data);
+            // console.log(response.data);
+        })
+        .catch((error) => {
+            console.log(error);
+        })
+}
+
+export function api_group_all_phong_ban_theo_bo_phan (vm) {
+    axios({
+        method: 'GET',
+        url: 'api/group-all-phong-theo-bo-phan',
+        headers: {'Authorization':'Bearer ' + vm.$store.state.currentUser.token}
+    })
+        .then((response) => {
+            vm.list_phong_ban = response.data;
+            vm.loading_phong_ban = false;
+            // console.log(response.data);
         })
         .catch((error) => {
             console.log(error);
@@ -136,7 +152,7 @@ export function api_delete_phong_ban(vm) {
             })
                 .then((response) => {
                     if(response.data == 1) {
-                        sweetalert(1, 'Nhóm ' + vm.phong_ban.ma_phong_ban + ' đã được xóa!');
+                        sweetalert(1, 'Nhóm ' + vm.phong_ban.ma_phong + ' đã được xóa!');
                         $('.row-nhom').removeClass("active-click-row");
                         vm.flag_btn = true;
                         api_get_danh_sach_phong_theo_bo_phan(vm, vm.$data.phong_ban.id_bo_phan,1);

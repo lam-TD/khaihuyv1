@@ -30,18 +30,27 @@
                     <div class="card">
                         <div class="card-body bg-inverse">
                             <div class="row row-title">
-                                <div class="col-md-10 col-sm-6">
-                                    <div class="dropdown">
-                                        <button @click="dropdown('dropdown_bo_phan')" class="btn btn-outline-primary dropdown-toggle btn-full-width" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                            Tất cả bộ phận
-                                        </button>
-                                        <ul id="dropdown_bo_phan" class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                            <li @click="selected_item(0, 'Tất cả bộ phận', 'dropdown_bo_phan')" data-id-bo-phan="0" class="dropdown-item">Tất cả bộ phận</li>
-                                            <li v-for="n in list_bo_phan" @click="selected_item(n.id, n.ten_bo_phan, 'dropdown_bo_phan','dropdownMenuButton','dropdownMenuButton2')" class="dropdown-item">{{n.ten_bo_phan}}</li>
-                                        </ul>
+                                <div class="col-md-4 col-sm-6">
+                                    <!--<div class="dropdown">-->
+                                        <!--<button @click="dropdown('dropdown_bo_phan')" class="btn btn-outline-primary dropdown-toggle btn-full-width" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">-->
+                                            <!--Tất cả bộ phận-->
+                                        <!--</button>-->
+                                        <!--<ul id="dropdown_bo_phan" class="dropdown-menu" aria-labelledby="dropdownMenuButton">-->
+                                            <!--<li @click="selected_item(0, 'Tất cả bộ phận', 'dropdown_bo_phan')" data-id-bo-phan="0" class="dropdown-item">Tất cả bộ phận</li>-->
+                                            <!--<li v-for="n in list_bo_phan" @click="selected_item(n.id, n.ten_bo_phan, 'dropdown_bo_phan','dropdownMenuButton','dropdownMenuButton2')" class="dropdown-item">{{n.ten_bo_phan}}</li>-->
+                                        <!--</ul>-->
+                                    <!--</div>-->
+                                    <div class="">
+                                        <el-select v-model="phong_ban.id_bo_phan" value-key="phong_ban.id_bo_phan" filterable placeholder="Tất cả bộ phận" @change="select_phong_theo_bo_phan">
+                                            <el-option :key="''" :label="'Tất cả bộ phận'" :value="''"></el-option>
+                                            <el-option v-for="item in list_bo_phan" :key="item.id" :label="item.ten_bo_phan" :value="item.id">
+                                                <span style="float: left">{{ item.ten_bo_phan }}</span>
+                                                <span style="float: right; color: #8492a6; font-size: 13px">{{ item.ma_bo_phan }}</span>
+                                            </el-option>
+                                        </el-select>
                                     </div>
                                 </div>
-                                <div class="col-md-2 col-sm-6 col-12">
+                                <div class="col-md-8 col-sm-6 col-12">
                                     <button @click="_phong_ban('add')" title="Thêm mới phòng" type="button" data-toggle="modal" data-target="#myModal" class="btn btn-success waves-effect waves-dark pull-right btn-full-width">
                                         <i class="fa fa-plus-circle"></i> Thêm mới
                                     </button>
@@ -66,7 +75,7 @@
                                             </thead>
                                             <tbody class="body-table loading-item">
                                                 <tr v-if="loading_phong_ban">
-                                                    <td class="text-center" colspan="6"><b><i>Đang tải danh sách phòng...</i></b></td>
+                                                    <td class="text-center" colspan="6"><b><i><i class="fa fa-spin fa-spinner"></i> Đang tải danh sách phòng...</i></b></td>
                                                 </tr>
                                                 <tr v-else-if="list_phong_ban.length <= 0">
                                                     <td class="text-center" colspan="6"><b><i>Chưa có phòng</i></b></td>
@@ -76,7 +85,7 @@
                                                         <button @click="_phong_ban('edit',n)" id="edit_nhom" type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#myModal">
                                                             <i class="fa fa-edit"></i> Sửa
                                                         </button>
-                                                        <button @click="delete_phong_ban(n.id)" type="button" class="btn btn-danger btn-sm">
+                                                        <button @click="delete_phong_ban(n)" type="button" class="btn btn-danger btn-sm">
                                                             <i class="fa fa-trash"></i> Xóa
                                                         </button>
                                                     </td>
@@ -111,26 +120,33 @@
                                                 <div class="form-group">
                                                     <label><b>Bộ phận</b></label>
                                                     <!--<input v-model="phong_ban.id_bo_phan" :disabled="flag_input_phong_ban" v-validate="'required'" >-->
-                                                    <div class="dropdown">
-                                                        <button @click="dropdown('dropdown_bo_phan2')" v-model="phong_ban._bo_phan" class="btn btn-outline-primary dropdown-toggle btn-full-width" type="button" id="dropdownMenuButton2" data-toggle="dropdown" style="width: 100%">
-                                                            --- Chọn bộ phận ---
-                                                        </button>
-                                                        <ul id="dropdown_bo_phan2" class="dropdown-menu" aria-labelledby="dropdownMenuButton" style="width: 100%">
-                                                            <!--<li @click="selected_item(0, '-&#45;&#45; Chọn bộ phận -&#45;&#45;', 'dropdown_bo_phan2')" disabled data-id-bo-phan="0" class="dropdown-item">-&#45;&#45; Chọn bộ phận -&#45;&#45;</li>-->
-                                                            <li v-for="n in list_bo_phan" @click="selected_item(n.id, n.ten_bo_phan, 'dropdown_bo_phan2','dropdownMenuButton2','dropdownMenuButton')" class="dropdown-item">{{n.ten_bo_phan}}</li>
-                                                        </ul>
-                                                    </div>
-                                                    <small v-show="errors.has('txtmabophan')" class="help text-muted is-danger">Vui lòng chọn bộ phận</small>
+                                                    <!--<div class="dropdown">-->
+                                                        <!--<button @click="dropdown('dropdown_bo_phan2')" v-model="phong_ban._bo_phan" class="btn btn-outline-primary dropdown-toggle btn-full-width" type="button" id="dropdownMenuButton2" data-toggle="dropdown" style="width: 100%">-->
+                                                            <!-- -&#45;&#45; Chọn bộ phận -&#45;&#45;-->
+                                                        <!--</button>-->
+                                                        <!--<ul id="dropdown_bo_phan2" class="dropdown-menu" aria-labelledby="dropdownMenuButton" style="width: 100%">-->
+                                                            <!--&lt;!&ndash;<li @click="selected_item(0, '-&#45;&#45; Chọn bộ phận -&#45;&#45;', 'dropdown_bo_phan2')" disabled data-id-bo-phan="0" class="dropdown-item">-&#45;&#45; Chọn bộ phận -&#45;&#45;</li>&ndash;&gt;-->
+                                                            <!--<li v-for="n in list_bo_phan" @click="selected_item(n.id, n.ten_bo_phan, 'dropdown_bo_phan2','dropdownMenuButton2','dropdownMenuButton')" class="dropdown-item">{{n.ten_bo_phan}}</li>-->
+                                                        <!--</ul>-->
+                                                    <!--</div>-->
+                                                    <el-select v-model="phong_ban.id_bo_phan" value-key="phong_ban.id_bo_phan" filterable placeholder="Chọn bộ phận" @change="select_phong_theo_bo_phan">
+                                                        <el-option v-for="item in list_bo_phan" :key="item.id" :label="item.ten_bo_phan" :value="item.id">
+                                                            <span style="float: left">{{ item.ten_bo_phan }}</span>
+                                                            <span style="float: right; color: #8492a6; font-size: 13px">{{ item.ma_bo_phan }}</span>
+                                                        </el-option>
+                                                    </el-select>
+                                                    <small v-show="error_select_bo_phan" class="help text-muted is-danger">Vui lòng chọn bộ phận</small>
                                                 </div>
                                                 <div class="form-group">
                                                     <label><b>Mã phòng</b></label>
-                                                    <input v-model="phong_ban.ma_phong" :disabled="flag_input_phong_ban" v-validate="'required'" :class="{'border-danger' : errors.has('txtmabophan')}" type="text" name="txtmabophan" class="form-control" id="txtmabophan" aria-describedby="" autofocus>
-                                                    <small v-show="errors.has('txtmabophan')" class="help text-muted is-danger">Vui lòng nhập mã bộ phận</small>
+                                                    <input @input="validate_ma_ph" v-model="phong_ban.ma_phong" :disabled="flag_input_phong_ban" v-validate="'required'" :class="{'border-danger' : errors.has('txtmabophan')}" type="text" name="txtmabophan" class="form-control" id="txtmabophan" aria-describedby="" autofocus>
+                                                    <small v-show="errors.has('txtmabophan')" class="help text-muted is-danger">Vui lòng nhập mã phòng</small>
+                                                    <small v-if="flag_input_ma_phong" class="help text-muted is-danger">Mã bộ phận phải có 8 ký tự, bắt đầu bằng PH</small>
                                                 </div>
                                                 <div class="form-group">
                                                     <label><b>Tên phòng</b></label>
                                                     <input v-model="phong_ban.ten_phong" v-validate="'required'" :class="{'border-danger' : errors.has('txttenbophan')}" type="text" name="txttenbophan" class="form-control" id="txttenbophan" placeholder="">
-                                                    <small v-show="errors.has('txttenbophan')" class="help text-muted is-danger">Vui lòng nhập tên bộ phận</small>
+                                                    <small v-show="errors.has('txttenbophan')" class="help text-muted is-danger">Vui lòng nhập tên phòng</small>
                                                 </div>
                                                 <div class="form-group">
                                                     <label><b>Diễn giải</b></label>
@@ -140,8 +156,12 @@
 
                                             <!-- Modal footer -->
                                             <div class="modal-footer">
-                                                <button id="save" type="submit" class="btn btn-primary"><i class="fa fa-save"></i> Lưu lại</button>
+                                                <!--<button id="save" type="submit" class="btn btn-primary"><i class="fa fa-save"></i> Lưu lại</button>-->
                                                 <button type="button" class="btn btn-danger" data-dismiss="modal">Hủy</button>
+                                                <button :disabled="flag_disabled_submit || phong_ban.ten_phong.length == 0 || phong_ban.id_bo_phan == ''" id="save" type="submit" class="btn btn-primary">
+                                                    <span v-if="flag_btn_save"><i class="fa fa-save"></i> Lưu lại</span>
+                                                    <span v-if="!flag_btn_save"><i class="fa fa-spin fa-spinner"></i> Đang xử lý...</span>
+                                                </button>
                                             </div>
                                         </form>
                                     </div>
@@ -168,11 +188,13 @@
     import {api_add_phong_ban} from "./phong_ban";
     import {api_edit_phong_ban} from "./phong_ban";
     import {api_delete_phong_ban} from "./phong_ban";
+    import SelectLam from '../../helper/select_lam';
 
     export default {
         name: 'bophan',
+        components:{SelectLam},
         mounted () {
-            this.danh_sach_bo_phan();
+            api_get_all_bo_phan(this);
             api_get_all_phong_ban(this, 1);
         },
         updated () {
@@ -199,10 +221,26 @@
                 flag_btn: true,
                 flag_submit_phong_ban: true,
                 flag_input_phong_ban: false,
-                flag_body_modal: false
+                flag_body_modal: false,
+                flag_input_ma_phong: false,
+                flag_disabled_submit: false,
+                flag_btn_save: true,
+                error_select_bo_phan: true
             }
         },
         methods: {
+            validate_ma_ph: function () {
+                var length_nv = this.phong_ban.ma_phong.length;
+                var value_nv  = this.phong_ban.ma_phong;
+                if((length_nv > 8 || length_nv < 8) || value_nv.indexOf('PH') == -1 || value_nv.indexOf(' ') > -1){
+                    this.flag_input_ma_phong = true;
+                    this.flag_disabled_submit = true;
+                }
+                else{
+                    this.flag_input_ma_phong = false;
+                    this.flag_disabled_submit = false;
+                }
+            },
             dropdown: function (id_con) {
                 $('#' + id_con).toggleClass("show");
             },
@@ -215,12 +253,17 @@
                 this.phong_ban.id_bo_phan = id_bo_phan;
                 this.danh_sach_phong_ban(id_bo_phan);
             },
+            select_phong_theo_bo_phan: function (id_bo_phan) {
+                this.phong_ban.id_bo_phan = id_bo_phan;
+                this.error_select_bo_phan = false;
+                this.danh_sach_phong_ban(1);
+            },
             danh_sach_bo_phan: function () {
-                api_get_all_bo_phan(this);
+
             },
             danh_sach_phong_ban: function (page = 1) {
                 this.loading_phong_ban = true;
-                if(this.phong_ban.id_bo_phan == 0){
+                if(this.phong_ban.id_bo_phan == ''){
                     api_get_all_phong_ban(this, page);
                 }
                 else{
@@ -254,7 +297,7 @@
                 }
             },
             submit_phong_ban: function () {
-                // this.change_bnt_save();
+                if(this.phong_ban.id_bo_phan == '') { this.error_select_bo_phan = true; return 1}
                 if(this.flag_submit_phong_ban) {
                     this.flag_input_phong_ban = false;
                     this.add_phong_ban();
@@ -274,25 +317,23 @@
                 api_add_phong_ban(this);
             },
             edit_phong_ban: function() {
-                console.log(this.phong_ban);
+                this.change_bnt_save();
                 api_edit_phong_ban(this);
             },
-            delete_phong_ban: function(id) {
-                this.phong_ban.id = id;
+            delete_phong_ban: function(n) {
+                this.phong_ban = n;
                 if(this.phong_ban.id <= 0) return -1;
                 this.change_bnt_save();
                 api_delete_phong_ban(this);
             },
             change_bnt_save: function () {
-                this.flag_body_modal = true;
+                this.flag_btn_save = false;
                 $('#save').attr('disabled', 'disabled');
-                $('#save').text('Đang xử lý...');
             },
             un_change_bnt_save: function () {
                 console.log("unchange");
-                this.flag_body_modal = false;
+                this.flag_btn_save = true;
                 $('#save').removeAttr('disabled');
-                $('#save').text('Lưu lại');
             }
         }
     }
@@ -356,6 +397,10 @@
         border-right: .3em solid transparent;
         border-bottom: 0;
         border-left: .3em solid transparent;
+    }
+
+    .el-select {
+        width: 100%;
     }
 
 </style>

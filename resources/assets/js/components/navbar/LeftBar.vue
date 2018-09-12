@@ -79,8 +79,8 @@
             active_nhom: function (key) {
                 $('.row-nhom-cn').removeClass("active");
                 $('.ul-chuc-nang').removeClass("in");
-                $('#mcn' + key).addClass("active");
-                $('#ul' + key).addClass("in");
+                $('#mcn' + key).toggleClass("active");
+                $('#ul' + key).toggleClass("in");
             },
             active_chuc_nang: function (key) {
                 $('.row-chuc-nang').removeClass("active");
