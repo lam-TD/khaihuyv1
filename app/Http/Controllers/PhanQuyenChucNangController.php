@@ -12,16 +12,55 @@ use Illuminate\Support\Facades\DB;
 
 class PhanQuyenChucNangController extends Controller
 {
-    public function get_list_chuc_nang() {
-        $credentials = request(['user_id', 'id_nhom_nguoi_dung']);
+//    public function get_list_chuc_nang() {
+////        $lam = DB::select("select * from phan_quyen")->first();
+//
+//        $credentials = request(['user_id', 'id_nhom_nguoi_dung']);
+//
+//        $nhom_ng = User::where('id', $credentials['user_id'])->where('id_nhom_nguoi_dung',$credentials['id_nhom_nguoi_dung'])->first();
+//
+//        $nhom_cn_user = DB::select('SELECT pq.id_nhom_chuc_nang, pq.ten_nhom, pq.icon, pq.thu_tu_nhom FROM phan_quyen as pq WHERE pq.id_nhom_nguoi_dung ='.$nhom_ng->id_nhom_nguoi_dung.' GROUP BY pq.id_nhom_chuc_nang, pq.ten_nhom, pq.icon, pq.thu_tu_nhom ORDER BY pq.thu_tu_nhom ASC');
+//        $list_chuc_nang = [];
+//        if($nhom_cn_user) {
+//            foreach ($nhom_cn_user as $value) {
+//                $query = "SELECT pq.id_chuc_nang, pq.ten_chuc_nang, pq.link, pq.thu_tu_chuc_nang, pq.allaction, pq.xem, pq.them, pq.sua, pq.xoa FROM phan_quyen as pq WHERE pq.id_nhom_chuc_nang =";
+//                $chucnang = (array)DB::select($query.$value->id_nhom_chuc_nang." ORDER BY pq.thu_tu_chuc_nang ASC");
+//                $nhom = array(
+//                    "id_nhom"   => $value->id_nhom_chuc_nang,
+//                    "ten_nhom"  => $value->ten_nhom,
+//                    "icon"      => $value->icon,
+//                    "chuc_nang" => $chucnang
+//                );
+//                $list_chuc_nang[] = $nhom;
+//            }
+//        }
+//        return ($list_chuc_nang);
+//    }
 
-        $nhom_ng = User::where('id', $credentials['user_id'])->where('id_nhom_nguoi_dung',$credentials['id_nhom_nguoi_dung'])->first();
-        $nhom_cn_user = DB::select('SELECT pq.id_nhom_chuc_nang, pq.ten_nhom, pq.icon, pq.thu_tu_nhom FROM phan_quyen as pq WHERE pq.id_nhom_nguoi_dung ='.$nhom_ng->id_nhom_nguoi_dung.' GROUP BY pq.id_nhom_chuc_nang, pq.ten_nhom, pq.icon, pq.thu_tu_nhom ORDER BY pq.thu_tu_nhom ASC');
+    public function get_list_chuc_nang()
+    {
+        $credentials = request(['user_id', 'id_nhom_nguoi_dung']);
+        $nhom_ng = User::where('id', $credentials['user_id'])->where('id_nhom_nguoi_dung', $credentials['id_nhom_nguoi_dung'])->first();
+
+        $mcn = nhom_phan_quyen::join('chuc_nang','nhom_phan_quyen.id_chuc_nang','=','chuc_nang.id')
+            ->select('id_nhom_chuc_nang', 'ten_nhom', 'nhom_chuc_nang.icon', 'nhom_chuc_nang.thu_tu')
+            ->join('nhom_chuc_nang','nhom_chuc_nang.id','=','chuc_nang.id_nhom_chuc_nang')
+            ->where('id_nhom_nguoi_dung',$nhom_ng->id_nhom_nguoi_dung)
+            ->groupBy('id_nhom_chuc_nang', 'ten_nhom', 'nhom_chuc_nang.icon', 'nhom_chuc_nang.thu_tu')
+            ->orderBy('nhom_chuc_nang.thu_tu','asc')
+            ->get();
+
         $list_chuc_nang = [];
-        if($nhom_cn_user) {
-            foreach ($nhom_cn_user as $value) {
+
+        if(count($mcn) > 0){
+            foreach ($mcn as $value) {
                 $query = "SELECT pq.id_chuc_nang, pq.ten_chuc_nang, pq.link, pq.thu_tu_chuc_nang, pq.allaction, pq.xem, pq.them, pq.sua, pq.xoa FROM phan_quyen as pq WHERE pq.id_nhom_chuc_nang =";
-                $chucnang = (array)DB::select($query.$value->id_nhom_chuc_nang." ORDER BY pq.thu_tu_chuc_nang ASC");
+                $chucnang = nhom_phan_quyen::join('chuc_nang','nhom_phan_quyen.id_chuc_nang','=','chuc_nang.id')
+                    ->select('id_chuc_nang', 'ten_chuc_nang', 'link', 'chuc_nang.thu_tu', 'allaction', 'xem', 'them', 'sua', 'xoa')
+                    ->join('nhom_chuc_nang','nhom_chuc_nang.id','=','chuc_nang.id_nhom_chuc_nang')
+                    ->where('id_nhom_chuc_nang',$value->id_nhom_chuc_nang)
+                    ->orderBy('chuc_nang.thu_tu','asc')
+                    ->get();
                 $nhom = array(
                     "id_nhom"   => $value->id_nhom_chuc_nang,
                     "ten_nhom"  => $value->ten_nhom,
@@ -31,6 +70,6 @@ class PhanQuyenChucNangController extends Controller
                 $list_chuc_nang[] = $nhom;
             }
         }
-        return ($list_chuc_nang);
+        return $list_chuc_nang;
     }
 }

@@ -47,11 +47,30 @@
                                                                     <option value="1">Nam</option>
                                                                 </select>
                                                             </div>
-                                                            <div class="form-group col-md-5">
+                                                            <div class="form-group col-md-6">
                                                                 <label class="label-form">Nơi sinh</label>
-                                                                <input v-model="nhan_vien.noi_sinh" type="text" class="form-control form-control-sm" id="dd1" placeholder="">
+                                                                <!--<input v-model="nhan_vien.noi_sinh" type="text" class="form-control form-control-sm" id="dd1" placeholder="">-->
+                                                                <div class="row">
+                                                                    <el-select v-model="tinh_thanh" value-key="tinh_thanh" filterable size="small" placeholder="Chọn tỉnh thành phố" @change="load_quan_huyen" class="col-md-6">
+                                                                        <el-option
+                                                                                v-for="item in list_tinh_thanh"
+                                                                                :key="item.ma_tinh"
+                                                                                :label="item.ten_tinh"
+                                                                                :value="item.ma_tinh">
+                                                                        </el-option>
+                                                                    </el-select>
+
+                                                                    <el-select v-model="quan_huyen" value-key="quan_huyen" filterable size="small" placeholder="Chọn tỉnh quận huyện" class="col-md-6">
+                                                                        <el-option
+                                                                                v-for="item in change_quan_huyen"
+                                                                                :key="item.ma_quan_huyen"
+                                                                                :label="item.ten_quan_huyen"
+                                                                                :value="item.ma_quan_huyen">
+                                                                        </el-option>
+                                                                    </el-select>
+                                                                </div>
                                                             </div>
-                                                            <div class="form-group col-md-4">
+                                                            <div class="form-group col-md-3">
                                                                 <label class="label-form">Ngày sinh</label>
                                                                 <input v-model="nhan_vien.ngay_sinh" type="date" class="form-control form-control-sm" id="sss" placeholder="">
                                                             </div>
@@ -85,7 +104,15 @@
                                                             </div>
                                                             <div class="form-group col-md-5">
                                                                 <label class="label-form">Nơi cấp</label>
-                                                                <input v-model="nhan_vien.scmnd_noi_cap" name="scmnd_noi_cap" type="text" class="form-control form-control-sm" id="scmnd_noi_cap" placeholder="">
+                                                                <!--<input v-model="nhan_vien.scmnd_noi_cap" name="scmnd_noi_cap" type="text" class="form-control form-control-sm" id="scmnd_noi_cap" placeholder="">-->
+                                                                <el-select v-model="nhan_vien.scmnd_noi_cap" filterable size="small" placeholder="Chọn tỉnh thành phố" style="width: 100%">
+                                                                    <el-option
+                                                                            v-for="item in list_tinh_thanh"
+                                                                            :key="item.ma_tinh"
+                                                                            :label="item.ten_tinh"
+                                                                            :value="item.ten_tinh">
+                                                                    </el-option>
+                                                                </el-select>
                                                             </div>
 
                                                             <div class="form-group col-md-12">
@@ -94,7 +121,7 @@
                                                             </div>
                                                             <div class="form-group col-md-12">
                                                                 <label class="label-form">Thường trú</label>
-                                                                <textarea v-model="nhan_vien.thuong_tru" name="txtthuongtru" class="form-control form-control-sm" id="txtthuongtru"></textarea>
+                                                                <input v-model="nhan_vien.thuong_tru" name="txtthuongtru" class="form-control form-control-sm" id="txtthuongtru"/>
                                                             </div>
 
                                                             <div class="form-group col-md-4">
@@ -522,12 +549,19 @@
     import {api_search_thong_tin_nhan_vien} from "./nhan_vien";
     import {api_delete_all_thong_tin_nhan_vien} from "./nhan_vien";
 
+    import {api_get_tinh} from "../../../helper/tinh_thanh";
+    import {api_get_quan_huyen} from "../../../helper/tinh_thanh";
+    import {api_get_phuong_xa} from "../../../helper/tinh_thanh";
+
     import {api_get_all_bo_phan} from "../bophan/bo_phan";
 
     export default {
         name: 'danhsachnhanvien',
-        mounted(){
+        mounted (){
             this.getNhanVien();
+            api_get_tinh(this);
+            api_get_quan_huyen(this);
+            api_get_phuong_xa(this);
         },
         computed: {
             danh_sach_nhan_vien() {
@@ -539,6 +573,15 @@
         },
         data(){
             return {
+                list_tinh_thanh: [],
+                tinh_thanh: null,
+                value: null,
+                list_quan_huyen: [],
+                change_quan_huyen: [],
+                quan_huyen: '',
+                list_phuong_xa: [],
+                change_phuong_xa: [],
+                phuong_xa: '',
                 loading_bo_phan: true,
                 flag_input_ma_nv: false,
                 dsnhanvien: [],
@@ -610,6 +653,12 @@
             }
         },
         methods: {
+            load_quan_huyen: function (id_tinh) {
+                this.change_quan_huyen = this.list_quan_huyen.filter(function(item){
+                    return (item['ma_tinh'] == id_tinh);
+                })
+                console.log(this.change_quan_huyen);
+            },
             show_select_lam: function (data_select, id_select) {
                 $('#' + id_select).val(data_select.ten_bo_phan);
             },
@@ -651,6 +700,7 @@
                 };
                 reader.readAsDataURL(file);
             },
+
             delete_all_thong_tin_nv: function (id_nhan_vien) {
                 api_delete_all_thong_tin_nhan_vien(this, id_nhan_vien);
             },
@@ -693,6 +743,12 @@
                     }
                 }
                 else {
+                    var lma = this.list_tinh_thanh.filter(function (item) {
+                        return (item['ma_tinh'] == nv.scmnd_noi_cap);
+                    });
+                    console.log(lma);
+                    this.value = lma[0];
+                    console.log(this.value);
                     this.nhan_vien = nv;
                     if (nv.avatar != null){
                         $('#wizardPicturePreview').attr('src', 'public/image_nhan_vien/' + nv.avatar).fadeIn('slow');

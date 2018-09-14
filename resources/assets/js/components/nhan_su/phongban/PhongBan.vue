@@ -323,7 +323,6 @@
             delete_phong_ban: function(n) {
                 this.phong_ban = n;
                 if(this.phong_ban.id <= 0) return -1;
-                this.change_bnt_save();
                 api_delete_phong_ban(this);
             },
             change_bnt_save: function () {

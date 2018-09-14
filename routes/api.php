@@ -91,3 +91,9 @@ Route::group(['middleware' => 'jwt.auth'], function ($router) {
 
     Route::get('danh-sach-nguoi-dung-theo-nhom/{id_nhom}', 'HeThongController@get_danh_sach_nguoi_dung_theo_nhom');
 });
+
+// ================= TINH THANH QUAN HUYEN THI XA =============
+Route::get('get-tinh-thanh', 'TinhThanhController@get_tinh_thanh');
+Route::get('get-quan-huyen', 'TinhThanhController@get_quan_huyen');
+Route::get('get-phuong-xa', 'TinhThanhController@get_phuong_xa');
+Route::get('get-duong', 'TinhThanhController@get_duong');

@@ -28,7 +28,6 @@ class ViTriController extends Controller
         $vt->ten_vi_tri = $request->ten_vi_tri;
         $vt->dien_giai = $request->dien_giai;
         $vt->id_phong_ban = $request->id_phong_ban;
-        $vt->an_hien = 1;
         $vt->save();
         return 1;
     }
@@ -45,7 +44,6 @@ class ViTriController extends Controller
         $vt = vi_tri::find($request->id);
         $vt->ten_vi_tri = $request->ten_vi_tri;
         $vt->dien_giai = $request->dien_giai;
-        $vt->an_hien = 1;
         $vt->save();
         return 1;
     }

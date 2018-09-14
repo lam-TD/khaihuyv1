@@ -10,6 +10,8 @@ import bangthuong from './components/nhan_su/bangthuong/BangThuong.vue';
 import mainnhanvien from './components/nhan_su/danhsachnhanvien/MainNhanVien';
 import danhsachnhanvien from './components/nhan_su/danhsachnhanvien/DanhSachNhanVien.vue';
 import thongtinnhanvien from './components/nhan_su/danhsachnhanvien/ThongTinNhanVien.vue';
+import thongtincongviec from './components/nhan_su/thongtincongviec/ThongTinCongViec';
+import thongtinlaodong from './components/nhan_su/thongtinlaodong/ThongTinLaoDong';
 
 //======= SAN PHAM =======
 import thongtinsanpham from './components/san_pham/ThongTinSanPham';
