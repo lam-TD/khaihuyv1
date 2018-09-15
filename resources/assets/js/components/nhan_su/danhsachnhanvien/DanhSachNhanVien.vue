@@ -126,15 +126,15 @@
 
                                                             <div class="form-group col-md-4">
                                                                 <label class="label-form">ĐT bàn</label>
-                                                                <input v-model="nhan_vien.dt_ban" name="txtdtban" type="text" class="form-control form-control-sm" id="txtdtban" placeholder="">
+                                                                <input v-model="nhan_vien.dt_ban" v-on:keypress="only_number_input(event)" name="txtdtban" type="text" class="form-control form-control-sm" id="txtdtban" placeholder="">
                                                             </div>
                                                             <div class="form-group col-md-4">
                                                                 <label class="label-form">Di động 1</label>
-                                                                <input v-model="nhan_vien.di_dong_1" type="text" name="txtdd1" class="form-control form-control-sm" id="txtdd1" placeholder="">
+                                                                <input v-model="nhan_vien.di_dong_1" v-on:keypress="only_number_input(event)" type="text" name="txtdd1" class="form-control form-control-sm" id="txtdd1" placeholder="">
                                                             </div>
                                                             <div class="form-group col-md-4">
                                                                 <label class="label-form">Di động 2</label>
-                                                                <input v-model="nhan_vien.di_dong_2" type="text" class="form-control form-control-sm" name="txtdd2" id="txtdd2" placeholder="">
+                                                                <input v-model="nhan_vien.di_dong_2" v-on:keypress="only_number_input(event)" type="text" class="form-control form-control-sm" name="txtdd2" id="txtdd2" placeholder="">
                                                             </div>
 
                                                             <div class="form-group col-md-3">
