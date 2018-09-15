@@ -82,6 +82,17 @@ Route::group(['middleware' => 'jwt.auth'], function ($router) {
     Route::get('delete-all-thong-tin-nhan-vien/{id_nhan_vien}', 'NhanVienController@delete_all_thong_tin_nhan_vien');
 });
 
+// HOP DONG LAO DONG
+Route::group(['middleware' => 'jwt.auth'], function ($router) {
+    Route::get('get-all-hdld', 'HopDongLaoDongController@get_all_hop_dong_lao_dong_pa');
+    Route::get('get-all-phong-ban', 'PhongBanController@get_all_phong_ban');
+    Route::post('add-phong-ban', 'PhongBanController@add_phong_ban');
+    Route::post('edit-phong-ban', 'PhongBanController@edit_phong_ban');
+    Route::get('delete-phong-ban/{id}', 'PhongBanController@delete_phong_ban');
+    Route::get('get-phong-theo-bo-phan/{id_bo_phan}', 'PhongBanController@get_phong_ban_theo_id_bo_phan');
+    Route::get('group-all-phong-theo-bo-phan', 'PhongBanController@group_all_phong_ban_theo_bo_phan');
+});
+
 // ================= HE THONG =====================
 Route::group(['middleware' => 'jwt.auth'], function ($router) {
     Route::get('danh-sach-nhom-nguoi-dung', 'HeThongController@get_danh_sach_nhom_nguoi_dung');

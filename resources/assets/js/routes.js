@@ -58,16 +58,16 @@ export const routes = [
             {
                 path: '/',
                 component: danhsachnhanvien
-            },
-            {
-                path: '/themmoi',
-                component: thongtinnhanvien
-            },
-            {
-                path: ':id',
-                component: thongtinnhanvien
             }
         ]
+    },
+    {
+        path: '/hopdonglaodong',
+        component: thongtinlaodong
+    },
+    {
+        path: '/thongtincongviec',
+        component: thongtincongviec
     },
     {
         path: '/thongtinsanpham',

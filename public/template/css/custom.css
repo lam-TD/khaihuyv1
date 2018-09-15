@@ -124,3 +124,44 @@ label {
     }
 }
 
+@media (min-width: 992px) {
+    .modal-lg {
+        max-width: 1000px !important;
+    }
+}
+
+@media (min-width: 768px) {
+    .label-form {
+        width: 100px;
+    }
+    .col-md-2 {
+        -webkit-box-flex: 0;
+        -ms-flex: 0 0 16.666667%;
+        flex: none;
+        max-width: 16.666667%;
+    }
+}
+
+.small, small {
+    font-size: 11px;
+    font-weight: 400;
+}
+
+#timkiem{
+    width: 100%;
+    position: relative;
+    padding-right: 87px;
+    font-size: 13px;
+}
+
+.btntimkiem{
+    position: absolute;
+    top: 3px;
+    right: 18px;
+    height: 37px;
+    font-size: 13px;
+    height: 32px;
+    padding: 5px 13px;
+}
+
+
