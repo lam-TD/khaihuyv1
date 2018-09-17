@@ -30,7 +30,7 @@
                     <div class="card">
                         <div class="card-body">
                             <div class="row" style="padding-top: 10px;">
-                                <div class="col-md-5">
+                                <div class="col-md-6">
                                     <div class="form-group">
                                         <form @submit.prevent="search_bhyt">
                                             <input v-model="keyword" type="text" id="timkiem" class="form-control" placeholder="Nhập từ khóa để tìm kiếm...">
@@ -38,9 +38,6 @@
                                             <button v-if="flag_search" @click="tat_ca_danh_sach" type="button" class="btn btn-primary btn-sm btntatca" name="button">Tất cả</button>
                                         </form>
                                     </div>
-                                </div>
-                                <div class="col-md-1">
-                                    <button class="btn btn-info">Tất cả</button>
                                 </div>
                                 <div class="col-md-6">
                                     <button @click="_bhyt('add')" title="Thêm mới bộ phận" type="button" data-toggle="modal" data-target="#myModal" class="btn btn-success waves-effect waves-dark pull-right">
@@ -109,14 +106,14 @@
                                         <form @submit.prevent="submit_bhyt" id="form_bophan">
                                             <!-- Modal Header -->
                                             <div class="modal-header">
-                                                <h4 class="modal-title"><b>Thông tin bộ phận</b></h4>
+                                                <h4 class="modal-title"><b>Thông tin bảo hiểm  y tế</b></h4>
                                                 <button type="button" class="close" data-dismiss="modal">&times;</button>
                                             </div>
 
                                             <!-- Modal body -->
                                             <div :disabled="flag_body_modal" class="modal-body">
                                                 <div class="form-group row">
-                                                    <label class="label-form col-md-3 col-form-label">Mã nhân viên</label>
+                                                    <label class="label-form col-md-3 col-form-label">Nhân viên</label>
                                                     <div class="col-md-9">
                                                         <!--<div class="select-lam">-->
                                                         <!--<input v-model="bhyt.so_hdld" name="txthoten" id="manv" type="text" class="form-control form-control-sm" v-validate="'required'" :class="{'border-danger' : errors.has('txthoten')}">-->
@@ -131,53 +128,86 @@
                                                         <!--</div>-->
                                                         <input v-show="!flag_nhan_vien" type="text" id="txtnhanvien-sua" class="form-control form-control-sm" readonly>
                                                         <el-select v-show="flag_nhan_vien" v-model="nhan_vien" value-key="nhan_vien" filterable size="small" placeholder="Chọn nhân viên" style="width: 100%" @change="select_nv">
-                                                            <template slot="prefix"><label class="prefix">{{nhan_vien.ma_nv}}</label></template>
+                                                            <!--<template slot="prefix"><label class="prefix">{{nhan_vien.ma_nv}}</label></template>-->
                                                             <el-option
                                                                     v-for="item in list_nhan_vien"
                                                                     :key="item.id"
                                                                     :label="item.ho_ten"
-                                                                    :value="item">
+                                                                    :value="item.id">
+                                                                <span style="float: left">{{ item.ma_nv }}</span>
+                                                                <span style="float: right; color: #8492a6; font-size: 13px">{{ item.ho_ten }}</span>
                                                             </el-option>
                                                         </el-select>
                                                     </div>
                                                 </div>
 
-                                                <!--<div class="form-group row">-->
-                                                <!--<label class="label-form col-md-3 col-form-label">Tên nhân viên</label>-->
-                                                <!--<div class="col-md-9">-->
-                                                <!--<input name="txthoten" type="text" class="form-control form-control-sm" v-validate="'required'" :class="{'border-danger' : errors.has('txthoten')}">-->
-                                                <!--</div>-->
-                                                <!--</div>-->
-
                                                 <div class="form-group row">
-                                                    <label class="label-form col-md-3 col-form-label">Số HĐLĐ</label>
+                                                    <label class="label-form col-md-3 col-form-label">Số BHYT</label>
                                                     <div class="col-md-9">
-                                                        <input v-model="bhyt.so_hdld" name="txthoten" type="text" class="form-control form-control-sm" v-validate="'required'" :class="{'border-danger' : errors.has('txthoten')}">
-                                                        <small v-show="errors.has('txthoten')" class="help text-muted is-danger">Vui lòng nhập tên nhân viên</small>
+                                                        <input v-model="bhyt.so_bhyt" name="so_bhyt" type="text" class="form-control form-control-sm">
+                                                        <small v-show="errors.has('so_bhyt')" class="help text-muted is-danger">Vui lòng nhập số bảo hiểm y tết</small>
                                                     </div>
                                                 </div>
 
                                                 <div class="form-group row">
-                                                    <label class="label-form col-md-3 col-form-label">Thời hạn</label>
+                                                    <label class="label-form col-md-3 col-form-label">Số BHXH</label>
                                                     <div class="col-md-9">
-                                                        <input v-model="bhyt.thoi_han_hd" name="txtthoihan" type="text" class="form-control form-control-sm" v-validate="'required'" :class="{'border-danger' : errors.has('txtthoihan')}">
-                                                        <small v-show="errors.has('txtthoihan')" class="help text-muted is-danger">Vui lòng nhập thời hạn lao động</small>
+                                                        <input v-model="bhyt.so_bhxh" name="so_bhxh" type="text" class="form-control form-control-sm">
+                                                        <small v-show="errors.has('so_bhxh')" class="help text-muted is-danger">Vui lòng nhập số bảo hiểm xã hội</small>
                                                     </div>
                                                 </div>
 
                                                 <div class="form-group row">
-                                                    <label class="label-form col-md-3 col-form-label">Ngày ký</label>
+                                                    <label class="label-form col-md-3 col-form-label">Nơi khám</label>
                                                     <div class="col-md-9">
-                                                        <input v-model="bhyt.ngay_ky" type="date" name="txtngayky" class="form-control form-control-sm" v-validate="'required'" :class="{'border-danger' : errors.has('txtngayky')}">
-                                                        <small v-show="errors.has('txtngayky')" class="help text-muted is-danger">Vui lòng nhập ngày ký</small>
+                                                        <input v-model="bhyt.noi_kham" type="text" name="txtngayky" class="form-control form-control-sm">
+                                                        <!--<small v-show="errors.has('txtngayky')" class="help text-muted is-danger">Vui lòng nhập ngày ký</small>-->
                                                     </div>
                                                 </div>
 
                                                 <div class="form-group row">
-                                                    <label class="label-form col-md-3 col-form-label">Ngày kết thúc</label>
+                                                    <label class="label-form col-md-3 col-form-label">Địa chỉ khám</label>
                                                     <div class="col-md-9">
-                                                        <input v-model="bhyt.ngay_kt" name="txtngaykt" type="date" class="form-control form-control-sm" v-validate="'required'" :class="{'border-danger' : errors.has('txtngaykt')}">
-                                                        <small v-show="errors.has('txtngaykt')" class="help text-muted is-danger">Vui lòng nhập ngày kết thúc</small>
+                                                        <input v-model="bhyt.dia_chi_kham" name="txtngaykt" type="text" class="form-control form-control-sm">
+                                                        <!--<small v-show="errors.has('txtngaykt')" class="help text-muted is-danger">Vui lòng nhập ngày kết thúc</small>-->
+                                                    </div>
+
+                                                    <label class="label-form col-md-3 col-form-label"></label>
+                                                    <div class="col-md-9">
+                                                        <el-select v-model="tinh_thanh" filterable size="small" placeholder="Chọn tỉnh thành phố" style="width: 100%" @change="load_quan_huyen">
+                                                            <!--<template slot="prefix"><label class="prefix">{{tinh_thanh.ten_tinh}}</label></template>-->
+                                                            <el-option
+                                                                    v-for="item in list_tinh_thanh"
+                                                                    :key="item.ma_tinh"
+                                                                    :label="item.ten_tinh"
+                                                                    :value="item.ma_tinh"
+                                                                    :data-tinh="item">
+                                                            </el-option>
+                                                        </el-select>
+                                                    </div>
+                                                    <br>
+                                                    <label class="label-form col-md-3 col-form-label"></label>
+                                                    <div class="col-md-9">
+                                                        <el-select v-model="quan_huyen" value-key="quan_huyen" filterable size="small" placeholder="Quận huyện" style="width: 100%;" @change="load_phuong_xa">
+                                                            <el-option
+                                                                    v-for="item in change_quan_huyen"
+                                                                    :key="item.ma_quan_huyen"
+                                                                    :label="item.ten_quan_huyen"
+                                                                    :value="item.ma_quan_huyen">
+                                                            </el-option>
+                                                        </el-select>
+                                                    </div>
+                                                    <br>
+                                                    <label class="label-form col-md-3 col-form-label"></label>
+                                                    <div class="col-md-9">
+                                                        <el-select v-model="phuong_xa" value-key="quan_huyen" filterable size="small" placeholder="Quận huyện" style="width: 100%;">
+                                                            <el-option
+                                                                    v-for="item in change_phuong_xa"
+                                                                    :key="item.phuongxa_id"
+                                                                    :label="item.ten_phuong_xa"
+                                                                    :value="item.phuongxa_id">
+                                                            </el-option>
+                                                        </el-select>
                                                     </div>
                                                 </div>
 
@@ -225,11 +255,18 @@
     import {api_search_all_bhyt} from "./bao_hiem_y_te";
     import {api_nhan_vien_get_all_no_pa} from "../../helper/nhan_vien";
 
+    import {api_get_tinh} from "../../../helper/tinh_thanh";
+    import {api_get_quan_huyen} from "../../../helper/tinh_thanh";
+    import {api_get_phuong_xa} from "../../../helper/tinh_thanh";
+
     export default {
         name: 'bophan',
         mounted () {
             this.danh_sach_bhyt(1);
             api_nhan_vien_get_all_no_pa(this);
+            api_get_tinh(this);
+            api_get_quan_huyen(this);
+            api_get_phuong_xa(this);
         },
         updated () {
             $(document).ready(function() {
@@ -238,15 +275,24 @@
         },
         data () {
             return {
+                list_tinh_thanh: [],
+                tinh_thanh: null,
+                value: null,
+                list_quan_huyen: [],
+                change_quan_huyen: [],
+                quan_huyen: '',
+                list_phuong_xa: [],
+                change_phuong_xa: [],
+                phuong_xa: '',
                 nhan_vien: [],
-                list_nhan_vien: [],
+                list_nhan_vien: '',
                 flag_nhan_vien: true,
                 loading_bhyt: true,
                 flag_search: false,
                 keyword: '',
                 list_bhyt: [],
                 total_bhyt: 0,
-                bhyt: { id: 0, so_hdld: '', thoi_han_hd: '', ngay_ky: '', ngay_kt: '', ghi_chu: '', nv_id: '' },
+                bhyt: { id: 0, so_bhyt: '', so_bhxh: '', noi_kham: '', dia_chi_kham: '', ghi_chu: '', nv_id: '', phuong_xa_id: '' },
                 flag_btn: true,
                 flag_submit_bhyt: true,
                 flag_input_bhyt: false,
@@ -257,6 +303,18 @@
             }
         },
         methods: {
+            load_quan_huyen: function (tinh) {
+                console.log(tinh);
+                this.change_quan_huyen = this.list_quan_huyen.filter(function(item){
+                    return (item['ma_tinh'] == tinh);
+                })
+            },
+            load_phuong_xa: function (quan_huyen) {
+                console.log(quan_huyen);
+                this.change_phuong_xa = this.list_phuong_xa.filter(function(item){
+                    return (item['quanhuyen_id'] == quan_huyen);
+                })
+            },
             validate_ma_bp: function () {
                 var length_nv = this.bhyt.ma_bhyt.length;
                 var value_nv  = this.bhyt.ma_bhyt;
@@ -270,7 +328,8 @@
                 }
             },
             select_nv: function (nv) {
-                $('input[name=txthoten]').val(nv.ho_ten);
+                this.bhyt.nv_id = nv;
+                // $('input[name=txthoten]').val(nv.ho_ten);
             },
             search_bhyt: function (page = 1) {
                 this.flag_search = true;
@@ -296,13 +355,13 @@
                     $('.row-nhom').removeClass("active-click-row");
                     this.flag_submit_bhyt = true;
                     this.flag_input_bhyt = false;
-                    this.bhyt.id = this.bhyt.ma_bhyt = this.bhyt.ten_bhyt = this.bhyt.dien_giai = '';
+                    this.bhyt.id = this.bhyt.so_bhxh = this.bhyt.so_bhyt = this.bhyt.ghi_chu = '', this.bhyt.noi_kham = '', this.bhyt.dia_chi_kham = '';
                 }
                 else {
                     this.flag_nhan_vien = false;
                     console.log(laodong);
                     this.bhyt = laodong;
-                    this.bhyt.id = laodong.hd_id;
+                    this.bhyt.id = laodong.bhyt_id;
                     $('#txtnhanvien-sua').val(laodong.ho_ten + ' - ' + laodong.ma_nv);
                     this.flag_submit_bhyt = false;
                     this.flag_input_bhyt = true;
@@ -312,7 +371,6 @@
                 this.change_bnt_save();
                 if(this.flag_submit_bhyt) {
                     this.flag_input_bhyt = false;
-                    this.bhyt.nv_id = this.nhan_vien.id;
                     this.add_bhyt();
                 }
                 else {
@@ -332,8 +390,8 @@
                 console.log(this.bhyt);
                 api_edit_bhyt(this);
             },
-            delete_bhyt: function(hdld) {
-                this.bhyt.id = hdld.hd_id;
+            delete_bhyt: function(bh) {
+                this.bhyt.id = bh.bhyt_id;
                 if(this.bhyt.id <= 0) return -1;
                 api_delete_bhyt(this);
             },
@@ -398,7 +456,4 @@
         margin-top: 5px;
     }
 
-    .el-input--prefix .el-input__inner {
-        padding-left: 65px !important;
-    }
 </style>

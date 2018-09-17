@@ -9,7 +9,6 @@ export function api_get_all_phong_ban_no_paginate(vm) {
     })
         .then((response) => {
             vm.list_phong_ban = response.data;
-            console.log(response);
         })
         .catch((error) => {
             console.log(error);

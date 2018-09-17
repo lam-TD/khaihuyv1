@@ -1,9 +1,508 @@
 <template>
+    <div class="page-wrapper" style="min-height: 291px;">
+        <!-- ============================================================== -->
+        <!-- Bread crumb and right sidebar toggle -->
+        <!-- ============================================================== -->
+        <div class="row page-titles">
+            <div class="col-md-5 align-self-center">
+                <h4 class="text-themecolor">Danh sách thông tin công việc</h4>
+            </div>
+            <div class="col-md-7 align-self-center">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="javascript:void(0)">Nhân sự</a></li>
+                    <li class="breadcrumb-item">Thông tin công việc</li>
+                </ol>
+            </div>
+        </div>
+        <!-- ============================================================== -->
+        <!-- End Bread crumb and right sidebar toggle -->
+        <!-- ============================================================== -->
+        <!-- ============================================================== -->
+        <!-- Container fluid  -->
+        <!-- ============================================================== -->
+        <div class="container-fluid">
+            <!-- ============================================================== -->
+            <!-- Start Page Content -->
+            <!-- ============================================================== -->
+            <div class="row">
+                <div class="col-lg-12 col-md-12">
+                    <!-- Column -->
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="row" style="padding-top: 10px;">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <form @submit.prevent="search_ttcv">
+                                            <input v-model="keyword" type="text" id="timkiem" class="form-control" placeholder="Nhập từ khóa để tìm kiếm...">
+                                            <button type="submit" class="btn btn-info btn-sm btntimkiem" name="button">Tìm kiếm</button>
+                                            <button v-if="flag_search" @click="tat_ca_danh_sach" type="button" class="btn btn-primary btn-sm btntatca" name="button">Tất cả</button>
+                                        </form>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <button @click="_ttcv('add')" title="Thêm mới bộ phận" type="button" data-toggle="modal" data-target="#myModal" class="btn btn-success waves-effect waves-dark pull-right">
+                                        <i class="fa fa-plus-circle"></i> Thêm mới
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="message-box contact-box">
+                                <!--<h2 class="add-ct-btn">-->
 
+                                <!--</h2>-->
+                                <div class="message-widget contact-widget">
+                                    <div class="table-responsive">
+                                        <table class="table table-hover">
+                                            <thead>
+                                            <tr style="border-top: 1px solid #ddd">
+                                                <th class="text-left">#</th>
+                                                <th>Mã NV</th>
+                                                <th>Tên NV</th>
+                                                <th>Ngày</th>
+                                                <th>Tình trạng</th>
+                                                <th>BPLV</th>
+                                                <th>Phòng</th>
+                                                <th>Vị trí</th>
+                                                <th>HSlương</th>
+                                                <th>Lương CB</th>
+                                                <th>Lương HTCV</th>
+                                                <th>TGLV</th>
+                                                <th>Ghi chú</th>
+                                                <th>Vào Cty</th>
+                                            </tr>
+                                            </thead>
+                                            <tbody class="body-table loading-item">
+                                            <tr v-if="loading_ttcv">
+                                                <td class="text-center" colspan="8"><b><i><i class="fa fa-spin fa-spinner"></i> Đang tải danh sách...</i></b></td>
+                                            </tr>
+                                            <tr v-else-if="list_ttcv.length <= 0">
+                                                <td class="text-center" colspan="8"><b><i>Chưa có bảo hiểm y tế</i></b></td>
+                                            </tr>
+                                            <tr v-else v-for="n in list_ttcv" :id="'n' + n.id" class="row-nhom" @click="click_ttcv(n)">
+                                                <td class="text-left" style="padding-right: 0">
+                                                    <button @click="_ttcv('edit',n)" id="edit_nhom" type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#myModal">
+                                                        <i class="fa fa-edit"></i> Sửa
+                                                    </button>
+                                                    <button @click="delete_ttcv(n)" type="button" class="btn btn-danger btn-sm">
+                                                        <i class="fa fa-trash"></i> Xóa
+                                                    </button>
+                                                </td>
+                                                <td>{{n.ma_nv}}</td>
+                                                <td>{{n.ho_ten}}</td>
+                                                <td>{{n.ngay}}</td>
+                                                <td>{{n.tinh_trang}}</td>
+                                                <td>{{n.bo_phan_ma}}</td>
+                                                <td>{{n.phong_ma}}</td>
+                                                <td>{{n.vi_tri_ma}}</td>
+                                                <td>{{n.he_so_luong}}</td>
+                                                <td>{{n.luong_co_ban}}</td>
+                                                <td>{{n.htcv}}</td>
+                                                <td>{{n.thoi_gian_lv_bd}} - {{n.thoi_gian_lv_kt}}</td>
+                                                <td>{{n.ghi_chu}}</td>
+                                            </tr>
+                                            </tbody>
+                                        </table>
+                                        <el-pagination
+                                                :page-size="10"
+                                                layout="prev, pager, next"
+                                                :total="total_ttcv"
+                                                @current-change="danh_sach_ttcv">
+                                        </el-pagination>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="modal" id="myModal">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <form @submit.prevent="submit_ttcv" id="form_bophan">
+                                            <!-- Modal Header -->
+                                            <div class="modal-header">
+                                                <h4 class="modal-title"><b>Thông tin bảo hiểm  y tế</b></h4>
+                                                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                            </div>
+
+                                            <!-- Modal body -->
+                                            <div :disabled="flag_body_modal" class="modal-body">
+                                                <div class="form-group row">
+                                                    <label class="label-form col-md-3 col-form-label">Nhân viên</label>
+                                                    <div class="col-md-9">
+                                                        <input v-show="!flag_nhan_vien" type="text" id="txtnhanvien-sua" class="form-control form-control-sm" readonly>
+                                                        <el-select v-show="flag_nhan_vien" v-model="ttcv.nv_id" value-key="nhan_vien" filterable size="small" placeholder="Chọn nhân viên" style="width: 100%" @change="select_nv">
+                                                            <!--<template slot="prefix"><label class="prefix">{{nhan_vien.ma_nv}}</label></template>-->
+                                                            <el-option
+                                                                    v-for="item in list_nhan_vien"
+                                                                    :key="item.id"
+                                                                    :label="item.ho_ten"
+                                                                    :value="item.id">
+                                                                <span style="float: left">{{ item.ma_nv }}</span>
+                                                                <span style="float: right; color: #8492a6; font-size: 13px">{{ item.ho_ten }}</span>
+                                                            </el-option>
+                                                        </el-select>
+                                                    </div>
+                                                </div>
+
+                                                <div class="form-group row">
+                                                    <label class="label-form col-md-3 col-form-label">Ngày</label>
+                                                    <div class="col-md-9">
+                                                        <input v-model="ttcv.ngay" name="so_ttcv" type="date" class="form-control form-control-sm">
+                                                        <small v-show="errors.has('so_ttcv')" class="help text-muted is-danger">Vui lòng nhập số bảo hiểm y tết</small>
+                                                    </div>
+                                                </div>
+
+                                                <div class="form-group row">
+                                                    <label class="label-form col-md-3 col-form-label">Tình trạng</label>
+                                                    <div class="col-md-9">
+                                                        <select v-model="ttcv.tinh_trang" name="" id="" class="form-control form-control-sm" style="width:100%">
+                                                            <option value="0">Thử việc</option>
+                                                            <option value="1">Chính thức</option>
+                                                            <option value="2">Thôi việc</option>
+                                                        </select>
+                                                        <!--<small v-show="errors.has('so_bhxh')" class="help text-muted is-danger">Vui lòng nhập số bảo hiểm xã hội</small>-->
+                                                    </div>
+                                                </div>
+
+                                                <div class="form-group row">
+                                                    <label class="label-form col-md-3 col-form-label">Bộ phận LV</label>
+                                                    <div class="col-md-9">
+                                                        <el-select v-model="bo_phan" filterable size="small" placeholder="Chọn bộ phận" style="width: 100%" @change="select_bo_phan">
+                                                            <!--<template slot="prefix"><label class="prefix">{{nhan_vien.ma_nv}}</label></template>-->
+                                                            <el-option
+                                                                    v-for="item in list_bo_phan"
+                                                                    :key="item.id"
+                                                                    :label="item.ma_bo_phan"
+                                                                    :value="item.ma_bo_phan">
+                                                                <span style="float: left">{{ item.ma_bo_phan }}</span>
+                                                                <span style="float: right; color: #8492a6; font-size: 13px">{{ item.ten_bo_phan }}</span>
+                                                            </el-option>
+                                                        </el-select>
+                                                        <small v-show="errors.has('so_bhxh')" class="help text-muted is-danger">Vui lòng nhập số bảo hiểm xã hội</small>
+                                                    </div>
+                                                </div>
+
+                                                <div class="form-group row">
+                                                    <label class="label-form col-md-3 col-form-label">Phòng</label>
+                                                    <div class="col-md-9">
+                                                        <el-select v-model="phong_ban" size="small" placeholder="Chọn phòng" style="width: 100%" @change="select_phong">
+                                                            <!--<template slot="prefix"><label class="prefix">{{nhan_vien.ma_nv}}</label></template>-->
+                                                            <el-option
+                                                                    v-for="item in list_change_phong"
+                                                                    :key="item.id"
+                                                                    :label="item.ma_phong"
+                                                                    :value="item.ma_phong">
+                                                                <span style="float: left">{{ item.ma_phong }}</span>
+                                                                <span style="float: right; color: #8492a6; font-size: 13px">{{ item.ten_phong }}</span>
+                                                            </el-option>
+                                                        </el-select>
+                                                    </div>
+                                                </div>
+
+                                                <div class="form-group row">
+                                                    <label class="label-form col-md-3 col-form-label">Vị trí</label>
+                                                    <div class="col-md-9">
+                                                        <el-select v-model="ttcv.vi_tri_ma" filterable size="small" placeholder="Chọn phòng" style="width: 100%" @change="select_vi_tri">
+                                                            <!--<template slot="prefix"><label class="prefix">{{nhan_vien.ma_nv}}</label></template>-->
+                                                            <el-option
+                                                                    v-for="item in list_vi_tri"
+                                                                    :key="item.ma_vi_tri"
+                                                                    :label="item.ma_vi_tri"
+                                                                    :value="item.ma_vi_tri">
+                                                                <span style="float: left">{{ item.ma_vi_tri }}</span>
+                                                                <span style="float: right; color: #8492a6; font-size: 13px">{{ item.ten_vi_tri }}</span>
+                                                            </el-option>
+                                                        </el-select>
+                                                    </div>
+                                                </div>
+
+                                                <div class="form-group row">
+                                                    <label class="label-form col-md-3 col-form-label">Hệ số lương</label>
+                                                    <div class="col-md-9">
+                                                        <input v-model="ttcv.he_so_luong" name="txtngaykt" type="text" class="form-control form-control-sm">
+                                                        <!--<small v-show="errors.has('txtngaykt')" class="help text-muted is-danger">Vui lòng nhập ngày kết thúc</small>-->
+                                                    </div>
+                                                </div>
+
+                                                <div class="form-group row">
+                                                    <label class="label-form col-md-3 col-form-label">Lương cơ bản</label>
+                                                    <div class="col-md-9">
+                                                        <input v-model="ttcv.luong_co_ban" name="txtngaykt" type="text" class="form-control form-control-sm">
+                                                        <!--<small v-show="errors.has('txtngaykt')" class="help text-muted is-danger">Vui lòng nhập ngày kết thúc</small>-->
+                                                    </div>
+                                                </div>
+
+                                                <div class="form-group row">
+                                                    <label class="label-form col-md-3 col-form-label">Lương HTCV</label>
+                                                    <div class="col-md-9">
+                                                        <input v-model="ttcv.htcv" name="txtngaykt" type="text" class="form-control form-control-sm">
+                                                        <!--<small v-show="errors.has('txtngaykt')" class="help text-muted is-danger">Vui lòng nhập ngày kết thúc</small>-->
+                                                    </div>
+                                                </div>
+
+                                                <div class="form-group row">
+                                                    <label class="label-form col-md-3 col-form-label">Chấm công</label>
+                                                    <div class="col-md-9">
+                                                        <div class="demo-radio-button">
+                                                            <input name="group1" type="radio" class="with-gap" id="radio_3">
+                                                            <label for="radio_3">Có</label>
+                                                            <input name="group1" type="radio" id="radio_4" class="with-gap">
+                                                            <label for="radio_4">Không</label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="form-group row">
+                                                    <label class="label-form col-md-3 col-form-label">Thời gian LV</label>
+                                                    <div class="col-md-4">
+                                                        <input v-model="ttcv.thoi_gian_lv_bd" name="txtngaykt" type="time" class="form-control form-control-sm">
+                                                        <!--<small v-show="errors.has('txtngaykt')" class="help text-muted is-danger">Vui lòng nhập ngày kết thúc</small>-->
+                                                    </div>
+                                                    <!--<label class="label-form col-md-1 col-form-label"></label>-->
+                                                    <div class="col-md-5">
+                                                        <input v-model="ttcv.thoi_gian_lv_kt" name="" type="time" class="form-control form-control-sm">
+                                                    </div>
+                                                </div>
+
+                                                <div class="form-group row">
+                                                    <label class="label-form col-md-3 col-form-label">Ghi chú</label>
+                                                    <div class="col-md-9">
+                                                        <textarea v-model="ttcv.ghi_chu" name="" id="" class="form-control form-control-sm"></textarea>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <!-- Modal footer -->
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-danger" data-dismiss="modal">Hủy</button>
+                                                <!--<button id="save" type="submit" class="btn btn-primary">Lưu lại</button>-->
+                                                <button :disabled="flag_disabled_submit || errors.has('txttenbophan')" id="save" type="submit" class="btn btn-primary">
+                                                    <span v-if="flag_btn_save"><i class="fa fa-save"></i> Lưu lại</span>
+                                                    <span v-if="!flag_btn_save"><i class="fa fa-spin fa-spinner"></i> Đang xử lý...</span>
+                                                </button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <!-- ============================================================== -->
+            <!-- End PAge Content -->
+
+        </div>
+        <!-- ============================================================== -->
+        <!-- End Container fluid  -->
+    </div>
 </template>
 
 <script>
+    import {api_get_all_ttcv} from './thong_tin_cong_viec';
+    import {api_add_ttcv} from "./thong_tin_cong_viec";
+    import {api_edit_ttcv} from "./thong_tin_cong_viec";
+    import {api_delete_ttcv} from "./thong_tin_cong_viec";
+    import {select_lam} from "../../helper/selectlam";
+    import {api_search_all_ttcv} from "./thong_tin_cong_viec";
+    import {api_nhan_vien_get_all_no_pa} from "../../helper/nhan_vien";
+
+    import {api_get_all_bo_phan} from "../bophan/bo_phan";
+    import {api_get_all_phong_ban_no_paginate} from "../phongban/phong_ban";
+    import {api_get_vi_tri_all_theo_phong} from "./thong_tin_cong_viec";
+
     export default {
-        name: 'thongtincongviec'
+        name: 'bophan',
+        mounted () {
+            this.danh_sach_ttcv(1);
+            api_nhan_vien_get_all_no_pa(this);
+            api_get_all_bo_phan(this);
+            api_get_all_phong_ban_no_paginate(this);
+        },
+        updated () {
+            $(document).ready(function() {
+                $('.select2').select2();
+            });
+        },
+        data () {
+            return {
+                list_bo_phan: [],
+                list_phong_ban: [],
+                bo_phan: '',
+                phong_ban: '',
+                vi_tri: '',
+                list_change_phong: [],
+                list_vi_tri: [],
+                nhan_vien: [],
+                list_nhan_vien: '',
+                flag_nhan_vien: true,
+                loading_ttcv: true,
+                flag_search: false,
+                keyword: '',
+                list_ttcv: [],
+                total_ttcv: 0,
+                ttcv: { id: 0, ngay: '', tinh_trang: '', he_so_luong: '', luong_co_ban: '', ghi_chu: '', nv_id: '', bo_phan_ma: '', phong_ma: '', vi_tri_ma: '', thoi_gian_lv_bd: '', thoi_gian_lv_kt: '' },
+                flag_btn: true,
+                flag_submit_ttcv: true,
+                flag_input_ttcv: false,
+                flag_body_modal: false,
+                flag_btn_save: true,
+                flag_disabled_submit: false,
+                flag_input_ma_ttcv: false
+            }
+        },
+        methods: {
+            select_bo_phan: function (id_bp) {
+                this.ttcv.bo_phan_ma = id_bp;
+                this.list_change_phong = this.list_phong_ban.filter(function(item){
+                    return (item['id_bo_phan'] == id_bp);
+                })
+            },
+            select_phong: function (id_bp) {
+                api_get_vi_tri_all_theo_phong(this, id_bp);
+                this.ttcv.phong_ma = id_bp;
+            },
+            select_vi_tri: function (id_vt) {
+                this.ttcv.vi_tri_ma = id_vt;
+            },
+            validate_ma_bp: function () {
+                var length_nv = this.ttcv.ma_ttcv.length;
+                var value_nv  = this.ttcv.ma_ttcv;
+                if((length_nv > 8 || length_nv < 8) || value_nv.indexOf('BP') == -1 || value_nv.indexOf(' ') > -1){
+                    this.flag_input_ma_ttcv = true;
+                    this.flag_disabled_submit = true;
+                }
+                else{
+                    this.flag_input_ma_ttcv = false;
+                    this.flag_disabled_submit = false;
+                }
+            },
+            select_nv: function (nv) {
+                this.ttcv.nv_id = nv;
+                // $('input[name=txthoten]').val(nv.ho_ten);
+            },
+            search_ttcv: function (page = 1) {
+                this.flag_search = true;
+                api_search_all_ttcv(this, page);
+            },
+            tat_ca_danh_sach: function () {
+                this.flag_search = false;
+                api_get_all_ttcv(this, 1);
+            },
+            danh_sach_ttcv: function (page = 1) {
+                this.loading_ttcv = true;
+                if(this.flag_search){
+                    api_search_all_ttcv(this, page);
+                }
+                else{
+                    api_get_all_ttcv(this, page);
+                }
+            },
+            _ttcv: function (state, laodong = null) {
+                if(state == 'add') {
+                    this.flag_nhan_vien = true;
+                    this.flag_btn = true;
+                    $('.row-nhom').removeClass("active-click-row");
+                    this.flag_submit_ttcv = true;
+                    this.flag_input_ttcv = false;
+                    // this.ttcv.id = this.ttcv.so_bhxh = this.ttcv.so_ttcv = this.ttcv.ghi_chu = '', this.ttcv.noi_kham = '', this.ttcv.dia_chi_kham = '';
+                }
+                else {
+                    this.flag_nhan_vien = false;
+                    console.log(laodong);
+                    this.ttcv = laodong;
+                    this.ttcv.id = laodong.ttcv_id;
+                    $('#txtnhanvien-sua').val(laodong.ho_ten + ' - ' + laodong.ma_nv);
+                    this.flag_submit_ttcv = false;
+                    this.flag_input_ttcv = true;
+                }
+            },
+            submit_ttcv: function () {
+                this.change_bnt_save();
+                if(this.flag_submit_ttcv) {
+                    this.flag_input_ttcv = false;
+                    console.log(this.$data.ttcv);
+                    this.add_ttcv();
+                }
+                else {
+                    this.nhom = this.nhom_selected;
+                    this.flag_input_ttcv = true;
+                    this.edit_ttcv();
+                }
+            },
+            click_ttcv: function (bp) {
+                $('.row-nhom').removeClass("active-click-row");
+                $('#n' + bp.id).addClass("active-click-row");
+            },
+            add_ttcv: function () {
+                api_add_ttcv(this);
+            },
+            edit_ttcv: function() {
+                console.log(this.ttcv);
+                api_edit_ttcv(this);
+            },
+            delete_ttcv: function(bh) {
+                this.ttcv.id = bh.cv_id;
+                if(this.ttcv.id <= 0) return -1;
+                api_delete_ttcv(this);
+            },
+            change_bnt_save: function () {
+                this.flag_btn_save = false;
+                $('#save').attr('disabled', 'disabled');
+            },
+            un_change_bnt_save: function () {
+                this.flag_btn_save = true;
+                $('#save').removeAttr('disabled');
+            }
+        }
     }
 </script>
+
+<style scoped>
+    .row-nhom:hover {
+        cursor: pointer;
+        color: black;
+    }
+
+    .row-phong:hover {
+        cursor: pointer;
+        color: black;
+    }
+
+    .demo-checkbox label, .demo-radio-button label{
+        min-width: 0px !important;
+        height: 0;
+    }
+
+    .body-table::before {
+        background-color: black;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+    }
+
+    .bg-inverse {
+        background-color: white;
+        padding-bottom: 0;
+    }
+
+    .card-body {
+        padding-top: 10px;
+    }
+
+    .card-title {
+        font-weight: 600;
+    }
+
+    .row-title {
+        padding-top: 6px;
+    }
+
+    .form-group {
+        margin-bottom: 5px;
+    }
+
+    .prefix {
+        margin-top: 5px;
+    }
+
+</style>

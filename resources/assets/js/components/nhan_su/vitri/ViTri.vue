@@ -44,7 +44,7 @@
                                         <el-select v-model="vi_tri.id_phong_ban" value-key="vi_tri.id_phong_ban" filterable placeholder="Tất cả phòng ban" @change="select_vi_tri_theo_phong">
                                             <el-option :key="''" :label="'Tất cả phòng'" :value="''"></el-option>
                                             <el-option-group v-for="item in list_phong_ban" :key="item.ten_bo_phan" :label="item.ten_bo_phan">
-                                                <el-option v-for="p in item.phong" :key="p.id" :label="p.ten_phong" :value="p.id">
+                                                <el-option v-for="p in item.phong" :key="p.id" :label="p.ten_phong" :value="p.ma_phong">
                                                     <span style="float: left">{{ p.ten_phong }}</span>
                                                     <span style="float: right; color: #8492a6; font-size: 13px">{{ p.ma_phong }}</span>
                                                 </el-option>
@@ -133,7 +133,7 @@
                                                     <!--</div>-->
                                                     <el-select v-model="vi_tri.id_phong_ban" value-key="vi_tri.id_phong_ban" filterable placeholder="Tất cả phòng ban" @change="select_vi_tri_theo_phong">
                                                         <el-option-group v-for="item in list_phong_ban" :label="item.ten_bo_phan" :key="item.ten_bo_phan">
-                                                            <el-option v-for="p in item.phong" :key="p.id" :label="p.ten_phong" :value="p.id">
+                                                            <el-option v-for="p in item.phong" :key="p.id" :label="p.ten_phong" :value="p.ma_phong">
                                                                 <span style="float: left">{{ p.ten_phong }}</span>
                                                                 <span style="float: right; color: #8492a6; font-size: 13px">{{ p.ma_phong }}</span>
                                                             </el-option>
@@ -251,6 +251,7 @@
                 this.danh_sach_vi_tri(id_bo_phan);
             },
             select_vi_tri_theo_phong: function (id_phong) {
+                console.log(id_phong);
                 this.error_select_phong = false;
                 this.vi_tri.id_phong_ban = id_phong;
                 this.danh_sach_vi_tri(1);

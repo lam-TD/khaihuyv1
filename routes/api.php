@@ -86,7 +86,6 @@ Route::group(['middleware' => 'jwt.auth'], function ($router) {
 // HOP DONG LAO DONG
 Route::group(['middleware' => 'jwt.auth'], function ($router) {
     Route::get('get-all-hdld', 'HopDongLaoDongController@get_all_hop_dong_lao_dong_pa');
-    Route::get('get-all-phong-ban', 'HopDongLaoDongController@get_all_phong_ban');
     Route::post('add-hdld', 'HopDongLaoDongController@add_hop_dong_lao_dong');
     Route::post('edit-hdld', 'HopDongLaoDongController@edit_hop_dong_lao_dong');
     Route::get('delete-hdld/{id}', 'HopDongLaoDongController@delete_hop_dong_lao_dong');
@@ -100,6 +99,16 @@ Route::group(['middleware' => 'jwt.auth'], function ($router) {
     Route::post('edit-bhyt', 'BaoHiemYTeController@edit_bhyt');
     Route::get('delete-bhyt/{id}', 'BaoHiemYTeController@delete_bhyt');
     Route::get('search-bhyt/{keyword}', 'BaoHiemYTeController@search_hop_dong_lao_dong');
+});
+
+// THONG TIN CONG VIEC
+Route::group(['middleware' => 'jwt.auth'], function ($router) {
+    Route::get('get-all-ttcv', 'ThongTinCongViecController@get_all_thong_tin_cong_viec');
+    Route::post('add-ttcv', 'ThongTinCongViecController@add_thong_tin_cong_viec');
+    Route::post('edit-ttcv', 'ThongTinCongViecController@edit_thong_tin_cong_viec');
+    Route::get('delete-ttcv/{id}', 'ThongTinCongViecController@delete_thong_tin_cong_viec');
+    Route::get('search-ttcv/{keyword}', 'ThongTinCongViecController@search_hop_dong_lao_dong');
+    Route::get('get-vi-tri-all-theo-phong/{id_phong}', 'ThongTinCongViecController@get_vi_tri_all_theo_phong');
 });
 
 // ================= HE THONG =====================

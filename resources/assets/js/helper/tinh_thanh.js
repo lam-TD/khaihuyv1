@@ -7,6 +7,7 @@ export function api_get_tinh(vm) {
     })
         .then((response) => {
             vm.list_tinh_thanh = response.data;
+            vm.tinh_thanh = response.data[0];
         })
         .catch((error) => {
 

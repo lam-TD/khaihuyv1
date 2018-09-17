@@ -50,7 +50,7 @@ export function api_add_bhyt(vm) {
                 vm.danh_sach_bhyt();
             }
             else if(response.data == 0){
-                sweetalert(0, 'Mã hợp đồng đã tồn tại!');
+                sweetalert(0, 'Mã bảo hiểm đã tồn tại!');
                 vm.loading_bhyt = false;
             }
             else sweetalert(2, 'Lỗi không thêm được!');
@@ -64,7 +64,7 @@ export function api_add_bhyt(vm) {
 export function api_edit_bhyt(vm) {
     axios({
         method: 'POST',
-        url: 'api/edit-add-bhyt',
+        url: 'api/edit-bhyt',
         headers: {'Authorization':'Bearer ' + vm.$store.state.currentUser.token},
         data: vm.$data.bhyt
     })
@@ -86,7 +86,7 @@ export function api_edit_bhyt(vm) {
 
 export function api_delete_bhyt(vm) {
     swal({
-            title: "Bạn có chắc chắn muốn xóa hợp đồng lao động vừa chọn?",
+            title: "Bạn có chắc chắn muốn xóa bảo hiểm y tế vừa chọn?",
             type: "warning",
             showCancelButton: true,
             confirmButtonClass: "btn-danger",
@@ -96,12 +96,12 @@ export function api_delete_bhyt(vm) {
         function() {
             axios({
                 method: 'GET',
-                url: 'api/delete-hdld/' + vm.bhyt.id,
+                url: 'api/delete-bhyt/' + vm.bhyt.id,
                 headers: {'Authorization':'Bearer ' + vm.$store.state.currentUser.token}
             })
                 .then((response) => {
                     if(response.data == 1) {
-                        sweetalert(1, 'Hợp đồng lao động đã được xóa!');
+                        sweetalert(1, 'Bảo hiểm đã được xóa!');
                         $('.row-nhom').removeClass("active-click-row");
                         vm.flag_btn = true;
                         vm.danh_sach_bhyt();

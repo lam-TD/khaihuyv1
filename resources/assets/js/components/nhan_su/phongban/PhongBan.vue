@@ -43,7 +43,7 @@
                                     <div class="">
                                         <el-select v-model="phong_ban.id_bo_phan" value-key="phong_ban.id_bo_phan" filterable placeholder="Tất cả bộ phận" @change="select_phong_theo_bo_phan">
                                             <el-option :key="''" :label="'Tất cả bộ phận'" :value="''"></el-option>
-                                            <el-option v-for="item in list_bo_phan" :key="item.id" :label="item.ten_bo_phan" :value="item.id">
+                                            <el-option v-for="item in list_bo_phan" :key="item.id" :label="item.ten_bo_phan" :value="item.ma_bo_phan">
                                                 <span style="float: left">{{ item.ten_bo_phan }}</span>
                                                 <span style="float: right; color: #8492a6; font-size: 13px">{{ item.ma_bo_phan }}</span>
                                             </el-option>
@@ -130,7 +130,7 @@
                                                         <!--</ul>-->
                                                     <!--</div>-->
                                                     <el-select v-model="phong_ban.id_bo_phan" value-key="phong_ban.id_bo_phan" filterable placeholder="Chọn bộ phận" @change="select_phong_theo_bo_phan">
-                                                        <el-option v-for="item in list_bo_phan" :key="item.id" :label="item.ten_bo_phan" :value="item.id">
+                                                        <el-option v-for="item in list_bo_phan" :key="item.id" :label="item.ten_bo_phan" :value="item.ma_bo_phan">
                                                             <span style="float: left">{{ item.ten_bo_phan }}</span>
                                                             <span style="float: right; color: #8492a6; font-size: 13px">{{ item.ma_bo_phan }}</span>
                                                         </el-option>
@@ -255,6 +255,7 @@
             },
             select_phong_theo_bo_phan: function (id_bo_phan) {
                 this.phong_ban.id_bo_phan = id_bo_phan;
+                console.log(id_bo_phan);
                 this.error_select_bo_phan = false;
                 this.danh_sach_phong_ban(1);
             },

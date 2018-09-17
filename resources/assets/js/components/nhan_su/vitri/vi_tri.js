@@ -20,6 +20,7 @@ export function api_get_all_vi_tri(vm, page) {
 }
 
 export function api_get_vi_tri_theo_phong(vm, id, page) {
+    console.log('đấ: ' + id);
     axios({
         method: 'GET',
         url: 'api/get-vi-tri-theo-phong/'+ id +'?page=' + page,

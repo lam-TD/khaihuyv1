@@ -79,7 +79,7 @@ class PhongBanController extends Controller
         $arr_result = [];
         if(count($bo_phan) > 0){
             foreach ($bo_phan as $b) {
-                $phong = phong_ban::where('id_bo_phan', $b->id)->get();
+                $phong = phong_ban::where('id_bo_phan', $b->ma_bo_phan)->get();
                 $arr_result[] = array(
                     'ten_bo_phan' => $b->ten_bo_phan,
                     'phong'       => $phong

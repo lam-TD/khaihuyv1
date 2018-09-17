@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\nhan_vien;
 use App\nhan_vien_lao_dong;
-use App\nhan_vien_cong_viec_hien_tai;
+use App\nhan_vien_cong_viec_;
 use Carbon\Carbon;
 use Intervention\Image\Facades\Image;
 
@@ -67,7 +67,7 @@ class NhanVienController extends Controller
         $lao_dong->nv_id = $nv_id;
         $lao_dong->save();
 
-        $cong_viec = new nhan_vien_cong_viec_hien_tai();
+        $cong_viec = new nhan_vien_cong_viec_();
         $cong_viec->nv_id = $nv_id;
         $cong_viec->save();
 
@@ -173,13 +173,13 @@ class NhanVienController extends Controller
 
     public function get_thong_tin_cong_viec_theo_nhan_vien($nv_id)
     {
-        $cv = nhan_vien_cong_viec_hien_tai::where('nv_id', $nv_id)->paginate(10);
+        $cv = nhan_vien_cong_viec_::where('nv_id', $nv_id)->paginate(10);
         return $cv;
     }
 
     public function add_nhan_vien_thong_tin_cong_viec(Request $request)
     {
-        $cv = nhan_vien_cong_viec_hien_tai::where('nv_id', $request->nv_id);
+        $cv = nhan_vien_cong_viec_::where('nv_id', $request->nv_id);
         $cv->id_elpv            = $request->id_elpv;
         $cv->nv_id              = $request->nv_id;
         $cv->id_phong           = $request->id_phong;
@@ -196,7 +196,7 @@ class NhanVienController extends Controller
 
     public function edit_nhan_vien_thong_tin_cong_viec(Request $request)
     {
-        $cv = nhan_vien_cong_viec_hien_tai::where('nv_id', $request->nv_id);
+        $cv = nhan_vien_cong_viec_::where('nv_id', $request->nv_id);
         $cv->update([
             'id_elpv'            => $request->id_elpv,
             'id_phong'           => $request->id_phong,
@@ -245,7 +245,7 @@ class NhanVienController extends Controller
     {
         $lao_dong = nhan_vien_lao_dong::where('nv_id', $id_nv)->delete();
 
-        $cong_viec = nhan_vien_cong_viec_hien_tai::where('nv_id', $id_nv)->delete();
+        $cong_viec = nhan_vien_cong_viec_::where('nv_id', $id_nv)->delete();
 
         $nv = nhan_vien::find($id_nv);
         $nv->delete();
