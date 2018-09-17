@@ -1,26 +1,26 @@
 import axios from 'axios';
 import {sweetalert} from '../../../helper/sweetalert';
 
-//
-// export function api_get_all_lao_dong(vm) {
-//     axios({
-//         method: 'GET',
-//         url: 'api/get-all-bo-phan',
-//         headers: {'Authorization':'Bearer ' + vm.$store.state.currentUser.token}
-//     })
-//         .then((response) => {
-//             vm.loading_lao_dong = false;
-//             vm.list_lao_dong = response.data;
-//         })
-//         .catch((error) => {
-//             console.log(error);
-//         })
-// }
+export function api_search_all_lao_dong(vm, page) {
+    axios({
+        method: 'GET',
+        url: 'api/search-hdld/'+ vm.keyword +'?page=' + page,
+        headers: {'Authorization':'Bearer ' + vm.$store.state.currentUser.token}
+    })
+        .then((response) => {
+            vm.loading_lao_dong = false;
+            vm.list_lao_dong = response.data.data;
+            vm.total_lao_dong = response.data.total;
+        })
+        .catch((error) => {
+            console.log(error);
+        })
+}
 
 export function api_get_all_lao_dong(vm, page) {
     axios({
         method: 'GET',
-        url: 'api/get-bo-phan?page=' + page,
+        url: 'api/get-all-hdld?page=' + page,
         headers: {'Authorization':'Bearer ' + vm.$store.state.currentUser.token}
     })
         .then((response) => {
@@ -37,7 +37,7 @@ export function api_add_lao_dong(vm) {
     vm.flag_input_lao_dong = false;
     axios({
         method: 'POST',
-        url: 'api/add-bo-phan',
+        url: 'api/add-hdld',
         headers: {'Authorization':'Bearer ' + vm.$store.state.currentUser.token},
         data: vm.$data.lao_dong
     })
@@ -50,7 +50,7 @@ export function api_add_lao_dong(vm) {
                 vm.danh_sach_lao_dong();
             }
             else if(response.data == 0){
-                sweetalert(0, 'Mã bộ phận đã tồn tại!');
+                sweetalert(0, 'Mã hợp đồng đã tồn tại!');
                 vm.loading_lao_dong = false;
             }
             else sweetalert(2, 'Lỗi không thêm được!');
@@ -62,10 +62,9 @@ export function api_add_lao_dong(vm) {
 }
 
 export function api_edit_lao_dong(vm) {
-    console.log('bp: ' + vm.$data.lao_dong);
     axios({
         method: 'POST',
-        url: 'api/edit-bo-phan',
+        url: 'api/edit-hdld',
         headers: {'Authorization':'Bearer ' + vm.$store.state.currentUser.token},
         data: vm.$data.lao_dong
     })
@@ -77,11 +76,7 @@ export function api_edit_lao_dong(vm) {
                 $('.modal-backdrop').css('display','none');
                 vm.danh_sach_lao_dong();
             }
-            else if(response.data == 0){
-                sweetalert(0, 'Mã nhóm vừa chọn đã tồn tại!');
-                vm.loading_lao_dong = false;
-            }
-            else sweetalert(2, 'Lỗi không thêm được!');
+            else sweetalert(2, 'Lỗi cập nhật được thêm được!');
         })
         .catch((error) => {
             console.log(error);
@@ -91,7 +86,7 @@ export function api_edit_lao_dong(vm) {
 
 export function api_delete_lao_dong(vm) {
     swal({
-            title: "Bạn có chắc chắn muốn xóa bộ phận vừa chọn?",
+            title: "Bạn có chắc chắn muốn xóa hợp đồng lao động vừa chọn?",
             type: "warning",
             showCancelButton: true,
             confirmButtonClass: "btn-danger",
@@ -101,19 +96,16 @@ export function api_delete_lao_dong(vm) {
         function() {
             axios({
                 method: 'GET',
-                url: 'api/delete-bo-phan/' + vm.lao_dong.id,
+                url: 'api/delete-hdld/' + vm.lao_dong.id,
                 headers: {'Authorization':'Bearer ' + vm.$store.state.currentUser.token}
             })
                 .then((response) => {
                     if(response.data == 1) {
-                        sweetalert(1, 'Bộ phận ' + vm.lao_dong.ma_lao_dong + ' đã được xóa!');
+                        sweetalert(1, 'Hợp đồng lao động đã được xóa!');
                         $('.row-nhom').removeClass("active-click-row");
                         vm.flag_btn = true;
                         vm.danh_sach_lao_dong();
                         vm.loading_lao_dong = false;
-                    }
-                    else if(response.data == 0){
-                        sweetalert(0, 'Bộ phận này có chứa phòng, vui lòng xóa phòng trước');
                     }
                     else {sweetalert(2, 'Lỗi không xóa được!'); vm.loading_lao_dong = false; vm.loading_phong_ban = false;};
                 })

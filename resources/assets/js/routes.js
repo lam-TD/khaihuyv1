@@ -12,6 +12,7 @@ import danhsachnhanvien from './components/nhan_su/danhsachnhanvien/DanhSachNhan
 import thongtinnhanvien from './components/nhan_su/danhsachnhanvien/ThongTinNhanVien.vue';
 import thongtincongviec from './components/nhan_su/thongtincongviec/ThongTinCongViec';
 import thongtinlaodong from './components/nhan_su/thongtinlaodong/ThongTinLaoDong';
+import baohiemyte from './components/nhan_su/baohiemyte/BaoHiemYTe';
 
 //======= SAN PHAM =======
 import thongtinsanpham from './components/san_pham/ThongTinSanPham';
@@ -64,6 +65,10 @@ export const routes = [
     {
         path: '/hopdonglaodong',
         component: thongtinlaodong
+    },
+    {
+        path: '/baohiemyte',
+        component: baohiemyte
     },
     {
         path: '/thongtincongviec',

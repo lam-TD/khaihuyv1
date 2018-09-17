@@ -12,6 +12,12 @@ use Intervention\Image\Facades\Image;
 
 class NhanVienController extends Controller
 {
+    public function get_nhan_vien_no_pa()
+    {
+        $nv = nhan_vien::orderby('id','desc')->get();
+        return $nv;
+    }
+
     public function get_all_thong_tin_nhan_vien()
     {
         $tt = nhan_vien::leftjoin('nhan_vien_lao_dong as ld', 'nhan_vien.id', '=', 'ld.nv_id')->paginate(10);

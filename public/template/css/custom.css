@@ -164,4 +164,57 @@ label {
     padding: 5px 13px;
 }
 
+.label-form {
+    font-weight: 500;
+    font-size: 13px;
+    margin-bottom: 0;
+}
+
+.modal-header {
+    background-color: #f5f5f5;
+}
+
+.modal-footer {
+    background-color: #f5f5f5;
+}
+
+.select-lam {
+    position: relative;
+    width: 100%;
+}
+
+.body-select-lam {
+    position: absolute;
+    top: 35px;
+    left: 0px;
+    width: 100%;
+    z-index: 20;
+    display: none;
+}
+
+.body-select-lam select option {
+    cursor: pointer;
+}
+
+.body-select-lam select {
+    overflow-y: scroll;
+    overflow-x: hidden;
+    max-height: 100px;
+    display: block;
+}
+
+.body-select-lam select option:hover {
+    background-color: #ddddff;
+}
+
+.btntatca {
+    position: absolute;
+    top: 3px;
+    right: 101px;
+    height: 37px;
+    font-size: 13px;
+    height: 32px;
+    padding: 5px 13px;
+}
+
 
