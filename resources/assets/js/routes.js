@@ -13,6 +13,7 @@ import thongtinnhanvien from './components/nhan_su/danhsachnhanvien/ThongTinNhan
 import thongtincongviec from './components/nhan_su/thongtincongviec/ThongTinCongViec';
 import thongtinlaodong from './components/nhan_su/thongtinlaodong/ThongTinLaoDong';
 import baohiemyte from './components/nhan_su/baohiemyte/BaoHiemYTe';
+import nguoiphuthuoc from './components/nhan_su/nguoiphuthuoc/NguoiPhuThuoc';
 
 //======= SAN PHAM =======
 import thongtinsanpham from './components/san_pham/ThongTinSanPham';
@@ -73,6 +74,10 @@ export const routes = [
     {
         path: '/thongtincongviec',
         component: thongtincongviec
+    },
+    {
+        path: '/nguoiphuthuoc',
+        component: nguoiphuthuoc
     },
     {
         path: '/thongtinsanpham',

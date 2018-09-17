@@ -111,6 +111,16 @@ Route::group(['middleware' => 'jwt.auth'], function ($router) {
     Route::get('get-vi-tri-all-theo-phong/{id_phong}', 'ThongTinCongViecController@get_vi_tri_all_theo_phong');
 });
 
+// NGUOI PHU THUOC
+Route::group(['middleware' => 'jwt.auth'], function ($router) {
+    Route::get('get-npt-theo-nhan-vien/{ma_nv}', 'NguoiPhuThuocController@get_danh_sach_npt_theo_nhan_vien');
+    Route::post('add-npt', 'NguoiPhuThuocController@add_nhan_vien_npt');
+    Route::post('edit-npt', 'NguoiPhuThuocController@edit_nhan_vien_npt');
+    Route::get('delete-npt/{id}', 'NguoiPhuThuocController@delete_nhan_vien_npt');
+//    Route::get('search-ttcv/{keyword}', 'NguoiPhuThuocController@search_hop_dong_lao_dong');
+//    Route::get('get-vi-tri-all-theo-phong/{id_phong}', 'ThongTinCongViecController@get_vi_tri_all_theo_phong');
+});
+
 // ================= HE THONG =====================
 Route::group(['middleware' => 'jwt.auth'], function ($router) {
     Route::get('danh-sach-nhom-nguoi-dung', 'HeThongController@get_danh_sach_nhom_nguoi_dung');

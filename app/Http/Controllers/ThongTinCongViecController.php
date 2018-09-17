@@ -22,6 +22,7 @@ class ThongTinCongViecController extends Controller
             $cv = new nhan_vien_cong_viec();
             $cv->nv_id = $request->nv_id;
             $cv->tinh_trang = $request->tinh_trang;
+            $cv->ngay = $request->ngay;
             $cv->he_so_luong = $request->he_so_luong;
             $cv->luong_co_ban = $request->luong_co_ban;
             $cv->htcv = $request->htcv;
@@ -45,6 +46,7 @@ class ThongTinCongViecController extends Controller
     {
         $cv = nhan_vien_cong_viec::find($request->id);
         $cv->tinh_trang = $request->tinh_trang;
+        $cv->ngay = $request->ngay;
         $cv->he_so_luong = $request->he_so_luong;
         $cv->luong_co_ban = $request->luong_co_ban;
         $cv->htcv = $request->htcv;

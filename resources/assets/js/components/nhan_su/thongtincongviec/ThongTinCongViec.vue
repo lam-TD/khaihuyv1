@@ -51,23 +51,24 @@
                                 <!--</h2>-->
                                 <div class="message-widget contact-widget">
                                     <div class="table-responsive">
-                                        <table class="table table-hover">
+                                        <table class="table table-hover" id="table_ttcv">
                                             <thead>
                                             <tr style="border-top: 1px solid #ddd">
                                                 <th class="text-left">#</th>
-                                                <th>Mã NV</th>
+                                                <th class="text-center">Mã NV</th>
                                                 <th>Tên NV</th>
-                                                <th>Ngày</th>
+                                                <th class="text-center">Ngày</th>
                                                 <th>Tình trạng</th>
-                                                <th>BPLV</th>
-                                                <th>Phòng</th>
-                                                <th>Vị trí</th>
-                                                <th>HSlương</th>
+                                                <th class="text-center">BPLV</th>
+                                                <th class="text-center">Phòng</th>
+                                                <th class="text-center">Vị trí</th>
+                                                <th class="text-center">HS Lương</th>
                                                 <th>Lương CB</th>
                                                 <th>Lương HTCV</th>
-                                                <th>TGLV</th>
-                                                <th>Ghi chú</th>
-                                                <th>Vào Cty</th>
+                                                <th class="text-center">TGLV</th>
+                                                <th class="text-center">Chấm công</th>
+                                                <th class="text-center">Ghi chú</th>
+                                                <th class="text-center">Vào Cty</th>
                                             </tr>
                                             </thead>
                                             <tbody class="body-table loading-item">
@@ -89,15 +90,17 @@
                                                 <td>{{n.ma_nv}}</td>
                                                 <td>{{n.ho_ten}}</td>
                                                 <td>{{n.ngay}}</td>
-                                                <td>{{n.tinh_trang}}</td>
-                                                <td>{{n.bo_phan_ma}}</td>
-                                                <td>{{n.phong_ma}}</td>
-                                                <td>{{n.vi_tri_ma}}</td>
-                                                <td>{{n.he_so_luong}}</td>
+                                                <td v-if="n.tinh_trang == 0">Thử việc</td><td v-else-if="n.tinh_trang == 1">Chính thức</td><td v-else>Thôi việc</td>
+                                                <td class="text-center">{{n.bo_phan_ma}}</td>
+                                                <td class="text-center">{{n.phong_ma}}</td>
+                                                <td class="text-center">{{n.vi_tri_ma}}</td>
+                                                <td class="text-center">{{n.he_so_luong}}</td>
                                                 <td>{{n.luong_co_ban}}</td>
                                                 <td>{{n.htcv}}</td>
-                                                <td>{{n.thoi_gian_lv_bd}} - {{n.thoi_gian_lv_kt}}</td>
+                                                <td class="text-center">{{n.thoi_gian_lv_bd}} - {{n.thoi_gian_lv_kt}}</td>
+                                                <td v-if="n.cham_cong == 0" class="text-center">Không</td><td v-else class="text-center">Có</td>
                                                 <td>{{n.ghi_chu}}</td>
+                                                <td class="text-center">X</td>
                                             </tr>
                                             </tbody>
                                         </table>
@@ -216,7 +219,8 @@
                                                 <div class="form-group row">
                                                     <label class="label-form col-md-3 col-form-label">Hệ số lương</label>
                                                     <div class="col-md-9">
-                                                        <input v-model="ttcv.he_so_luong" name="txtngaykt" type="text" class="form-control form-control-sm">
+                                                        <input @input="only_number_input" v-model="ttcv.he_so_luong" name="txtngaykt" type="text" class="form-control form-control-sm">
+                                                        <!--<vue-numeric class="form-control form-control-sm" separator="," v-model="ttcv.he_so_luong"></vue-numeric>-->
                                                         <!--<small v-show="errors.has('txtngaykt')" class="help text-muted is-danger">Vui lòng nhập ngày kết thúc</small>-->
                                                     </div>
                                                 </div>
@@ -224,7 +228,8 @@
                                                 <div class="form-group row">
                                                     <label class="label-form col-md-3 col-form-label">Lương cơ bản</label>
                                                     <div class="col-md-9">
-                                                        <input v-model="ttcv.luong_co_ban" name="txtngaykt" type="text" class="form-control form-control-sm">
+                                                        <vue-numeric class="form-control form-control-sm" separator="," v-model="ttcv.luong_co_ban"></vue-numeric>
+                                                        <!--<input v-model="ttcv.luong_co_ban" name="txtngaykt" type="text" class="form-control form-control-sm">-->
                                                         <!--<small v-show="errors.has('txtngaykt')" class="help text-muted is-danger">Vui lòng nhập ngày kết thúc</small>-->
                                                     </div>
                                                 </div>
@@ -232,7 +237,8 @@
                                                 <div class="form-group row">
                                                     <label class="label-form col-md-3 col-form-label">Lương HTCV</label>
                                                     <div class="col-md-9">
-                                                        <input v-model="ttcv.htcv" name="txtngaykt" type="text" class="form-control form-control-sm">
+                                                        <!--<input v-model="ttcv.htcv" name="txtngaykt" type="text" class="form-control form-control-sm">-->
+                                                        <vue-numeric class="form-control form-control-sm" separator="," v-model="ttcv.htcv"></vue-numeric>
                                                         <!--<small v-show="errors.has('txtngaykt')" class="help text-muted is-danger">Vui lòng nhập ngày kết thúc</small>-->
                                                     </div>
                                                 </div>
@@ -240,12 +246,16 @@
                                                 <div class="form-group row">
                                                     <label class="label-form col-md-3 col-form-label">Chấm công</label>
                                                     <div class="col-md-9">
-                                                        <div class="demo-radio-button">
-                                                            <input name="group1" type="radio" class="with-gap" id="radio_3">
-                                                            <label for="radio_3">Có</label>
-                                                            <input name="group1" type="radio" id="radio_4" class="with-gap">
-                                                            <label for="radio_4">Không</label>
-                                                        </div>
+                                                        <el-radio-group v-model="cham_cong">
+                                                            <el-radio :label="1">Có</el-radio>
+                                                            <el-radio :label="0">Không</el-radio>
+                                                        </el-radio-group>
+                                                        <!--<div class="demo-radio-button">-->
+                                                            <!--<input value="1" name="chamcong" type="radio" class="with-gap" id="radio_3">-->
+                                                            <!--<label for="radio_3">Có</label>-->
+                                                            <!--<input name="chamcong" type="radio" value="0" id="radio_4" class="with-gap">-->
+                                                            <!--<label  for="radio_4">Không</label>-->
+                                                        <!--</div>-->
                                                     </div>
                                                 </div>
 
@@ -339,7 +349,8 @@
                 keyword: '',
                 list_ttcv: [],
                 total_ttcv: 0,
-                ttcv: { id: 0, ngay: '', tinh_trang: '', he_so_luong: '', luong_co_ban: '', ghi_chu: '', nv_id: '', bo_phan_ma: '', phong_ma: '', vi_tri_ma: '', thoi_gian_lv_bd: '', thoi_gian_lv_kt: '' },
+                ttcv: { id: 0, ngay: '', tinh_trang: '', he_so_luong: '', luong_co_ban: '', ghi_chu: '', nv_id: '', bo_phan_ma: '', phong_ma: '', vi_tri_ma: '', thoi_gian_lv_bd: '', thoi_gian_lv_kt: '', cham_cong: 0 },
+                cham_cong: 0,
                 flag_btn: true,
                 flag_submit_ttcv: true,
                 flag_input_ttcv: false,
@@ -375,6 +386,15 @@
                     this.flag_disabled_submit = false;
                 }
             },
+            only_number_input: function (evt) {
+                evt = (evt) ? evt : window.event;
+                var charCode = (evt.which) ? evt.which : evt.keyCode;
+                if ((charCode > 31 && (charCode < 48 || charCode > 57)) && charCode !== 46) {
+                    evt.preventDefault();;
+                } else {
+                    return true;
+                }
+            },
             select_nv: function (nv) {
                 this.ttcv.nv_id = nv;
                 // $('input[name=txthoten]').val(nv.ho_ten);
@@ -396,7 +416,7 @@
                     api_get_all_ttcv(this, page);
                 }
             },
-            _ttcv: function (state, laodong = null) {
+            _ttcv: function (state, cv = null) {
                 if(state == 'add') {
                     this.flag_nhan_vien = true;
                     this.flag_btn = true;
@@ -407,10 +427,13 @@
                 }
                 else {
                     this.flag_nhan_vien = false;
-                    console.log(laodong);
-                    this.ttcv = laodong;
-                    this.ttcv.id = laodong.ttcv_id;
-                    $('#txtnhanvien-sua').val(laodong.ho_ten + ' - ' + laodong.ma_nv);
+                    this.bo_phan = cv.bo_phan_ma;
+                    this.phong_ban = cv.phong_ma;
+                    this.vi_tri = cv.vi_tri_ma;
+                    this.ttcv = cv;
+                    this.ttcv.id = cv.cv_id;
+                    this.cham_cong = cv.cham_cong;
+                    $('#txtnhanvien-sua').val(cv.ho_ten + ' - ' + cv.ma_nv);
                     this.flag_submit_ttcv = false;
                     this.flag_input_ttcv = true;
                 }
@@ -419,11 +442,13 @@
                 this.change_bnt_save();
                 if(this.flag_submit_ttcv) {
                     this.flag_input_ttcv = false;
-                    console.log(this.$data.ttcv);
                     this.add_ttcv();
                 }
                 else {
-                    this.nhom = this.nhom_selected;
+                    this.ttcv.cham_cong = this.cham_cong;
+                    this.ttcv.bo_phan_ma = this.bo_phan;
+                    this.ttcv.phong_ma = this.phong_ban;
+                    this.ttcv.vi_tri_ma = this.vi_tri;
                     this.flag_input_ttcv = true;
                     this.edit_ttcv();
                 }
@@ -436,7 +461,6 @@
                 api_add_ttcv(this);
             },
             edit_ttcv: function() {
-                console.log(this.ttcv);
                 api_edit_ttcv(this);
             },
             delete_ttcv: function(bh) {

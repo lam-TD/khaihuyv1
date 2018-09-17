@@ -115,17 +115,6 @@
                                                 <div class="form-group row">
                                                     <label class="label-form col-md-3 col-form-label">Nhân viên</label>
                                                     <div class="col-md-9">
-                                                        <!--<div class="select-lam">-->
-                                                        <!--<input v-model="bhyt.so_hdld" name="txthoten" id="manv" type="text" class="form-control form-control-sm" v-validate="'required'" :class="{'border-danger' : errors.has('txthoten')}">-->
-                                                        <!--<small v-show="errors.has('txthoten')" class="help text-muted is-danger">Vui lòng nhập tên nhân viên</small>-->
-                                                        <!--<div class="body-select-lam">-->
-                                                        <!--<select name="" id="" class="form-control form-control-sm" multiple>-->
-                                                        <!--<option value="">sdadsdsdsda <span class="pull-right">KH000001</span></option>-->
-                                                        <!--<option value="">sdadsdsdsda <span class="pull-right">KH000001</span></option>-->
-                                                        <!--<option value="">sdadsdsdsda <span class="pull-right">KH000001</span></option>-->
-                                                        <!--</select>-->
-                                                        <!--</div>-->
-                                                        <!--</div>-->
                                                         <input v-show="!flag_nhan_vien" type="text" id="txtnhanvien-sua" class="form-control form-control-sm" readonly>
                                                         <el-select v-show="flag_nhan_vien" v-model="nhan_vien" value-key="nhan_vien" filterable size="small" placeholder="Chọn nhân viên" style="width: 100%" @change="select_nv">
                                                             <!--<template slot="prefix"><label class="prefix">{{nhan_vien.ma_nv}}</label></template>-->

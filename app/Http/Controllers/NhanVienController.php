@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\nhan_vien;
 use App\nhan_vien_lao_dong;
-use App\nhan_vien_cong_viec_;
+use App\nhan_vien_cong_viec;
 use Carbon\Carbon;
 use Intervention\Image\Facades\Image;
 
@@ -61,15 +61,6 @@ class NhanVienController extends Controller
         $nv->cc_thue_cap = $request->cc_thue_cap;
         $nv->avatar = $avatar;
         $nv->save();
-
-        $nv_id = nhan_vien::max('id');
-        $lao_dong = new nhan_vien_lao_dong();
-        $lao_dong->nv_id = $nv_id;
-        $lao_dong->save();
-
-        $cong_viec = new nhan_vien_cong_viec_();
-        $cong_viec->nv_id = $nv_id;
-        $cong_viec->save();
 
         return 1;
     }

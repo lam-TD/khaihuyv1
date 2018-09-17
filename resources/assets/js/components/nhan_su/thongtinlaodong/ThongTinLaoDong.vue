@@ -30,7 +30,7 @@
                     <div class="card">
                         <div class="card-body">
                             <div class="row" style="padding-top: 10px;">
-                                <div class="col-md-5">
+                                <div class="col-md-6">
                                     <div class="form-group">
                                         <form @submit.prevent="search_lao_dong">
                                             <input v-model="keyword" type="text" id="timkiem" class="form-control" placeholder="Nhập từ khóa để tìm kiếm...">
@@ -38,9 +38,6 @@
                                             <button v-if="flag_search" @click="tat_ca_danh_sach" type="button" class="btn btn-primary btn-sm btntatca" name="button">Tất cả</button>
                                         </form>
                                     </div>
-                                </div>
-                                <div class="col-md-1">
-                                    <button class="btn btn-info">Tất cả</button>
                                 </div>
                                 <div class="col-md-6">
                                     <button @click="_lao_dong('add')" title="Thêm mới bộ phận" type="button" data-toggle="modal" data-target="#myModal" class="btn btn-success waves-effect waves-dark pull-right">
@@ -110,7 +107,7 @@
                                         <form @submit.prevent="submit_lao_dong" id="form_bophan">
                                             <!-- Modal Header -->
                                             <div class="modal-header">
-                                                <h4 class="modal-title"><b>Thông tin bộ phận</b></h4>
+                                                <h4 class="modal-title"><b>Thông tin hợp đồng lao động</b></h4>
                                                 <button type="button" class="close" data-dismiss="modal">&times;</button>
                                             </div>
 
@@ -131,13 +128,15 @@
                                                             <!--</div>-->
                                                         <!--</div>-->
                                                         <input v-show="!flag_nhan_vien" type="text" id="txtnhanvien-sua" class="form-control form-control-sm" readonly>
-                                                        <el-select v-show="flag_nhan_vien" v-model="nhan_vien" value-key="nhan_vien" filterable size="small" placeholder="Chọn nhân viên" style="width: 100%" @change="select_nv">
-                                                            <template slot="prefix"><label class="prefix">{{nhan_vien.ma_nv}}</label></template>
+                                                        <el-select v-show="flag_nhan_vien" v-model="ma_nv" filterable size="small" placeholder="Chọn mã nhân viên" style="width: 100%" @change="select_nv">
+                                                            <!--<template slot="prefix"><label class="prefix">{{nhan_vien.ma_nv}}</label></template>-->
                                                             <el-option
                                                                     v-for="item in list_nhan_vien"
                                                                     :key="item.id"
-                                                                    :label="item.ho_ten"
-                                                                    :value="item">
+                                                                    :label="item.ma_nv"
+                                                                    :value="item.ma_nv">
+                                                                <span style="float: left">{{ item.ma_nv }}</span>
+                                                                <span style="float: right; color: #8492a6; font-size: 13px">{{ item.ho_ten }}</span>
                                                             </el-option>
                                                         </el-select>
                                                     </div>
@@ -240,6 +239,7 @@
         data () {
             return {
                 nhan_vien: [],
+                ma_nv: '',
                 list_nhan_vien: [],
                 flag_nhan_vien: true,
                 loading_lao_dong: true,
@@ -271,7 +271,7 @@
                 }
             },
             select_nv: function (nv) {
-                $('input[name=txthoten]').val(nv.ho_ten);
+                this.ma_nv = nv;
             },
             search_lao_dong: function (page = 1) {
                 this.flag_search = true;
@@ -297,11 +297,10 @@
                     $('.row-nhom').removeClass("active-click-row");
                     this.flag_submit_lao_dong = true;
                     this.flag_input_lao_dong = false;
-                    this.lao_dong.id = this.lao_dong.ma_lao_dong = this.lao_dong.ten_lao_dong = this.lao_dong.dien_giai = '';
+                    this.lao_dong.id = this.lao_dong.nv_id =this.lao_dong.so_hdld = this.lao_dong.thoi_han_hd = this.lao_dong.ghi_chu = this.lao_dong.ngay_ky = this.lao_dong.ngay_kt = '';
                 }
                 else {
                     this.flag_nhan_vien = false;
-                    console.log(laodong);
                     this.lao_dong = laodong;
                     this.lao_dong.id = laodong.hd_id;
                     $('#txtnhanvien-sua').val(laodong.ho_ten + ' - ' + laodong.ma_nv);
@@ -312,12 +311,12 @@
             submit_lao_dong: function () {
                 this.change_bnt_save();
                 if(this.flag_submit_lao_dong) {
+                    console.log(this.ma_nv);
+                    this.lao_dong.nv_id = this.ma_nv;
                     this.flag_input_lao_dong = false;
-                    this.lao_dong.nv_id = this.nhan_vien.id;
                     this.add_lao_dong();
                 }
                 else {
-                    this.nhom = this.nhom_selected;
                     this.flag_input_lao_dong = true;
                     this.edit_lao_dong();
                 }
@@ -327,6 +326,7 @@
                 $('#n' + bp.id).addClass("active-click-row");
             },
             add_lao_dong: function () {
+                console.log(this.lao_dong);
                 api_add_lao_dong(this);
             },
             edit_lao_dong: function() {

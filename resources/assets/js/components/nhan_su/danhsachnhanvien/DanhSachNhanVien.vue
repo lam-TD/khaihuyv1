@@ -13,7 +13,7 @@
                             </div>
                         </div>
                         <div class="col-md-6">
-                            <button @click="_nhan_vien('add')" class="btn btn-primary pull-right" data-toggle="modal" data-target="#modal_nv_tt_ca_nhan"><i class="fa fa-plus-circle"></i> Thêm mới</button>
+                            <button @click="_nhan_vien('add')" class="btn btn-success pull-right" data-toggle="modal" data-target="#modal_nv_tt_ca_nhan"><i class="fa fa-plus-circle"></i> Thêm mới</button>
                             <!-- Modal thong tin ca nhan -->
                             <!--<div class="modal" id="modal_nv_tt_ca_nhan"  tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">-->
                                 <!--<div class="modal-dialog modal-lg" role="document">-->
@@ -724,9 +724,9 @@
                                 <tr v-if="flag"><td colspan="17" class=""><b class="error_load_nv">Lỗi không tải được danh sách vui lòng tải lại trang...</b></td></tr>
                                 <tr v-if="dsnhanvien.length>0" v-for="(n, index) in dsnhanvien">
                                     <td class="text-nowrap">
-                                        <button @click="_nhan_vien('edit', n)" data-toggle="modal" data-target="#modal_nv_tt_ca_nhan" class="btn btn-success btn-sm" title="Cập nhật thông tin cá nhân"> <i class="fa fa-edit"></i> </button>
-                                        <button @click="_lao_dong(n)" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#modal_nv_tt_lao_dong" title="Thông tin lao động"><i class="fa fa-address-book-o"></i></button>
-                                        <button class="btn btn-info btn-sm" data-toggle="modal" data-target="#modal_nv_tt_cong_viec" title="Thông tin công việc hiện tại"><i class="fa fa-id-card-o"></i></button>
+                                        <button @click="_nhan_vien('edit', n)" data-toggle="modal" data-target="#modal_nv_tt_ca_nhan" class="btn btn-info btn-sm" title="Cập nhật thông tin cá nhân"> <i class="fa fa-edit"></i> </button>
+                                        <!--<button @click="_lao_dong(n)" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#modal_nv_tt_lao_dong" title="Thông tin lao động"><i class="fa fa-address-book-o"></i></button>-->
+                                        <!--<button class="btn btn-info btn-sm" data-toggle="modal" data-target="#modal_nv_tt_cong_viec" title="Thông tin công việc hiện tại"><i class="fa fa-id-card-o"></i></button>-->
                                         <button @click="delete_all_thong_tin_nv(n.id)" class="btn btn-danger btn-sm" title="Xóa"> <i class="fa fa-trash-o"></i> </button>
                                     </td>
                                     <td class="text-center">{{index + 1}}</td>
