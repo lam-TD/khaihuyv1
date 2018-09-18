@@ -91,7 +91,7 @@
                                 </div>
                             </div>
 
-                            <div class="modal fade" id="myModal">
+                            <div class="modal" id="myModal">
                                 <div class="modal-dialog">
                                     <div class="modal-content">
                                         <form @submit.prevent="submit_bo_phan" id="form_bophan">
@@ -300,5 +300,9 @@
 
     .form-group {
         margin-bottom: 5px;
+    }
+
+    .modal {
+        transition: 1s ease-out;
     }
 </style>

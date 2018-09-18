@@ -121,7 +121,7 @@
                                 </div>
                             </div>
 
-                            <div class="modal fade" id="myModal">
+                            <div class="modal" id="myModal">
                                 <div class="modal-dialog">
                                     <div class="modal-content">
                                         <form @submit.prevent="submit_npt" id="form_bophan">
