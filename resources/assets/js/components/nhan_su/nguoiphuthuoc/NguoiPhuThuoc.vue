@@ -134,7 +134,7 @@
                                             <!-- Modal body -->
                                             <div :disabled="flag_body_modal" class="modal-body">
                                                 <div class="form-group row">
-                                                    <label class="label-form col-md-3 col-form-label">Mã nhân viên</label>
+                                                    <label class="label-form col-md-3 col-form-label">Mã NV(*)</label>
                                                     <div class="col-md-9">
                                                         <!--<input v-show="!flag_nhan_vien" type="text" id="txtnhanvien-sua" class="form-control form-control-sm" readonly>-->
                                                         <el-select v-model="npt.ma_nv" filterable size="small" placeholder="Chọn bộ phận" @change="select_npt_theo_nhan_vien" no-match-text="Không tìm thấy" no-data-text="Không có dữ liệu">
@@ -147,7 +147,7 @@
                                                 </div>
 
                                                 <div class="form-group row">
-                                                    <label class="label-form col-md-3 col-form-label">Họ tên NPT</label>
+                                                    <label class="label-form col-md-3 col-form-label">Họ tên NPT(*)</label>
                                                     <div class="col-md-9">
                                                         <input v-model="npt.ho_ten_npt" name="so_bhyt" type="text" class="form-control form-control-sm">
                                                         <small v-show="errors.has('so_bhyt')" class="help text-muted is-danger">Vui lòng nhập tên người phụ thuộc</small>
