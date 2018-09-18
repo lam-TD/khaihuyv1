@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\phong_ban;
 use App\nhan_vien;
 use App\bo_phan;
+use App\vi_tri;
 
 class PhongBanController extends Controller
 {
@@ -58,9 +59,9 @@ class PhongBanController extends Controller
 
     public function delete_phong_ban($id_phong)
     {
-        if($this->check_nhan_vien_phong_ban($id_phong) == 1) return 0;
+        if($this->check_vi_tri_phong_ban($id_phong) == 1) return 0;
         else {
-            $pb = phong_ban::find($id_phong);
+            $pb = phong_ban::where('ma_phong',$id_phong);
             $pb->delete();
             return 1;
         }
@@ -70,6 +71,13 @@ class PhongBanController extends Controller
     {
         $nv = nhan_vien::where('id_phong', $id_phong)->get();
         (count($nv) == 0) ? $result = -1 : $result = 1;
+        return $result;
+    }
+
+    public function check_vi_tri_phong_ban($id_phong)
+    {
+        $vt = vi_tri::where('id_phong_ban', $id_phong)->get();
+        (count($vt) == 0) ? $result = -1 : $result = 1;
         return $result;
     }
 

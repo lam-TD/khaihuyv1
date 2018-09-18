@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\vi_tri;
 use App\nhan_vien;
+use App\nhan_vien_cong_viec;
 
 class ViTriController extends Controller
 {
@@ -51,14 +52,14 @@ class ViTriController extends Controller
     public function delete_vi_tri($id_vi_tri)
     {
         if($this->check_nhan_vien_thuoc_vi_tri($id_vi_tri) == 1) return 0;
-        $vt = vi_tri::find($id_vi_tri);
+        $vt = vi_tri::where('ma_vi_tri',$id_vi_tri);
         $vt->delete();
         return 1;
     }
 
     public function check_nhan_vien_thuoc_vi_tri($id_vi_tri)
     {
-        $nv = nhan_vien::where('id_vi_tri', $id_vi_tri)->get();
+        $nv = nhan_vien_cong_viec::where('vi_tri_ma', $id_vi_tri)->get();
         (count($nv) == 0) ? $result = -1 : $result = 1;
         return $result;
     }

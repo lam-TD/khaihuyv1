@@ -75,10 +75,10 @@
                                             <tr v-else v-for="n in list_lao_dong" :id="'n' + n.id" class="row-nhom" @click="click_lao_dong(n)">
                                                 <td class="text-left" style="padding-right: 0">
                                                     <button @click="_lao_dong('edit',n)" id="edit_nhom" type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#myModal">
-                                                        <i class="fa fa-edit"></i> Sửa
+                                                        <i class="fa fa-edit"></i>
                                                     </button>
                                                     <button @click="delete_lao_dong(n)" type="button" class="btn btn-danger btn-sm">
-                                                        <i class="fa fa-trash"></i> Xóa
+                                                        <i class="fa fa-trash"></i>
                                                     </button>
                                                 </td>
                                                 <td>{{n.ma_nv}}</td>
@@ -101,7 +101,7 @@
                                 </div>
                             </div>
 
-                            <div class="modal" id="myModal">
+                            <div class="modal fade" id="myModal">
                                 <div class="modal-dialog">
                                     <div class="modal-content">
                                         <form @submit.prevent="submit_lao_dong" id="form_bophan">

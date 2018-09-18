@@ -51,7 +51,7 @@
                                         <table class="table table-hover">
                                             <thead>
                                             <tr style="border-top: 1px solid #ddd">
-                                                <th class="text-left">#</th>
+                                                <th class="text-center" style="width: 100px;">#</th>
                                                 <th>Mã bộ phận</th>
                                                 <th>Tên bộ phận</th>
                                                 <th>Diễn giải</th>
@@ -66,12 +66,12 @@
                                                 <td class="text-center" colspan="6"><b><i>Chưa có bộ phận</i></b></td>
                                             </tr>
                                             <tr v-else v-for="n in list_bo_phan" :id="'n' + n.id" class="row-nhom" @click="click_bo_phan(n)">
-                                                <td class="text-left" style="padding-right: 0">
+                                                <td class="text-center" style="padding-right: 0">
                                                     <button @click="_bo_phan('edit',n)" id="edit_nhom" type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#myModal">
-                                                        <i class="fa fa-edit"></i> Sửa
+                                                        <i class="fa fa-edit"></i>
                                                     </button>
-                                                    <button @click="delete_bo_phan(n.id)" type="button" class="btn btn-danger btn-sm">
-                                                        <i class="fa fa-trash"></i> Xóa
+                                                    <button @click="delete_bo_phan(n)" type="button" class="btn btn-danger btn-sm">
+                                                        <i class="fa fa-trash"></i>
                                                     </button>
                                                 </td>
                                                 <td>{{n.ma_bo_phan}}</td>
@@ -91,7 +91,7 @@
                                 </div>
                             </div>
 
-                            <div class="modal" id="myModal">
+                            <div class="modal fade" id="myModal">
                                 <div class="modal-dialog">
                                     <div class="modal-content">
                                         <form @submit.prevent="submit_bo_phan" id="form_bophan">
@@ -103,20 +103,26 @@
 
                                             <!-- Modal body -->
                                             <div :disabled="flag_body_modal" class="modal-body">
-                                                <div class="form-group">
-                                                    <label><b>Mã bộ phận</b></label>
-                                                    <input @input="validate_ma_bp" v-model="bo_phan.ma_bo_phan" :disabled="flag_input_bo_phan" v-validate="'required'" :class="{'border-danger' : errors.has('txtmabophan')}" type="text" name="txtmabophan" class="form-control" id="txtmabophan" aria-describedby="" autofocus>
-                                                    <!--<small v-show="errors.has('txtmabophan')" class="help text-muted is-danger">Vui lòng nhập mã bộ phận</small>-->
-                                                    <small v-if="flag_input_ma_bo_phan" class="help text-muted is-danger">Mã bộ phận phải có 8 ký tự, bắt đầu bằng BP</small>
+                                                <div class="form-group row">
+                                                    <label class="label-form col-md-3 col-form-label"><b>Mã bộ phận</b></label>
+                                                    <div class="col-md-9">
+                                                        <input @input="validate_ma_bp" v-model="bo_phan.ma_bo_phan" :disabled="flag_input_bo_phan" v-validate="'required'" :class="{'border-danger' : errors.has('txtmabophan')}" type="text" name="txtmabophan" class="form-control form-control-sm" id="txtmabophan" aria-describedby="" autofocus>
+                                                        <small v-if="flag_input_ma_bo_phan" class="help text-muted is-danger">Mã bộ phận phải có 8 ký tự, bắt đầu bằng BP</small>
+                                                    </div>
+
                                                 </div>
-                                                <div class="form-group">
-                                                    <label><b>Tên bộ phận</b></label>
-                                                    <input v-model="bo_phan.ten_bo_phan" v-validate="'required'" :class="{'border-danger' : errors.has('txttenbophan')}" type="text" name="txttenbophan" class="form-control" id="txttenbophan" placeholder="">
-                                                    <small v-show="errors.has('txttenbophan')" class="help text-muted is-danger">Vui lòng nhập tên bộ phận</small>
+                                                <div class="form-group row">
+                                                    <label class="label-form col-md-3 col-form-label"><b>Tên bộ phận</b></label>
+                                                    <div class="col-md-9">
+                                                        <input v-model="bo_phan.ten_bo_phan" v-validate="'required'" :class="{'border-danger' : errors.has('txttenbophan')}" type="text" name="txttenbophan" class="form-control form-control-sm" id="txttenbophan" placeholder="">
+                                                        <small v-show="errors.has('txttenbophan')" class="help text-muted is-danger">Vui lòng nhập tên bộ phận</small>
+                                                    </div>
                                                 </div>
-                                                <div class="form-group">
-                                                    <label><b>Diễn giải</b></label>
-                                                    <textarea v-model="bo_phan.dien_giai" type="text" name="txtdiengiai" class="form-control" id="txtdiengiai"></textarea>
+                                                <div class="form-group row">
+                                                    <label class="label-form col-md-3 col-form-label"><b>Diễn giải</b></label>
+                                                    <div class="col-md-9">
+                                                        <textarea v-model="bo_phan.dien_giai" type="text" name="txtdiengiai" class="form-control form-control-sm" id="txtdiengiai"></textarea>
+                                                    </div>
                                                 </div>
                                             </div>
 
@@ -234,8 +240,8 @@
                 console.log(this.bo_phan);
                 api_edit_bo_phan(this);
             },
-            delete_bo_phan: function(id) {
-                this.bo_phan.id = id;
+            delete_bo_phan: function(bp) {
+                this.bo_phan = bp;
                 if(this.bo_phan.id <= 0) return -1;
                 api_delete_bo_phan(this);
             },
@@ -290,5 +296,9 @@
 
     .row-title {
         padding-top: 6px;
+    }
+
+    .form-group {
+        margin-bottom: 5px;
     }
 </style>

@@ -81,10 +81,10 @@
                                             <tr v-else v-for="n in list_ttcv" :id="'n' + n.id" class="row-nhom" @click="click_ttcv(n)">
                                                 <td class="text-left" style="padding-right: 0">
                                                     <button @click="_ttcv('edit',n)" id="edit_nhom" type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#myModal">
-                                                        <i class="fa fa-edit"></i> Sửa
+                                                        <i class="fa fa-edit"></i>
                                                     </button>
                                                     <button @click="delete_ttcv(n)" type="button" class="btn btn-danger btn-sm">
-                                                        <i class="fa fa-trash"></i> Xóa
+                                                        <i class="fa fa-trash"></i>
                                                     </button>
                                                 </td>
                                                 <td>{{n.ma_nv}}</td>
@@ -114,7 +114,7 @@
                                 </div>
                             </div>
 
-                            <div class="modal" id="myModal">
+                            <div class="modal fade" id="myModal">
                                 <div class="modal-dialog">
                                     <div class="modal-content">
                                         <form @submit.prevent="submit_ttcv" id="form_bophan">

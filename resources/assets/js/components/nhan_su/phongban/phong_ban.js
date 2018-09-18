@@ -25,7 +25,7 @@ export function api_get_all_phong_ban(vm, page) {
             vm.list_phong_ban = response.data.data;
             vm.total_phong_ban = response.data.total;
             vm.loading_phong_ban = false;
-            console.log(response.data.data);
+            // console.log(response.data.data);
         })
         .catch((error) => {
             console.log(error);
@@ -44,7 +44,7 @@ export function api_get_danh_sach_phong_theo_bo_phan(vm, id, page) {
             vm.list_phong_ban = response.data.data;
             vm.total_phong_ban = response.data.total;
             vm.loading_phong_ban = false;
-            console.log(response.data.data);
+            // console.log(response.data.data);
         })
         .catch((error) => {
             console.log(error);
@@ -146,7 +146,7 @@ export function api_delete_phong_ban(vm) {
         function() {
             axios({
                 method: 'GET',
-                url: 'api/delete-phong-ban/' + vm.phong_ban.id,
+                url: 'api/delete-phong-ban/' + vm.phong_ban.ma_phong,
                 headers: {'Authorization':'Bearer ' + vm.$store.state.currentUser.token}
             })
                 .then((response) => {

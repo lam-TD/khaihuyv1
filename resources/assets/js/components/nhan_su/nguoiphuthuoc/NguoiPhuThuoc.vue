@@ -91,10 +91,10 @@
                                                 <tr v-for="n in list_npt" :id="'n' + n.id" class="row-nhom" @click="click_npt(n)">
                                                     <td class="text-left" style="padding-right: 0">
                                                         <button @click="_npt('edit',n)" id="edit_nhom" type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#myModal">
-                                                            <i class="fa fa-edit"></i> Sửa
+                                                            <i class="fa fa-edit"></i>
                                                         </button>
                                                         <button @click="delete_npt(n)" type="button" class="btn btn-danger btn-sm">
-                                                            <i class="fa fa-trash"></i> Xóa
+                                                            <i class="fa fa-trash"></i>
                                                         </button>
                                                     </td>
                                                     <td>{{n.ho_ten_npt}}</td>
@@ -121,7 +121,7 @@
                                 </div>
                             </div>
 
-                            <div class="modal" id="myModal">
+                            <div class="modal fade" id="myModal">
                                 <div class="modal-dialog">
                                     <div class="modal-content">
                                         <form @submit.prevent="submit_npt" id="form_bophan">

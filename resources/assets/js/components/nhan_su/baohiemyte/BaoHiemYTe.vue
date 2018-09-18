@@ -29,7 +29,7 @@
                     <!-- Column -->
                     <div class="card">
                         <div class="card-body">
-                            <div class="row" style="padding-top: 10px;">
+                            <div class="row" style="padding-top: 10px;margin-bottom: 15px;">
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <form @submit.prevent="search_bhyt">
@@ -54,7 +54,7 @@
                                         <table class="table table-hover">
                                             <thead>
                                             <tr style="border-top: 1px solid #ddd">
-                                                <th class="text-left">#</th>
+                                                <th class="text-center">#</th>
                                                 <th>Mã NV</th>
                                                 <th>Tên nhân viên</th>
                                                 <th>Số BHYT</th>
@@ -74,10 +74,10 @@
                                             <tr v-else v-for="n in list_bhyt" :id="'n' + n.id" class="row-nhom" @click="click_bhyt(n)">
                                                 <td class="text-left" style="padding-right: 0">
                                                     <button @click="_bhyt('edit',n)" id="edit_nhom" type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#myModal">
-                                                        <i class="fa fa-edit"></i> Sửa
+                                                        <i class="fa fa-edit"></i>
                                                     </button>
                                                     <button @click="delete_bhyt(n)" type="button" class="btn btn-danger btn-sm">
-                                                        <i class="fa fa-trash"></i> Xóa
+                                                        <i class="fa fa-trash"></i>
                                                     </button>
                                                 </td>
                                                 <td>{{n.ma_nv}}</td>
@@ -100,7 +100,7 @@
                                 </div>
                             </div>
 
-                            <div class="modal" id="myModal">
+                            <div class="modal fade" id="myModal">
                                 <div class="modal-dialog">
                                     <div class="modal-content">
                                         <form @submit.prevent="submit_bhyt" id="form_bophan">

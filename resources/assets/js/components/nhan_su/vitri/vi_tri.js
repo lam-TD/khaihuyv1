@@ -99,7 +99,7 @@ export function api_delete_vi_tri(vm) {
         function() {
             axios({
                 method: 'GET',
-                url: 'api/delete-vi-tri/' + vm.vi_tri.id,
+                url: 'api/delete-vi-tri/' + vm.vi_tri.ma_vi_tri,
                 headers: {'Authorization':'Bearer ' + vm.$store.state.currentUser.token}
             })
                 .then((response) => {
