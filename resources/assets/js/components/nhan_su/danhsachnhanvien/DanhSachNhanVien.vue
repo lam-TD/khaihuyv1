@@ -368,7 +368,7 @@
                                                                 </el-select>
                                                             </div>
 
-                                                            <label class="label-form col-md-2 col-form-label">C/C Thuế cấp</label>
+                                                            <label class="label-form col-md-2 col-form-label">C/CThuế cấp</label>
                                                             <div class="col-md-3">
                                                                 <input v-model="nhan_vien.cc_thue_cap" type="text" name="txtccthuecap" class="form-control form-control-sm" id="txtccthuecap" placeholder="">
                                                             </div>
@@ -925,7 +925,7 @@
                 reader.onload = (e) => {
                     vm.nhan_vien.image = e.target.result;
                     $('#wizardPicturePreview').attr('src', e.target.result).fadeIn('slow');
-                    // console.log(vm.nhan_vien.image);
+                    console.log(vm.nhan_vien.image);
                 };
                 reader.readAsDataURL(file);
             },

@@ -10,7 +10,7 @@ class BaoHiemYTeController extends Controller
     public function get_all_danh_sach_bhyt()
     {
         $yt = bao_hiem_yte::join('nhan_vien','nhan_vien_bhyt.nv_id','=','nhan_vien.id')
-            ->select('nhan_vien_bhyt.nv_id','nhan_vien_bhyt.id as bhyt_id','nhan_vien.ma_nv','nhan_vien.ho_ten', 'nhan_vien_bhyt.so_bhyt', 'nhan_vien_bhyt.so_bhxh','nhan_vien_bhyt.noi_kham','nhan_vien_bhyt.dia_chi_kham','nhan_vien_bhyt.ghi_chu')
+            ->select('nhan_vien_bhyt.nv_id','nhan_vien_bhyt.phuong_xa_id','nhan_vien_bhyt.id as bhyt_id','nhan_vien.ma_nv','nhan_vien.ho_ten', 'nhan_vien_bhyt.so_bhyt', 'nhan_vien_bhyt.so_bhxh','nhan_vien_bhyt.noi_kham','nhan_vien_bhyt.dia_chi_kham','nhan_vien_bhyt.ghi_chu')
             ->orderby('nhan_vien_bhyt.id', 'desc')->paginate(10);
         return $yt;
     }
@@ -36,6 +36,7 @@ class BaoHiemYTeController extends Controller
         $yt->so_bhxh = $request->so_bhxh;
         $yt->noi_kham = $request->noi_kham;
         $yt->dia_chi_kham = $request->dia_chi_kham;
+        $yt->phuong_xa_id = $request->phuong_xa_id;
         $yt->ghi_chu = $request->ghi_chu;
         $yt->save();
         return 1;
