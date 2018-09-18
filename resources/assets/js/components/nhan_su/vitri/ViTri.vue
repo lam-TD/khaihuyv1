@@ -32,7 +32,7 @@
                             <div class="row row-title">
                                 <div class="col-md-4 col-sm-6">
                                     <div class="">
-                                        <el-select v-model="vi_tri.id_phong_ban" value-key="vi_tri.id_phong_ban" filterable placeholder="Tất cả phòng ban" @change="select_vi_tri_theo_phong">
+                                        <el-select v-model="vi_tri.id_phong_ban" value-key="vi_tri.id_phong_ban" filterable placeholder="Tất cả phòng ban" @change="select_vi_tri_theo_phong" no-match-text="Không tìm thấy" no-data-text="Không có dữ liệu">
                                             <el-option :key="''" :label="'Tất cả phòng'" :value="''"></el-option>
                                             <el-option-group v-for="item in list_phong_ban" :key="item.ten_bo_phan" :label="item.ten_bo_phan">
                                                 <el-option v-for="p in item.phong" :key="p.id" :label="p.ten_phong" :value="p.ma_phong">
@@ -111,9 +111,9 @@
                                             <!-- Modal body -->
                                             <div class="modal-body">
                                                 <div class="form-group row">
-                                                    <label class="label-form col-md-3 col-form-label"><b>Phòng ban</b></label>
+                                                    <label class="label-form col-md-3 col-form-label"><b>Phòng ban(*)</b></label>
                                                     <div class="col-md-9">
-                                                        <el-select v-model="vi_tri.id_phong_ban" value-key="vi_tri.id_phong_ban" size="small" filterable placeholder="Tất cả phòng ban" @change="select_vi_tri_theo_phong">
+                                                        <el-select v-model="vi_tri.id_phong_ban" value-key="vi_tri.id_phong_ban" size="small" filterable placeholder="Tất cả phòng ban" @change="select_vi_tri_theo_phong" no-match-text="Không tìm thấy" no-data-text="Không có dữ liệu">
                                                             <el-option-group v-for="item in list_phong_ban" :label="item.ten_bo_phan" :key="item.ten_bo_phan">
                                                                 <el-option v-for="p in item.phong" :key="p.id" :label="p.ten_phong" :value="p.ma_phong">
                                                                     <span style="float: left">{{ p.ten_phong }}</span>
@@ -126,15 +126,15 @@
 
                                                 </div>
                                                 <div class="form-group row">
-                                                    <label class="label-form col-md-3 col-form-label"><b>Mã vị trí</b></label>
+                                                    <label class="label-form col-md-3 col-form-label"><b>Mã vị trí(*)</b></label>
                                                     <div class="col-md-9">
                                                         <input v-model="vi_tri.ma_vi_tri" @input="validate_ma_vt" :disabled="flag_input_vi_tri" v-validate="'required'" :class="{'border-danger' : errors.has('txtmabophan')}" type="text" name="txtmabophan" class="form-control form-control-sm" id="txtmabophan" aria-describedby="" autofocus>
                                                         <!--<small v-show="errors.has('txtmabophan')" class="help text-muted is-danger">Vui lòng nhập mã vị trí</small>-->
-                                                        <small v-if="flag_input_ma_vt" class="help text-muted is-danger">Mã Vị trí phải có 8 ký tự, bắt đầu bằng VT</small>
+                                                        <small v-if="flag_input_ma_vt" class="help text-muted is-danger">Mã Vị trí phải có 7 ký tự, bắt đầu bằng VT</small>
                                                     </div>
                                                 </div>
                                                 <div class="form-group row">
-                                                    <label class="label-form col-md-3 col-form-label"><b>Tên vị trí</b></label>
+                                                    <label class="label-form col-md-3 col-form-label"><b>Tên vị trí(*)</b></label>
                                                     <div class="col-md-9">
                                                         <input v-model="vi_tri.ten_vi_tri" v-validate="'required'" :class="{'border-danger' : errors.has('txttenvitri')}" type="text" name="txttenvitri" class="form-control form-control-sm" id="txttenbophan" placeholder="">
                                                         <small v-show="errors.has('txttenvitri')" class="help text-muted is-danger">Vui lòng nhập tên vị trí</small>
@@ -219,7 +219,7 @@
             validate_ma_vt: function () {
                 var length_nv = this.vi_tri.ma_vi_tri.length;
                 var value_nv  = this.vi_tri.ma_vi_tri;
-                if((length_nv > 8 || length_nv < 8) || value_nv.indexOf('VT') == -1 || value_nv.indexOf(' ') > -1){
+                if((length_nv > 7 || length_nv < 7) || value_nv.indexOf('VT') == -1 || value_nv.indexOf(' ') > -1){
                     this.flag_input_ma_vt = true;
                     this.flag_disabled_submit = true;
                 }

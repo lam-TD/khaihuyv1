@@ -116,7 +116,7 @@
                                                     <label class="label-form col-md-3 col-form-label">Nhân viên</label>
                                                     <div class="col-md-9">
                                                         <input v-show="!flag_nhan_vien" type="text" id="txtnhanvien-sua" class="form-control form-control-sm" readonly>
-                                                        <el-select v-show="flag_nhan_vien" v-model="nhan_vien" value-key="nhan_vien" filterable size="small" placeholder="Chọn nhân viên" style="width: 100%" @change="select_nv">
+                                                        <el-select v-show="flag_nhan_vien" v-model="nhan_vien" value-key="nhan_vien" filterable size="small" placeholder="Chọn nhân viên" style="width: 100%" @change="select_nv" no-match-text="Không tìm thấy" no-data-text="Không có dữ liệu">
                                                             <!--<template slot="prefix"><label class="prefix">{{nhan_vien.ma_nv}}</label></template>-->
                                                             <el-option
                                                                     v-for="item in list_nhan_vien"
@@ -296,6 +296,15 @@
                 this.change_phuong_xa = this.list_phuong_xa.filter(function(item){
                     return (item['quanhuyen_id'] == quan_huyen.ma_quan_huyen);
                 })
+            },
+            only_number_input: function (evt) {
+                evt = (evt) ? evt : window.event;
+                var charCode = (evt.which) ? evt.which : evt.keyCode;
+                if ((charCode > 31 && (charCode < 48 || charCode > 57)) && charCode !== 46) {
+                    evt.preventDefault();;
+                } else {
+                    return true;
+                }
             },
             validate_ma_bp: function () {
                 var length_nv = this.bhyt.ma_bhyt.length;

@@ -54,11 +54,11 @@
                                         <table class="table table-hover">
                                             <thead>
                                             <tr style="border-top: 1px solid #ddd">
-                                                <th class="text-left">#</th>
+                                                <th class="text-center">#</th>
                                                 <th>Mã NV</th>
                                                 <th>Tên nhân viên</th>
                                                 <th>Số HĐ</th>
-                                                <th>Thời hạn</th>
+                                                <th class="text-center">Thời hạn</th>
                                                 <th>Ngày ký</th>
                                                 <th>Ngày KT</th>
                                                 <th>Ghi chú</th>
@@ -84,7 +84,7 @@
                                                 <td>{{n.ma_nv}}</td>
                                                 <td>{{n.ho_ten}}</td>
                                                 <td>{{n.so_hdld}}</td>
-                                                <td>{{n.thoi_han_hd}}</td>
+                                                <td class="text-center">{{n.thoi_han_hd}}</td>
                                                 <td>{{n.ngay_ky}}</td>
                                                 <td>{{n.ngay_kt}}</td>
                                                 <td>{{n.ghi_chu}}</td>
@@ -114,27 +114,12 @@
                                             <!-- Modal body -->
                                             <div :disabled="flag_body_modal" class="modal-body">
                                                 <div class="form-group row">
-                                                    <label class="label-form col-md-3 col-form-label">Mã nhân viên</label>
+                                                    <label class="label-form col-md-3 col-form-label">Mã NV(*)</label>
                                                     <div class="col-md-9">
-                                                        <!--<div class="select-lam">-->
-                                                            <!--<input v-model="lao_dong.so_hdld" name="txthoten" id="manv" type="text" class="form-control form-control-sm" v-validate="'required'" :class="{'border-danger' : errors.has('txthoten')}">-->
-                                                            <!--<small v-show="errors.has('txthoten')" class="help text-muted is-danger">Vui lòng nhập tên nhân viên</small>-->
-                                                            <!--<div class="body-select-lam">-->
-                                                                <!--<select name="" id="" class="form-control form-control-sm" multiple>-->
-                                                                    <!--<option value="">sdadsdsdsda <span class="pull-right">KH000001</span></option>-->
-                                                                    <!--<option value="">sdadsdsdsda <span class="pull-right">KH000001</span></option>-->
-                                                                    <!--<option value="">sdadsdsdsda <span class="pull-right">KH000001</span></option>-->
-                                                                <!--</select>-->
-                                                            <!--</div>-->
-                                                        <!--</div>-->
                                                         <input v-show="!flag_nhan_vien" type="text" id="txtnhanvien-sua" class="form-control form-control-sm" readonly>
-                                                        <el-select v-show="flag_nhan_vien" v-model="ma_nv" filterable size="small" placeholder="Chọn mã nhân viên" style="width: 100%" @change="select_nv">
+                                                        <el-select v-show="flag_nhan_vien" v-model="ma_nv" filterable size="small" placeholder="Chọn mã nhân viên" style="width: 100%" @change="select_nv" no-match-text="Không tìm thấy" no-data-text="Không có dữ liệu">
                                                             <!--<template slot="prefix"><label class="prefix">{{nhan_vien.ma_nv}}</label></template>-->
-                                                            <el-option
-                                                                    v-for="item in list_nhan_vien"
-                                                                    :key="item.id"
-                                                                    :label="item.ma_nv"
-                                                                    :value="item.ma_nv">
+                                                            <el-option v-for="item in list_nhan_vien" :key="item.id" :label="item.ma_nv" :value="item.ma_nv">
                                                                 <span style="float: left">{{ item.ma_nv }}</span>
                                                                 <span style="float: right; color: #8492a6; font-size: 13px">{{ item.ho_ten }}</span>
                                                             </el-option>
@@ -150,7 +135,7 @@
                                                 <!--</div>-->
 
                                                 <div class="form-group row">
-                                                    <label class="label-form col-md-3 col-form-label">Số HĐLĐ</label>
+                                                    <label class="label-form col-md-3 col-form-label">Số HĐLĐ(*)</label>
                                                     <div class="col-md-9">
                                                         <input v-model="lao_dong.so_hdld" name="txthoten" type="text" class="form-control form-control-sm" v-validate="'required'" :class="{'border-danger' : errors.has('txthoten')}">
                                                         <small v-show="errors.has('txthoten')" class="help text-muted is-danger">Vui lòng nhập tên nhân viên</small>
@@ -160,7 +145,10 @@
                                                 <div class="form-group row">
                                                     <label class="label-form col-md-3 col-form-label">Thời hạn</label>
                                                     <div class="col-md-9">
-                                                        <input v-model="lao_dong.thoi_han_hd" name="txtthoihan" type="text" class="form-control form-control-sm" v-validate="'required'" :class="{'border-danger' : errors.has('txtthoihan')}">
+                                                        <!--<input v-model="lao_dong.thoi_han_hd" name="txtthoihan" type="text" class="form-control form-control-sm" v-validate="'required'" :class="{'border-danger' : errors.has('txtthoihan')}">-->
+                                                        <el-select v-model="lao_dong.thoi_han_hd" placeholder="Thời hạn" size="small" class="" style="width: 100%;">
+                                                            <el-option v-for="item in [1,2,3,4,5,6,7,8,9,10]" :key="item" :label="item" :value="item"></el-option>
+                                                        </el-select>
                                                         <small v-show="errors.has('txtthoihan')" class="help text-muted is-danger">Vui lòng nhập thời hạn lao động</small>
                                                     </div>
                                                 </div>

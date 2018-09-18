@@ -14,157 +14,6 @@
                         </div>
                         <div class="col-md-6">
                             <button @click="_nhan_vien('add')" class="btn btn-success pull-right" data-toggle="modal" data-target="#modal_nv_tt_ca_nhan"><i class="fa fa-plus-circle"></i> Thêm mới</button>
-                            <!-- Modal thong tin ca nhan -->
-                            <!--<div class="modal" id="modal_nv_tt_ca_nhan"  tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">-->
-                                <!--<div class="modal-dialog modal-lg" role="document">-->
-                                    <!--<div class="modal-content">-->
-                                        <!--<div class="modal-header">-->
-                                            <!--<h4 class="modal-title" id="exampleModalLabel"><b>Thông tin cá nhân</b></h4>-->
-                                            <!--<button type="button" class="close" data-dismiss="modal" aria-label="Close">-->
-                                                <!--<span aria-hidden="true">&times;</span>-->
-                                            <!--</button>-->
-                                        <!--</div>-->
-                                        <!--<form @submit.prevent="submit_nhan_vien_thong_tin_ca_nhan" id="form_nhan_vien_thong_tin_ca_nhan" enctype="multipart/form-data">-->
-                                            <!--<div class="modal-body">-->
-                                                <!--<div class="row">-->
-                                                    <!--<div class="col-md-10">-->
-                                                        <!--<div class="row">-->
-                                                            <!--<div class="form-group col-md-3">-->
-                                                                <!--<label class="label-form">Mã NV</label>-->
-                                                                <!--<input :disabled="flag_input_nhan_vien_tt" v-model="nhan_vien.ma_nv" @input="validate_ma_nv" name="txtma_nv" type="text" class="form-control form-control-sm" id="manv" v-validate="'required'" :class="{'border-danger' : errors.has('txtma_nv')}">-->
-                                                                <!--<small v-show="errors.has('txtma_nv')" class="help text-muted is-danger">Vui lòng nhập mã NV</small>-->
-                                                                <!--<small v-if="flag_input_ma_nv" class="help text-muted is-danger">Mã NV phải có 7 ký tự, bắt đầu bằng KH</small>-->
-                                                            <!--</div>-->
-                                                            <!--<div class="form-group col-md-6">-->
-                                                                <!--<label class="label-form">Họ tên</label>-->
-                                                                <!--<input v-model="nhan_vien.ho_ten" name="txthoten" type="text" class="form-control form-control-sm" id="txthoten" v-validate="'required'" :class="{'border-danger' : errors.has('txthoten')}">-->
-                                                                <!--<small v-show="errors.has('txthoten')" class="help text-muted is-danger">Vui lòng nhập tên nhân viên</small>-->
-                                                            <!--</div>-->
-                                                            <!--<div class="form-group col-md-3">-->
-                                                                <!--<label class="label-form">Giới tính</label>-->
-                                                                <!--<select v-model="nhan_vien.gioi_tinh" name="" id="" class="form-control form-control-sm">-->
-                                                                    <!--<option value="0" :selected="true">Nữ</option>-->
-                                                                    <!--<option value="1">Nam</option>-->
-                                                                <!--</select>-->
-                                                            <!--</div>-->
-                                                            <!--<div class="form-group col-md-6">-->
-                                                                <!--<label class="label-form">Nơi sinh</label>-->
-                                                                <!--&lt;!&ndash;<input v-model="nhan_vien.noi_sinh" type="text" class="form-control form-control-sm" id="dd1" placeholder="">&ndash;&gt;-->
-                                                                <!--<div class="row">-->
-                                                                    <!--<el-select v-model="tinh_thanh" value-key="tinh_thanh" filterable size="small" placeholder="Chọn tỉnh thành phố" @change="load_quan_huyen" class="col-md-6">-->
-                                                                        <!--<el-option-->
-                                                                                <!--v-for="item in list_tinh_thanh"-->
-                                                                                <!--:key="item.ma_tinh"-->
-                                                                                <!--:label="item.ten_tinh"-->
-                                                                                <!--:value="item.ma_tinh">-->
-                                                                        <!--</el-option>-->
-                                                                    <!--</el-select>-->
-
-                                                                    <!--<el-select v-model="quan_huyen" value-key="quan_huyen" filterable size="small" placeholder="Chọn tỉnh quận huyện" class="col-md-6">-->
-                                                                        <!--<el-option-->
-                                                                                <!--v-for="item in change_quan_huyen"-->
-                                                                                <!--:key="item.ma_quan_huyen"-->
-                                                                                <!--:label="item.ten_quan_huyen"-->
-                                                                                <!--:value="item.ma_quan_huyen">-->
-                                                                        <!--</el-option>-->
-                                                                    <!--</el-select>-->
-                                                                <!--</div>-->
-                                                            <!--</div>-->
-                                                            <!--<div class="form-group col-md-3">-->
-                                                                <!--<label class="label-form">Ngày sinh</label>-->
-                                                                <!--<input v-model="nhan_vien.ngay_sinh" type="date" class="form-control form-control-sm" id="sss" placeholder="">-->
-                                                            <!--</div>-->
-                                                            <!--<div class="form-group col-md-3">-->
-                                                                <!--<label class="label-form">Quốc tịch</label>-->
-                                                                <!--<input v-model="nhan_vien.quoc_tich" type="text" class="form-control form-control-sm" id="1aaa" placeholder="">-->
-                                                            <!--</div>-->
-                                                        <!--</div>-->
-                                                    <!--</div>-->
-                                                    <!--<div class="col-md-2">-->
-                                                        <!--<div class="wizard-card" style="margin-top: -5px">-->
-                                                            <!--<div class="picture-container">-->
-                                                                <!--<div class="picture">-->
-                                                                    <!--<img style="height: 100%" src="https://cdn0.vox-cdn.com/images/verge/default-avatar.v9899025.gif" class="picture-src" id="wizardPicturePreview" title="" />-->
-                                                                    <!--<input name="image" type="file" id="wizard-picture" @change="onFileChange">-->
-                                                                <!--</div>-->
-                                                                <!--<button style="width: 106px;" class="btn btn-sm">Chọn ảnh</button>-->
-                                                            <!--</div>-->
-                                                        <!--</div>-->
-                                                    <!--</div>-->
-                                                    <!--<div class="col-md-12">-->
-                                                        <!--<div class="row">-->
-                                                            <!--<div class="form-group col-md-3">-->
-                                                                <!--<label class="label-form">Số CMND</label>-->
-                                                                <!--<input v-model="nhan_vien.so_cmnd" v-on:keypress="only_number_input(event)" name="txtsocmnd" type="text" class="form-control form-control-sm" id="txtsocmnd" v-validate="'required'" :class="{'border-danger' : errors.has('txtsocmnd')}">-->
-                                                                <!--<small v-show="errors.has('txtsocmnd')" class="help text-muted is-danger">Vui lòng nhập số CMND</small>-->
-                                                            <!--</div>-->
-                                                            <!--<div class="form-group col-md-4">-->
-                                                                <!--<label class="label-form">Ngày cấp</label>-->
-                                                                <!--<input v-model="nhan_vien.scmnd_ngay_cap" name="scmnd_ngay_cap" type="date" class="form-control form-control-sm" id="scmnd_ngay_cap" placeholder="">-->
-                                                            <!--</div>-->
-                                                            <!--<div class="form-group col-md-5">-->
-                                                                <!--<label class="label-form">Nơi cấp</label>-->
-                                                                <!--&lt;!&ndash;<input v-model="nhan_vien.scmnd_noi_cap" name="scmnd_noi_cap" type="text" class="form-control form-control-sm" id="scmnd_noi_cap" placeholder="">&ndash;&gt;-->
-                                                                <!--<el-select v-model="nhan_vien.scmnd_noi_cap" filterable size="small" placeholder="Chọn tỉnh thành phố" style="width: 100%">-->
-                                                                    <!--<el-option-->
-                                                                            <!--v-for="item in list_tinh_thanh"-->
-                                                                            <!--:key="item.ma_tinh"-->
-                                                                            <!--:label="item.ten_tinh"-->
-                                                                            <!--:value="item.ten_tinh">-->
-                                                                    <!--</el-option>-->
-                                                                <!--</el-select>-->
-                                                            <!--</div>-->
-
-                                                            <!--<div class="form-group col-md-12">-->
-                                                                <!--<label class="label-form">Tạm trú</label>-->
-                                                                <!--<textarea v-model="nhan_vien.tam_tru" name="txttamtru" class="form-control form-control-sm" id="txttamtru"></textarea>-->
-                                                            <!--</div>-->
-                                                            <!--<div class="form-group col-md-12">-->
-                                                                <!--<label class="label-form">Thường trú</label>-->
-                                                                <!--<input v-model="nhan_vien.thuong_tru" name="txtthuongtru" class="form-control form-control-sm" id="txtthuongtru"/>-->
-                                                            <!--</div>-->
-
-                                                            <!--<div class="form-group col-md-4">-->
-                                                                <!--<label class="label-form">ĐT bàn</label>-->
-                                                                <!--<input v-model="nhan_vien.dt_ban" v-on:keypress="only_number_input(event)" name="txtdtban" type="text" class="form-control form-control-sm" id="txtdtban" placeholder="">-->
-                                                            <!--</div>-->
-                                                            <!--<div class="form-group col-md-4">-->
-                                                                <!--<label class="label-form">Di động 1</label>-->
-                                                                <!--<input v-model="nhan_vien.di_dong_1" v-on:keypress="only_number_input(event)" type="text" name="txtdd1" class="form-control form-control-sm" id="txtdd1" placeholder="">-->
-                                                            <!--</div>-->
-                                                            <!--<div class="form-group col-md-4">-->
-                                                                <!--<label class="label-form">Di động 2</label>-->
-                                                                <!--<input v-model="nhan_vien.di_dong_2" v-on:keypress="only_number_input(event)" type="text" class="form-control form-control-sm" name="txtdd2" id="txtdd2" placeholder="">-->
-                                                            <!--</div>-->
-
-                                                            <!--<div class="form-group col-md-3">-->
-                                                                <!--<label class="label-form">MST CN</label>-->
-                                                                <!--<input v-model="nhan_vien.mst_cn" type="text" name="txtmst_cn" class="form-control form-control-sm" id="txtmst_cn" placeholder="">-->
-                                                            <!--</div>-->
-                                                            <!--<div class="form-group col-md-6">-->
-                                                                <!--<label class="label-form">Nơi cấp</label>-->
-                                                                <!--<input v-model="nhan_vien.mst_cn_noi_cap" type="text" name="txtmst_cn_noi_cap" class="form-control form-control-sm" id="txtmst_cn_noi_cap" placeholder="">-->
-                                                            <!--</div>-->
-                                                            <!--<div class="form-group col-md-3">-->
-                                                                <!--<label class="label-form">C/C thuế cấp</label>-->
-                                                                <!--<input v-model="nhan_vien.cc_thue_cap" type="text" name="txtccthuecap" class="form-control form-control-sm" id="txtccthuecap" placeholder="">-->
-                                                            <!--</div>-->
-                                                        <!--</div>-->
-                                                    <!--</div>-->
-                                                <!--</div>-->
-                                            <!--</div>-->
-                                            <!--<div class="modal-footer">-->
-                                                <!--<button type="button" class="btn btn-secondary" data-dismiss="modal">Hủy</button>-->
-                                                <!--<button :disabled="flag_disabled_tt_ca_nhan" id="save" type="submit" class="btn btn-primary">-->
-                                                    <!--<span v-if="flag_xu_ly_tt_ca_nhan"><i class="fa fa-save"></i> Lưu lại</span>-->
-                                                    <!--<span v-if="!flag_xu_ly_tt_ca_nhan"><i class="fa fa-spin fa-spinner"></i> Đang xử lý...</span>-->
-                                                <!--</button>-->
-                                                <!--&lt;!&ndash;<button @click="upload_img" id="anh" type="" class="btn btn-primary">Lưu ảnh</button>&ndash;&gt;-->
-                                            <!--</div>-->
-                                        <!--</form>-->
-                                    <!--</div>-->
-                                <!--</div>-->
-                            <!--</div>-->
 
                             <div class="modal" id="modal_nv_tt_ca_nhan"  tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                 <div class="modal-dialog modal-lg" role="document">
@@ -219,21 +68,21 @@
 
                                                             <label class="label-form col-md-2 col-form-label">Nơi sinh</label>
                                                             <div class="col-md-5">
-                                                                <el-select v-model="tinh_thanh" value-key="tinh_thanh" filterable size="small" placeholder="Tỉnh thành phố" @change="load_quan_huyen" style="width: 49%;">
+                                                                <el-select v-model="nv_noi_sinh.tinh_thanh" value-key="ma_tinh" filterable size="small" placeholder="Tỉnh thành phố" @change="load_quan_huyen" style="width: 49%;" no-match-text="Không tìm thấy" no-data-text="Không có dữ liệu">
                                                                     <el-option
                                                                             v-for="item in list_tinh_thanh"
                                                                             :key="item.ma_tinh"
                                                                             :label="item.ten_tinh"
-                                                                            :value="item.ma_tinh">
+                                                                            :value="item">
                                                                     </el-option>
                                                                 </el-select>
 
-                                                                <el-select v-model="nhan_vien.noi_sinh_quan_huyen" value-key="quan_huyen" filterable size="small" placeholder="Quận huyện" style="width: 49%;">
+                                                                <el-select v-model="nv_noi_sinh.quan_huyen" value-key="ma_quan_huyen" filterable size="small" placeholder="Quận huyện" style="width: 49%;margin-left: 1px;">
                                                                     <el-option
                                                                             v-for="item in change_quan_huyen"
                                                                             :key="item.ma_quan_huyen"
                                                                             :label="item.ten_quan_huyen"
-                                                                            :value="item.ma_quan_huyen">
+                                                                            :value="item">
                                                                     </el-option>
                                                                 </el-select>
                                                             </div>
@@ -268,7 +117,7 @@
 
                                                             <label class="label-form col-md-2 col-form-label">Nơi cấp</label>
                                                             <div class="col-md-3">
-                                                                <el-select v-model="nhan_vien.scmnd_noi_cap" filterable size="small" placeholder="Chọn tỉnh thành phố" style="width: 100%">
+                                                                <el-select v-model="nhan_vien.scmnd_noi_cap" filterable size="small" placeholder="Chọn tỉnh thành phố" style="width: 100%" no-match-text="Không tìm thấy" no-data-text="Không có dữ liệu">
                                                                     <el-option
                                                                             v-for="item in list_tinh_thanh"
                                                                             :key="item.ma_tinh"
@@ -282,7 +131,7 @@
                                                         <div class="form-group row">
                                                             <label class="label-form col-md-2 col-form-label">Tạm trú</label>
                                                             <div class="col-md-2">
-                                                                <el-select v-model="nhan_vien.tam_tru_tinh_thanh" value-key="tinh_thanh" filterable size="small" placeholder="Tỉnh thành phố" @change="load_quan_huyen" style="width: 100%">
+                                                                <el-select v-model="nhan_vien.tam_tru_tinh_thanh" value-key="tinh_thanh" filterable size="small" placeholder="Tỉnh thành phố" @change="load_quan_huyen" style="width: 100%" no-match-text="Không tìm thấy" no-data-text="Không có dữ liệu">
                                                                     <el-option
                                                                             v-for="item in list_tinh_thanh"
                                                                             :key="item.ma_tinh"
@@ -292,7 +141,7 @@
                                                                 </el-select>
                                                             </div>
                                                             <div class="col-md-4 chuan">
-                                                                <el-select v-model="nhan_vien.tam_tru_quan_huyen" value-key="quan_huyen" filterable size="small" placeholder="Quận huyện" style="width: 100%;">
+                                                                <el-select v-model="nhan_vien.tam_tru_quan_huyen" value-key="quan_huyen" filterable size="small" placeholder="Quận huyện" style="width: 100%;" no-match-text="Không tìm thấy" no-data-text="Không có dữ liệu">
                                                                     <el-option
                                                                             v-for="item in change_quan_huyen"
                                                                             :key="item.ma_quan_huyen"
@@ -309,7 +158,7 @@
                                                         <div class="form-group row">
                                                             <label class="label-form col-md-2 col-form-label">Thường trú</label>
                                                             <div class="col-md-2">
-                                                                <el-select v-model="nhan_vien.thuong_tru_tinh_thanh" value-key="tinh_thanh" filterable size="small" placeholder="Tỉnh thành phố" @change="load_quan_huyen" style="width: 100%">
+                                                                <el-select v-model="nhan_vien.thuong_tru_tinh_thanh" value-key="tinh_thanh" filterable size="small" placeholder="Tỉnh thành phố" @change="load_quan_huyen" style="width: 100%" no-match-text="Không tìm thấy" no-data-text="Không có dữ liệu">
                                                                     <el-option
                                                                             v-for="item in list_tinh_thanh"
                                                                             :key="item.ma_tinh"
@@ -319,7 +168,7 @@
                                                                 </el-select>
                                                             </div>
                                                             <div class="col-md-4 chuan">
-                                                                <el-select v-model="nhan_vien.thuong_tru_quan_huyen" value-key="quan_huyen" filterable size="small" placeholder="Quận huyện" style="width: 100%;">
+                                                                <el-select v-model="nhan_vien.thuong_tru_quan_huyen" value-key="quan_huyen" filterable size="small" placeholder="Quận huyện" style="width: 100%;" no-match-text="Không tìm thấy" no-data-text="Không có dữ liệu">
                                                                     <el-option
                                                                             v-for="item in change_quan_huyen"
                                                                             :key="item.ma_quan_huyen"
@@ -358,7 +207,7 @@
 
                                                             <label class="label-form col-md-2 col-form-label">Nơi cấp</label>
                                                             <div class="col-md-3">
-                                                                <el-select v-model="nhan_vien.mst_cn_noi_cap" filterable size="small" placeholder="Chọn tỉnh thành phố" style="width: 100%">
+                                                                <el-select v-model="nhan_vien.mst_cn_noi_cap" filterable size="small" placeholder="Chọn tỉnh thành phố" style="width: 100%" no-match-text="Không tìm thấy" no-data-text="Không có dữ liệu">
                                                                     <el-option
                                                                             v-for="item in list_tinh_thanh"
                                                                             :key="item.ma_tinh"
@@ -368,7 +217,7 @@
                                                                 </el-select>
                                                             </div>
 
-                                                            <label class="label-form col-md-2 col-form-label">C/CThuế cấp</label>
+                                                            <label class="label-form col-md-2 col-form-label" style="padding-right: 0">C/C Thuế cấp</label>
                                                             <div class="col-md-3">
                                                                 <input v-model="nhan_vien.cc_thue_cap" type="text" name="txtccthuecap" class="form-control form-control-sm" id="txtccthuecap" placeholder="">
                                                             </div>
@@ -805,6 +654,9 @@
                 list_phuong_xa: [],
                 change_phuong_xa: [],
                 phuong_xa: '',
+                nv_noi_sinh: {tinh_thanh: '', quan_huyen: ''},
+                nv_tam_tru: {tinh_thanh: '', quan_huyen: '', phuong_xa: ''},
+                nv_thuong_tru: {tinh_thanh: '', quan_huyen: '', phuong_xa: ''},
                 loading_bo_phan: true,
                 flag_input_ma_nv: false,
                 dsnhanvien: [],
@@ -882,11 +734,10 @@
             }
         },
         methods: {
-            load_quan_huyen: function (id_tinh) {
+            load_quan_huyen: function (tinh) {
                 this.change_quan_huyen = this.list_quan_huyen.filter(function(item){
-                    return (item['ma_tinh'] == id_tinh);
+                    return (item['ma_tinh'] == tinh.ma_tinh);
                 })
-                console.log(this.change_quan_huyen);
             },
             show_select_lam: function (data_select, id_select) {
                 $('#' + id_select).val(data_select.ten_bo_phan);
@@ -901,10 +752,9 @@
                 }
             },
             validate_ma_nv: function () {
-                console.log(this.nhan_vien.ma_nv);
                 var length_nv = this.nhan_vien.ma_nv.length;
                 var value_nv  = this.nhan_vien.ma_nv;
-                if((length_nv > 7 || length_nv < 7) || value_nv.indexOf('KH') == -1){
+                if((length_nv > 7 || length_nv < 7) || value_nv.indexOf('KH') == -1 || value_nv.indexOf(' ') > -1){
                     this.flag_input_ma_nv = true;
                     this.flag_disabled_tt_ca_nhan = true;
                 }

@@ -104,15 +104,15 @@
                                             <!-- Modal body -->
                                             <div :disabled="flag_body_modal" class="modal-body">
                                                 <div class="form-group row">
-                                                    <label class="label-form col-md-3 col-form-label"><b>Mã bộ phận</b></label>
+                                                    <label class="label-form col-md-3 col-form-label"><b>Mã bộ phận(*)</b></label>
                                                     <div class="col-md-9">
                                                         <input @input="validate_ma_bp" v-model="bo_phan.ma_bo_phan" :disabled="flag_input_bo_phan" v-validate="'required'" :class="{'border-danger' : errors.has('txtmabophan')}" type="text" name="txtmabophan" class="form-control form-control-sm" id="txtmabophan" aria-describedby="" autofocus>
-                                                        <small v-if="flag_input_ma_bo_phan" class="help text-muted is-danger">Mã bộ phận phải có 8 ký tự, bắt đầu bằng BP</small>
+                                                        <small v-if="flag_input_ma_bo_phan" class="help text-muted is-danger">Mã bộ phận phải có 7 ký tự, bắt đầu bằng BP</small>
                                                     </div>
 
                                                 </div>
                                                 <div class="form-group row">
-                                                    <label class="label-form col-md-3 col-form-label"><b>Tên bộ phận</b></label>
+                                                    <label class="label-form col-md-3 col-form-label"><b>Tên bộ phận(*)</b></label>
                                                     <div class="col-md-9">
                                                         <input v-model="bo_phan.ten_bo_phan" v-validate="'required'" :class="{'border-danger' : errors.has('txttenbophan')}" type="text" name="txttenbophan" class="form-control form-control-sm" id="txttenbophan" placeholder="">
                                                         <small v-show="errors.has('txttenbophan')" class="help text-muted is-danger">Vui lòng nhập tên bộ phận</small>
@@ -188,7 +188,7 @@
             validate_ma_bp: function () {
                 var length_nv = this.bo_phan.ma_bo_phan.length;
                 var value_nv  = this.bo_phan.ma_bo_phan;
-                if((length_nv > 8 || length_nv < 8) || value_nv.indexOf('BP') == -1 || value_nv.indexOf(' ') > -1){
+                if((length_nv > 7 || length_nv < 7) || value_nv.indexOf('BP') == -1 || value_nv.indexOf(' ') > -1){
                     this.flag_input_ma_bo_phan = true;
                     this.flag_disabled_submit = true;
                 }

@@ -120,7 +120,7 @@
                                         <form @submit.prevent="submit_ttcv" id="form_bophan">
                                             <!-- Modal Header -->
                                             <div class="modal-header">
-                                                <h4 class="modal-title"><b>Thông tin bảo hiểm  y tế</b></h4>
+                                                <h4 class="modal-title"><b>Thông tin công việc</b></h4>
                                                 <button type="button" class="close" data-dismiss="modal">&times;</button>
                                             </div>
 
@@ -130,7 +130,7 @@
                                                     <label class="label-form col-md-3 col-form-label">Nhân viên</label>
                                                     <div class="col-md-9">
                                                         <input v-show="!flag_nhan_vien" type="text" id="txtnhanvien-sua" class="form-control form-control-sm" readonly>
-                                                        <el-select v-show="flag_nhan_vien" v-model="ttcv.nv_id" value-key="nhan_vien" filterable size="small" placeholder="Chọn nhân viên" style="width: 100%" @change="select_nv">
+                                                        <el-select v-show="flag_nhan_vien" v-model="ttcv.nv_id" value-key="nhan_vien" filterable size="small" placeholder="Chọn nhân viên" style="width: 100%" @change="select_nv" no-match-text="Không tìm thấy" no-data-text="Không có dữ liệu">
                                                             <!--<template slot="prefix"><label class="prefix">{{nhan_vien.ma_nv}}</label></template>-->
                                                             <el-option
                                                                     v-for="item in list_nhan_vien"
@@ -167,7 +167,7 @@
                                                 <div class="form-group row">
                                                     <label class="label-form col-md-3 col-form-label">Bộ phận LV</label>
                                                     <div class="col-md-9">
-                                                        <el-select v-model="bo_phan" filterable size="small" placeholder="Chọn bộ phận" style="width: 100%" @change="select_bo_phan">
+                                                        <el-select v-model="bo_phan" filterable size="small" placeholder="Chọn bộ phận" style="width: 100%" @change="select_bo_phan" no-match-text="Không tìm thấy" no-data-text="Không có dữ liệu">
                                                             <!--<template slot="prefix"><label class="prefix">{{nhan_vien.ma_nv}}</label></template>-->
                                                             <el-option
                                                                     v-for="item in list_bo_phan"
@@ -185,7 +185,7 @@
                                                 <div class="form-group row">
                                                     <label class="label-form col-md-3 col-form-label">Phòng</label>
                                                     <div class="col-md-9">
-                                                        <el-select v-model="phong_ban" size="small" placeholder="Chọn phòng" style="width: 100%" @change="select_phong">
+                                                        <el-select v-model="phong_ban" size="small" placeholder="Chọn phòng" style="width: 100%" @change="select_phong" no-match-text="Không tìm thấy" no-data-text="Không có dữ liệu">
                                                             <!--<template slot="prefix"><label class="prefix">{{nhan_vien.ma_nv}}</label></template>-->
                                                             <el-option
                                                                     v-for="item in list_change_phong"
@@ -202,7 +202,7 @@
                                                 <div class="form-group row">
                                                     <label class="label-form col-md-3 col-form-label">Vị trí</label>
                                                     <div class="col-md-9">
-                                                        <el-select v-model="ttcv.vi_tri_ma" filterable size="small" placeholder="Chọn phòng" style="width: 100%" @change="select_vi_tri">
+                                                        <el-select v-model="ttcv.vi_tri_ma" filterable size="small" placeholder="Chọn phòng" style="width: 100%" @change="select_vi_tri" no-match-text="Không tìm thấy" no-data-text="Không có dữ liệu">
                                                             <!--<template slot="prefix"><label class="prefix">{{nhan_vien.ma_nv}}</label></template>-->
                                                             <el-option
                                                                     v-for="item in list_vi_tri"
@@ -219,7 +219,7 @@
                                                 <div class="form-group row">
                                                     <label class="label-form col-md-3 col-form-label">Hệ số lương</label>
                                                     <div class="col-md-9">
-                                                        <input @input="only_number_input" v-model="ttcv.he_so_luong" name="txtngaykt" type="text" class="form-control form-control-sm">
+                                                        <input v-on:keypress="only_number_input(event)" v-model="ttcv.he_so_luong" name="txtngaykt" type="text" class="form-control form-control-sm">
                                                         <!--<vue-numeric class="form-control form-control-sm" separator="," v-model="ttcv.he_so_luong"></vue-numeric>-->
                                                         <!--<small v-show="errors.has('txtngaykt')" class="help text-muted is-danger">Vui lòng nhập ngày kết thúc</small>-->
                                                     </div>
@@ -228,8 +228,8 @@
                                                 <div class="form-group row">
                                                     <label class="label-form col-md-3 col-form-label">Lương cơ bản</label>
                                                     <div class="col-md-9">
-                                                        <vue-numeric class="form-control form-control-sm" separator="," v-model="ttcv.luong_co_ban"></vue-numeric>
-                                                        <!--<input v-model="ttcv.luong_co_ban" name="txtngaykt" type="text" class="form-control form-control-sm">-->
+                                                        <!--<vue-numeric class="form-control form-control-sm" separator="," v-model="ttcv.luong_co_ban"></vue-numeric>-->
+                                                        <input v-on:keypress="only_number_input" v-model="ttcv.luong_co_ban" name="txtngaykt" type="text" class="form-control form-control-sm">
                                                         <!--<small v-show="errors.has('txtngaykt')" class="help text-muted is-danger">Vui lòng nhập ngày kết thúc</small>-->
                                                     </div>
                                                 </div>
@@ -237,8 +237,8 @@
                                                 <div class="form-group row">
                                                     <label class="label-form col-md-3 col-form-label">Lương HTCV</label>
                                                     <div class="col-md-9">
-                                                        <!--<input v-model="ttcv.htcv" name="txtngaykt" type="text" class="form-control form-control-sm">-->
-                                                        <vue-numeric class="form-control form-control-sm" separator="," v-model="ttcv.htcv"></vue-numeric>
+                                                        <input v-on:keypress="only_number_input" v-model="ttcv.htcv" name="htcv" type="text" class="form-control form-control-sm">
+                                                        <!--<vue-numeric class="form-control form-control-sm" separator="," v-model="ttcv.htcv"></vue-numeric>-->
                                                         <!--<small v-show="errors.has('txtngaykt')" class="help text-muted is-danger">Vui lòng nhập ngày kết thúc</small>-->
                                                     </div>
                                                 </div>
@@ -250,12 +250,6 @@
                                                             <el-radio :label="1">Có</el-radio>
                                                             <el-radio :label="0">Không</el-radio>
                                                         </el-radio-group>
-                                                        <!--<div class="demo-radio-button">-->
-                                                            <!--<input value="1" name="chamcong" type="radio" class="with-gap" id="radio_3">-->
-                                                            <!--<label for="radio_3">Có</label>-->
-                                                            <!--<input name="chamcong" type="radio" value="0" id="radio_4" class="with-gap">-->
-                                                            <!--<label  for="radio_4">Không</label>-->
-                                                        <!--</div>-->
                                                     </div>
                                                 </div>
 

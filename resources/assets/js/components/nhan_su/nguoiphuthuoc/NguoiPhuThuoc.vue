@@ -127,7 +127,7 @@
                                         <form @submit.prevent="submit_npt" id="form_bophan">
                                             <!-- Modal Header -->
                                             <div class="modal-header">
-                                                <h4 class="modal-title"><b>Thông tin phòng</b></h4>
+                                                <h4 class="modal-title"><b>Thông tin người phụ thuộc</b></h4>
                                                 <button type="button" class="close" data-dismiss="modal">&times;</button>
                                             </div>
 
@@ -137,7 +137,7 @@
                                                     <label class="label-form col-md-3 col-form-label">Mã nhân viên</label>
                                                     <div class="col-md-9">
                                                         <!--<input v-show="!flag_nhan_vien" type="text" id="txtnhanvien-sua" class="form-control form-control-sm" readonly>-->
-                                                        <el-select v-model="npt.ma_nv" filterable size="small" placeholder="Chọn bộ phận" @change="select_npt_theo_nhan_vien">
+                                                        <el-select v-model="npt.ma_nv" filterable size="small" placeholder="Chọn bộ phận" @change="select_npt_theo_nhan_vien" no-match-text="Không tìm thấy" no-data-text="Không có dữ liệu">
                                                             <el-option v-for="item in list_nhan_vien" :key="item.id" :label="item.ma_nv" :value="item.ma_nv">
                                                                 <span style="float: left">{{ item.ma_nv }}</span>
                                                                 <span style="float: right; color: #8492a6; font-size: 13px">{{ item.ho_ten }}</span>
@@ -147,7 +147,7 @@
                                                 </div>
 
                                                 <div class="form-group row">
-                                                    <label class="label-form col-md-3 col-form-label">Họ tên</label>
+                                                    <label class="label-form col-md-3 col-form-label">Họ tên NPT</label>
                                                     <div class="col-md-9">
                                                         <input v-model="npt.ho_ten_npt" name="so_bhyt" type="text" class="form-control form-control-sm">
                                                         <small v-show="errors.has('so_bhyt')" class="help text-muted is-danger">Vui lòng nhập tên người phụ thuộc</small>
@@ -165,7 +165,7 @@
                                                 <div class="form-group row">
                                                     <label class="label-form col-md-3 col-form-label">Số CMND</label>
                                                     <div class="col-md-9">
-                                                        <input v-model="npt.so_cmnd_npt" name="so_cmnd_npt" type="text" class="form-control form-control-sm">
+                                                        <input v-on:keypress="only_number_input" v-model="npt.so_cmnd_npt" name="so_cmnd_npt" type="text" class="form-control form-control-sm">
                                                         <small v-show="errors.has('so_cmnd_npt')" class="help text-muted is-danger">Vui lòng nhập tên người phụ thuộc</small>
                                                     </div>
                                                 </div>
@@ -173,7 +173,7 @@
                                                 <div class="form-group row">
                                                     <label class="label-form col-md-3 col-form-label">MST NPT</label>
                                                     <div class="col-md-9">
-                                                        <input v-model="npt.mst_npt" name="mst_npt" type="text" class="form-control form-control-sm">
+                                                        <input v-on:keypress="only_number_input" v-model="npt.mst_npt" name="mst_npt" type="text" class="form-control form-control-sm">
                                                         <small v-show="errors.has('mst_npt')" class="help text-muted is-danger">Vui lòng nhập tên người phụ thuộc</small>
                                                     </div>
                                                 </div>
@@ -284,7 +284,7 @@
                 loading_npt: false,
                 list_npt: [],
                 total_npt: 0,
-                npt: { id: 0, ma_nv: '', ho_ten_npt: '', ngay_sinh_npt: '', so_cmnd_npt: '', mst_npt: '', ma_quoc_tich_npt: '', quoc_tich_npt: '', ma_quan_he_nnt: '', quan_he_nnt: '', tg_giam_tru_tu: '', tg_giam_tru_den: '', ghi_chu: '' },
+                npt: { id: 0, ma_nv: '', ho_ten_npt: '', ngay_sinh_npt: '', so_cmnd_npt: '', mst_npt: '', ma_quoc_tich_npt: 'Việt Nam', quoc_tich_npt: '', ma_quan_he_nnt: '', quan_he_nnt: '', tg_giam_tru_tu: '', tg_giam_tru_den: '', ghi_chu: '' },
                 flag_btn: true,
                 flag_submit_npt: true,
                 flag_input_npt: false,
@@ -296,6 +296,15 @@
             }
         },
         methods: {
+            only_number_input: function (evt) {
+                evt = (evt) ? evt : window.event;
+                var charCode = (evt.which) ? evt.which : evt.keyCode;
+                if ((charCode > 31 && (charCode < 48 || charCode > 57)) && charCode !== 46) {
+                    evt.preventDefault();;
+                } else {
+                    return true;
+                }
+            },
             validate_ma_ph: function () {
                 var length_nv = this.npt.ma_phong.length;
                 var value_nv  = this.npt.ma_phong;
@@ -355,7 +364,7 @@
                     $('.row-nhom').removeClass("active-click-row");
                     this.flag_submit_npt = true;
                     this.flag_input_npt = false;
-                    this.npt.id = this.npt.so_cmnd_npt = this.npt.ho_ten_npt = this.npt.quan_he_nnt = this.npt.ma_quan_he_nnt = this.npt.ngay_sinh_npt = this.npt.quoc_tich_npt = this.npt.ma_quoc_tich_npt = this.npt.tg_giam_tru_den = this.npt.tg_giam_tru_tu = this.npt.ghi_chu = '';
+                    this.npt.id = this.npt.so_cmnd_npt = this.npt.ho_ten_npt = this.npt.quan_he_nnt = this.npt.ma_quan_he_nnt = this.npt.ngay_sinh_npt = this.npt.quoc_tich_npt = this.npt.tg_giam_tru_den = this.npt.tg_giam_tru_tu = this.npt.ghi_chu = '';
                 }
                 else {
                     $('#select_phong_2').attr('disabled', 'disabled');
