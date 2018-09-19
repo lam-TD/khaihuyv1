@@ -5,7 +5,7 @@
         <!-- ============================================================== -->
         <div class="row page-titles">
             <div class="col-md-5 align-self-center">
-                <!--<h3 class="text-themecolor">Danh sách nhóm người dùng</h3>-->
+                <h3 class="text-themecolor">Thông tin hợp đồng lao động</h3>
             </div>
             <div class="col-md-7 align-self-center">
                 <ol class="breadcrumb">
@@ -303,7 +303,7 @@
                     this.flag_disable_manv = false;
                     this.flag_submit_lao_dong = true;
                     this.flag_input_lao_dong = false;
-                    this.lao_dong.id = this.lao_dong.ma_nv = this.lao_dong.so_hdld = this.lao_dong.thoi_han_hd = this.lao_dong.ghi_chu = this.lao_dong.ngay_ky = this.lao_dong.ngay_kt = '';
+                    this.lao_dong = { id: 0, so_hdld: '', thoi_han_hd: '', ngay_ky: '', ngay_kt: '', ghi_chu: '', ma_nv: '' }
                     this.nhan_vien.ma_nv = this.nhan_vien.ho_ten = '';
                 }
                 else {

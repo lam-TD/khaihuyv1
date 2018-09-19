@@ -101,7 +101,7 @@ export function api_delete_bo_phan(vm) {
         function() {
             axios({
                 method: 'GET',
-                url: 'api/delete-bo-phan/' + vm.bo_phan.ma_bo_phan,
+                url: 'api/delete-bo-phan/' + vm.bo_phan.id,
                 headers: {'Authorization':'Bearer ' + vm.$store.state.currentUser.token}
             })
                 .then((response) => {

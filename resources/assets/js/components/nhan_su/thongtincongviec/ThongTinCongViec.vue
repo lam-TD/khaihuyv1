@@ -5,7 +5,7 @@
         <!-- ============================================================== -->
         <div class="row page-titles">
             <div class="col-md-5 align-self-center">
-                <h4 class="text-themecolor">Danh sách thông tin công việc</h4>
+                <h3 class="text-themecolor">Danh sách thông tin công việc</h3>
             </div>
             <div class="col-md-7 align-self-center">
                 <ol class="breadcrumb">
@@ -54,7 +54,7 @@
                                         <table class="table table-hover" id="table_ttcv">
                                             <thead>
                                             <tr style="border-top: 1px solid #ddd">
-                                                <th class="text-left">#</th>
+                                                <th class="text-center">#</th>
                                                 <th class="text-center">Mã NV</th>
                                                 <th>Tên NV</th>
                                                 <th class="text-center">Ngày</th>
@@ -85,7 +85,7 @@
                                                 <td class="text-center" colspan="8"><b><i>Chưa có thông tin công việc</i></b></td>
                                             </tr>
                                             <tr v-else v-for="n in list_ttcv" :id="'n' + n.id" class="row-nhom" @click="click_ttcv(n)">
-                                                <td class="text-left" style="padding-right: 0">
+                                                <td class="text-center" style="padding-right: 0">
                                                     <button @click="_ttcv('edit',n)" id="edit_nhom" type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#myModal">
                                                         <i class="fa fa-edit"></i>
                                                     </button>
@@ -428,7 +428,7 @@
                 }
             },
             format_ttcv: function(){
-                this.ttcv.id = this.ttcv.ngay = this.ttcv.tinh_trang = this.ttcv.he_so_luong = this.ttcv.luong_co_ban = this.ttcv.htcv = this.ttcv.ghi_chu = this.ttcv.nv_ma= this.ttcv.bo_phan_ma= this.ttcv.phong_ma= this.ttcv.vi_tri_ma= this.ttcv.thoi_gian_lv_bd=this.ttcv.thoi_gian_lv_kt= '';
+                this.ttcv = { id: 0, ngay: '', tinh_trang: '', he_so_luong: '', luong_co_ban: '', htcv:'', ghi_chu: '', nv_ma: '', bo_phan_ma: '', phong_ma: '', vi_tri_ma: '', thoi_gian_lv_bd: '', thoi_gian_lv_kt: '', cham_cong: 0 };
                 this.cham_cong = 0;
                 this.nhan_vien = '';
                 this.bo_phan = this.phong_ban = this.vi_tri= '';

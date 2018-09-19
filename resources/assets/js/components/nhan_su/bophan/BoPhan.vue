@@ -217,11 +217,14 @@
                     $('.row-nhom').removeClass("active-click-row");
                     this.flag_submit_bo_phan = true;
                     this.flag_input_bo_phan = false;
-                    this.bo_phan.id = this.bo_phan.ma_bo_phan = this.bo_phan.ten_bo_phan = this.bo_phan.dien_giai = '';
+                    this.bo_phan = { id: 0, ma_bo_phan: '', ten_bo_phan: '', dien_giai: '' }
                 }
                 else {
-                    console.log(bophan);
-                    this.bo_phan = bophan;
+                    // this.bo_phan = bophan;
+                    var id = bophan.id;
+                    this.bo_phan = this.list_bo_phan.filter(function (item) {
+                        return (item['id'] == id);
+                    })[0];
                     this.flag_submit_bo_phan = false;
                     this.flag_input_bo_phan = true;
                 }

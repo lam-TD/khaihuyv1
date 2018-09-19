@@ -5,7 +5,7 @@
         <!-- ============================================================== -->
         <div class="row page-titles">
             <div class="col-md-5 align-self-center">
-                <h4 class="text-themecolor">Danh sách vị trí</h4>
+                <h3 class="text-themecolor">Danh sách vị trí</h3>
             </div>
             <div class="col-md-7 align-self-center">
                 <ol class="breadcrumb">
@@ -271,7 +271,7 @@
                     $('.row-nhom').removeClass("active-click-row");
                     this.flag_submit_vi_tri = true;
                     this.flag_input_vi_tri = false;
-                    this.vi_tri.id = this.vi_tri.ma_vi_tri = this.vi_tri.ten_vi_tri = this.vi_tri.dien_giai = '';
+                    this.vi_tri = { id: 0, ma_vi_tri: '', ten_vi_tri: '', dien_giai: '', id_phong_ban: '' }
                 }
                 else {
                     this.error_select_phong = false;

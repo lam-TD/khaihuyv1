@@ -5,7 +5,7 @@
         <!-- ============================================================== -->
         <div class="row page-titles">
             <div class="col-md-5 align-self-center">
-                <h4 class="text-themecolor">Danh sách người phụ thuộc</h4>
+                <h3 class="text-themecolor">Danh sách người phụ thuộc</h3>
             </div>
             <div class="col-md-7 align-self-center">
                 <ol class="breadcrumb">
@@ -30,27 +30,23 @@
                     <div class="card">
                         <div class="card-body bg-inverse">
                             <div class="row row-title">
-                                <div class="col-md-4 col-sm-6">
-                                    <!--<div class="dropdown">-->
-                                    <!--<button @click="dropdown('dropdown_nhan_vien')" class="btn btn-outline-primary dropdown-toggle btn-full-width" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">-->
-                                    <!--Tất cả bộ phận-->
-                                    <!--</button>-->
-                                    <!--<ul id="dropdown_nhan_vien" class="dropdown-menu" aria-labelledby="dropdownMenuButton">-->
-                                    <!--<li @click="selected_item(0, 'Tất cả bộ phận', 'dropdown_nhan_vien')" data-id-bo-phan="0" class="dropdown-item">Tất cả bộ phận</li>-->
-                                    <!--<li v-for="n in list_nhan_vien" @click="selected_item(n.id, n.ten_nhan_vien, 'dropdown_nhan_vien','dropdownMenuButton','dropdownMenuButton2')" class="dropdown-item">{{n.ten_nhan_vien}}</li>-->
-                                    <!--</ul>-->
-                                    <!--</div>-->
-                                    <div class="">
-                                        <el-select v-model="npt.ma_nv" filterable placeholder="Chọn nhân viên" @change="select_npt_theo_nhan_vien">
-                                            <!--<el-option :key="''" :label="'Tất cả bộ phận'" :value="''"></el-option>-->
-                                            <el-option v-for="item in list_nhan_vien" :key="item.id" :label="item.ho_ten" :value="item.ma_nv">
-                                                <span style="float: left">{{ item.ma_nv }}</span>
-                                                <span style="float: right; color: #8492a6; font-size: 13px">{{ item.ho_ten }}</span>
-                                            </el-option>
-                                        </el-select>
+                                <div class="col-md-6 col-sm-6">
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <input v-model="npt.ma_nv" type="text" id="txtnhanvien-sua" class="form-control" readonly>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <el-select v-model="nhan_vien" value-key="ma_nv" filterable placeholder="Chọn nhân viên" @change="select_npt_theo_nhan_vien" no-match-text="Không tìm thấy" no-data-text="Không có dữ liệu">
+                                                <!--<el-option :key="''" :label="'Tất cả bộ phận'" :value="''"></el-option>-->
+                                                <el-option v-for="item in list_nhan_vien" :key="item.ma_nv" :label="item.ho_ten" :value="item">
+                                                    <span style="float: left">{{ item.ma_nv }}</span>
+                                                    <span style="float: right; color: #8492a6; font-size: 13px">{{ item.ho_ten }}</span>
+                                                </el-option>
+                                            </el-select>
+                                        </div>
                                     </div>
                                 </div>
-                                <div class="col-md-8 col-sm-6 col-12">
+                                <div class="col-md-6 col-sm-6 col-12">
                                     <button @click="_npt('add')" title="Thêm mới phòng" type="button" data-toggle="modal" data-target="#myModal" class="btn btn-success waves-effect waves-dark pull-right btn-full-width">
                                         <i class="fa fa-plus-circle"></i> Thêm mới
                                     </button>
@@ -67,7 +63,7 @@
                                         <table class="table table-hover" id="table_npt">
                                             <thead>
                                             <tr style="border-top: 1px solid #ddd">
-                                                <th class="text-left">#</th>
+                                                <th class="text-center">#</th>
                                                 <th>Họ tên NPT</th>
                                                 <th>Ngày sinh</th>
                                                 <th>Số CMND</th>
@@ -134,88 +130,92 @@
                                             <!-- Modal body -->
                                             <div :disabled="flag_body_modal" class="modal-body">
                                                 <div class="form-group row">
-                                                    <label class="label-form col-md-3 col-form-label">Mã NV(*)</label>
-                                                    <div class="col-md-9">
-                                                        <!--<input v-show="!flag_nhan_vien" type="text" id="txtnhanvien-sua" class="form-control form-control-sm" readonly>-->
-                                                        <el-select v-model="npt.ma_nv" filterable size="small" placeholder="Chọn bộ phận" @change="select_npt_theo_nhan_vien" no-match-text="Không tìm thấy" no-data-text="Không có dữ liệu">
-                                                            <el-option v-for="item in list_nhan_vien" :key="item.id" :label="item.ma_nv" :value="item.ma_nv">
-                                                                <span style="float: left">{{ item.ma_nv }}</span>
-                                                                <span style="float: right; color: #8492a6; font-size: 13px">{{ item.ho_ten }}</span>
-                                                            </el-option>
-                                                        </el-select>
+                                                    <label class="label-form col-md-2 col-form-label">Mã NV(*)</label>
+                                                    <div class="col-md-10">
+                                                        <div class="row">
+                                                            <div class="col-md-6">
+                                                                <input v-model="npt.ma_nv" type="text" class="form-control form-control-sm" readonly>
+                                                            </div>
+                                                            <div class="col-md-6">
+                                                                <el-select v-model="nhan_vien" value-key="ma_nv" size="small" filterable placeholder="Chọn nhân viên" @change="select_npt_theo_nhan_vien" no-match-text="Không tìm thấy" no-data-text="Không có dữ liệu">
+                                                                    <!--<el-option :key="''" :label="'Tất cả bộ phận'" :value="''"></el-option>-->
+                                                                    <el-option v-for="item in list_nhan_vien" :key="item.ma_nv" :label="item.ho_ten" :value="item">
+                                                                        <span style="float: left">{{ item.ma_nv }}</span>
+                                                                        <span style="float: right; color: #8492a6; font-size: 13px">{{ item.ho_ten }}</span>
+                                                                    </el-option>
+                                                                </el-select>
+                                                                <small v-show="error_select_nhan_vien" class="help text-muted is-danger">Vui lòng chọn nhân viên</small>
+                                                            </div>
+                                                        </div>
                                                     </div>
                                                 </div>
 
                                                 <div class="form-group row">
-                                                    <label class="label-form col-md-3 col-form-label">Họ tên NPT(*)</label>
-                                                    <div class="col-md-9">
+                                                    <label class="label-form col-md-2 col-form-label" style="padding-right: 0">Họ tên NPT(*)</label>
+                                                    <div class="col-md-10">
                                                         <input v-model="npt.ho_ten_npt" name="so_bhyt" type="text" class="form-control form-control-sm">
                                                         <small v-show="errors.has('so_bhyt')" class="help text-muted is-danger">Vui lòng nhập tên người phụ thuộc</small>
                                                     </div>
                                                 </div>
 
                                                 <div class="form-group row">
-                                                    <label class="label-form col-md-3 col-form-label">Ngày sinh</label>
-                                                    <div class="col-md-9">
+                                                    <label class="label-form col-md-2 col-form-label">Ngày sinh</label>
+                                                    <div class="col-md-10">
                                                         <input v-model="npt.ngay_sinh_npt" name="so_bhyt" type="date" class="form-control form-control-sm">
                                                         <small v-show="errors.has('so_bhyt')" class="help text-muted is-danger">Vui lòng nhập tên người phụ thuộc</small>
                                                     </div>
                                                 </div>
 
                                                 <div class="form-group row">
-                                                    <label class="label-form col-md-3 col-form-label">Số CMND</label>
-                                                    <div class="col-md-9">
+                                                    <label class="label-form col-md-2 col-form-label">Số CMND</label>
+                                                    <div class="col-md-10">
                                                         <input v-on:keypress="only_number_input" v-model="npt.so_cmnd_npt" name="so_cmnd_npt" type="text" class="form-control form-control-sm">
                                                         <small v-show="errors.has('so_cmnd_npt')" class="help text-muted is-danger">Vui lòng nhập tên người phụ thuộc</small>
                                                     </div>
                                                 </div>
 
                                                 <div class="form-group row">
-                                                    <label class="label-form col-md-3 col-form-label">MST NPT</label>
-                                                    <div class="col-md-9">
+                                                    <label class="label-form col-md-2 col-form-label">MST NPT</label>
+                                                    <div class="col-md-10">
                                                         <input v-on:keypress="only_number_input" v-model="npt.mst_npt" name="mst_npt" type="text" class="form-control form-control-sm">
                                                         <small v-show="errors.has('mst_npt')" class="help text-muted is-danger">Vui lòng nhập tên người phụ thuộc</small>
                                                     </div>
                                                 </div>
 
                                                 <div class="form-group row">
-                                                    <label class="label-form col-md-3 col-form-label">Mã quốc tịch</label>
-                                                    <div class="col-md-9">
+                                                    <label class="label-form col-md-2 col-form-label" style="padding-right: 0">Mã quốc tịch</label>
+                                                    <div class="col-md-4">
                                                         <input v-model="npt.ma_quoc_tich_npt" name="mst_npt" type="text" class="form-control form-control-sm">
                                                         <small v-show="errors.has('mst_npt')" class="help text-muted is-danger">Vui lòng nhập tên người phụ thuộc</small>
                                                     </div>
-                                                </div>
 
-                                                <div class="form-group row">
-                                                    <label class="label-form col-md-3 col-form-label">Quốc tịch</label>
-                                                    <div class="col-md-9">
+                                                    <label class="label-form col-md-2 col-form-label">Quốc tịch</label>
+                                                    <div class="col-md-4">
                                                         <input v-model="npt.quoc_tich_npt" name="quoc_tich_npt" type="text" class="form-control form-control-sm">
                                                         <small v-show="errors.has('quoc_tich_npt')" class="help text-muted is-danger">Vui lòng nhập tên người phụ thuộc</small>
                                                     </div>
                                                 </div>
 
                                                 <div class="form-group row">
-                                                    <label class="label-form col-md-3 col-form-label">Mã quan hệ</label>
-                                                    <div class="col-md-9">
+                                                    <label class="label-form col-md-2 col-form-label" style="padding-right: 0">Mã quan hệ</label>
+                                                    <div class="col-md-4">
                                                         <input v-model="npt.ma_quan_he_nnt" name="quoc_tich_npt" type="text" class="form-control form-control-sm">
                                                         <small v-show="errors.has('quoc_tich_npt')" class="help text-muted is-danger">Vui lòng nhập tên người phụ thuộc</small>
                                                     </div>
-                                                </div>
 
-                                                <div class="form-group row">
-                                                    <label class="label-form col-md-3 col-form-label">Quan hệ</label>
-                                                    <div class="col-md-9">
+                                                    <label class="label-form col-md-2 col-form-label">Quan hệ</label>
+                                                    <div class="col-md-4">
                                                         <input v-model="npt.quan_he_nnt" name="quoc_tich_npt" type="text" class="form-control form-control-sm">
                                                         <small v-show="errors.has('quoc_tich_npt')" class="help text-muted is-danger">Vui lòng nhập tên người phụ thuộc</small>
                                                     </div>
                                                 </div>
 
                                                 <div class="form-group row">
-                                                    <label class="label-form col-md-3 col-form-label">TG giảm trừ</label>
+                                                    <label class="label-form col-md-2 col-form-label" style="padding-right: 0">TG giảm trừ</label>
                                                     <div class="col-md-4">
                                                         <input v-model="npt.tg_giam_tru_tu" name="quoc_tich_npt" type="date" class="form-control form-control-sm">
                                                     </div>
-                                                    <label class="label-form col-md-1 col-form-label"></label>
+                                                    <label class="label-form col-md-2 col-form-label" style="padding-right: 0">Đến</label>
                                                     <div class="col-md-4">
                                                         <input v-model="npt.tg_giam_tru_den" name="tg_giam_tru_den" type="date" class="form-control form-control-sm">
                                                     </div>
@@ -264,17 +264,6 @@
         mounted () {
             api_nhan_vien_get_all_no_pa(this);
         },
-        updated () {
-            // let vm = this;
-            // $(document).ready(function() {
-            //     $('.select2').select2({
-            //         placeholder: 'Chọn bộ phận'
-            //     });
-            //     $('#select_phong_1').on('select2:select', function (e) {
-            //         vm.change_npt();
-            //     });
-            // });
-        },
         data () {
             return {
                 loading_nhan_vien: true,
@@ -284,7 +273,7 @@
                 loading_npt: false,
                 list_npt: [],
                 total_npt: 0,
-                npt: { id: 0, ma_nv: '', ho_ten_npt: '', ngay_sinh_npt: '', so_cmnd_npt: '', mst_npt: '', ma_quoc_tich_npt: 'Việt Nam', quoc_tich_npt: '', ma_quan_he_nnt: '', quan_he_nnt: '', tg_giam_tru_tu: '', tg_giam_tru_den: '', ghi_chu: '' },
+                npt: { id: 0, ma_nv: '', ho_ten_npt: '', ngay_sinh_npt: '', so_cmnd_npt: '', mst_npt: '', ma_quoc_tich_npt: 'VN', quoc_tich_npt: 'Việt Nam', ma_quan_he_nnt: '', quan_he_nnt: '', tg_giam_tru_tu: '', tg_giam_tru_den: '', ghi_chu: '' },
                 flag_btn: true,
                 flag_submit_npt: true,
                 flag_input_npt: false,
@@ -329,8 +318,8 @@
                 this.npt.id_nhan_vien = id_nhan_vien;
                 this.danh_sach_npt(id_nhan_vien);
             },
-            select_npt_theo_nhan_vien: function (ma_nhan_vien) {
-                this.npt.ma_nv = ma_nhan_vien;
+            select_npt_theo_nhan_vien: function (nv) {
+                this.npt.ma_nv = nv.ma_nv;
                 this.error_select_nhan_vien = false;
                 this.danh_sach_npt(1);
             },
@@ -340,12 +329,6 @@
             danh_sach_npt: function (page = 1) {
                 this.loading_npt = true;
                 api_get_danh_sach_npt_theo_nhan_vien(this, this.npt.ma_nv, page);
-                // if(this.npt.id_nhan_vien == ''){
-                //     api_get_all_npt(this, page);
-                // }
-                // else{
-                //     api_get_danh_sach_npt_theo_nhan_vien(this, this.npt.ma_nv, page);
-                // }
             },
             change_npt: function () {
                 // this.nhan_vien =
@@ -364,7 +347,7 @@
                     $('.row-nhom').removeClass("active-click-row");
                     this.flag_submit_npt = true;
                     this.flag_input_npt = false;
-                    this.npt.id = this.npt.so_cmnd_npt = this.npt.ho_ten_npt = this.npt.quan_he_nnt = this.npt.ma_quan_he_nnt = this.npt.ngay_sinh_npt = this.npt.quoc_tich_npt = this.npt.tg_giam_tru_den = this.npt.tg_giam_tru_tu = this.npt.ghi_chu = '';
+                    this.npt = { id: 0, ma_nv: '', ho_ten_npt: '', ngay_sinh_npt: '', so_cmnd_npt: '', mst_npt: '', ma_quoc_tich_npt: 'VN', quoc_tich_npt: 'Việt Nam', ma_quan_he_nnt: '', quan_he_nnt: '', tg_giam_tru_tu: '', tg_giam_tru_den: '', ghi_chu: '' };
                 }
                 else {
                     $('#select_phong_2').attr('disabled', 'disabled');
@@ -481,6 +464,12 @@
 
     .form-group {
          margin-bottom: 2px;
+    }
+
+    @media (min-width: 576px){
+        .modal-dialog {
+            max-width: 600px;
+        }
     }
 
 </style>

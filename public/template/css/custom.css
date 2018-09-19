@@ -221,4 +221,24 @@ label {
     padding-left: 15px;
 }
 
+@media (max-width: 768px){
+    .hidden-small-icon {
+        display: none;
+    }
+    .hidden-icon {
+        display: none;
+    }
+
+}
+
+@media (min-width: 768px){
+    .hidden-small-icon {
+        display: block;
+    }
+    .hidden-icon {
+        display: block;
+    }
+}
+
+
 

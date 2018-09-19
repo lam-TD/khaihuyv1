@@ -1,6 +1,11 @@
 /* #table_nhanvien tr th {
   display: inline-block;
 } */
+
+#table_nhanvien tr th:nth-child(2){
+  min-width: 50px;
+}
+
 #table_nhanvien tr th:nth-child(3){
   min-width: 100px;
 }
@@ -17,7 +22,7 @@
   min-width: 105px;
 }
 #table_nhanvien tr th:nth-child(7){
-  min-width: 200px;
+  min-width: 220px;
 }
 
 #table_nhanvien tr th:nth-child(8){

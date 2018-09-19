@@ -5,7 +5,7 @@
         <!-- ============================================================== -->
         <div class="row page-titles">
             <div class="col-md-5 align-self-center">
-                <h4 class="text-themecolor">Danh sách thông tin bảo hiểm y tế</h4>
+                <h3 class="text-themecolor">Danh sách thông tin bảo hiểm y tế</h3>
             </div>
             <div class="col-md-7 align-self-center">
                 <ol class="breadcrumb">
@@ -351,8 +351,7 @@
                     $('.row-nhom').removeClass("active-click-row");
                     this.flag_submit_bhyt = true;
                     this.flag_input_bhyt = false;
-                    // this.bhyt.id = this.bhyt.so_bhxh = this.bhyt.so_bhyt = this.bhyt.ghi_chu = '', this.bhyt.noi_kham = '', this.bhyt.dia_chi_kham = this.nv_ma = '';
-                    // this.bhyt = '';
+                    this.bhyt = { id: 0, so_bhyt: '', so_bhxh: '', noi_kham: '', dia_chi_kham: '', ghi_chu: '', nv_ma: '', phuong_xa_id: '' }
                     this.nhan_vien = '';
                     this.dia_chi.quan_huyen = this.dia_chi.tinh_thanh = this.dia_chi.phuong_xa = '';
                     this.flag_disable_manv = false;
@@ -370,7 +369,7 @@
                     })[0];
                     this.flag_submit_bhyt = false;
                     this.flag_input_bhyt = true;
-                    console.log(laodong.phuong_xa_id);
+                    // console.log(laodong.phuong_xa_id);
                 }
             },
             submit_bhyt: function () {

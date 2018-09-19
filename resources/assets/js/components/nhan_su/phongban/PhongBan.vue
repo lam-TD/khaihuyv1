@@ -5,7 +5,7 @@
         <!-- ============================================================== -->
         <div class="row page-titles">
             <div class="col-md-5 align-self-center">
-                <h4 class="text-themecolor">Danh sách phòng ban</h4>
+                <h3 class="text-themecolor">Danh sách phòng ban</h3>
             </div>
             <div class="col-md-7 align-self-center">
                 <ol class="breadcrumb">
@@ -283,7 +283,7 @@
                     $('.row-nhom').removeClass("active-click-row");
                     this.flag_submit_phong_ban = true;
                     this.flag_input_phong_ban = false;
-                    this.phong_ban.id = this.phong_ban.ma_phong = this.phong_ban.ten_phong = this.phong_ban.dien_giai = '';
+                    this.phong_ban = { id: 0, ma_phong: '', ten_phong: '', dien_giai: '', id_bo_phan: '' };
                 }
                 else {
                     $('#select_phong_2').attr('disabled', 'disabled');

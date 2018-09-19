@@ -31,17 +31,27 @@
                                                         <div class="form-group row">
                                                             <label class="label-form col-md-2 col-form-label">Mã NV(*)</label>
                                                             <div class="col-md-4">
-                                                                <input :disabled="flag_input_nhan_vien_tt" v-model="nhan_vien.ma_nv" @input="validate_ma_nv" v-on:keypress="disable_spaces" v-bind:maxlength="7" name="txtma_nv" type="text" class="form-control form-control-sm" id="manv" v-validate="'required'" :class="{'border-danger' : errors.has('txtma_nv')}">
-                                                                <small v-show="errors.has('txtma_nv')" class="help text-muted is-danger">Vui lòng nhập mã NV</small>
+                                                                <input :disabled="flag_input_nhan_vien_tt" v-model="nhan_vien.ma_nv" @input="validate_ma_nv" v-on:keypress="disable_spaces" v-bind:maxlength="7" name="txtma_nv" type="text" class="form-control form-control-sm" id="manv" v-validate="'required'" :class="{'border-danger' : flag_input_ma_nv}">
+                                                                <!--<small v-show="errors.has('txtma_nv')" class="help text-muted is-danger">Vui lòng nhập mã NV</small>-->
                                                                 <small v-if="flag_input_ma_nv" class="help text-muted is-danger">Mã NV phải có 7 ký tự, bắt đầu bằng KH</small>
                                                             </div>
 
                                                             <label class="label-form col-md-2 col-form-label">Giới tính</label>
                                                             <div class="col-md-5">
-                                                                <select v-model="nhan_vien.gioi_tinh" name="" id="" class="form-control form-control-sm">
-                                                                    <option value="0" :selected="true">Nữ</option>
-                                                                    <option value="1">Nam</option>
-                                                                </select>
+                                                                <!--<select v-model="nhan_vien.gioi_tinh" name="" id="" class="form-control form-control-sm">-->
+                                                                    <!--<option value="0" :selected="true">Nữ</option>-->
+                                                                    <!--<option value="1">Nam</option>-->
+                                                                <!--</select>-->
+                                                                <el-radio-group v-model="nhan_vien.gioi_tinh" style="width: 49%">
+                                                                    <el-radio :label="0">Nữ</el-radio>
+                                                                    <el-radio :label="1">Nam</el-radio>
+                                                                </el-radio-group>
+
+                                                                <el-select v-model="nhan_vien.trang_thai"  size="small" placeholder="Trạng thái" style="width: 49%">
+                                                                    <el-option :label="'Thử việc'" :value="0"></el-option>
+                                                                    <el-option :label="'Chính thức'" :value="1"></el-option>
+                                                                    <el-option :label="'Thôi việc'" :value="2"></el-option>
+                                                                </el-select>
                                                             </div>
                                                         </div>
 
@@ -68,21 +78,21 @@
 
                                                             <label class="label-form col-md-2 col-form-label">Nơi sinh</label>
                                                             <div class="col-md-5">
-                                                                <el-select v-model="nv_noi_sinh.tinh_thanh" value-key="ma_tinh" filterable size="small" placeholder="Tỉnh thành phố" @change="load_quan_huyen(nv_noi_sinh.tinh_thanh, 1)" style="width: 49%;" no-match-text="Không tìm thấy" no-data-text="Không có dữ liệu">
+                                                                <el-select v-model="nv_noi_sinh.tinh_thanh" filterable size="small" placeholder="Tỉnh thành phố" @change="load_quan_huyen_noi_sinh" style="width: 49%;" no-match-text="Không tìm thấy" no-data-text="Không có dữ liệu">
                                                                     <el-option
                                                                             v-for="item in list_tinh_thanh"
                                                                             :key="item.ma_tinh"
                                                                             :label="item.ten_tinh"
-                                                                            :value="item">
+                                                                            :value="item.ma_tinh">
                                                                     </el-option>
                                                                 </el-select>
 
-                                                                <el-select v-model="nv_noi_sinh.quan_huyen" value-key="ma_quan_huyen" filterable size="small" placeholder="Quận huyện" style="width: 49%;margin-left: 1px;">
+                                                                <el-select v-model="nv_noi_sinh.quan_huyen" value-key="ma_quan_huyen" filterable size="small" placeholder="Quận huyện" style="width: 49%;margin-left: 1px;" no-match-text="Không tìm thấy" no-data-text="Không có dữ liệu">
                                                                     <el-option
-                                                                            v-for="item in change_quan_huyen"
+                                                                            v-for="item in change_quan_huyen_noi_sinh"
                                                                             :key="item.ma_quan_huyen"
                                                                             :label="item.ten_quan_huyen"
-                                                                            :value="item">
+                                                                            :value="item.ten_quan_huyen">
                                                                     </el-option>
                                                                 </el-select>
                                                             </div>
@@ -108,7 +118,7 @@
                                                             <div class="col-md-10">
                                                                 <div class="row">
                                                                     <div class="col-md-3">
-                                                                        <input v-model="nhan_vien.so_cmnd" v-on:keypress="only_number_input(event)" name="txtsocmnd" type="text" class="form-control form-control-sm" id="txtsocmnd" v-validate="'required'" :class="{'border-danger' : errors.has('txtsocmnd')}">
+                                                                        <input v-model="nhan_vien.so_cmnd" v-on:keypress="only_number_input" name="txtsocmnd" type="text" class="form-control form-control-sm" id="txtsocmnd" v-validate="'required'" :class="{'border-danger' : errors.has('txtsocmnd')}">
                                                                         <small v-show="errors.has('txtsocmnd')" class="help text-muted is-danger">Vui lòng nhập số CMND</small>
                                                                     </div>
 
@@ -153,7 +163,7 @@
                                                                 </el-select>
                                                             </div>
                                                             <div class="col-md-4">
-                                                                <el-select v-model="nv_tam_tru.phuong_xa" value-key="phuongxa_id" filterable size="small" placeholder="Phường xã" style="width: 100%;">
+                                                                <el-select v-model="nv_tam_tru.phuong_xa" value-key="phuongxa_id" filterable size="small" placeholder="Phường xã" style="width: 100%;" no-match-text="Không tìm thấy" no-data-text="Không có dữ liệu">
                                                                     <el-option v-if="change_phuong_xa.length==0" :label="'Chưa có phường xã'" :value="''"></el-option>
                                                                     <el-option v-else v-for="item in change_phuong_xa" :key="item.phuongxa_id" :label="item.ten_phuong_xa" :value="item">
                                                                     </el-option>
@@ -189,7 +199,7 @@
                                                             </div>
 
                                                             <div class="col-md-4">
-                                                                <el-select v-model="nv_thuong_tru.phuong_xa" value-key="phuongxa_id" filterable size="small" placeholder="Phường xã" style="width: 100%;">
+                                                                <el-select v-model="nv_thuong_tru.phuong_xa" value-key="phuongxa_id" filterable size="small" placeholder="Phường xã" style="width: 100%;" no-match-text="Không tìm thấy" no-data-text="Không có dữ liệu">
                                                                     <el-option v-if="change_phuong_xa.length==0" :label="'Chưa có phường xã'" :value="''"></el-option>
                                                                     <el-option v-else
                                                                                v-for="item in change_phuong_xa"
@@ -206,17 +216,17 @@
                                                             <div class="col-md-10">
                                                                 <div class="row">
                                                                     <div class="col-md-3">
-                                                                        <input v-model="nhan_vien.dt_ban" v-on:keypress="only_number_input(event)" name="txtdtban" type="text" class="form-control form-control-sm" placeholder="">
+                                                                        <input v-model="nhan_vien.dt_ban" v-on:keypress="only_number_input" name="txtdtban" type="text" class="form-control form-control-sm" placeholder="">
                                                                     </div>
 
                                                                     <label class="label-form col-md-2 col-form-label">Di động 1</label>
                                                                     <div class="col-md-3">
-                                                                        <input v-model="nhan_vien.di_dong_1" v-on:keypress="only_number_input(event)" name="txtdtban" type="text" class="form-control form-control-sm" placeholder="">
+                                                                        <input v-model="nhan_vien.di_dong_1" v-on:keypress="only_number_input" name="txtdtban" type="text" class="form-control form-control-sm" placeholder="">
                                                                     </div>
 
                                                                     <label class="label-form col-md-2 col-form-label">Di động 2</label>
                                                                     <div class="col-md-3 chuan-input">
-                                                                        <input v-model="nhan_vien.di_dong_2" v-on:keypress="only_number_input(event)" name="txtdtban" type="text" class="form-control form-control-sm" placeholder="">
+                                                                        <input v-model="nhan_vien.di_dong_2" v-on:keypress="only_number_input" name="txtdtban" type="text" class="form-control form-control-sm" placeholder="">
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -227,7 +237,7 @@
                                                             <div class="col-md-10">
                                                                 <div class="row">
                                                                     <div class="col-md-3">
-                                                                        <input v-model="nhan_vien.mst_cn" type="text" name="txtmst_cn" class="form-control form-control-sm" id="txtmst_cn" placeholder="">
+                                                                        <input v-model="nhan_vien.mst_cn" v-on:keypress="only_number_input" type="text" name="txtmst_cn" class="form-control form-control-sm" id="txtmst_cn" placeholder="">
                                                                     </div>
 
                                                                     <label class="label-form col-md-2 col-form-label">Nơi cấp</label>
@@ -264,310 +274,6 @@
                                     </div>
                                 </div>
                             </div>
-
-                            <!-- Modal thong tin lao dong -->
-                            <div class="modal" id="modal_nv_tt_lao_dong"  tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                <div class="modal-dialog modal-lg" role="document">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <h4 class="modal-title" id="exampleModalLabe2"><b>Thông tin lao động</b></h4>
-                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                <span aria-hidden="true">&times;</span>
-                                            </button>
-                                        </div>
-                                        <form @submit.prevent="submit_nhan_vien_thong_tin_lao_dong" id="form_nhan_vien_thong_tin_lao_dong">
-                                            <div v-loading="loading_lao_dong" class="modal-body modal-lao-dong">
-                                                <div class="row">
-                                                    <div class="form-group col-md-6">
-                                                        <label class="label-form">Vào công ty</label>
-                                                        <input v-model="lao_dong.vao_cty" name="txtvaocty" type="text" class="form-control form-control-sm" id="s" v-validate="'required'" :class="{'border-danger' : errors.has('txtvaocty')}">
-                                                        <small v-show="errors.has('txtvaocty')" class="help text-muted is-danger">Vui lòng nhập số CMND</small>
-                                                    </div>
-                                                    <div class="form-group col-md-6">
-                                                        <label class="label-form">Thôi việc</label>
-                                                        <input v-model="lao_dong.thoi_viec" name="scmnd_ngay_cap" type="text" class="form-control form-control-sm" id="1" placeholder="">
-                                                    </div>
-                                                    <div class="form-group col-md-3">
-                                                        <label class="label-form"></label>
-                                                        <input readonly class="form-control form-control-sm" value="Tổng thời gian làm việc">
-                                                    </div>
-                                                    <div class="form-group col-md-3">
-                                                        <label class="label-form">Năm</label>
-                                                        <input v-model="lao_dong.nam" name="scmnd_noi_cap" type="text" class="form-control form-control-sm" id="121" placeholder="">
-                                                    </div>
-
-                                                    <div class="form-group col-md-3">
-                                                        <label class="label-form">Tháng</label>
-                                                        <input v-model="lao_dong.thang" name="scmnd_noi_cap" type="text" class="form-control form-control-sm" id="32" placeholder="">
-                                                    </div>
-                                                    <div class="form-group col-md-3">
-                                                        <label class="label-form">Ngày</label>
-                                                        <input v-model="lao_dong.ngay" name="scmnd_noi_cap" type="text" class="form-control form-control-sm" id="56" placeholder="">
-                                                    </div>
-
-                                                    <div class="form-group col-md-6">
-                                                        <label class="label-form">Số HĐLĐ</label>
-                                                        <input v-model="lao_dong.so_hdld" name="txtvaocty" type="text" class="form-control form-control-sm" id="txtv6r56aocty" v-validate="'required'" :class="{'border-danger' : errors.has('txtvaocty')}">
-                                                        <!--<small v-show="errors.has('txtvaocty')" class="help text-muted is-danger">Vui lòng nhập số CMND</small>-->
-                                                    </div>
-                                                    <div class="form-group col-md-6">
-                                                        <label class="label-form">Ngày ký</label>
-                                                        <input v-model="lao_dong.ngay_ky" name="scmnd_ngay_cap" type="text" class="form-control form-control-sm" id="56544" placeholder="">
-                                                    </div>
-
-                                                    <div class="form-group col-md-6">
-                                                        <label class="label-form">Thời hạn</label>
-                                                        <input v-model="lao_dong.thoi_han" name="txtvaocty" type="text" class="form-control form-control-sm" id="txtvtaocty" v-validate="'required'" :class="{'border-danger' : errors.has('txtvaocty')}">
-                                                        <!--<small v-show="errors.has('txtvaocty')" class="help text-muted is-danger">Vui lòng nhập số CMND</small>-->
-                                                    </div>
-                                                    <div class="form-group col-md-6">
-                                                        <label class="label-form">Hết hạn</label>
-                                                        <input v-model="lao_dong.het_han" name="scmnd_ngay_cap" type="text" class="form-control form-control-sm" id="tscmnd_ngay_cap" placeholder="">
-                                                    </div>
-
-                                                    <div class="form-group col-md-6">
-                                                        <label class="label-form">Số BHXH</label>
-                                                        <input v-model="lao_dong.so_bhxh" name="txtvaocty" type="text" class="form-control form-control-sm" id="txtvareeocty" v-validate="'required'" :class="{'border-danger' : errors.has('txtvaocty')}">
-                                                        <!--<small v-show="errors.has('txtvaocty')" class="help text-muted is-danger">Vui lòng nhập số CMND</small>-->
-                                                    </div>
-                                                    <div class="form-group col-md-6">
-                                                        <label class="label-form">Số BHYT</label>
-                                                        <input v-model="lao_dong.so_bhyt" name="scmnd_ngay_cap" type="text" class="form-control form-control-sm" id="scmend_ngay_cap" placeholder="">
-                                                    </div>
-
-                                                    <div class="form-group col-md-6">
-                                                        <label class="label-form">Nơi khám</label>
-                                                        <input v-model="lao_dong.noi_kham" name="txtvaocty" type="text" class="form-control form-control-sm" id="t45xtvaocty" v-validate="'required'" :class="{'border-danger' : errors.has('txtvaocty')}">
-                                                        <!--<small v-show="errors.has('txtvaocty')" class="help text-muted is-danger">Vui lòng nhập số CMND</small>-->
-                                                    </div>
-                                                    <div class="form-group col-md-6">
-                                                        <label class="label-form">Địa chỉ khám</label>
-                                                        <input v-model="lao_dong.dia_chi_kham" name="scmnd_ngay_cap" type="text" class="form-control form-control-sm" id="scmn545d_ngay_cap" placeholder="">
-                                                    </div>
-
-                                                    <div class="form-group col-md-12">
-                                                        <label class="label-form">Ghi chú</label>
-                                                        <input v-model="lao_dong.ghi_chu" name="scmnd_ngay_cap" type="text" class="form-control form-control-sm" id="scmnd545_ngay_cap" placeholder="">
-                                                    </div>
-
-                                                </div>
-                                            </div>
-                                            <div class="modal-footer">
-                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Hủy</button>
-                                                <button id="save2" type="submit" class="btn btn-primary">
-                                                    <span v-if="flag_xu_ly_tt_ca_nhan"><i class="fa fa-save"></i> Lưu lại</span>
-                                                    <span v-if="!flag_xu_ly_tt_ca_nhan"><i class="fa fa-spin fa-spinner"></i> Đang xử lý...</span>
-                                                </button>
-                                                <!--<button @click="upload_img" id="anh" type="" class="btn btn-primary">Lưu ảnh</button>-->
-                                            </div>
-                                        </form>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- END Modal thong tin lao dong -->
-
-                            <!-- Modal thong tin cong viec -->
-                            <div class="modal" id="modal_nv_tt_cong_viec"  tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                <div class="modal-dialog modal-lg" role="document">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <h4 style="margin-right: 10px;" class="modal-title" id="exampleModalLabe3"><b>Thông tin công việc</b></h4>
-
-                                            <button v-on:click="_cong_viec_show_hide('add')" class="btn btn-success btn-sm">Thêm mới</button>
-
-                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                <span aria-hidden="true">&times;</span>
-                                            </button>
-                                        </div>
-                                        <form id="form_nhan_vien_thong_tin_cong_viec">
-                                            <div v-loading="false" class="modal-body modal-cong-viec">
-                                                <div v-if="flag_form_cong_viec" class="row">
-                                                    <div class="col-md-12">
-                                                        <div class="card">
-                                                            <div class="card-body">
-                                                                <form @submit.prevent="submit_nhan_vien_thong_tin_cong_viec('2')">
-                                                                    <div class="row">
-                                                                        <div class="form-group col-md-3">
-                                                                            <label class="label-form">BPLV</label>
-                                                                            <div class="select-lam">
-                                                                                <input  v-model="cong_viec.id_bplv" id="id_bplv" name="id_eplv" type="text" class="form-control form-control-sm" v-validate="'required'" :class="{'border-danger' : errors.has('id_eplv')}">
-                                                                                <div class="body-select-lam" id="bplv">
-                                                                                    <ul>
-                                                                                        <li @click="show_select_lam(n,'id_bplv')" v-for="n in list_bo_phan">
-                                                                                            <span>VT-001</span>
-                                                                                            <span class="pull-right">{{n.ten_bo_phan}}</span>
-                                                                                        </li>
-                                                                                    </ul>
-                                                                                </div>
-                                                                            </div>
-
-                                                                            <small v-show="errors.has('id_bplv')" class="help text-muted is-danger"></small>
-                                                                        </div>
-                                                                        <div class="form-group col-md-3">
-                                                                            <label class="label-form"></label>
-                                                                            <input name="scmnd_ngay_cap" type="text" class="form-control form-control-sm" id="1ss" placeholder="">
-                                                                        </div>
-                                                                        <div class="form-group col-md-3">
-                                                                            <label class="label-form">Phòng</label>
-                                                                            <input v-model="cong_viec.id_phong" class="form-control form-control-sm" value="">
-                                                                        </div>
-                                                                        <div class="form-group col-md-3">
-                                                                            <label class="label-form"></label>
-                                                                            <input name="scmnd_noi_cap" type="text" class="form-control form-control-sm" id="121d" placeholder="">
-                                                                        </div>
-
-                                                                        <div class="form-group col-md-3">
-                                                                            <label class="label-form">Vị trí</label>
-                                                                            <input v-model="cong_viec.id_vi_tri" name="id_vi_tri" type="text" class="form-control form-control-sm" id="id_vi_tri" placeholder="">
-                                                                        </div>
-                                                                        <div class="form-group col-md-3">
-                                                                            <label class="label-form"></label>
-                                                                            <input name="scmnd_noi_cap" type="text" class="form-control form-control-sm" id="5fv6" placeholder="">
-                                                                        </div>
-
-                                                                        <div class="form-group col-md-3">
-                                                                            <label class="label-form">Hệ số lương</label>
-                                                                            <input v-model="cong_viec.he_so" v-on:keypress="only_number_input(event)" name="he_so" type="text" class="form-control form-control-sm" id="he_so" v-validate="'required'" :class="{'border-danger' : errors.has('he_so')}">
-                                                                            <!--<small v-show="errors.has('txtvaocty')" class="help text-muted is-danger">Vui lòng nhập số CMND</small>-->
-                                                                        </div>
-                                                                        <div class="form-group col-md-3">
-                                                                            <label class="label-form">Lương cơ bản</label>
-                                                                            <!--<input v-model="cong_viec.luong_co_ban" name="luong_co_ban" type="text" class="form-control form-control-sm" id="luong_co_ban" placeholder="">-->
-                                                                            <vue-numeric v-model="cong_viec.luong_co_ban" class="form-control form-control-sm" separator=","></vue-numeric>
-                                                                        </div>
-
-                                                                        <div class="form-group col-md-3">
-                                                                            <label class="label-form">Lương CVHT</label>
-                                                                            <vue-numeric class="form-control form-control-sm" separator="," v-model="cong_viec.luong_cvht"></vue-numeric>
-                                                                            <!--<input v-model="cong_viec.luong_cvht" name="luong_cvht" type="text" class="form-control form-control-sm" id="luong_cvht" v-validate="'required'" :class="{'border-danger' : errors.has('luong_cvht')}">-->
-                                                                            <!--<small v-show="errors.has('txtvaocty')" class="help text-muted is-danger">Vui lòng nhập số CMND</small>-->
-                                                                        </div>
-                                                                        <div class="form-group col-md-3">
-                                                                            <label class="label-form">Thời gian làm việc</label>
-                                                                            <input v-model="cong_viec.thoi_gian_lam_viec" name="scmnd_thoi_gian_lam_viecngay_cap" type="text" class="form-control form-control-sm" id="thoi_gian_lam_viec" placeholder="">
-                                                                        </div>
-
-                                                                        <div class="form-group col-md-3">
-                                                                            <label class="label-form">Tình trạng</label>
-                                                                            <input v-model="cong_viec.tinh_trang" name="tinh_trang" type="text" class="form-control form-control-sm" id="tinh_trang" v-validate="'required'" :class="{'border-danger' : errors.has('tinh_trang')}">
-                                                                            <!--<small v-show="errors.has('txtvaocty')" class="help text-muted is-danger">Vui lòng nhập số CMND</small>-->
-                                                                        </div>
-                                                                        <div class="form-group col-md-3">
-                                                                            <label class="label-form">Chấm công</label>
-                                                                            <input v-model="cong_viec.cham_cong" name="cham_cong" type="text" class="form-control form-control-sm" id="cham_cong" placeholder="">
-                                                                        </div>
-
-                                                                        <div class="form-group col-md-7">
-                                                                            <label class="label-form">Ghi chú</label>
-                                                                            <input v-model="cong_viec.ghi_chu" name="ghi_chu" type="text" class="form-control form-control-sm" id="ghi_chu">
-                                                                        </div>
-                                                                        <div class="form-group col-md-3">
-                                                                            <label class="label-form"></label>
-                                                                            <!--<button class="btn btn-success btn-sm">Lưu lại</button>-->
-                                                                            <input type="submit" class="form-control form-control-sm btn-cong-viec-sub btn btn-primary btn-sm" value="Lưu lại">
-                                                                        </div>
-                                                                        <div class="form-group col-md-2">
-                                                                            <label class="label-form"></label>
-                                                                            <!--<button class="btn btn-success btn-sm">Lưu lại</button>-->
-                                                                            <input @click="flag_form_cong_viec = false" type="button" class="form-control form-control-sm btn btn-danger btn-sm btn-cong-viec-cancel" value="Hủy">
-                                                                        </div>
-                                                                    </div>
-                                                                </form>
-
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div v-if="!flag_form_cong_viec" class="row row-lao-dong">
-                                                    <div class="col-md-12">
-                                                        <h5>Danh sách công việc</h5>
-                                                    </div>
-                                                    <div class="col-md-12">
-                                                        <div class="card">
-                                                            <div class="card-body">
-                                                                <form @submit.prevent="submit_nhan_vien_thong_tin_cong_viec('1')">
-                                                                    <div class="row">
-                                                                        <div class="form-group col-md-3">
-                                                                            <label class="label-form">BPLV</label>
-                                                                            <input v-model="cong_viec.id_eplv" name="id_eplv" type="text" class="form-control form-control-sm" v-validate="'required'" :class="{'border-danger' : errors.has('id_eplv')}">
-                                                                            <small v-show="errors.has('id_bplv')" class="help text-muted is-danger">Vui lòng nhập số CMND</small>
-                                                                        </div>
-                                                                        <div class="form-group col-md-3">
-                                                                            <label class="label-form"></label>
-                                                                            <input name="scmnd_ngay_cap" type="text" class="form-control form-control-sm" placeholder="">
-                                                                        </div>
-                                                                        <div class="form-group col-md-3">
-                                                                            <label class="label-form">Phòng</label>
-                                                                            <input v-model="cong_viec.id_phong" class="form-control form-control-sm" value="">
-                                                                        </div>
-                                                                        <div class="form-group col-md-3">
-                                                                            <label class="label-form"></label>
-                                                                            <input name="scmnd_noi_cap" type="text" class="form-control form-control-sm" placeholder="">
-                                                                        </div>
-
-                                                                        <div class="form-group col-md-3">
-                                                                            <label class="label-form">Vị trí</label>
-                                                                            <input v-model="cong_viec.id_vi_tri" name="id_vi_tri" type="text" class="form-control form-control-sm" placeholder="">
-                                                                        </div>
-                                                                        <div class="form-group col-md-3">
-                                                                            <label class="label-form"></label>
-                                                                            <input name="scmnd_noi_cap" type="text" class="form-control form-control-sm" placeholder="">
-                                                                        </div>
-
-                                                                        <div class="form-group col-md-3">
-                                                                            <label class="label-form">Hệ số lương</label>
-                                                                            <input v-model="cong_viec.he_so" name="he_so" type="text" class="form-control form-control-sm" v-validate="'required'" :class="{'border-danger' : errors.has('he_so')}">
-                                                                            <!--<small v-show="errors.has('txtvaocty')" class="help text-muted is-danger">Vui lòng nhập số CMND</small>-->
-                                                                        </div>
-                                                                        <div class="form-group col-md-3">
-                                                                            <label class="label-form">Lương cơ bản</label>
-                                                                            <input v-model="cong_viec.luong_co_ban" name="luong_co_ban" type="text" class="form-control form-control-sm" placeholder="">
-                                                                        </div>
-
-                                                                        <div class="form-group col-md-3">
-                                                                            <label class="label-form">Lương CVHT</label>
-                                                                            <input v-model="cong_viec.luong_cvht" name="luong_cvht" type="text" class="form-control form-control-sm" v-validate="'required'" :class="{'border-danger' : errors.has('luong_cvht')}">
-                                                                            <!--<small v-show="errors.has('txtvaocty')" class="help text-muted is-danger">Vui lòng nhập số CMND</small>-->
-                                                                        </div>
-                                                                        <div class="form-group col-md-3">
-                                                                            <label class="label-form">Thời gian làm việc</label>
-                                                                            <input v-model="cong_viec.thoi_gian_lam_viec" name="scmnd_thoi_gian_lam_viecngay_cap" type="text" class="form-control form-control-sm" placeholder="">
-                                                                        </div>
-
-                                                                        <div class="form-group col-md-3">
-                                                                            <label class="label-form">Tình trạng</label>
-                                                                            <input v-model="cong_viec.tinh_trang" name="tinh_trang" type="text" class="form-control form-control-sm" v-validate="'required'" :class="{'border-danger' : errors.has('tinh_trang')}">
-                                                                            <!--<small v-show="errors.has('txtvaocty')" class="help text-muted is-danger">Vui lòng nhập số CMND</small>-->
-                                                                        </div>
-                                                                        <div class="form-group col-md-3">
-                                                                            <label class="label-form">Chấm công</label>
-                                                                            <input v-model="cong_viec.cham_cong" name="cham_cong" type="text" class="form-control form-control-sm">
-                                                                        </div>
-
-                                                                        <div class="form-group col-md-9">
-                                                                            <label class="label-form">Ghi chú</label>
-                                                                            <input v-model="cong_viec.ghi_chu" name="ghi_chu" type="text" class="form-control form-control-sm">
-                                                                        </div>
-                                                                        <div class="form-group col-md-3">
-                                                                            <label class="label-form"></label>
-                                                                            <!--<button class="btn btn-success btn-sm">Lưu lại</button>-->
-                                                                            <input type="submit" class="form-control form-control-sm btn-cong-viec-sub btn btn-primary btn-sm" value="Lưu lại">
-                                                                        </div>
-                                                                    </div>
-                                                                </form>
-
-                                                            </div>
-                                                        </div>
-                                                    </div>
-
-                                                </div>
-                                            </div>
-
-                                        </form>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- END Modal thong tin cong viec -->
                         </div>
                     </div>
                     <div class="table-responsive">
@@ -575,7 +281,7 @@
                             <thead>
                                 <tr style="border-top: 1px solid #ddd;">
                                     <th class="text-center">#</th>
-                                    <th class="text-center">TT</th>
+                                    <th class="text-center" style="width: 50px;">TT</th>
                                     <th style="">Mã</th>
                                     <th style="">Tên nhân viên</th>
                                     <th>G/T</th>
@@ -590,14 +296,13 @@
                                     <th>Di động 1</th>
                                     <th>Di động 2</th>
                                     <th>MST CN</th>
-                                    <th>Ngày cấp</th>
+                                    <th>C/C TC</th>
                                     <th>Nơi cấp</th>
                                     <th class="text-center">Trạng thái</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <tr v-if="loading_dsnv"><td colspan="17" class=""><b><i class="fa fa-spin fa-spinner"></i> Đang tải danh sách...</b></td></tr>
-                                <tr v-if="flag"><td colspan="17" class=""><b class="error_load_nv">Lỗi không tải được danh sách vui lòng tải lại trang...</b></td></tr>
                                 <tr v-if="dsnhanvien.length>0" v-for="(n, index) in dsnhanvien">
                                     <td class="text-nowrap">
                                         <button @click="_nhan_vien('edit', n)" data-toggle="modal" data-target="#modal_nv_tt_ca_nhan" class="btn btn-info btn-sm" title="Cập nhật thông tin cá nhân"> <i class="fa fa-edit"></i> </button>
@@ -620,9 +325,9 @@
                                     <td>{{n.di_dong_1}}</td>
                                     <td>{{n.di_dong_2}}</td>
                                     <td>{{n.mst_cn}}</td>
+                                    <td>{{n.cc_thue_cap}}</td>
                                     <td>{{n.mst_cn_noi_cap}}</td>
-                                    <td class="hidden-text">{{n.cc_thue_cap}}</td>
-                                    <td class="text-center">Chính thức</td>
+                                    <td v-if="n.trang_thai == 0" class="text-center">Thử việc</td><td v-else-if="n.trang_thai==1" class="text-center">Chính thức</td><td v-else class="text-center">Thôi việc</td>
                                 </tr>
                             </tbody>
                         </table>
@@ -651,16 +356,21 @@
     import {api_get_tinh} from "../../../helper/tinh_thanh";
     import {api_get_quan_huyen} from "../../../helper/tinh_thanh";
     import {api_get_phuong_xa} from "../../../helper/tinh_thanh";
+    import {api_get_item_phuong_xa_tam_tru} from "../../../helper/tinh_thanh";
+    import {api_get_item_phuong_xa_thuong_tru} from "../../../helper/tinh_thanh";
+
 
     import {api_get_all_bo_phan} from "../bophan/bo_phan";
 
     export default {
         name: 'danhsachnhanvien',
-        mounted (){
-            this.getNhanVien();
+        created () {
             api_get_tinh(this);
             api_get_quan_huyen(this);
             api_get_phuong_xa(this);
+        },
+        mounted () {
+            this.getNhanVien();
         },
         computed: {
             danh_sach_nhan_vien() {
@@ -681,6 +391,7 @@
                 list_phuong_xa: [],
                 change_phuong_xa: [],
                 phuong_xa: '',
+                change_quan_huyen_noi_sinh: [],
                 nv_noi_sinh: {tinh_thanh: '', quan_huyen: ''},
                 nv_tam_tru: {tinh_thanh: '', quan_huyen: '', phuong_xa: ''},
                 nv_thuong_tru: {tinh_thanh: '', quan_huyen: '', phuong_xa: ''},
@@ -690,7 +401,7 @@
                 key_word: '',
                 dsnhanvien_total: 0,
                 loading_dsnv: false,
-                flag: false,
+                flag_search: false,
                 flag_submit_nhan_vien_tt_ca_nhan: true,
                 flag_disabled_tt_ca_nhan: false,
                 flag_input_nhan_vien_tt: false,
@@ -704,7 +415,7 @@
                     noi_sinh_tinh_thanh: '',
                     noi_sinh_quan_huyen: '',
                     quoc_tich: '',
-                    gioi_tinh: '',
+                    gioi_tinh: 'Việt Nam',
                     so_cmnd: '',
                     scmnd_noi_cap: '',
                     scmnd_ngay_cap: '',
@@ -721,49 +432,34 @@
                     mst_cn_noi_cap: '',
                     cc_thue_cap: '',
                     avatar: '',
-                    image: ''
-                },
-                lao_dong:{
-                    vao_cty: '',
-                    nv_id: '',
-                    thoi_viec: '',
-                    nam: '',
-                    thang: '',
-                    ngay: '',
-                    so_hdld: '',
-                    ngay_ky: '',
-                    thoi_han: '',
-                    het_han: '',
-                    so_bhxh: '',
-                    so_bhyt: '',
-                    noi_kham: '',
-                    dia_chi_kham: '',
-                    ghi_chu: ''
+                    image: '',
+                    trang_thai: 0,
+                    tam_tru_tinh_thanh: '',
+                    thuong_tru_tinh_thanh: ''
                 },
                 loading_lao_dong: true,
                 flag_xu_ly_tt_lao_dong: true,
-                cong_viec: {
-                    id_bplv: '',
-                    id_phong: '',
-                    id_vi_tri: '',
-                    he_so: 0,
-                    luong_co_ban: 0,
-                    luong_cvht: 0,
-                    thoi_gian_lam_viec: '',
-                    tinh_trang: '',
-                    cham_cong: '',
-                    ghi_chu: ''
-                },
                 flag_form_cong_viec: false,
                 list_bo_phan: [],
                 list_phong_ban: [],
-                list_vi_tri: []
+                list_vi_tri: [],
+                nhan_vien_trang_thai: [
+                    { label: 'Thử việc', value: 0 },
+                    { label: 'Chính thức', value: 1 },
+                    { label: 'Thôi việc', value: 2 },
+                ]
             }
         },
         methods: {
+            load_quan_huyen_noi_sinh: function (ma_tinh) {
+                console.log(ma_tinh);
+                this.change_quan_huyen_noi_sinh = this.list_quan_huyen.filter(function(item){
+                    return (item['ma_tinh'] == ma_tinh);
+                })
+            },
             load_quan_huyen: function (tinh, type) {
-                console.log(tinh);
-                console.log('loai: ' + type);
+                // console.log(tinh);
+                // console.log('loai: ' + type);
                 this.change_quan_huyen = this.list_quan_huyen.filter(function(item){
                     return (item['ma_tinh'] == tinh.ma_tinh);
                 })
@@ -822,13 +518,17 @@
                 };
                 reader.readAsDataURL(file);
             },
-
             delete_all_thong_tin_nv: function (id_nhan_vien) {
                 api_delete_all_thong_tin_nhan_vien(this, id_nhan_vien);
             },
             getNhanVien(page = 1) {
                 this.loading_dsnv = true;
-                api_get_nhan_vien(this, page);
+                if(this.flag_search){
+                    api_search_thong_tin_nhan_vien(this, page);
+                }
+                else{
+                    api_get_nhan_vien(this, page);
+                }
             },
             add_nhan_vien_thong_tin_ca_nhan: function () {
                 api_add_nhan_vien_thong_tin_ca_nhan(this);
@@ -847,7 +547,6 @@
                         ho_ten: '',
                         ngay_sinh: '',
                         noi_sinh: '',
-                        quoc_tich: '',
                         gioi_tinh: '',
                         so_cmnd: '',
                         scmnd_noi_cap: '',
@@ -861,16 +560,22 @@
                         mst_cn_noi_cap: '',
                         cc_thue_cap: '',
                         avatar: '',
-                        image: ''
+                        image: '',
+                        quoc_tich: 'Việt Nam'
                     }
+                    this.nv_tam_tru.quan_huyen = this.nv_tam_tru.tinh_thanh = this.nv_tam_tru.phuong_xa = '';
+                    this.nv_thuong_tru.quan_huyen = this.nv_thuong_tru.tinh_thanh = this.nv_thuong_tru.phuong_xa = '';
                 }
                 else {
+                    api_get_item_phuong_xa_tam_tru(this, nv.tam_tru_tinh_thanh);
+                    api_get_item_phuong_xa_thuong_tru(this, nv.thuong_tru_tinh_thanh);
                     var lma = this.list_tinh_thanh.filter(function (item) {
                         return (item['ma_tinh'] == nv.scmnd_noi_cap);
                     });
-                    console.log(lma);
+                    // this.nv_noi_sinh.tinh_thanh = nv.noi_sinh.slice(0,nv.noi_sinh.indexOf(','));
+                    // this.nv_noi_sinh.quan_huyen = nv.noi_sinh.slice(nv.noi_sinh.indexOf(',') + 1, nv.noi_sinh.length)
+                    // console.log(lma);
                     this.value = lma[0];
-                    console.log(this.value);
                     this.nhan_vien = nv;
                     if (nv.avatar != null){
                         $('#wizardPicturePreview').attr('src', 'public/image_nhan_vien/' + nv.avatar).fadeIn('slow');
@@ -880,6 +585,8 @@
                 }
             },
             submit_nhan_vien_thong_tin_ca_nhan: function () {
+                this.nhan_vien.tam_tru_tinh_thanh = this.nv_tam_tru.phuong_xa.phuongxa_id + ',' + this.nv_tam_tru.quan_huyen.ma_quan_huyen + ',' + this.nv_tam_tru.tinh_thanh.ma_tinh;
+                this.nhan_vien.thuong_tru_tinh_thanh = this.nv_thuong_tru.phuong_xa.phuongxa_id + ',' + this.nv_thuong_tru.quan_huyen.ma_quan_huyen + ',' + this.nv_thuong_tru.tinh_thanh.ma_tinh;
                 this.change_bnt_save('save');
                 if(this.flag_submit_nhan_vien_tt_ca_nhan) {
                     this.flag_input_nhan_vien_tt = false;
@@ -901,7 +608,7 @@
                 $('#' + id_btn).removeAttr('disabled');
             },
             upload_img: function () {
-                console.log(this.nhan_vien.image);
+                // console.log(this.nhan_vien.image);
                 axios({
                     method: 'POST',
                     url: 'api/image-upload',
@@ -932,6 +639,8 @@
             },
             submit_search_thong_tin_nhan_vien: function () {
                 this.loading_dsnv = true;
+                if(this.key_word == '' || this.key_word == null){ this.flag_search = false; this.getNhanVien()  }
+                this.flag_search = true;
                 api_search_thong_tin_nhan_vien(this, 1);
             }
         }
@@ -1121,7 +830,9 @@
             margin-bottom: 10px;
         }
     }
-
+    .el-radio-group {
+        padding-top: 8px;
+    }
 
 
 </style>

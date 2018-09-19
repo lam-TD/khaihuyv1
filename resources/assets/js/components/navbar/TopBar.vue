@@ -5,24 +5,25 @@
             <!-- Logo -->
             <!-- ============================================================== -->
             <div class="navbar-header">
-                <a class="navbar-brand" href="index.html">
+                <router-link to="/dashboard" class="navbar-brand" >
                     <!-- Logo icon -->
                     <b>
                         <!--You can put here icon as well // <i class="wi wi-sunset"></i> //-->
                         <!-- Dark Logo icon -->
-                        <img src="public/assets/images/logo-icon.png" alt="homepage" class="dark-logo">
+                        <!--<img src="public/assets/images/logo-icon.png" alt="homepage" class="dark-logo">-->
                         <!-- Light Logo icon -->
-                        <img src="public/assets/images/logokh.png" alt="homepage" class="light-logo">
+                        <img id="large-icon" src="public/assets/images/logokh.png" alt="homepage" class="light-logo hidden-sm-down">
+                        <img id="small-icon" src="public/assets/images/logokh_small.png" alt="homepage" class="light-logo hidden-md-up">
                     </b>
                     <!--End Logo icon -->
                     <!-- Logo text -->
                     <span>
                          <!-- dark Logo text -->
-                         <img src="public/assets/images/logokh.png" alt="homepage" class="dark-logo">
+                         <!--<img src="public/assets/images/logokh.png" alt="homepage" class="dark-logo">-->
                          <!-- Light Logo text -->
                          <!--<img src="public/assets/images/logo-light-text.png" class="light-logo" alt="homepage">-->
                     </span>
-                </a>
+                </router-link>
             </div>
             <!-- ============================================================== -->
             <!-- End Logo -->
@@ -33,8 +34,8 @@
                 <!-- ============================================================== -->
                 <ul class="navbar-nav mr-auto mt-md-0">
                     <!-- This is  -->
-                    <li class="nav-item"> <a class="nav-link nav-toggler hidden-md-up text-muted waves-effect waves-dark" href="javascript:void(0)"><i class="mdi mdi-menu"></i></a> </li>
-                    <li class="nav-item m-l-10"> <a class="nav-link sidebartoggler hidden-sm-down text-muted waves-effect waves-dark" href="javascript:void(0)"><i class="ti-menu"></i></a> </li>
+                    <li class="nav-item"> <a @click="toggle_leftbar_small" class="nav-link nav-toggler hidden-md-up text-muted waves-effect waves-dark" href="javascript:void(0)"><i class="mdi mdi-menu"></i></a> </li>
+                    <li class="nav-item m-l-10"> <a @click="toggle_leftbar" class="nav-link sidebartoggler hidden-sm-down text-muted waves-effect waves-dark" href="javascript:void(0)"><i class="ti-menu"></i></a> </li>
 
                 </ul>
                 <!-- ============================================================== -->
@@ -106,6 +107,12 @@
             logout: function () {
                 this.$store.commit("logout");
                 this.$route.push({ path: '/'});
+            },
+            toggle_leftbar: function () {
+                $('body').toggleClass('mini-sidebar');
+            },
+            toggle_leftbar_small: function () {
+                $('body').toggleClass('show-sidebar');
             }
         }
     }

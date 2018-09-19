@@ -59,6 +59,9 @@ class NhanVienController extends Controller
         $nv->mst_cn = $request->mst_cn;
         $nv->mst_cn_noi_cap = $request->mst_cn_noi_cap;
         $nv->cc_thue_cap = $request->cc_thue_cap;
+        $nv->trang_thai = $request->trang_thai;
+        $nv->tam_tru_tinh_thanh = $request->tam_tru_tinh_thanh;
+        $nv->thuong_tru_tinh_thanh = $request->thuong_tru_tinh_thanh;
         $nv->avatar = $avatar;
         $nv->save();
 
@@ -94,6 +97,9 @@ class NhanVienController extends Controller
         $nv->mst_cn = $request->mst_cn;
         $nv->mst_cn_noi_cap = $request->mst_cn_noi_cap;
         $nv->cc_thue_cap = $request->cc_thue_cap;
+        $nv->trang_thai = $request->trang_thai;
+        $nv->tam_tru_tinh_thanh = $request->tam_tru_tinh_thanh;
+        $nv->thuong_tru_tinh_thanh = $request->thuong_tru_tinh_thanh;
         ($avatar == '') ? $avatar = '' : $nv->avatar = $avatar;
         $nv->save();
         return 1;
@@ -164,13 +170,13 @@ class NhanVienController extends Controller
 
     public function get_thong_tin_cong_viec_theo_nhan_vien($nv_id)
     {
-        $cv = nhan_vien_cong_viec_::where('nv_id', $nv_id)->paginate(10);
+        $cv = nhan_vien_cong_viec::where('nv_id', $nv_id)->paginate(10);
         return $cv;
     }
 
     public function add_nhan_vien_thong_tin_cong_viec(Request $request)
     {
-        $cv = nhan_vien_cong_viec_::where('nv_id', $request->nv_id);
+        $cv = nhan_vien_cong_viec::where('nv_id', $request->nv_id);
         $cv->id_elpv            = $request->id_elpv;
         $cv->nv_id              = $request->nv_id;
         $cv->id_phong           = $request->id_phong;
@@ -232,15 +238,9 @@ class NhanVienController extends Controller
         return $nv;
     }
 
-    public function delete_all_thong_tin_nhan_vien($id_nv)
-    {
-        $lao_dong = nhan_vien_lao_dong::where('nv_id', $id_nv)->delete();
-
-        $cong_viec = nhan_vien_cong_viec_::where('nv_id', $id_nv)->delete();
-
+    public function delete_all_thong_tin_nhan_vien($id_nv){
         $nv = nhan_vien::find($id_nv);
         $nv->delete();
-
         return 1;
     }
 }
