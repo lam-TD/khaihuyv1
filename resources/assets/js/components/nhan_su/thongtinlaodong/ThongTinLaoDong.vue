@@ -35,7 +35,7 @@
                                         <form @submit.prevent="search_lao_dong">
                                             <input v-model="keyword" type="text" id="timkiem" class="form-control" placeholder="Nhập từ khóa để tìm kiếm...">
                                             <button type="submit" class="btn btn-info btn-sm btntimkiem" name="button">Tìm kiếm</button>
-                                            <button v-if="flag_search" @click="tat_ca_danh_sach" type="button" class="btn btn-primary btn-sm btntatca" name="button">Tất cả</button>
+                                            <!--<button v-if="flag_search" @click="tat_ca_danh_sach" type="button" class="btn btn-primary btn-sm btntatca" name="button">Tất cả</button>-->
                                         </form>
                                     </div>
                                 </div>
@@ -114,16 +114,22 @@
                                             <!-- Modal body -->
                                             <div :disabled="flag_body_modal" class="modal-body">
                                                 <div class="form-group row">
-                                                    <label class="label-form col-md-3 col-form-label">Mã NV(*)</label>
-                                                    <div class="col-md-9">
-                                                        <input v-show="!flag_nhan_vien" type="text" id="txtnhanvien-sua" class="form-control form-control-sm" readonly>
-                                                        <el-select v-show="flag_nhan_vien" v-model="ma_nv" filterable size="small" placeholder="Chọn mã nhân viên" style="width: 100%" @change="select_nv" no-match-text="Không tìm thấy" no-data-text="Không có dữ liệu">
-                                                            <!--<template slot="prefix"><label class="prefix">{{nhan_vien.ma_nv}}</label></template>-->
-                                                            <el-option v-for="item in list_nhan_vien" :key="item.id" :label="item.ma_nv" :value="item.ma_nv">
-                                                                <span style="float: left">{{ item.ma_nv }}</span>
-                                                                <span style="float: right; color: #8492a6; font-size: 13px">{{ item.ho_ten }}</span>
-                                                            </el-option>
-                                                        </el-select>
+                                                    <label class="label-form col-md-2 col-form-label">Mã NV(*)</label>
+                                                    <div class="col-md-10">
+                                                        <div class="row">
+                                                            <div class="col-md-6">
+                                                                <input v-model="lao_dong.ma_nv" type="text" id="txtnhanvien-sua" class="form-control form-control-sm" readonly>
+                                                            </div>
+                                                            <div class="col-md-6">
+                                                                <el-select v-model="nhan_vien" @change="select_nv" :disabled="flag_disable_manv" value-key="ma_nv" filterable size="small" placeholder="Chọn nhân viên" style="width: 100%" no-match-text="Không tìm thấy" no-data-text="Không có dữ liệu">
+                                                                    <!--<template slot="prefix"><label class="prefix">{{nhan_vien.ma_nv}}</label></template>-->
+                                                                    <el-option v-for="item in list_nhan_vien" :key="item.ma_nv" :label="item.ho_ten" :value="item">
+                                                                        <span style="float: left">{{ item.ma_nv }}</span>
+                                                                        <span style="float: right; color: #8492a6; font-size: 13px">{{ item.ho_ten }}</span>
+                                                                    </el-option>
+                                                                </el-select>
+                                                            </div>
+                                                        </div>
                                                     </div>
                                                 </div>
 
@@ -135,16 +141,16 @@
                                                 <!--</div>-->
 
                                                 <div class="form-group row">
-                                                    <label class="label-form col-md-3 col-form-label">Số HĐLĐ(*)</label>
-                                                    <div class="col-md-9">
+                                                    <label class="label-form col-md-2 col-form-label">Số HĐLĐ(*)</label>
+                                                    <div class="col-md-10">
                                                         <input v-model="lao_dong.so_hdld" name="txthoten" type="text" class="form-control form-control-sm" v-validate="'required'" :class="{'border-danger' : errors.has('txthoten')}">
                                                         <small v-show="errors.has('txthoten')" class="help text-muted is-danger">Vui lòng nhập tên nhân viên</small>
                                                     </div>
                                                 </div>
 
                                                 <div class="form-group row">
-                                                    <label class="label-form col-md-3 col-form-label">Thời hạn</label>
-                                                    <div class="col-md-9">
+                                                    <label class="label-form col-md-2 col-form-label">Thời hạn</label>
+                                                    <div class="col-md-10">
                                                         <!--<input v-model="lao_dong.thoi_han_hd" name="txtthoihan" type="text" class="form-control form-control-sm" v-validate="'required'" :class="{'border-danger' : errors.has('txtthoihan')}">-->
                                                         <el-select v-model="lao_dong.thoi_han_hd" placeholder="Thời hạn" size="small" class="" style="width: 100%;">
                                                             <el-option v-for="item in [1,2,3,4,5,6,7,8,9,10]" :key="item" :label="item" :value="item"></el-option>
@@ -154,24 +160,30 @@
                                                 </div>
 
                                                 <div class="form-group row">
-                                                    <label class="label-form col-md-3 col-form-label">Ngày ký</label>
-                                                    <div class="col-md-9">
+                                                    <label class="label-form col-md-2 col-form-label">Ngày ký</label>
+                                                    <div class="col-md-4">
                                                         <input v-model="lao_dong.ngay_ky" type="date" name="txtngayky" class="form-control form-control-sm" v-validate="'required'" :class="{'border-danger' : errors.has('txtngayky')}">
                                                         <small v-show="errors.has('txtngayky')" class="help text-muted is-danger">Vui lòng nhập ngày ký</small>
                                                     </div>
-                                                </div>
 
-                                                <div class="form-group row">
-                                                    <label class="label-form col-md-3 col-form-label">Ngày kết thúc</label>
-                                                    <div class="col-md-9">
+                                                    <label class="label-form col-md-2 col-form-label">Ngày KT</label>
+                                                    <div class="col-md-4">
                                                         <input v-model="lao_dong.ngay_kt" name="txtngaykt" type="date" class="form-control form-control-sm" v-validate="'required'" :class="{'border-danger' : errors.has('txtngaykt')}">
                                                         <small v-show="errors.has('txtngaykt')" class="help text-muted is-danger">Vui lòng nhập ngày kết thúc</small>
                                                     </div>
                                                 </div>
 
+                                                <!--<div class="form-group row">-->
+                                                    <!--<label class="label-form col-md-2 col-form-label">Ngày KT</label>-->
+                                                    <!--<div class="col-md-10">-->
+                                                        <!--<input v-model="lao_dong.ngay_kt" name="txtngaykt" type="date" class="form-control form-control-sm" v-validate="'required'" :class="{'border-danger' : errors.has('txtngaykt')}">-->
+                                                        <!--<small v-show="errors.has('txtngaykt')" class="help text-muted is-danger">Vui lòng nhập ngày kết thúc</small>-->
+                                                    <!--</div>-->
+                                                <!--</div>-->
+
                                                 <div class="form-group row">
-                                                    <label class="label-form col-md-3 col-form-label">Ghi chú</label>
-                                                    <div class="col-md-9">
+                                                    <label class="label-form col-md-2 col-form-label">Ghi chú</label>
+                                                    <div class="col-md-10">
                                                         <textarea v-model="lao_dong.ghi_chu" name="" id="" class="form-control form-control-sm"></textarea>
                                                     </div>
                                                 </div>
@@ -226,7 +238,7 @@
         },
         data () {
             return {
-                nhan_vien: [],
+                nhan_vien: {ma_nv: '', ho_ten: ''},
                 ma_nv: '',
                 list_nhan_vien: [],
                 flag_nhan_vien: true,
@@ -235,8 +247,9 @@
                 keyword: '',
                 list_lao_dong: [],
                 total_lao_dong: 0,
-                lao_dong: { id: 0, so_hdld: '', thoi_han_hd: '', ngay_ky: '', ngay_kt: '', ghi_chu: '', nv_id: '' },
+                lao_dong: { id: 0, so_hdld: '', thoi_han_hd: '', ngay_ky: '', ngay_kt: '', ghi_chu: '', ma_nv: '' },
                 flag_btn: true,
+                flag_disable_manv: false,
                 flag_submit_lao_dong: true,
                 flag_input_lao_dong: false,
                 flag_body_modal: false,
@@ -259,9 +272,11 @@
                 }
             },
             select_nv: function (nv) {
-                this.ma_nv = nv;
+                this.lao_dong.ma_nv = nv.ma_nv;
+
             },
             search_lao_dong: function (page = 1) {
+                if(this.keyword == '' || this.keyword == null) {this.flag_search = false; this.danh_sach_lao_dong();}
                 this.flag_search = true;
                 api_search_all_lao_dong(this, page);
             },
@@ -283,15 +298,19 @@
                     this.flag_nhan_vien = true;
                     this.flag_btn = true;
                     $('.row-nhom').removeClass("active-click-row");
+                    this.flag_disable_manv = false;
                     this.flag_submit_lao_dong = true;
                     this.flag_input_lao_dong = false;
-                    this.lao_dong.id = this.lao_dong.nv_id =this.lao_dong.so_hdld = this.lao_dong.thoi_han_hd = this.lao_dong.ghi_chu = this.lao_dong.ngay_ky = this.lao_dong.ngay_kt = '';
+                    this.lao_dong.id = this.lao_dong.ma_nv = this.lao_dong.so_hdld = this.lao_dong.thoi_han_hd = this.lao_dong.ghi_chu = this.lao_dong.ngay_ky = this.lao_dong.ngay_kt = '';
+                    this.nhan_vien.ma_nv = this.nhan_vien.ho_ten = '';
                 }
                 else {
                     this.flag_nhan_vien = false;
+                    this.nhan_vien.ma_nv = laodong.ma_nv;
+                    this.nhan_vien.ho_ten = laodong.ho_ten;
                     this.lao_dong = laodong;
                     this.lao_dong.id = laodong.hd_id;
-                    $('#txtnhanvien-sua').val(laodong.ho_ten + ' - ' + laodong.ma_nv);
+                    this.flag_disable_manv = true;
                     this.flag_submit_lao_dong = false;
                     this.flag_input_lao_dong = true;
                 }
@@ -300,7 +319,7 @@
                 this.change_bnt_save();
                 if(this.flag_submit_lao_dong) {
                     console.log(this.ma_nv);
-                    this.lao_dong.nv_id = this.ma_nv;
+                    // this.lao_dong.ma_nv = this.ma_nv;
                     this.flag_input_lao_dong = false;
                     this.add_lao_dong();
                 }
@@ -314,11 +333,11 @@
                 $('#n' + bp.id).addClass("active-click-row");
             },
             add_lao_dong: function () {
-                console.log(this.lao_dong);
+                // console.log(this.lao_dong);
                 api_add_lao_dong(this);
             },
             edit_lao_dong: function() {
-                console.log(this.lao_dong);
+                // console.log(this.lao_dong);
                 api_edit_lao_dong(this);
             },
             delete_lao_dong: function(hdld) {
@@ -389,5 +408,11 @@
 
     .el-input--prefix .el-input__inner {
         padding-left: 65px !important;
+    }
+
+    @media (min-width: 576px){
+        .modal-dialog {
+            max-width: 600px;
+        }
     }
 </style>
