@@ -35,7 +35,7 @@
                                         <form @submit.prevent="search_bhyt">
                                             <input v-model="keyword" type="text" id="timkiem" class="form-control" placeholder="Nhập từ khóa để tìm kiếm...">
                                             <button type="submit" class="btn btn-info btn-sm btntimkiem" name="button">Tìm kiếm</button>
-                                            <button v-if="flag_search" @click="tat_ca_danh_sach" type="button" class="btn btn-primary btn-sm btntatca" name="button">Tất cả</button>
+                                            <!--<button v-if="flag_search" @click="tat_ca_danh_sach" type="button" class="btn btn-primary btn-sm btntatca" name="button">Tất cả</button>-->
                                         </form>
                                     </div>
                                 </div>
@@ -100,10 +100,10 @@
                                 </div>
                             </div>
 
-                            <div class="modal fade" id="myModal">
+                            <div class="modal" id="myModal">
                                 <div class="modal-dialog">
                                     <div class="modal-content">
-                                        <form @submit.prevent="submit_bhyt" id="form_bophan">
+                                        <form @submit.prevent="submit_bhyt" id="form_bhyt">
                                             <!-- Modal Header -->
                                             <div class="modal-header">
                                                 <h4 class="modal-title"><b>Thông tin bảo hiểm  y tế</b></h4>
@@ -113,25 +113,31 @@
                                             <!-- Modal body -->
                                             <div :disabled="flag_body_modal" class="modal-body">
                                                 <div class="form-group row">
-                                                    <label class="label-form col-md-3 col-form-label">Nhân viên</label>
+                                                    <label class="label-form col-md-3 col-form-label">Nhân viên(*)</label>
                                                     <div class="col-md-9">
-                                                        <input v-show="!flag_nhan_vien" type="text" id="txtnhanvien-sua" class="form-control form-control-sm" readonly>
-                                                        <el-select v-show="flag_nhan_vien" v-model="nhan_vien" value-key="nhan_vien" filterable size="small" placeholder="Chọn nhân viên" style="width: 100%" @change="select_nv" no-match-text="Không tìm thấy" no-data-text="Không có dữ liệu">
-                                                            <!--<template slot="prefix"><label class="prefix">{{nhan_vien.ma_nv}}</label></template>-->
-                                                            <el-option
-                                                                    v-for="item in list_nhan_vien"
-                                                                    :key="item.id"
-                                                                    :label="item.ho_ten"
-                                                                    :value="item.id">
-                                                                <span style="float: left">{{ item.ma_nv }}</span>
-                                                                <span style="float: right; color: #8492a6; font-size: 13px">{{ item.ho_ten }}</span>
-                                                            </el-option>
-                                                        </el-select>
+                                                        <div class="row">
+                                                            <div class="col-md-6">
+                                                                <input v-model="bhyt.nv_ma" type="text" id="txtnhanvien-sua" class="form-control form-control-sm" readonly>
+                                                            </div>
+                                                            <div class="col-md-6">
+                                                                <el-select v-model="nhan_vien" value-key="ma_nv" filterable size="small" :disabled="flag_disable_manv" placeholder="Chọn nhân viên" style="width: 100%" @change="select_nv" no-match-text="Không tìm thấy" no-data-text="Không có dữ liệu">
+                                                                    <!--<template slot="prefix"><label class="prefix">{{nhan_vien.ma_nv}}</label></template>-->
+                                                                    <el-option
+                                                                            v-for="item in list_nhan_vien"
+                                                                            :key="item.ma_nv"
+                                                                            :label="item.ho_ten"
+                                                                            :value="item">
+                                                                        <span style="float: left">{{ item.ma_nv }}</span>
+                                                                        <span style="float: right; color: #8492a6; font-size: 13px">{{ item.ho_ten }}</span>
+                                                                    </el-option>
+                                                                </el-select>
+                                                            </div>
+                                                        </div>
                                                     </div>
                                                 </div>
 
                                                 <div class="form-group row">
-                                                    <label class="label-form col-md-3 col-form-label">Số BHYT</label>
+                                                    <label class="label-form col-md-3 col-form-label">Số BHYT(*)</label>
                                                     <div class="col-md-9">
                                                         <input v-model="bhyt.so_bhyt" name="so_bhyt" type="text" class="form-control form-control-sm">
                                                         <small v-show="errors.has('so_bhyt')" class="help text-muted is-danger">Vui lòng nhập số bảo hiểm y tết</small>
@@ -139,7 +145,7 @@
                                                 </div>
 
                                                 <div class="form-group row">
-                                                    <label class="label-form col-md-3 col-form-label">Số BHXH</label>
+                                                    <label class="label-form col-md-3 col-form-label">Số BHXH(*)</label>
                                                     <div class="col-md-9">
                                                         <input v-model="bhyt.so_bhxh" name="so_bhxh" type="text" class="form-control form-control-sm">
                                                         <small v-show="errors.has('so_bhxh')" class="help text-muted is-danger">Vui lòng nhập số bảo hiểm xã hội</small>
@@ -163,7 +169,7 @@
 
                                                     <label class="label-form col-md-3 col-form-label"></label>
                                                     <div class="col-md-9" style="margin-bottom: 6px;">
-                                                        <el-select v-model="dia_chi.tinh_thanh" value-key="ma_tinh" filterable size="small" placeholder="Chọn tỉnh thành phố" style="width: 100%" @change="load_quan_huyen">
+                                                        <el-select v-model="dia_chi.tinh_thanh" value-key="ma_tinh" filterable size="small" placeholder="Chọn tỉnh thành phố" style="width: 100%" @change="load_quan_huyen" no-match-text="Không tìm thấy" no-data-text="Không có dữ liệu">
                                                             <!--<el-option :disable="'true'" :label="'Chọn tỉnh thành'" :value="''"></el-option>-->
                                                             <el-option v-for="item in list_tinh_thanh" :key="item.ma_tinh" :label="item.ten_tinh" :value="item"></el-option>
                                                         </el-select>
@@ -171,7 +177,7 @@
                                                     <br>
                                                     <label class="label-form col-md-3 col-form-label"></label>
                                                     <div class="col-md-9" style="margin-bottom: 6px;">
-                                                        <el-select v-model="dia_chi.quan_huyen" value-key="ma_quan_huyen" filterable size="small" placeholder="Quận huyện" style="width: 100%;" @change="load_phuong_xa">
+                                                        <el-select v-model="dia_chi.quan_huyen" value-key="ma_quan_huyen" filterable size="small" placeholder="Quận huyện" style="width: 100%;" @change="load_phuong_xa" no-match-text="Không tìm thấy" no-data-text="Không có dữ liệu">
                                                             <el-option v-if="change_quan_huyen.length==0" :label="'Chưa có quận huyện'" :value="''"></el-option>
                                                             <el-option v-else v-for="qh in change_quan_huyen" :key="qh.ma_quan_huyen" :label="qh.ten_quan_huyen" :value="qh"></el-option>
                                                         </el-select>
@@ -179,7 +185,7 @@
 
                                                     <label class="label-form col-md-3 col-form-label"></label>
                                                     <div class="col-md-9">
-                                                        <el-select v-model="dia_chi.phuong_xa" value-key="phuongxa_id" filterable size="small" placeholder="Phường xã" style="width: 100%;">
+                                                        <el-select v-model="dia_chi.phuong_xa" value-key="phuongxa_id" filterable size="small" placeholder="Phường xã" style="width: 100%;" no-match-text="Không tìm thấy" no-data-text="Không có dữ liệu">
                                                             <el-option v-if="change_phuong_xa.length==0" :label="'Chưa có phường xã'" :value="''"></el-option>
                                                             <el-option v-else
                                                                     v-for="item in change_phuong_xa"
@@ -267,22 +273,22 @@
                 change_phuong_xa: [],
                 phuong_xa: '',
                 dia_chi: {tinh_thanh: '', quan_huyen: '', phuong_xa: ''},
-                nhan_vien: [],
+                nhan_vien: '',
                 list_nhan_vien: '',
-                flag_nhan_vien: true,
                 loading_bhyt: true,
                 flag_search: false,
                 keyword: '',
                 list_bhyt: [],
                 total_bhyt: 0,
-                bhyt: { id: 0, so_bhyt: '', so_bhxh: '', noi_kham: '', dia_chi_kham: '', ghi_chu: '', nv_id: '', phuong_xa_id: '' },
+                bhyt: { id: 0, so_bhyt: '', so_bhxh: '', noi_kham: '', dia_chi_kham: '', ghi_chu: '', nv_ma: '', phuong_xa_id: '' },
                 flag_btn: true,
                 flag_submit_bhyt: true,
                 flag_input_bhyt: false,
                 flag_body_modal: false,
                 flag_btn_save: true,
                 flag_disabled_submit: false,
-                flag_input_ma_bhyt: false
+                flag_input_ma_bhyt: false,
+                flag_disable_manv: false
             }
         },
         methods: {
@@ -319,10 +325,10 @@
                 }
             },
             select_nv: function (nv) {
-                this.bhyt.nv_id = nv;
-                // $('input[name=txthoten]').val(nv.ho_ten);
+                this.bhyt.nv_ma = nv.ma_nv;
             },
             search_bhyt: function (page = 1) {
+                if(this.keyword == '' || this.keyword == null) {this.flag_search = false; this.danh_sach_bhyt();}
                 this.flag_search = true;
                 api_search_all_bhyt(this, page);
             },
@@ -341,21 +347,27 @@
             },
             _bhyt: function (state, laodong = null) {
                 if(state == 'add') {
-                    this.flag_nhan_vien = true;
                     this.flag_btn = true;
                     $('.row-nhom').removeClass("active-click-row");
                     this.flag_submit_bhyt = true;
                     this.flag_input_bhyt = false;
-                    this.bhyt.id = this.bhyt.so_bhxh = this.bhyt.so_bhyt = this.bhyt.ghi_chu = '', this.bhyt.noi_kham = '', this.bhyt.dia_chi_kham = '';
+                    // this.bhyt.id = this.bhyt.so_bhxh = this.bhyt.so_bhyt = this.bhyt.ghi_chu = '', this.bhyt.noi_kham = '', this.bhyt.dia_chi_kham = this.nv_ma = '';
+                    // this.bhyt = '';
+                    this.nhan_vien = '';
+                    this.dia_chi.quan_huyen = this.dia_chi.tinh_thanh = this.dia_chi.phuong_xa = '';
+                    this.flag_disable_manv = false;
+                    $('#form_bhyt').trigger("reset");
+                    document.getElementById('form_bhyt').reset();
                 }
                 else {
-                    this.flag_nhan_vien = false;
-                    this.bhyt = laodong;
+                    this.flag_disable_manv = true;
+                    let bh = laodong;
+                    this.bhyt = bh;
                     this.bhyt.id = laodong.bhyt_id;
                     api_get_item_phuong_xa(this, laodong.phuong_xa_id);
-                    this.dia_chi.quan_huyen = this.list_quan_huyen[3];
-                    // console.log(laodong);
-                    $('#txtnhanvien-sua').val(laodong.ho_ten + ' - ' + laodong.ma_nv);
+                    this.nhan_vien = this.list_nhan_vien.filter(function(item){
+                        return (item['ma_nv'] == laodong.ma_nv);
+                    })[0];
                     this.flag_submit_bhyt = false;
                     this.flag_input_bhyt = true;
                     console.log(laodong.phuong_xa_id);

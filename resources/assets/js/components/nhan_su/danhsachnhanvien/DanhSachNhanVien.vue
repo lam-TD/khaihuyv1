@@ -29,9 +29,9 @@
                                                 <div class="row">
                                                     <div class="col-md-10" style="float: left">
                                                         <div class="form-group row">
-                                                            <label class="label-form col-md-2 col-form-label">Mã NV</label>
+                                                            <label class="label-form col-md-2 col-form-label">Mã NV(*)</label>
                                                             <div class="col-md-4">
-                                                                <input :disabled="flag_input_nhan_vien_tt" v-model="nhan_vien.ma_nv" @input="validate_ma_nv" v-bind:maxlength="7" name="txtma_nv" type="text" class="form-control form-control-sm" id="manv" v-validate="'required'" :class="{'border-danger' : errors.has('txtma_nv')}">
+                                                                <input :disabled="flag_input_nhan_vien_tt" v-model="nhan_vien.ma_nv" @input="validate_ma_nv" v-on:keypress="disable_spaces" v-bind:maxlength="7" name="txtma_nv" type="text" class="form-control form-control-sm" id="manv" v-validate="'required'" :class="{'border-danger' : errors.has('txtma_nv')}">
                                                                 <small v-show="errors.has('txtma_nv')" class="help text-muted is-danger">Vui lòng nhập mã NV</small>
                                                                 <small v-if="flag_input_ma_nv" class="help text-muted is-danger">Mã NV phải có 7 ký tự, bắt đầu bằng KH</small>
                                                             </div>
@@ -795,6 +795,15 @@
                 else{
                     this.flag_input_ma_nv = false;
                     this.flag_disabled_tt_ca_nhan = false;
+                }
+            },
+            disable_spaces: function (evt) {
+                evt = (evt) ? evt : window.event;
+                var charCode = (evt.which) ? evt.which : evt.keyCode;
+                if (charCode == 32) {
+                    evt.preventDefault();;
+                } else {
+                    return true;
                 }
             },
             onFileChange: function (e) {

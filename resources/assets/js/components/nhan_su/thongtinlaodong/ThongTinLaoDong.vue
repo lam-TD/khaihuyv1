@@ -238,7 +238,7 @@
         },
         data () {
             return {
-                nhan_vien: {ma_nv: '', ho_ten: ''},
+                nhan_vien: '',
                 ma_nv: '',
                 list_nhan_vien: [],
                 flag_nhan_vien: true,
@@ -255,7 +255,8 @@
                 flag_body_modal: false,
                 flag_btn_save: true,
                 flag_disabled_submit: false,
-                flag_input_ma_lao_dong: false
+                flag_input_ma_lao_dong: false,
+                flag_disable_manv: false
             }
         },
         methods: {
@@ -295,6 +296,7 @@
             },
             _lao_dong: function (state, laodong = null) {
                 if(state == 'add') {
+                    this.flag_disable_manv = false;
                     this.flag_nhan_vien = true;
                     this.flag_btn = true;
                     $('.row-nhom').removeClass("active-click-row");
@@ -305,9 +307,11 @@
                     this.nhan_vien.ma_nv = this.nhan_vien.ho_ten = '';
                 }
                 else {
+                    this.flag_disable_manv = true;
                     this.flag_nhan_vien = false;
-                    this.nhan_vien.ma_nv = laodong.ma_nv;
-                    this.nhan_vien.ho_ten = laodong.ho_ten;
+                    this.nhan_vien = this.list_nhan_vien.filter(function(item){
+                        return (item['ma_nv'] == laodong.ma_nv);
+                    })[0];
                     this.lao_dong = laodong;
                     this.lao_dong.id = laodong.hd_id;
                     this.flag_disable_manv = true;

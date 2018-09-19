@@ -4,7 +4,7 @@ import {sweetalert} from '../../../helper/sweetalert';
 export function api_search_all_bhyt(vm, page) {
     axios({
         method: 'GET',
-        url: 'api/search-hdld/'+ vm.keyword +'?page=' + page,
+        url: 'api/search-bhyt/'+ vm.keyword +'?page=' + page,
         headers: {'Authorization':'Bearer ' + vm.$store.state.currentUser.token}
     })
         .then((response) => {

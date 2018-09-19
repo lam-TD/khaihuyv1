@@ -132,7 +132,7 @@
                                                 <div class="form-group row">
                                                     <label class="label-form col-md-3 col-form-label"><b>Mã phòng(*)</b></label>
                                                     <div class="col-md-9">
-                                                        <input @input="validate_ma_ph" v-model="phong_ban.ma_phong" :disabled="flag_input_phong_ban" v-validate="'required'" :class="{'border-danger' : errors.has('txtmabophan')}" type="text" name="txtmabophan" class="form-control form-control-sm" id="txtmabophan" aria-describedby="" autofocus>
+                                                        <input @input="validate_ma_ph" v-on:keypress="disable_spaces" v-bind:maxlength="7" v-model="phong_ban.ma_phong" :disabled="flag_input_phong_ban" v-validate="'required'" :class="{'border-danger' : errors.has('txtmabophan')}" type="text" name="txtmabophan" class="form-control form-control-sm" id="txtmabophan" aria-describedby="" autofocus>
                                                         <!--<small v-show="errors.has('txtmabophan')" class="help text-muted is-danger">Vui lòng nhập mã phòng</small>-->
                                                         <small v-if="flag_input_ma_phong" class="help text-muted is-danger">Mã phòng phải có 7 ký tự, bắt đầu bằng PH</small>
                                                     </div>
@@ -239,17 +239,14 @@
                     this.flag_disabled_submit = false;
                 }
             },
-            dropdown: function (id_con) {
-                $('#' + id_con).toggleClass("show");
-            },
-            selected_item: function (id_bo_phan, ten_bo_phan, id_dropdown, id_btn, id_btn2) {
-                $('#' + id_btn).text(ten_bo_phan);
-                $('#' + id_btn).val(id_bo_phan);
-                $('#' + id_btn2).text(ten_bo_phan);
-                $('#' + id_btn2).text(ten_bo_phan);
-                $('#' + id_dropdown).removeClass("show");
-                this.phong_ban.id_bo_phan = id_bo_phan;
-                this.danh_sach_phong_ban(id_bo_phan);
+            disable_spaces: function (evt) {
+                evt = (evt) ? evt : window.event;
+                var charCode = (evt.which) ? evt.which : evt.keyCode;
+                if (charCode == 32) {
+                    evt.preventDefault();;
+                } else {
+                    return true;
+                }
             },
             select_phong_theo_bo_phan: function (id_bo_phan) {
                 this.phong_ban.id_bo_phan = id_bo_phan;

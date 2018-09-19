@@ -98,7 +98,7 @@ Route::group(['middleware' => 'jwt.auth'], function ($router) {
     Route::post('add-bhyt', 'BaoHiemYTeController@add_bhyt');
     Route::post('edit-bhyt', 'BaoHiemYTeController@edit_bhyt');
     Route::get('delete-bhyt/{id}', 'BaoHiemYTeController@delete_bhyt');
-    Route::get('search-bhyt/{keyword}', 'BaoHiemYTeController@search_hop_dong_lao_dong');
+    Route::get('search-bhyt/{keyword}', 'BaoHiemYTeController@search_danh_sach_bhyt');
 });
 
 // THONG TIN CONG VIEC

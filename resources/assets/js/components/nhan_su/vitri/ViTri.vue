@@ -128,7 +128,7 @@
                                                 <div class="form-group row">
                                                     <label class="label-form col-md-3 col-form-label"><b>Mã vị trí(*)</b></label>
                                                     <div class="col-md-9">
-                                                        <input v-model="vi_tri.ma_vi_tri" @input="validate_ma_vt" :disabled="flag_input_vi_tri" v-validate="'required'" :class="{'border-danger' : errors.has('txtmabophan')}" type="text" name="txtmabophan" class="form-control form-control-sm" id="txtmabophan" aria-describedby="" autofocus>
+                                                        <input v-model="vi_tri.ma_vi_tri" v-on:keypress="disable_spaces" v-bind:maxlength="7" @input="validate_ma_vt" :disabled="flag_input_vi_tri" v-validate="'required'" :class="{'border-danger' : errors.has('txtmabophan')}" type="text" name="txtmabophan" class="form-control form-control-sm" id="txtmabophan" aria-describedby="" autofocus>
                                                         <!--<small v-show="errors.has('txtmabophan')" class="help text-muted is-danger">Vui lòng nhập mã vị trí</small>-->
                                                         <small v-if="flag_input_ma_vt" class="help text-muted is-danger">Mã Vị trí phải có 7 ký tự, bắt đầu bằng VT</small>
                                                     </div>
@@ -226,6 +226,15 @@
                 else{
                     this.flag_input_ma_vt = false;
                     this.flag_disabled_submit = false;
+                }
+            },
+            disable_spaces: function (evt) {
+                evt = (evt) ? evt : window.event;
+                var charCode = (evt.which) ? evt.which : evt.keyCode;
+                if (charCode == 32) {
+                    evt.preventDefault();;
+                } else {
+                    return true;
                 }
             },
             select_vi_tri_theo_phong: function (id_phong) {

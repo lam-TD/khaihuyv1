@@ -106,7 +106,7 @@
                                                 <div class="form-group row">
                                                     <label class="label-form col-md-3 col-form-label"><b>Mã bộ phận(*)</b></label>
                                                     <div class="col-md-9">
-                                                        <input @input="validate_ma_bp" v-bind:maxlength="7" v-model="bo_phan.ma_bo_phan" :disabled="flag_input_bo_phan" v-validate="'required'" :class="{'border-danger' : errors.has('txtmabophan')}" type="text" name="txtmabophan" class="form-control form-control-sm" id="txtmabophan" aria-describedby="" autofocus>
+                                                        <input @input="validate_ma_bp" v-on:keypress="disable_spaces" v-bind:maxlength="7" v-model="bo_phan.ma_bo_phan" :disabled="flag_input_bo_phan" v-validate="'required'" :class="{'border-danger' : errors.has('txtmabophan')}" type="text" name="txtmabophan" class="form-control form-control-sm" id="txtmabophan" aria-describedby="" autofocus>
                                                         <small v-if="flag_input_ma_bo_phan" class="help text-muted is-danger">Mã bộ phận phải có 7 ký tự, bắt đầu bằng BP</small>
                                                     </div>
 
@@ -195,6 +195,15 @@
                 else{
                     this.flag_input_ma_bo_phan = false;
                     this.flag_disabled_submit = false;
+                }
+            },
+            disable_spaces: function (evt) {
+                evt = (evt) ? evt : window.event;
+                var charCode = (evt.which) ? evt.which : evt.keyCode;
+                if (charCode == 32) {
+                    evt.preventDefault();;
+                } else {
+                    return true;
                 }
             },
             danh_sach_bo_phan: function (page = 1) {

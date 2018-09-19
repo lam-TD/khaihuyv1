@@ -93,7 +93,7 @@
                                                         <i class="fa fa-trash"></i>
                                                     </button>
                                                 </td>
-                                                <td>{{n.ma_nv}}</td>
+                                                <td class="text-center">{{n.ma_nv}}</td>
                                                 <td>{{n.ho_ten}}</td>
                                                 <td>{{n.ngay}}</td>
                                                 <td v-if="n.tinh_trang == 0">Thử việc</td><td v-else-if="n.tinh_trang == 1">Chính thức</td><td v-else>Thôi việc</td>
@@ -451,8 +451,6 @@
                     this.ttcv = cv;
                     this.ttcv.id = cv.cv_id;
                     this.cham_cong = cv.cham_cong;
-                    // this.nhan_vien.ma_nv = cv.ma_nv;
-                    // this.nhan_vien.ho_ten = cv.ho_ten;
                     this.nhan_vien = this.list_nhan_vien.filter(function(item){
                         return (item['ma_nv'] == cv.ma_nv);
                     })[0];
