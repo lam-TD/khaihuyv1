@@ -4,7 +4,7 @@ import {sweetalert} from '../../../helper/sweetalert';
 export function api_search_all_ttcv(vm, page) {
     axios({
         method: 'GET',
-        url: 'api/search-hdld/'+ vm.keyword +'?page=' + page,
+        url: 'api/search-ttcv/'+ vm.keyword +'?page=' + page,
         headers: {'Authorization':'Bearer ' + vm.$store.state.currentUser.token}
     })
         .then((response) => {

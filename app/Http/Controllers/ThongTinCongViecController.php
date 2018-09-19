@@ -10,8 +10,18 @@ class ThongTinCongViecController extends Controller
 {
     public function get_all_thong_tin_cong_viec()
     {
-        $cv = nhan_vien_cong_viec::join('nhan_vien','nhan_vien_cong_viec.nv_id','=','nhan_vien.id')
-            ->select('nhan_vien_cong_viec.nv_id','nhan_vien_cong_viec.id as cv_id','nhan_vien.ma_nv','nhan_vien.ho_ten', 'nhan_vien_cong_viec.ngay', 'nhan_vien_cong_viec.tinh_trang','nhan_vien_cong_viec.bo_phan_ma','nhan_vien_cong_viec.phong_ma','nhan_vien_cong_viec.vi_tri_ma','nhan_vien_cong_viec.he_so_luong','nhan_vien_cong_viec.luong_co_ban','nhan_vien_cong_viec.htcv','nhan_vien_cong_viec.cham_cong','nhan_vien_cong_viec.thoi_gian_lv_bd','nhan_vien_cong_viec.thoi_gian_lv_kt','nhan_vien_cong_viec.ghi_chu')
+        $cv = nhan_vien_cong_viec::join('nhan_vien','nhan_vien_cong_viec.nv_ma','=','nhan_vien.ma_nv')
+            ->select('nhan_vien_cong_viec.nv_ma','nhan_vien_cong_viec.id as cv_id','nhan_vien.ma_nv','nhan_vien.ho_ten', 'nhan_vien_cong_viec.ngay', 'nhan_vien_cong_viec.tinh_trang','nhan_vien_cong_viec.bo_phan_ma','nhan_vien_cong_viec.phong_ma','nhan_vien_cong_viec.vi_tri_ma','nhan_vien_cong_viec.he_so_luong','nhan_vien_cong_viec.luong_co_ban','nhan_vien_cong_viec.htcv','nhan_vien_cong_viec.cham_cong','nhan_vien_cong_viec.thoi_gian_lv_bd','nhan_vien_cong_viec.thoi_gian_lv_kt','nhan_vien_cong_viec.ghi_chu')
+            ->orderby('nhan_vien_cong_viec.id', 'desc')->paginate(10);
+        return $cv;
+    }
+
+    public function search_thong_tin_cong_viec($keyword)
+    {
+        $cv = nhan_vien_cong_viec::join('nhan_vien','nhan_vien_cong_viec.nv_ma','=','nhan_vien.ma_nv')
+            ->orwhere('nhan_vien.ho_ten','LIKE','%'. $keyword .'%')
+            ->orwhere('nhan_vien.ma_nv','LIKE','%'. $keyword .'%')
+            ->select('nhan_vien_cong_viec.nv_ma','nhan_vien_cong_viec.id as cv_id','nhan_vien.ma_nv','nhan_vien.ho_ten', 'nhan_vien_cong_viec.ngay', 'nhan_vien_cong_viec.tinh_trang','nhan_vien_cong_viec.bo_phan_ma','nhan_vien_cong_viec.phong_ma','nhan_vien_cong_viec.vi_tri_ma','nhan_vien_cong_viec.he_so_luong','nhan_vien_cong_viec.luong_co_ban','nhan_vien_cong_viec.htcv','nhan_vien_cong_viec.cham_cong','nhan_vien_cong_viec.thoi_gian_lv_bd','nhan_vien_cong_viec.thoi_gian_lv_kt','nhan_vien_cong_viec.ghi_chu')
             ->orderby('nhan_vien_cong_viec.id', 'desc')->paginate(10);
         return $cv;
     }
@@ -20,7 +30,7 @@ class ThongTinCongViecController extends Controller
     {
         try{
             $cv = new nhan_vien_cong_viec();
-            $cv->nv_id = $request->nv_id;
+            $cv->nv_ma = $request->nv_ma;
             $cv->tinh_trang = $request->tinh_trang;
             $cv->ngay = $request->ngay;
             $cv->he_so_luong = $request->he_so_luong;

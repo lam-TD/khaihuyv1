@@ -107,7 +107,7 @@ Route::group(['middleware' => 'jwt.auth'], function ($router) {
     Route::post('add-ttcv', 'ThongTinCongViecController@add_thong_tin_cong_viec');
     Route::post('edit-ttcv', 'ThongTinCongViecController@edit_thong_tin_cong_viec');
     Route::get('delete-ttcv/{id}', 'ThongTinCongViecController@delete_thong_tin_cong_viec');
-    Route::get('search-ttcv/{keyword}', 'ThongTinCongViecController@search_hop_dong_lao_dong');
+    Route::get('search-ttcv/{keyword}', 'ThongTinCongViecController@search_thong_tin_cong_viec');
     Route::get('get-vi-tri-all-theo-phong/{id_phong}', 'ThongTinCongViecController@get_vi_tri_all_theo_phong');
 });
 
