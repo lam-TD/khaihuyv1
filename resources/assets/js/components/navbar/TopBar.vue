@@ -110,6 +110,7 @@
             },
             toggle_leftbar: function () {
                 $('body').toggleClass('mini-sidebar');
+                console.log("dasdsad");
             },
             toggle_leftbar_small: function () {
                 $('body').toggleClass('show-sidebar');

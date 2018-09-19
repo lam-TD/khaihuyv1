@@ -33,7 +33,7 @@
                                 <div class="col-md-6 col-sm-6">
                                     <div class="row">
                                         <div class="col-md-6">
-                                            <input v-model="npt.ma_nv" type="text" id="txtnhanvien-sua" class="form-control" readonly>
+                                            <input v-model="npt.ma_nv" type="text" class="form-control" readonly>
                                         </div>
                                         <div class="col-md-6">
                                             <el-select v-model="nhan_vien" value-key="ma_nv" filterable placeholder="Chọn nhân viên" @change="select_npt_theo_nhan_vien" no-match-text="Không tìm thấy" no-data-text="Không có dữ liệu">
@@ -134,7 +134,7 @@
                                                     <div class="col-md-10">
                                                         <div class="row">
                                                             <div class="col-md-6">
-                                                                <input v-model="npt.ma_nv" type="text" class="form-control form-control-sm" readonly>
+                                                                <input id="txtma_nv" type="text" class="form-control form-control-sm" readonly>
                                                             </div>
                                                             <div class="col-md-6">
                                                                 <el-select v-model="nhan_vien" value-key="ma_nv" size="small" filterable placeholder="Chọn nhân viên" @change="select_npt_theo_nhan_vien" no-match-text="Không tìm thấy" no-data-text="Không có dữ liệu">
@@ -306,19 +306,8 @@
                     this.flag_disabled_submit = false;
                 }
             },
-            dropdown: function (id_con) {
-                $('#' + id_con).toggleClass("show");
-            },
-            selected_item: function (id_nhan_vien, ten_nhan_vien, id_dropdown, id_btn, id_btn2) {
-                $('#' + id_btn).text(ten_nhan_vien);
-                $('#' + id_btn).val(id_nhan_vien);
-                $('#' + id_btn2).text(ten_nhan_vien);
-                $('#' + id_btn2).text(ten_nhan_vien);
-                $('#' + id_dropdown).removeClass("show");
-                this.npt.id_nhan_vien = id_nhan_vien;
-                this.danh_sach_npt(id_nhan_vien);
-            },
             select_npt_theo_nhan_vien: function (nv) {
+                $('#txtma_nv').val(nv.ma_nv);
                 this.npt.ma_nv = nv.ma_nv;
                 this.error_select_nhan_vien = false;
                 this.danh_sach_npt(1);
@@ -347,7 +336,7 @@
                     $('.row-nhom').removeClass("active-click-row");
                     this.flag_submit_npt = true;
                     this.flag_input_npt = false;
-                    this.npt = { id: 0, ma_nv: '', ho_ten_npt: '', ngay_sinh_npt: '', so_cmnd_npt: '', mst_npt: '', ma_quoc_tich_npt: 'VN', quoc_tich_npt: 'Việt Nam', ma_quan_he_nnt: '', quan_he_nnt: '', tg_giam_tru_tu: '', tg_giam_tru_den: '', ghi_chu: '' };
+                    this.npt = { id: 0, ma_nv: $('#txtma_nv').val(), ho_ten_npt: '', ngay_sinh_npt: '', so_cmnd_npt: '', mst_npt: '', ma_quoc_tich_npt: 'VN', quoc_tich_npt: 'Việt Nam', ma_quan_he_nnt: '', quan_he_nnt: '', tg_giam_tru_tu: '', tg_giam_tru_den: '', ghi_chu: '' };
                 }
                 else {
                     $('#select_phong_2').attr('disabled', 'disabled');
