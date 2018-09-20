@@ -47,7 +47,7 @@
                                                                     <el-radio :label="1">Nam</el-radio>
                                                                 </el-radio-group>
 
-                                                                <el-select v-model="nhan_vien.trang_thai"  size="small" placeholder="Trạng thái" style="width: 49%">
+                                                                <el-select v-model="nhan_vien.trang_thai"  size="small" placeholder="Tình trạng" style="width: 49%">
                                                                     <el-option :label="'Thử việc'" :value="0"></el-option>
                                                                     <el-option :label="'Chính thức'" :value="1"></el-option>
                                                                     <el-option :label="'Thôi việc'" :value="2"></el-option>
