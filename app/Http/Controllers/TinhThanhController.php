@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\phuong_xa;
+use App\quan_huyen;
+use App\tinh_thanh;
 use Illuminate\Http\Request;
 use DB;
 
@@ -29,5 +32,16 @@ class TinhThanhController extends Controller
     {
         $t = DB::table('duong')->get();
         return $t;
+    }
+
+    public function quan_huyen_theo_tinh($ma_tinh)
+    {
+//        $tinh = tinh_thanh::find($ma_tinh)->quan_huyen;
+//        return $tinh;
+
+//        $quan = phuong_xa::find($ma_tinh)->quan_huyen;
+//        return $quan;
+        $tinh_ = quan_huyen::find($ma_tinh)->tinh_thanh;
+        return $tinh_;
     }
 }

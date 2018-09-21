@@ -47,7 +47,7 @@
                                                                     <el-radio :label="1">Nam</el-radio>
                                                                 </el-radio-group>
 
-                                                                <el-select v-model="nhan_vien.trang_thai"  size="small" placeholder="Tình trạng" style="width: 49%">
+                                                                <el-select v-model="nhan_vien.tinh_trang"  size="small" placeholder="Tình trạng" style="width: 49%">
                                                                     <el-option :label="'Thử việc'" :value="0"></el-option>
                                                                     <el-option :label="'Chính thức'" :value="1"></el-option>
                                                                     <el-option :label="'Thôi việc'" :value="2"></el-option>
@@ -150,22 +150,22 @@
 
                                                             <label class="label-form col-md-2 col-form-label"></label>
                                                             <div class="col-md-3">
-                                                                <el-select v-model="nv_tam_tru.tinh_thanh" value-key="ma_tinh" filterable size="small" placeholder="Tỉnh thành phố" @change="load_quan_huyen" style="width: 100%" no-match-text="Không tìm thấy" no-data-text="Không có dữ liệu">
+                                                                <el-select v-model="nv_tam_tru.tinh_thanh" value-key="ma_tinh" filterable size="small" placeholder="Tỉnh thành phố" @change="load_quan_huyen(nv_tam_tru.tinh_thanh,1)" style="width: 100%" no-match-text="Không tìm thấy" no-data-text="Không có dữ liệu">
                                                                     <el-option v-for="item in list_tinh_thanh" :key="item.ma_tinh" :label="item.ten_tinh" :value="item">
                                                                     </el-option>
                                                                 </el-select>
                                                             </div>
                                                             <!--<label class="label-form col-md-2 col-form-label"></label>-->
                                                             <div class="col-md-3">
-                                                                <el-select v-model="nv_tam_tru.quan_huyen" @change="load_phuong_xa" value-key="ma_quan_huyen" filterable size="small" placeholder="Quận huyện" style="width: 100%;" no-match-text="Không tìm thấy" no-data-text="Không có dữ liệu">
+                                                                <el-select v-model="nv_tam_tru.quan_huyen" @change="load_phuong_xa(nv_tam_tru.quan_huyen,1)" value-key="ma_quan_huyen" :disabled="!nv_tam_tru.tinh_thanh" filterable size="small" placeholder="Quận huyện" style="width: 100%;" no-match-text="Không tìm thấy" no-data-text="Không có dữ liệu">
                                                                     <el-option v-for="item in change_quan_huyen" :key="item.ma_quan_huyen" :label="item.ten_quan_huyen" :value="item">
                                                                     </el-option>
                                                                 </el-select>
                                                             </div>
                                                             <div class="col-md-4">
-                                                                <el-select v-model="nv_tam_tru.phuong_xa" value-key="phuongxa_id" filterable size="small" placeholder="Phường xã" style="width: 100%;" no-match-text="Không tìm thấy" no-data-text="Không có dữ liệu">
-                                                                    <el-option v-if="change_phuong_xa.length==0" :label="'Chưa có phường xã'" :value="''"></el-option>
-                                                                    <el-option v-else v-for="item in change_phuong_xa" :key="item.phuongxa_id" :label="item.ten_phuong_xa" :value="item">
+                                                                <el-select v-model="nv_tam_tru.phuong_xa" value-key="phuongxa_id" :disabled="!nv_tam_tru.tinh_thanh || !nv_tam_tru.quan_huyen" filterable size="small" placeholder="Phường xã" style="width: 100%;" no-match-text="Không tìm thấy" no-data-text="Không có dữ liệu">
+                                                                    <!--<el-option v-if="change_phuong_xa.length==0" :label="'Chưa có phường xã'" :value="''"></el-option>-->
+                                                                    <el-option v-for="item in change_phuong_xa" :key="item.phuongxa_id" :label="item.ten_phuong_xa" :value="item">
                                                                     </el-option>
                                                                 </el-select>
                                                             </div>
@@ -178,7 +178,7 @@
                                                             </div>
                                                             <label class="label-form col-md-2 col-form-label"></label>
                                                             <div class="col-md-3">
-                                                                <el-select v-model="nv_thuong_tru.tinh_thanh" value-key="ma_tinh" filterable size="small" placeholder="Tỉnh thành phố" @change="load_quan_huyen" style="width: 100%" no-match-text="Không tìm thấy" no-data-text="Không có dữ liệu">
+                                                                <el-select v-model="nv_thuong_tru.tinh_thanh" value-key="ma_tinh" filterable size="small" placeholder="Tỉnh thành phố" @change="load_quan_huyen(nv_thuong_tru.tinh_thanh,2)" style="width: 100%" no-match-text="Không tìm thấy" no-data-text="Không có dữ liệu">
                                                                     <el-option
                                                                             v-for="item in list_tinh_thanh"
                                                                             :key="item.ma_tinh"
@@ -188,7 +188,7 @@
                                                                 </el-select>
                                                             </div>
                                                             <div class="col-md-3">
-                                                                <el-select v-model="nv_thuong_tru.quan_huyen" @change="load_phuong_xa" value-key="ma_quan_huyen" filterable size="small" placeholder="Quận huyện" style="width: 100%;" no-match-text="Không tìm thấy" no-data-text="Không có dữ liệu">
+                                                                <el-select v-model="nv_thuong_tru.quan_huyen" @change="load_phuong_xa(nv_thuong_tru.quan_huyen,2)" :disabled="!nv_thuong_tru.quan_huyen" value-key="ma_quan_huyen" filterable size="small" placeholder="Quận huyện" style="width: 100%;" no-match-text="Không tìm thấy" no-data-text="Không có dữ liệu">
                                                                     <el-option
                                                                             v-for="item in change_quan_huyen"
                                                                             :key="item.ma_quan_huyen"
@@ -199,9 +199,9 @@
                                                             </div>
 
                                                             <div class="col-md-4">
-                                                                <el-select v-model="nv_thuong_tru.phuong_xa" value-key="phuongxa_id" filterable size="small" placeholder="Phường xã" style="width: 100%;" no-match-text="Không tìm thấy" no-data-text="Không có dữ liệu">
-                                                                    <el-option v-if="change_phuong_xa.length==0" :label="'Chưa có phường xã'" :value="''"></el-option>
-                                                                    <el-option v-else
+                                                                <el-select v-model="nv_thuong_tru.phuong_xa" value-key="phuongxa_id" :disabled="!nv_thuong_tru.phuong_xa" filterable size="small" placeholder="Phường xã" style="width: 100%;" no-match-text="Không tìm thấy" no-data-text="Không có dữ liệu">
+                                                                    <!--<el-option v-if="change_phuong_xa.length==0" :label="'Chưa có phường xã'" :value="''"></el-option>-->
+                                                                    <el-option
                                                                                v-for="item in change_phuong_xa"
                                                                                :key="item.phuongxa_id"
                                                                                :label="item.ten_phuong_xa"
@@ -277,7 +277,7 @@
                         </div>
                     </div>
                     <div class="table-responsive">
-                        <table class="table table-hover" id="table_nhanvien">
+                        <table v-on:scroll="scroll_table" class="table table-hover table-fixed" id="table_nhanvien">
                             <thead>
                                 <tr style="border-top: 1px solid #ddd;">
                                     <th class="text-center">#</th>
@@ -319,7 +319,7 @@
                                     <td>{{n.so_cmnd}}</td>
                                     <td>{{n.scmnd_ngay_cap}}</td>
                                     <td>{{n.scmnd_noi_cap}}</td>
-                                    <td class="hidden-text" style="width:400px;">{{n.tam_tru}}</td>
+                                    <td class="hidden-text" style="width:400px;">{{n.ten_tinh}}, {{n.ten_quan_huyen}}, {{n.ten_phuong_xa}}, {{n.tam_tru}}</td>
                                     <td class="hidden-text" style="width:400px;">{{n.thuong_tru}}</td>
                                     <td>{{n.dt_ban}}</td>
                                     <td>{{n.di_dong_1}}</td>
@@ -327,7 +327,7 @@
                                     <td>{{n.mst_cn}}</td>
                                     <td>{{n.cc_thue_cap}}</td>
                                     <td>{{n.mst_cn_noi_cap}}</td>
-                                    <td v-if="n.trang_thai == 0" class="text-center">Thử việc</td><td v-else-if="n.trang_thai==1" class="text-center">Chính thức</td><td v-else class="text-center">Thôi việc</td>
+                                    <td v-if="n.tinh_trang == 0" class="text-center">Thử việc</td><td v-else-if="n.tinh_trang==1" class="text-center">Chính thức</td><td v-else class="text-center">Thôi việc</td>
                                 </tr>
                             </tbody>
                         </table>
@@ -358,6 +358,7 @@
     import {api_get_phuong_xa} from "../../../helper/tinh_thanh";
     import {api_get_item_phuong_xa_tam_tru} from "../../../helper/tinh_thanh";
     import {api_get_item_phuong_xa_thuong_tru} from "../../../helper/tinh_thanh";
+    import {api_get_item_phuong_xa_nhan_vien} from "../../../helper/tinh_thanh";
 
 
     import {api_get_all_bo_phan} from "../bophan/bo_phan";
@@ -433,7 +434,7 @@
                     cc_thue_cap: '',
                     avatar: '',
                     image: '',
-                    trang_thai: 0,
+                    tinh_trang: 0,
                     tam_tru_tinh_thanh: '',
                     thuong_tru_tinh_thanh: ''
                 },
@@ -443,7 +444,7 @@
                 list_bo_phan: [],
                 list_phong_ban: [],
                 list_vi_tri: [],
-                nhan_vien_trang_thai: [
+                nhan_vien_tinh_trang: [
                     { label: 'Thử việc', value: 0 },
                     { label: 'Chính thức', value: 1 },
                     { label: 'Thôi việc', value: 2 },
@@ -452,19 +453,21 @@
         },
         methods: {
             load_quan_huyen_noi_sinh: function (ma_tinh) {
-                console.log(ma_tinh);
                 this.change_quan_huyen_noi_sinh = this.list_quan_huyen.filter(function(item){
                     return (item['ma_tinh'] == ma_tinh);
                 })
+                this.nv_tam_tru.quan_huyen = '';
             },
             load_quan_huyen: function (tinh, type) {
-                // console.log(tinh);
-                // console.log('loai: ' + type);
+                if(type == 1){ this.nv_tam_tru.quan_huyen = ''; }
+                else if(type==2){this.nv_thuong_tru.quan_huyen = '';}
                 this.change_quan_huyen = this.list_quan_huyen.filter(function(item){
                     return (item['ma_tinh'] == tinh.ma_tinh);
                 })
             },
-            load_phuong_xa: function (quan_huyen) {
+            load_phuong_xa: function (quan_huyen, type) {
+                if(type == 1){ this.nv_tam_tru.phuong_xa = ''; }
+                else if(type==2){this.nv_thuong_tru.phuong_xa = '';}
                 this.change_phuong_xa = this.list_phuong_xa.filter(function(item){
                     return (item['quanhuyen_id'] == quan_huyen.ma_quan_huyen);
                 })
@@ -567,8 +570,8 @@
                     this.nv_thuong_tru.quan_huyen = this.nv_thuong_tru.tinh_thanh = this.nv_thuong_tru.phuong_xa = '';
                 }
                 else {
-                    api_get_item_phuong_xa_tam_tru(this, nv.tam_tru_tinh_thanh);
-                    api_get_item_phuong_xa_thuong_tru(this, nv.thuong_tru_tinh_thanh);
+                    api_get_item_phuong_xa_nhan_vien(this, nv.ma_tinh, nv.ma_quan_huyen, nv.phuongxa_id,1);
+                    api_get_item_phuong_xa_nhan_vien(this, nv.ma_tinh, nv.ma_quan_huyen, nv.phuongxa_id,2);
                     var lma = this.list_tinh_thanh.filter(function (item) {
                         return (item['ma_tinh'] == nv.scmnd_noi_cap);
                     });
@@ -585,8 +588,8 @@
                 }
             },
             submit_nhan_vien_thong_tin_ca_nhan: function () {
-                this.nhan_vien.tam_tru_tinh_thanh = this.nv_tam_tru.phuong_xa.phuongxa_id + ',' + this.nv_tam_tru.quan_huyen.ma_quan_huyen + ',' + this.nv_tam_tru.tinh_thanh.ma_tinh;
-                this.nhan_vien.thuong_tru_tinh_thanh = this.nv_thuong_tru.phuong_xa.phuongxa_id + ',' + this.nv_thuong_tru.quan_huyen.ma_quan_huyen + ',' + this.nv_thuong_tru.tinh_thanh.ma_tinh;
+                this.nhan_vien.tam_tru_tinh_thanh = this.nv_tam_tru.phuong_xa.phuongxa_id;
+                this.nhan_vien.thuong_tru_tinh_thanh = this.nv_thuong_tru.phuong_xa.phuongxa_id;
                 this.change_bnt_save('save');
                 if(this.flag_submit_nhan_vien_tt_ca_nhan) {
                     this.flag_input_nhan_vien_tt = false;
@@ -642,6 +645,11 @@
                 if(this.key_word == '' || this.key_word == null){ this.flag_search = false; this.getNhanVien()  }
                 this.flag_search = true;
                 api_search_thong_tin_nhan_vien(this, 1);
+            },
+            scroll_table: function () {
+                $('table').on('scroll', function () {
+                    $("#"+this.id+" > *").width($(this).width() + $(this).scrollLeft());
+                });
             }
         }
     }
@@ -832,6 +840,128 @@
     }
     .el-radio-group {
         padding-top: 8px;
+    }
+
+    table {
+        border-collapse: collapse;
+        width: 3000px;
+        overflow-x: scroll;
+        display: block;
+    }
+    thead {
+        /*background-color: #EFEFEF;*/
+    }
+    thead, tbody {
+        display: block;
+    }
+    tbody {
+        overflow-y: scroll;
+        overflow-x: hidden;
+        height: 300px;
+    }
+    td{
+        /*min-width: 200px;*/
+        height: 25px;
+        /*border: dashed 1px lightblue;*/
+        overflow:hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+    }
+
+    /*#table_nhanvien {*/
+
+    /*}*/
+
+    #table_nhanvien tr td:nth-child(1){
+        min-width: 100px;
+        max-width: 100px;
+    }
+
+    #table_nhanvien tr td:nth-child(2){
+        min-width: 50px;
+        max-width: 50px;
+    }
+
+    #table_nhanvien tr td:nth-child(3){
+        min-width: 100px;
+        max-width: 100px;
+    }
+
+    #table_nhanvien tr td:nth-child(4){
+        min-width: 200px;
+        max-width: 200px;
+    }
+
+    #table_nhanvien tr td:nth-child(5){
+        min-width: 100px;
+    }
+
+    #table_nhanvien tr td:nth-child(6){
+        min-width: 120px;
+        max-width: 120px;
+    }
+
+    #table_nhanvien tr td:nth-child(7){
+        min-width: 220px;
+        max-width: 220px;
+    }
+
+    #table_nhanvien tr td:nth-child(8){
+        min-width: 120px;
+        max-width: 120px;
+    }
+
+    #table_nhanvien tr td:nth-child(9){
+        min-width: 105px;
+    }
+
+    #table_nhanvien tr td:nth-child(10){
+        min-width: 150px;
+    }
+
+    #table_nhanvien tr td:nth-child(11){
+        min-width: 300px;
+        max-width: 300px;
+    }
+
+    #table_nhanvien tr td:nth-child(12){
+        min-width: 300px;
+        max-width: 300px;
+    }
+
+    #table_nhanvien tr td:nth-child(13){
+        min-width: 120px;
+        max-width: 120px;
+    }
+
+    #table_nhanvien tr td:nth-child(14){
+        min-width: 120px;
+        max-width: 120px;
+    }
+
+    #table_nhanvien tr td:nth-child(15){
+        min-width: 120px;
+        max-width: 120px;
+    }
+
+    #table_nhanvien tr td:nth-child(16){
+        min-width: 120px;
+        max-width: 120px;
+    }
+
+    #table_nhanvien tr td:nth-child(17){
+        min-width: 120px;
+        max-width: 120px;
+    }
+
+    #table_nhanvien tr td:nth-child(18){
+        min-width: 300px;
+        max-width: 300px;
+    }
+
+    #table_nhanvien tr td:nth-child(19){
+        min-width: 120px;
+        max-width: 120px;
     }
 
 

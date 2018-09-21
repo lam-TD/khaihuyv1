@@ -8,6 +8,10 @@ use App\nhan_vien_lao_dong;
 use App\nhan_vien_cong_viec;
 use Carbon\Carbon;
 use Intervention\Image\Facades\Image;
+use Illuminate\Support\Facades\DB;
+use App\phuong_xa;
+use App\quan_huyen;
+use App\tinh_thanh;
 
 
 class NhanVienController extends Controller
@@ -26,8 +30,48 @@ class NhanVienController extends Controller
 
     public function get_all()
     {
-        $nv = nhan_vien::orderby('id','desc')->paginate(10);
-        return json_encode($nv);
+        $nv = nhan_vien::join('phuong_xa','nhan_vien.tam_tru_tinh_thanh','=','phuong_xa.phuongxa_id')
+            ->join('quan_huyen','phuong_xa.quanhuyen_id','=','quan_huyen.ma_quan_huyen')
+            ->join('tinh_thanh','quan_huyen.ma_tinh','=','tinh_thanh.ma_tinh')
+            ->orderby('nhan_vien.id','desc')
+            ->paginate(10)->toArray();
+        return $nv;
+//        return $nv['data'];
+//        $lam = null;
+//        foreach ($nv['data'] as $key => $value){
+//            //noi sinh
+//            $phuong_xa_ns = phuong_xa::find($value['noi_sinh_tinh_thanh']);
+//            $quan_huyen_ns = phuong_xa::find($value['noi_sinh_tinh_thanh'])->quan_huyen;
+//            $tinh_ns = quan_huyen::find($quan_huyen_ns['ma_quan_huyen'])->tinh_thanh;
+//            $noi_sinh = ['dc_noi_sinh' => ['ns_tinh' => $tinh_ns, 'ns_quan_huyen' => $quan_huyen_ns, 'ns_phuong_xa' => $phuong_xa_ns]];
+//
+//
+//            // thuong tru
+//            $phuong_xa = phuong_xa::find($value['thuong_tru_tinh_thanh']);
+//            $quan_huyen = phuong_xa::find($value['thuong_tru_tinh_thanh'])->quan_huyen;
+//            $tinh = quan_huyen::find($quan_huyen['ma_quan_huyen'])->tinh_thanh;
+//            $thuong_tru = ['dc_thuong_tru' => ['tt_tinh' => $tinh, 'tt_quan_huyen' => $quan_huyen, 'tt_phuong_xa' => $phuong_xa]];
+//
+//            $result[] = array_merge($nv['data'][$key], $thuong_tru, $noi_sinh);
+//        }
+//        return ($result);
+    }
+
+    public function nhan_vien_paginate($page = 1, $limit = 10)
+    {
+        $current_page = $page;
+        $total_page = ceil(nhan_vien::count('id') / $limit);
+        if($current_page > $total_page){
+            $current_page = $total_page;
+        }
+        elseif ($current_page < 1) { $current_page = 1; }
+
+        $nv = nhan_vien::offset(($current_page - 1) * $limit)->limit($limit)->get();
+
+        foreach ( $nv as $value) {
+
+        }
+        return $nv;
     }
 
     public function add_nhan_vien_thong_tin_ca_nhan(Request $request) {
@@ -59,7 +103,7 @@ class NhanVienController extends Controller
         $nv->mst_cn = $request->mst_cn;
         $nv->mst_cn_noi_cap = $request->mst_cn_noi_cap;
         $nv->cc_thue_cap = $request->cc_thue_cap;
-        $nv->trang_thai = $request->trang_thai;
+        $nv->tinh_trang = $request->tinh_trang;
         $nv->tam_tru_tinh_thanh = $request->tam_tru_tinh_thanh;
         $nv->thuong_tru_tinh_thanh = $request->thuong_tru_tinh_thanh;
         $nv->avatar = $avatar;
@@ -97,7 +141,7 @@ class NhanVienController extends Controller
         $nv->mst_cn = $request->mst_cn;
         $nv->mst_cn_noi_cap = $request->mst_cn_noi_cap;
         $nv->cc_thue_cap = $request->cc_thue_cap;
-        $nv->trang_thai = $request->trang_thai;
+        $nv->tinh_trang = $request->tinh_trang;
         $nv->tam_tru_tinh_thanh = $request->tam_tru_tinh_thanh;
         $nv->thuong_tru_tinh_thanh = $request->thuong_tru_tinh_thanh;
         ($avatar == '') ? $avatar = '' : $nv->avatar = $avatar;

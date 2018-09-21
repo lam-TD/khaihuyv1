@@ -16,7 +16,6 @@ export function api_get_thong_tin_nhan_vien_ca_nhan_lao_dong(vm, page) {
         })
         .catch((error) => {
             console.log(error);
-            this.flag = true;
         })
 }
 
@@ -31,11 +30,10 @@ export function api_get_nhan_vien(vm, page) {
             vm.loading_dsnv = false;
             vm.dsnhanvien = response.data.data;
             vm.dsnhanvien_total = response.data.total;
-            // console.log(response.data);
+            console.log(response.data.data);
         })
         .catch((error) => {
             console.log(error);
-            this.flag = true;
         })
 }
 
@@ -71,7 +69,6 @@ export function api_get_nhan_vien_thong_tin_lao_dong(vm, id_nhan_vien) {
         })
         .catch((error) => {
             console.log(error);
-            this.flag = true;
         })
 }
 
@@ -168,7 +165,6 @@ export function api_search_thong_tin_nhan_vien(vm, page) {
         })
         .catch((error) => {
             console.log(error);
-            this.flag = true;
         })
 }
 

@@ -66,6 +66,7 @@ Route::group(['middleware' => 'jwt.auth'], function ($router) {
     Route::post('edit-nhan-vien-thong-tin-ca-nhan', 'NhanVienController@edit_nhan_vien_thong_tin_ca_nhan');
     Route::post('image-upload', 'NhanVienController@upload_image');
 
+
 //    Thong Tin Lao Dong
     Route::post('add-nhan-vien-thong-tin-lao-dong', 'NhanVienController@add_nhan_vien_thong_tin_lao_dong');
     Route::post('edit-nhan-vien-thong-tin-lao-dong', 'NhanVienController@edit_nhan_vien_thong_tin_lao_dong');
@@ -135,3 +136,8 @@ Route::get('get-tinh-thanh', 'TinhThanhController@get_tinh_thanh');
 Route::get('get-quan-huyen', 'TinhThanhController@get_quan_huyen');
 Route::get('get-phuong-xa', 'TinhThanhController@get_phuong_xa');
 Route::get('get-duong', 'TinhThanhController@get_duong');
+
+Route::get('get-qh/{ma_tinh}', 'TinhThanhController@quan_huyen_theo_tinh');
+
+Route::get('nhan-vien-pa/{page}&{limit}', 'NhanVienController@nhan_vien_paginate');
+
