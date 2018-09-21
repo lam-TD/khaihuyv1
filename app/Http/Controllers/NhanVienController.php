@@ -35,26 +35,27 @@ class NhanVienController extends Controller
             ->join('tinh_thanh','quan_huyen.ma_tinh','=','tinh_thanh.ma_tinh')
             ->orderby('nhan_vien.id','desc')
             ->paginate(10)->toArray();
-        return $nv;
+//        return $nv;
 //        return $nv['data'];
-//        $lam = null;
-//        foreach ($nv['data'] as $key => $value){
-//            //noi sinh
+        $lam = null;
+        foreach ($nv['data'] as $key => $value){
+            //noi sinh
 //            $phuong_xa_ns = phuong_xa::find($value['noi_sinh_tinh_thanh']);
-//            $quan_huyen_ns = phuong_xa::find($value['noi_sinh_tinh_thanh'])->quan_huyen;
-//            $tinh_ns = quan_huyen::find($quan_huyen_ns['ma_quan_huyen'])->tinh_thanh;
-//            $noi_sinh = ['dc_noi_sinh' => ['ns_tinh' => $tinh_ns, 'ns_quan_huyen' => $quan_huyen_ns, 'ns_phuong_xa' => $phuong_xa_ns]];
-//
-//
-//            // thuong tru
-//            $phuong_xa = phuong_xa::find($value['thuong_tru_tinh_thanh']);
-//            $quan_huyen = phuong_xa::find($value['thuong_tru_tinh_thanh'])->quan_huyen;
-//            $tinh = quan_huyen::find($quan_huyen['ma_quan_huyen'])->tinh_thanh;
-//            $thuong_tru = ['dc_thuong_tru' => ['tt_tinh' => $tinh, 'tt_quan_huyen' => $quan_huyen, 'tt_phuong_xa' => $phuong_xa]];
-//
-//            $result[] = array_merge($nv['data'][$key], $thuong_tru, $noi_sinh);
-//        }
-//        return ($result);
+            $quan_huyen_ns = quan_huyen::find($value['noi_sinh_tinh_thanh']);
+            $tinh_ns = tinh_thanh::find($quan_huyen_ns['ma_tinh']);
+            $noi_sinh = ['dc_noi_sinh' => ['tinh' => $tinh_ns, 'quan_huyen' => $quan_huyen_ns]];
+
+
+            // thuong tru
+            $phuong_xa = phuong_xa::find($value['thuong_tru_tinh_thanh']);
+            $quan_huyen = phuong_xa::find($value['thuong_tru_tinh_thanh'])->quan_huyen;
+            $tinh = quan_huyen::find($quan_huyen['ma_quan_huyen'])->tinh_thanh;
+            $thuong_tru = ['dc_thuong_tru' => ['tinh' => $tinh, 'quan_huyen' => $quan_huyen, 'phuong_xa' => $phuong_xa]];
+
+            $result[] = array_merge($nv['data'][$key], $thuong_tru, $noi_sinh);
+        }
+        $lam = ['data' => $result, 'total' => $nv['total']];
+        return ($lam);
     }
 
     public function nhan_vien_paginate($page = 1, $limit = 10)
@@ -90,7 +91,7 @@ class NhanVienController extends Controller
         $nv->ho_ten = $request->ho_ten;
         $nv->gioi_tinh = $request->gioi_tinh;
         $nv->ngay_sinh = $request->ngay_sinh;
-        $nv->noi_sinh = $request->noi_sinh;
+        $nv->noi_sinh_tinh_thanh = $request->noi_sinh_tinh_thanh;
         $nv->quoc_tich = $request->quoc_tich;
         $nv->so_cmnd = $request->so_cmnd;
         $nv->scmnd_noi_cap = $request->scmnd_noi_cap;
@@ -128,7 +129,7 @@ class NhanVienController extends Controller
         $nv->ho_ten = $request->ho_ten;
         $nv->gioi_tinh = $request->gioi_tinh;
         $nv->ngay_sinh = $request->ngay_sinh;
-        $nv->noi_sinh = $request->noi_sinh;
+        $nv->noi_sinh_tinh_thanh = $request->noi_sinh_tinh_thanh;
         $nv->quoc_tich = $request->quoc_tich;
         $nv->so_cmnd = $request->so_cmnd;
         $nv->scmnd_noi_cap = $request->scmnd_noi_cap;

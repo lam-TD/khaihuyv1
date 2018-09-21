@@ -78,12 +78,12 @@
 
                                                             <label class="label-form col-md-2 col-form-label">Nơi sinh</label>
                                                             <div class="col-md-5">
-                                                                <el-select v-model="nv_noi_sinh.tinh_thanh" filterable size="small" placeholder="Tỉnh thành phố" @change="load_quan_huyen_noi_sinh" style="width: 49%;" no-match-text="Không tìm thấy" no-data-text="Không có dữ liệu">
+                                                                <el-select v-model="nv_noi_sinh.tinh_thanh" value-key="ma_tinh" filterable size="small" placeholder="Tỉnh thành phố" @change="load_quan_huyen_noi_sinh" style="width: 49%;" no-match-text="Không tìm thấy" no-data-text="Không có dữ liệu">
                                                                     <el-option
                                                                             v-for="item in list_tinh_thanh"
                                                                             :key="item.ma_tinh"
                                                                             :label="item.ten_tinh"
-                                                                            :value="item.ma_tinh">
+                                                                            :value="item">
                                                                     </el-option>
                                                                 </el-select>
 
@@ -92,7 +92,7 @@
                                                                             v-for="item in change_quan_huyen_noi_sinh"
                                                                             :key="item.ma_quan_huyen"
                                                                             :label="item.ten_quan_huyen"
-                                                                            :value="item.ten_quan_huyen">
+                                                                            :value="item">
                                                                     </el-option>
                                                                 </el-select>
                                                             </div>
@@ -188,7 +188,7 @@
                                                                 </el-select>
                                                             </div>
                                                             <div class="col-md-3">
-                                                                <el-select v-model="nv_thuong_tru.quan_huyen" @change="load_phuong_xa(nv_thuong_tru.quan_huyen,2)" :disabled="!nv_thuong_tru.quan_huyen" value-key="ma_quan_huyen" filterable size="small" placeholder="Quận huyện" style="width: 100%;" no-match-text="Không tìm thấy" no-data-text="Không có dữ liệu">
+                                                                <el-select v-model="nv_thuong_tru.quan_huyen" @change="load_phuong_xa(nv_thuong_tru.quan_huyen,2)" :disabled="!nv_thuong_tru.tinh_thanh" value-key="ma_quan_huyen" filterable size="small" placeholder="Quận huyện" style="width: 100%;" no-match-text="Không tìm thấy" no-data-text="Không có dữ liệu">
                                                                     <el-option
                                                                             v-for="item in change_quan_huyen"
                                                                             :key="item.ma_quan_huyen"
@@ -199,7 +199,7 @@
                                                             </div>
 
                                                             <div class="col-md-4">
-                                                                <el-select v-model="nv_thuong_tru.phuong_xa" value-key="phuongxa_id" :disabled="!nv_thuong_tru.phuong_xa" filterable size="small" placeholder="Phường xã" style="width: 100%;" no-match-text="Không tìm thấy" no-data-text="Không có dữ liệu">
+                                                                <el-select v-model="nv_thuong_tru.phuong_xa" value-key="phuongxa_id" :disabled="!nv_thuong_tru.quan_huyen" filterable size="small" placeholder="Phường xã" style="width: 100%;" no-match-text="Không tìm thấy" no-data-text="Không có dữ liệu">
                                                                     <!--<el-option v-if="change_phuong_xa.length==0" :label="'Chưa có phường xã'" :value="''"></el-option>-->
                                                                     <el-option
                                                                                v-for="item in change_phuong_xa"
@@ -302,7 +302,7 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr v-if="loading_dsnv"><td colspan="17" class=""><b><i class="fa fa-spin fa-spinner"></i> Đang tải danh sách...</b></td></tr>
+                                <tr v-if="loading_dsnv"><td colspan="19" style="width: 100%"><b><i class="fa fa-spin fa-spinner"></i> Loading...</b></td></tr>
                                 <tr v-if="dsnhanvien.length>0" v-for="(n, index) in dsnhanvien">
                                     <td class="text-nowrap">
                                         <button @click="_nhan_vien('edit', n)" data-toggle="modal" data-target="#modal_nv_tt_ca_nhan" class="btn btn-info btn-sm" title="Cập nhật thông tin cá nhân"> <i class="fa fa-edit"></i> </button>
@@ -315,12 +315,12 @@
                                     <td>{{n.ho_ten}}</td>
                                     <td><span v-if="n.gioi_tinh">Nam</span><span v-else>Nữ</span></td>
                                     <td>{{n.ngay_sinh}}</td>
-                                    <td>{{n.noi_sinh}}</td>
+                                    <td>{{n.dc_noi_sinh.tinh.ten_tinh}}, {{n.dc_noi_sinh.quan_huyen.ten_quan_huyen}}</td>
                                     <td>{{n.so_cmnd}}</td>
                                     <td>{{n.scmnd_ngay_cap}}</td>
                                     <td>{{n.scmnd_noi_cap}}</td>
                                     <td class="hidden-text" style="width:400px;">{{n.ten_tinh}}, {{n.ten_quan_huyen}}, {{n.ten_phuong_xa}}, {{n.tam_tru}}</td>
-                                    <td class="hidden-text" style="width:400px;">{{n.thuong_tru}}</td>
+                                    <td class="hidden-text" style="width:400px;">{{n.dc_thuong_tru.tinh.ten_tinh}}, {{n.dc_thuong_tru.quan_huyen.ten_quan_huyen}}, {{n.dc_thuong_tru.phuong_xa.ten_phuong_xa}}, {{n.thuong_tru}}</td>
                                     <td>{{n.dt_ban}}</td>
                                     <td>{{n.di_dong_1}}</td>
                                     <td>{{n.di_dong_2}}</td>
@@ -356,9 +356,8 @@
     import {api_get_tinh} from "../../../helper/tinh_thanh";
     import {api_get_quan_huyen} from "../../../helper/tinh_thanh";
     import {api_get_phuong_xa} from "../../../helper/tinh_thanh";
-    import {api_get_item_phuong_xa_tam_tru} from "../../../helper/tinh_thanh";
-    import {api_get_item_phuong_xa_thuong_tru} from "../../../helper/tinh_thanh";
     import {api_get_item_phuong_xa_nhan_vien} from "../../../helper/tinh_thanh";
+    import {api_get_item_phuong_xa_noi_sinh} from "../../../helper/tinh_thanh";
 
 
     import {api_get_all_bo_phan} from "../bophan/bo_phan";
@@ -385,7 +384,6 @@
             return {
                 list_tinh_thanh: [],
                 tinh_thanh: null,
-                value: null,
                 list_quan_huyen: [],
                 change_quan_huyen: [],
                 quan_huyen: '',
@@ -412,11 +410,9 @@
                     ma_nv: '',
                     ho_ten: '',
                     ngay_sinh: '',
-                    noi_sinh: '',
                     noi_sinh_tinh_thanh: '',
-                    noi_sinh_quan_huyen: '',
-                    quoc_tich: '',
-                    gioi_tinh: 'Việt Nam',
+                    quoc_tich: 'Việt Nam',
+                    gioi_tinh: '0',
                     so_cmnd: '',
                     scmnd_noi_cap: '',
                     scmnd_ngay_cap: '',
@@ -441,9 +437,6 @@
                 loading_lao_dong: true,
                 flag_xu_ly_tt_lao_dong: true,
                 flag_form_cong_viec: false,
-                list_bo_phan: [],
-                list_phong_ban: [],
-                list_vi_tri: [],
                 nhan_vien_tinh_trang: [
                     { label: 'Thử việc', value: 0 },
                     { label: 'Chính thức', value: 1 },
@@ -452,9 +445,9 @@
             }
         },
         methods: {
-            load_quan_huyen_noi_sinh: function (ma_tinh) {
+            load_quan_huyen_noi_sinh: function (tinh) {
                 this.change_quan_huyen_noi_sinh = this.list_quan_huyen.filter(function(item){
-                    return (item['ma_tinh'] == ma_tinh);
+                    return (item['ma_tinh'] == tinh.ma_tinh);
                 })
                 this.nv_tam_tru.quan_huyen = '';
             },
@@ -544,34 +537,31 @@
                     this.flag_submit_nhan_vien_tt_ca_nhan = true;
                     this.flag_input_nhan_vien_tt = false;
                     $('#wizardPicturePreview').attr('src', 'https://cdn0.vox-cdn.com/images/verge/default-avatar.v9899025.gif').fadeIn('slow');
-                    this.nhan_vien = {
-                        id: 0,
-                        ma_nv: '',
-                        ho_ten: '',
-                        ngay_sinh: '',
-                        noi_sinh: '',
-                        gioi_tinh: '',
-                        so_cmnd: '',
-                        scmnd_noi_cap: '',
-                        scmnd_ngay_cap: '',
-                        thuong_tru: '',
-                        tam_tru: '',
-                        di_dong_1: '',
-                        di_dong_2: '',
-                        dt_ban: '',
-                        mst_cn: '',
-                        mst_cn_noi_cap: '',
-                        cc_thue_cap: '',
-                        avatar: '',
-                        image: '',
-                        quoc_tich: 'Việt Nam'
+                    this.nhan_vien = { id: 0, ma_nv: '', ho_ten: '', ngay_sinh: '', noi_sinh_tinh_thanh: '', quoc_tich: 'Việt Nam', gioi_tinh: '0', so_cmnd: '', scmnd_noi_cap: '', scmnd_ngay_cap: '', thuong_tru: '',
+                            thuong_tru_tinh_thanh: '',
+                            thuong_tru_quan_huyen: '',
+                            tam_tru: '',
+                            tam_tru_tinh_thanh: '',
+                            tam_tru_quan_huyen: '',
+                            di_dong_1: '',
+                            di_dong_2: '',
+                            dt_ban: '',
+                            mst_cn: '',
+                            mst_cn_noi_cap: '',
+                            cc_thue_cap: '',
+                            avatar: '',
+                            image: '',
+                            tinh_trang: 0,
+                            tam_tru_tinh_thanh: '',
+                            thuong_tru_tinh_thanh: ''
                     }
                     this.nv_tam_tru.quan_huyen = this.nv_tam_tru.tinh_thanh = this.nv_tam_tru.phuong_xa = '';
                     this.nv_thuong_tru.quan_huyen = this.nv_thuong_tru.tinh_thanh = this.nv_thuong_tru.phuong_xa = '';
                 }
                 else {
+                    api_get_item_phuong_xa_noi_sinh(this, nv.dc_noi_sinh.tinh.ma_tinh, nv.dc_noi_sinh.quan_huyen.ma_quan_huyen);
                     api_get_item_phuong_xa_nhan_vien(this, nv.ma_tinh, nv.ma_quan_huyen, nv.phuongxa_id,1);
-                    api_get_item_phuong_xa_nhan_vien(this, nv.ma_tinh, nv.ma_quan_huyen, nv.phuongxa_id,2);
+                    api_get_item_phuong_xa_nhan_vien(this, nv.dc_thuong_tru.tinh.ma_tinh, nv.dc_thuong_tru.quan_huyen.ma_quan_huyen, nv.dc_thuong_tru.phuong_xa.phuongxa_id,2);
                     var lma = this.list_tinh_thanh.filter(function (item) {
                         return (item['ma_tinh'] == nv.scmnd_noi_cap);
                     });
@@ -588,6 +578,7 @@
                 }
             },
             submit_nhan_vien_thong_tin_ca_nhan: function () {
+                this.nhan_vien.noi_sinh_tinh_thanh = this.nv_noi_sinh.quan_huyen.ma_quan_huyen;
                 this.nhan_vien.tam_tru_tinh_thanh = this.nv_tam_tru.phuong_xa.phuongxa_id;
                 this.nhan_vien.thuong_tru_tinh_thanh = this.nv_thuong_tru.phuong_xa.phuongxa_id;
                 this.change_bnt_save('save');

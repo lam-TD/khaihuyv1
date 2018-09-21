@@ -111,37 +111,19 @@ export function api_get_item_phuong_xa_nhan_vien(vm, ma_tinh, ma_quan_huyen, ma_
     }
 }
 
-export function api_get_item_phuong_xa_tam_tru(vm, address) {
-    // address = 122,4334,555
-    console.log(address);
-    var ma_phuong = address.slice(0, address.indexOf(','));
-    var ma_quan   = address.slice(address.indexOf(',') + 1, address.lastIndexOf(','));
-    var ma_tinh   = address.slice(address.lastIndexOf(',') + 1, address.length);
-
-    // console.log('phuong:' + ma_phuong);
-    // console.log('quan:' + ma_quan);
-    // console.log('tinh:' + ma_tinh);
-
-    var item_px = vm.list_phuong_xa.filter(function(item){
-        return (item['phuongxa_id'] == ma_phuong);
-    })
-
+export function api_get_item_phuong_xa_noi_sinh(vm, ma_tinh, ma_quan_huyen) {
     var item_qh = vm.list_quan_huyen.filter(function(item){
-        return (item['ma_quan_huyen'] == ma_quan);
+        return (item['ma_quan_huyen'] == ma_quan_huyen);
     })
 
     var item_tt = vm.list_tinh_thanh.filter(function(item){
         return (item['ma_tinh'] == ma_tinh);
     })
 
-    vm.nv_tam_tru.tinh_thanh = item_tt[0];
-    vm.load_quan_huyen(item_tt[0]);
+    vm.nv_noi_sinh.tinh_thanh = item_tt[0];
+    vm.load_quan_huyen_noi_sinh(item_tt[0]);
     setTimeout(function () {
-        vm.nv_tam_tru.quan_huyen = item_qh[0];
-        vm.load_phuong_xa(item_qh[0]);
-        setTimeout(function () {
-            vm.nv_tam_tru.phuong_xa = item_px[0];
-        },1000)
+        vm.nv_noi_sinh.quan_huyen = item_qh[0];
     },1000);
 }
 

@@ -37,6 +37,23 @@ export function api_get_nhan_vien(vm, page) {
         })
 }
 
+export function api_get_nhan_vien_new(vm, page) {
+    axios({
+        method: 'GET',
+        url: 'api/nhan-vien?page=' + page,
+        headers: {'Authorization':'Bearer ' + vm.$store.state.currentUser.token}
+    })
+        .then((response) => {
+            vm.loading_dsnv = false;
+            vm.dsnhanvien = response.data.data;
+            vm.dsnhanvien_total = response.data.total;
+            console.log(response.data.data);
+        })
+        .catch((error) => {
+            console.log(error);
+        })
+}
+
 export function api_get_nhan_vien_thong_tin_lao_dong(vm, id_nhan_vien) {
     axios({
         method: 'GET',
