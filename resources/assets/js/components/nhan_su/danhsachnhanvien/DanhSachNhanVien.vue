@@ -315,12 +315,12 @@
                                     <td>{{n.ho_ten}}</td>
                                     <td><span v-if="n.gioi_tinh">Nam</span><span v-else>Nữ</span></td>
                                     <td>{{n.ngay_sinh}}</td>
-                                    <td>{{n.dc_noi_sinh.tinh.ten_tinh}}, {{n.dc_noi_sinh.quan_huyen.ten_quan_huyen}}</td>
+                                    <td></td>
                                     <td>{{n.so_cmnd}}</td>
                                     <td>{{n.scmnd_ngay_cap}}</td>
                                     <td>{{n.scmnd_noi_cap}}</td>
-                                    <td class="hidden-text" style="width:400px;">{{n.ten_tinh}}, {{n.ten_quan_huyen}}, {{n.ten_phuong_xa}}, {{n.tam_tru}}</td>
-                                    <td class="hidden-text" style="width:400px;">{{n.dc_thuong_tru.tinh.ten_tinh}}, {{n.dc_thuong_tru.quan_huyen.ten_quan_huyen}}, {{n.dc_thuong_tru.phuong_xa.ten_phuong_xa}}, {{n.thuong_tru}}</td>
+                                    <td class="hidden-text" style="width:400px;"> {{n.tam_tru}}</td>
+                                    <td class="hidden-text" style="width:400px;">{{n.thuong_tru}}</td>
                                     <td>{{n.dt_ban}}</td>
                                     <td>{{n.di_dong_1}}</td>
                                     <td>{{n.di_dong_2}}</td>
@@ -559,9 +559,9 @@
                     this.nv_thuong_tru.quan_huyen = this.nv_thuong_tru.tinh_thanh = this.nv_thuong_tru.phuong_xa = '';
                 }
                 else {
-                    api_get_item_phuong_xa_noi_sinh(this, nv.dc_noi_sinh.tinh.ma_tinh, nv.dc_noi_sinh.quan_huyen.ma_quan_huyen);
-                    api_get_item_phuong_xa_nhan_vien(this, nv.ma_tinh, nv.ma_quan_huyen, nv.phuongxa_id,1);
-                    api_get_item_phuong_xa_nhan_vien(this, nv.dc_thuong_tru.tinh.ma_tinh, nv.dc_thuong_tru.quan_huyen.ma_quan_huyen, nv.dc_thuong_tru.phuong_xa.phuongxa_id,2);
+                    // api_get_item_phuong_xa_noi_sinh(this, nv.dc_noi_sinh.tinh.ma_tinh, nv.dc_noi_sinh.quan_huyen.ma_quan_huyen);
+                    // api_get_item_phuong_xa_nhan_vien(this, nv.ma_tinh, nv.ma_quan_huyen, nv.phuongxa_id,1);
+                    // api_get_item_phuong_xa_nhan_vien(this, nv.dc_thuong_tru.tinh.ma_tinh, nv.dc_thuong_tru.quan_huyen.ma_quan_huyen, nv.dc_thuong_tru.phuong_xa.phuongxa_id,2);
                     var lma = this.list_tinh_thanh.filter(function (item) {
                         return (item['ma_tinh'] == nv.scmnd_noi_cap);
                     });

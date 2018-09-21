@@ -35,7 +35,7 @@ class NhanVienController extends Controller
             ->join('tinh_thanh','quan_huyen.ma_tinh','=','tinh_thanh.ma_tinh')
             ->orderby('nhan_vien.id','desc')
             ->paginate(10)->toArray();
-//        return $nv;
+        return $nv;
 //        return $nv['data'];
         $lam = null;
         foreach ($nv['data'] as $key => $value){
