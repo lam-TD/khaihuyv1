@@ -1,7 +1,7 @@
 <template>
     <div v-if="is_logined" id="main-wrapper">
         <top-bar></top-bar>
-        <left-bar></left-bar>
+        <!--<left-bar></left-bar>-->
         <router-view></router-view>
     </div>
     <div v-else class="" id="main-wrapper">

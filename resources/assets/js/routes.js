@@ -25,7 +25,6 @@ import quanlynguoidung from './components/he_thong/quan_ly_nguoi_dung/QuanLyNguo
 export const routes = [
     {
         path: '/',
-        name: 'login',
         component: login
     },
     {

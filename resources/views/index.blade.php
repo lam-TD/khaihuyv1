@@ -50,7 +50,7 @@
         </div>
 
         {{--Vue js--}}
-        {{-- <script src="{{asset('public/js/app.js')}}"></script> --}}
+{{--         <script src="{{asset('public/js/app.js')}}"></script>--}}
         <script type="" src="public/js/app.js"></script>
         
         {{--PLUG IN--}}
