@@ -1,6 +1,6 @@
 <template>
     <div class="">
-        <header class="topbar" style="">
+        <header class="topbar" style="position: fixed;width: 100%">
             <nav class="navbar top-navbar navbar-expand-md navbar-light">
                 <!-- ============================================================== -->
                 <!-- Logo -->
@@ -128,6 +128,7 @@
             //     custom.setAttribute('id','custom');
             //     document.body.appendChild(custom);
             // },2000);
+            // $(".fix-header .topbar").stick_in_parent({});
         },
         computed: {
             list_chuc_nang: function () {
@@ -153,12 +154,30 @@
                 this.$route.push({ path: '/'});
             },
             toggle_leftbar: function () {
-                // document.getElementsByTagName('body').classList.toggle("mini-sidebar");
-                $('body').toggleClass('mini-sidebar');
+                if ($("body").hasClass("mini-sidebar")) {
+                    $("body").trigger("resize");
+                    $(".scroll-sidebar, .slimScrollDiv").css("overflow", "hidden").parent().css("overflow", "visible");
+                    $("body").removeClass("mini-sidebar");
+                    $('.navbar-brand span').show();
+                    //$(".sidebartoggler i").addClass("ti-menu");
+                }
+                else {
+                    $("body").trigger("resize");
+                    $(".scroll-sidebar, .slimScrollDiv").css("overflow-x", "visible").parent().css("overflow", "visible");
+                    $("body").addClass("mini-sidebar");
+                    $('.navbar-brand span').hide();
+                    //$(".sidebartoggler i").removeClass("ti-menu");
+                }
             },
             toggle_leftbar_small: function () {
-                console.log('dsadadasd');
-                $('body').toggleClass('show-sidebar');
+                // $(".nav-toggler").click(function () {
+                //     $("body").toggleClass("show-sidebar");
+                //     $(".nav-toggler i").toggleClass("mdi mdi-menu");
+                //     $(".nav-toggler i").addClass("mdi mdi-close");
+                // });
+                $("body").toggleClass("show-sidebar");
+                $(".nav-toggler i").toggleClass("mdi mdi-menu");
+                $(".nav-toggler i").addClass("mdi mdi-close");
             },
             active_nhom: function (key) {
                 $('.row-nhom-cn').removeClass("active");
@@ -172,4 +191,5 @@
             }
         }
     }
+    // import '../../../../../public/template/js/custom';
 </script>
