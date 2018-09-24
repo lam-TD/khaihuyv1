@@ -3,17 +3,17 @@
         <!-- ============================================================== -->
         <!-- Bread crumb and right sidebar toggle -->
         <!-- ============================================================== -->
-        <div class="row page-titles">
-            <div class="col-md-5 align-self-center">
-                <!--<h3 class="text-themecolor">Danh sách nhóm người dùng</h3>-->
-            </div>
-            <div class="col-md-7 align-self-center">
-                <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="javascript:void(0)">Nhân sự</a></li>
-                    <li class="breadcrumb-item">Bộ phận</li>
-                </ol>
-            </div>
-        </div>
+        <!--<div class="row page-titles">-->
+            <!--<div class="col-md-5 align-self-center">-->
+                <!--&lt;!&ndash;<h3 class="text-themecolor">Danh sách nhóm người dùng</h3>&ndash;&gt;-->
+            <!--</div>-->
+            <!--<div class="col-md-7 align-self-center">-->
+                <!--<ol class="breadcrumb">-->
+                    <!--<li class="breadcrumb-item"><a href="javascript:void(0)">Nhân sự</a></li>-->
+                    <!--<li class="breadcrumb-item">Bộ phận</li>-->
+                <!--</ol>-->
+            <!--</div>-->
+        <!--</div>-->
         <!-- ============================================================== -->
         <!-- End Bread crumb and right sidebar toggle -->
         <!-- ============================================================== -->
@@ -27,7 +27,7 @@
             <div class="row">
                 <div class="col-lg-12 col-md-12">
                     <!-- Column -->
-                    <div class="card">
+                    <div class="card" style="margin-top: 75px;">
                         <div class="card-body bg-inverse">
                             <div class="row row-title">
                                 <div class="col-md-10">

@@ -71,7 +71,7 @@
         <!--stickey kit -->
         <script src="public/assets/plugins/sticky-kit-master/dist/sticky-kit.js"></script>
         <!--Custom JavaScript -->
-        <script src="public/template/js/custom.js"></script>
+        {{--<script src="public/template/js/custom.js"></script>--}}
 
         <!--sparkline JavaScript -->
         <script src="public/assets/plugins/sparkline/jquery.sparkline.min.js"></script>

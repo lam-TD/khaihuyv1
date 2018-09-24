@@ -1,6 +1,6 @@
 <template>
     <div class="">
-        <header class="topbar">
+        <header class="topbar" style="">
             <nav class="navbar top-navbar navbar-expand-md navbar-light">
                 <!-- ============================================================== -->
                 <!-- Logo -->
@@ -35,7 +35,7 @@
                     <!-- ============================================================== -->
                     <ul class="navbar-nav mr-auto mt-md-0">
                         <!-- This is  -->
-                        <li class="nav-item"> <a @click="toggle_leftbar_small" class="nav-link nav-toggler hidden-md-up text-muted waves-effect waves-dark" ><i class="mdi mdi-menu"></i></a> </li>
+                        <li class="nav-item"> <a @click="$('body').toggleClass('mini-sidebar')" class="nav-link nav-toggler hidden-md-up text-muted waves-effect waves-dark" ><i class="mdi mdi-menu"></i></a> </li>
                         <li class="nav-item m-l-10"> <a @click="toggle_leftbar" class="nav-link sidebartoggler hidden-sm-down text-muted waves-effect waves-dark"><i class="ti-menu"></i></a> </li>
 
                     </ul>
@@ -121,7 +121,13 @@
             this.user = this.$store.state.currentUser;
         },
         updated(){
-            // $(".fix-header .topbar").stick_in_parent({});
+            // $('#custom').remove();
+            // setTimeout(function () {
+            //     let custom = document.createElement('script');
+            //     custom.setAttribute('src',"public/template/js/custom.js");
+            //     custom.setAttribute('id','custom');
+            //     document.body.appendChild(custom);
+            // },2000);
         },
         computed: {
             list_chuc_nang: function () {
@@ -147,10 +153,11 @@
                 this.$route.push({ path: '/'});
             },
             toggle_leftbar: function () {
-                document.getElementsByTagName('body').classList.toggle("mini-sidebar");
-                // $('body').toggleClass('mini-sidebar');
+                // document.getElementsByTagName('body').classList.toggle("mini-sidebar");
+                $('body').toggleClass('mini-sidebar');
             },
             toggle_leftbar_small: function () {
+                console.log('dsadadasd');
                 $('body').toggleClass('show-sidebar');
             },
             active_nhom: function (key) {

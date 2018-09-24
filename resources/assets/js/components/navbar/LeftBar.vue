@@ -74,7 +74,7 @@
                     custom.setAttribute('src',"public/template/js/custom.js");
                     custom.setAttribute('id','custom');
                     document.body.appendChild(custom);
-                },4000);
+                },2000);
             },
             active_nhom: function (key) {
                 $('.row-nhom-cn').removeClass("active");
