@@ -25,33 +25,169 @@
             <!-- Start Page Content -->
             <!-- ============================================================== -->
             <div class="row">
-                <div class="col-lg-12 col-md-12">
-                    <!-- Column -->
-                    <div class="card" style="margin-top: 75px;">
-                        <div class="card-body bg-inverse">
-                            <div class="row row-title">
-                                <div class="col-md-10">
-                                    <h4 class="card-title">Danh sách bộ phận</h4>
-                                    <h6 class="card-subtitle m-0 op-5">Tổng số bộ phận: {{total_bo_phan}}</h6>
-                                </div>
-                                <div class="col-md-2">
-                                    <button @click="_bo_phan('add')" title="Thêm mới bộ phận" type="button" data-toggle="modal" data-target="#myModal" class="btn btn-success waves-effect waves-dark pull-right">
-                                        <i class="fa fa-plus-circle"></i> Thêm mới
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="card-body">
-                            <div class="message-box contact-box">
-                                <!--<h2 class="add-ct-btn">-->
+                <!--<div class="col-lg-12 col-md-12 lamlam">-->
+                    <!--&lt;!&ndash; Column &ndash;&gt;-->
+                    <!--<div class="card content-lam">-->
+                        <!--<div class="card-header">-->
+                            <!--<div class="card-actions">-->
+                                <!--<a class="" data-action="collapse"><i class="ti-minus"></i></a>-->
+                                <!--<a class="btn-minimize" data-action="expand"><i class="mdi mdi-arrow-expand"></i></a>-->
+                                <!--<a class="btn-close" data-action="close"><i class="ti-close"></i></a>-->
+                            <!--</div>-->
+                            <!--<h4 class="card-title m-b-0">Product Overview</h4>-->
+                        <!--</div>-->
+                        <!--<div class="card-body bg-inverse collapse show">-->
+                            <!--<div class="row row-title">-->
+                                <!--<div class="col-md-10">-->
+                                    <!--<h4 class="card-title">Danh sách bộ phận</h4>-->
+                                    <!--<h6 class="card-subtitle m-0 op-5">Tổng số bộ phận: {{total_bo_phan}}</h6>-->
+                                <!--</div>-->
+                                <!--<div class="col-md-2">-->
+                                    <!--<button @click="_bo_phan('add')" title="Thêm mới bộ phận" type="button" data-toggle="modal" data-target="#myModal" class="btn btn-success waves-effect waves-dark pull-right">-->
+                                        <!--<i class="fa fa-plus-circle"></i> Thêm mới-->
+                                    <!--</button>-->
+                                <!--</div>-->
+                            <!--</div>-->
+                        <!--</div>-->
+                        <!--<div class="card-body">-->
+                            <!--<div class="message-box contact-box">-->
+                                <!--&lt;!&ndash;<h2 class="add-ct-btn">&ndash;&gt;-->
 
-                                <!--</h2>-->
+                                <!--&lt;!&ndash;</h2>&ndash;&gt;-->
+                                <!--<div class="message-widget contact-widget">-->
+                                    <!--<div class="table-responsive">-->
+                                        <!--<table class="table table-hover">-->
+                                            <!--<thead>-->
+                                            <!--<tr style="border-top: 1px solid #ddd">-->
+                                                <!--<th class="text-center" style="width: 100px;">#</th>-->
+                                                <!--<th class="text-center">TT</th>-->
+                                                <!--<th>Mã bộ phận</th>-->
+                                                <!--<th>Tên bộ phận</th>-->
+                                                <!--<th>Diễn giải</th>-->
+                                                <!--&lt;!&ndash;<th>Ngày tạo</th>&ndash;&gt;-->
+                                            <!--</tr>-->
+                                            <!--</thead>-->
+                                            <!--<tbody class="body-table loading-item">-->
+                                            <!--<tr v-if="loading_bo_phan">-->
+                                                <!--<td class="text-center" colspan="6"><b><i><i class="fa fa-spin fa-spinner"></i> Đang tải danh sách bộ phận...</i></b></td>-->
+                                            <!--</tr>-->
+                                            <!--<tr v-else-if="list_bo_phan.length <= 0">-->
+                                                <!--<td class="text-center" colspan="6"><b><i>Chưa có bộ phận</i></b></td>-->
+                                            <!--</tr>-->
+                                            <!--<tr v-else v-for="(n, index) in list_bo_phan" :id="'n' + n.id" class="row-nhom" @click="click_bo_phan(n)">-->
+                                                <!--<td class="text-center" style="padding-right: 0">-->
+                                                    <!--<button @click="_bo_phan('edit',n)" id="edit_nhom" type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#myModal">-->
+                                                        <!--<i class="fa fa-edit"></i>-->
+                                                    <!--</button>-->
+                                                    <!--<button @click="delete_bo_phan(n)" type="button" class="btn btn-danger btn-sm">-->
+                                                        <!--<i class="fa fa-trash"></i>-->
+                                                    <!--</button>-->
+                                                <!--</td>-->
+                                                <!--<td class="text-center">{{index + 1}}</td>-->
+                                                <!--<td>{{n.ma_bo_phan}}</td>-->
+                                                <!--<td>{{n.ten_bo_phan}}</td>-->
+                                                <!--<td>{{n.dien_giai}}</td>-->
+                                                <!--&lt;!&ndash;<td>{{n.created_at}}</td>&ndash;&gt;-->
+                                            <!--</tr>-->
+                                            <!--</tbody>-->
+                                        <!--</table>-->
+                                        <!--<el-pagination-->
+                                                <!--:page-size="10"-->
+                                                <!--layout="prev, pager, next"-->
+                                                <!--:total="total_bo_phan"-->
+                                                <!--@current-change="danh_sach_bo_phan">-->
+                                        <!--</el-pagination>-->
+                                    <!--</div>-->
+                                <!--</div>-->
+                            <!--</div>-->
+
+                            <!--<div class="modal" id="myModal">-->
+                                <!--<div class="modal-dialog">-->
+                                    <!--<div class="modal-content">-->
+                                        <!--<form @submit.prevent="submit_bo_phan" id="form_bophan">-->
+                                            <!--&lt;!&ndash; Modal Header &ndash;&gt;-->
+                                            <!--<div class="modal-header">-->
+                                                <!--<h4 class="modal-title"><b>Thông tin bộ phận</b></h4>-->
+                                                <!--<button type="button" class="close" data-dismiss="modal">&times;</button>-->
+                                            <!--</div>-->
+
+                                            <!--&lt;!&ndash; Modal body &ndash;&gt;-->
+                                            <!--<div :disabled="flag_body_modal" class="modal-body">-->
+                                                <!--<div class="form-group row">-->
+                                                    <!--<label class="label-form col-md-3 col-form-label"><b>Mã bộ phận(*)</b></label>-->
+                                                    <!--<div class="col-md-9">-->
+                                                        <!--<input @input="validate_ma_bp" v-on:keypress="disable_spaces" v-bind:maxlength="7" v-model="bo_phan.ma_bo_phan" :disabled="flag_input_bo_phan" v-validate="'required'" :class="{'border-danger' : errors.has('txtmabophan')}" type="text" name="txtmabophan" class="form-control form-control-sm" id="txtmabophan" aria-describedby="" autofocus>-->
+                                                        <!--<small v-if="flag_input_ma_bo_phan" class="help text-muted is-danger">Mã bộ phận phải có 7 ký tự, bắt đầu bằng BP</small>-->
+                                                    <!--</div>-->
+
+                                                <!--</div>-->
+                                                <!--<div class="form-group row">-->
+                                                    <!--<label class="label-form col-md-3 col-form-label"><b>Tên bộ phận(*)</b></label>-->
+                                                    <!--<div class="col-md-9">-->
+                                                        <!--<input v-model="bo_phan.ten_bo_phan" v-validate="'required'" :class="{'border-danger' : errors.has('txttenbophan')}" type="text" name="txttenbophan" class="form-control form-control-sm" id="txttenbophan" placeholder="">-->
+                                                        <!--<small v-show="errors.has('txttenbophan')" class="help text-muted is-danger">Vui lòng nhập tên bộ phận</small>-->
+                                                    <!--</div>-->
+                                                <!--</div>-->
+                                                <!--<div class="form-group row">-->
+                                                    <!--<label class="label-form col-md-3 col-form-label"><b>Diễn giải</b></label>-->
+                                                    <!--<div class="col-md-9">-->
+                                                        <!--<textarea v-model="bo_phan.dien_giai" type="text" name="txtdiengiai" class="form-control form-control-sm" id="txtdiengiai"></textarea>-->
+                                                    <!--</div>-->
+                                                <!--</div>-->
+                                            <!--</div>-->
+
+                                            <!--&lt;!&ndash; Modal footer &ndash;&gt;-->
+                                            <!--<div class="modal-footer">-->
+                                                <!--<button type="button" class="btn btn-danger" data-dismiss="modal">Hủy</button>-->
+                                                <!--&lt;!&ndash;<button id="save" type="submit" class="btn btn-primary">Lưu lại</button>&ndash;&gt;-->
+                                                <!--<button :disabled="flag_disabled_submit || errors.has('txttenbophan')" id="save" type="submit" class="btn btn-primary">-->
+                                                    <!--<span v-if="flag_btn_save"><i class="fa fa-save"></i> Lưu lại</span>-->
+                                                    <!--<span v-if="!flag_btn_save"><i class="fa fa-spin fa-spinner"></i> Đang xử lý...</span>-->
+                                                <!--</button>-->
+                                            <!--</div>-->
+                                        <!--</form>-->
+                                    <!--</div>-->
+                                <!--</div>-->
+                            <!--</div>-->
+                        <!--</div>-->
+                    <!--</div>-->
+                <!--</div>-->
+
+                <div class="col-md-12 lamlam">
+                    <div class="card content-lam">
+                        <div class="card-header">
+                            <div class="card-actions">
+                                <a class="btn btn-success waves-effect waves-dark btn-white" style="color: white"><i class="fa fa-plus-circle"></i> Thêm mới</a>
+                                <a class="" data-action="collapse"><i class="ti-minus"></i></a>
+                                <a class="btn-minimize" data-action="expand"><i class="mdi mdi-arrow-expand"></i></a>
+                                <!--<a class="btn-close" data-action="close"><i class="ti-close"></i></a>-->
+                            </div>
+                            <h4 class="card-title m-b-0">Danh sách bộ phận</h4>
+                            <h6 class="card-subtitle m-0 op-5">Tổng số bộ phận: {{total_bo_phan}}</h6>
+                        </div>
+                        <div class="card-body collapse show">
+                            <div class="message-box contact-box">
+                                <!--<dic class="add-ct-btn">-->
+                                    <!---->
+                                <!--</dic>-->
                                 <div class="message-widget contact-widget">
+                                    <!--<div class="row">-->
+                                        <!--<div class="col-md-6">-->
+                                            <!--<h4 class="card-title">Danh sách bộ phận</h4>-->
+                                        <!--</div>-->
+                                        <!--<div class="col-md-6">-->
+                                            <!--<button @click="_bo_phan('add')" title="Thêm mới bộ phận" type="button" data-toggle="modal" data-target="#myModal" class="btn btn-success waves-effect waves-dark pull-right">-->
+                                                <!--<i class="fa fa-plus-circle"></i> Thêm mới-->
+                                            <!--</button>-->
+                                        <!--</div>-->
+                                    <!--</div>-->
+
                                     <div class="table-responsive">
                                         <table class="table table-hover">
                                             <thead>
-                                            <tr style="border-top: 1px solid #ddd">
+                                            <tr>
                                                 <th class="text-center" style="width: 100px;">#</th>
+                                                <th class="text-center">TT</th>
                                                 <th>Mã bộ phận</th>
                                                 <th>Tên bộ phận</th>
                                                 <th>Diễn giải</th>
@@ -65,7 +201,7 @@
                                             <tr v-else-if="list_bo_phan.length <= 0">
                                                 <td class="text-center" colspan="6"><b><i>Chưa có bộ phận</i></b></td>
                                             </tr>
-                                            <tr v-else v-for="n in list_bo_phan" :id="'n' + n.id" class="row-nhom" @click="click_bo_phan(n)">
+                                            <tr v-else v-for="(n, index) in list_bo_phan" :id="'n' + n.id" class="row-nhom" @click="click_bo_phan(n)">
                                                 <td class="text-center" style="padding-right: 0">
                                                     <button @click="_bo_phan('edit',n)" id="edit_nhom" type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#myModal">
                                                         <i class="fa fa-edit"></i>
@@ -74,6 +210,7 @@
                                                         <i class="fa fa-trash"></i>
                                                     </button>
                                                 </td>
+                                                <td class="text-center">{{index + 1}}</td>
                                                 <td>{{n.ma_bo_phan}}</td>
                                                 <td>{{n.ten_bo_phan}}</td>
                                                 <td>{{n.dien_giai}}</td>
@@ -142,7 +279,6 @@
                         </div>
                     </div>
                 </div>
-
             </div>
             <!-- ============================================================== -->
             <!-- End PAge Content -->

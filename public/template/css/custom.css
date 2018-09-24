@@ -261,4 +261,17 @@ label {
     /*cursor: pointer;*/
 /*}*/
 
+.content-lam {
+    margin-top: 75px;
+}
+
+.lamlam {
+    padding-left: 0;
+    padding-right: 0;
+}
+
+btn-white {
+    color: white !important;
+}
+
 
