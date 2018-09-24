@@ -22,12 +22,12 @@
                             <div class="col-md-12 font-14">
                                 <div class="checkbox checkbox-primary pull-left p-t-0">
                                     <input id="checkbox-signup" type="checkbox">
-                                    <label for="checkbox-signup"> Remember me </label>
-                                </div> <a href="javascript:void(0)" id="to-recover" class="text-dark pull-right"><!-- <i class="fa fa-lock m-r-5"></i> --> Forgot pwd?</a> </div>
+                                    <label for="checkbox-signup"> Nhớ mật khẩu </label>
+                                </div> <a href="javascript:void(0)" id="to-recover" class="text-dark pull-right"><!-- <i class="fa fa-lock m-r-5"></i> --> Quên mật khẩu?</a> </div>
                         </div>
                         <div class="form-group text-center m-t-20">
                             <div class="col-xs-12">
-                                <button :disabled="disable_submit" class="btn btn-info btn-block text-uppercase waves-effect waves-light" type="submit">Đăng nhập</button>
+                                <button id="btnlogin" :disabled="disable_submit" class="btn btn-info btn-block text-uppercase waves-effect waves-light" type="submit">Đăng nhập</button>
                             </div>
                         </div>
                         <div class="row">
@@ -71,6 +71,10 @@
     import {login} from '../../helper/auth';
     export default {
         name: 'login',
+        mounted () {
+            $('#btnlogin').text('Login');
+            $('#btnlogin').removeAttr('disabled','disabled');
+        },
         data() {
             return {
                 form: {
@@ -85,7 +89,7 @@
         methods: {
             authenticate() {
                 this.$store.dispatch('login');
-
+                this.process_login();
                 login(this.$data.form)
                     .then((res) => {
                         this.$store.commit("loginSuccess", res);
@@ -108,6 +112,10 @@
                     this.error_password = false;
                     this.disable_submit = false;
                 }
+            },
+            process_login: function () {
+                $('#btnlogin').text('Đang xử lý...');
+                $('#btnlogin').attr('disabled','disabled');
             }
         }
     }
