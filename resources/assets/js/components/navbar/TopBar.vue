@@ -160,6 +160,7 @@
                     $("body").removeClass("mini-sidebar");
                     $('.navbar-brand span').show();
                     //$(".sidebartoggler i").addClass("ti-menu");
+                    $('#large-icon').attr('src','public/assets/images/logokh.png');
                 }
                 else {
                     $("body").trigger("resize");
@@ -167,6 +168,7 @@
                     $("body").addClass("mini-sidebar");
                     $('.navbar-brand span').hide();
                     //$(".sidebartoggler i").removeClass("ti-menu");
+                    $('#large-icon').attr('src','public/assets/images/logokh_small.png');
                 }
             },
             toggle_leftbar_small: function () {
