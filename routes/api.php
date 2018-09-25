@@ -110,6 +110,7 @@ Route::group(['middleware' => 'jwt.auth'], function ($router) {
     Route::get('delete-ttcv/{id}', 'ThongTinCongViecController@delete_thong_tin_cong_viec');
     Route::get('search-ttcv/{keyword}', 'ThongTinCongViecController@search_thong_tin_cong_viec');
     Route::get('get-vi-tri-all-theo-phong/{id_phong}', 'ThongTinCongViecController@get_vi_tri_all_theo_phong');
+    Route::get('get-ttcv-hien-tai-theo-nhan-vien/{manv}', 'ThongTinCongViecController@get_ttcv_hien_tai_theo_nhan_vien');
 });
 
 // NGUOI PHU THUOC

@@ -131,3 +131,18 @@ export function api_get_vi_tri_all_theo_phong(vm, id_phong) {
             console.log(error);
         })
 }
+
+export function api_get_ttcv_hien_tai_theo_nhan_vien(vm, manv) {
+    axios({
+        method: 'GET',
+        url: 'api/get-ttcv-hien-tai-theo-nhan-vien/'+ manv,
+        headers: {'Authorization':'Bearer ' + vm.$store.state.currentUser.token}
+    })
+        .then((response) => {
+            vm.ttcv = response.data;
+
+        })
+        .catch((error) => {
+            console.log(error);
+        })
+}

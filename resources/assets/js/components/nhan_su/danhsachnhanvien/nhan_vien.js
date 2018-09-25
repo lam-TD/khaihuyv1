@@ -131,8 +131,8 @@ export function api_edit_nhan_vien_thong_tin_ca_nhan(vm) {
                 vm.nhan_vien.image = null;
                 vm.flag_xu_ly_tt_ca_nhan = true;
                 sweetalert(1, 'Cập nhật thành công!');
-                $('#modal_nv_tt_ca_nhan').modal('hide');
-                $('.modal-backdrop').css('display','none');
+                // $('#modal_nv_tt_ca_nhan').modal('hide');
+                // $('.modal-backdrop').css('display','none');
                 vm.getNhanVien();
             }
             else sweetalert(2, 'Lỗi không cập nhật được!');

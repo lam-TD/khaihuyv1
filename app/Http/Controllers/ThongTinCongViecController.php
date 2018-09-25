@@ -83,4 +83,10 @@ class ThongTinCongViecController extends Controller
         $vt = vi_tri::where('id_phong_ban',$id_phong)->get();
         return $vt;
     }
+
+    public function get_ttcv_hien_tai_theo_nhan_vien($ma_nv)
+    {
+        $ttcv = nhan_vien_cong_viec::where('nv_ma', $ma_nv)->orderby('ngay', 'desc')->first();
+        return $ttcv;
+    }
 }
