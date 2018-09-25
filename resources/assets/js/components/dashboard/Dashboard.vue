@@ -1,204 +1,182 @@
 <template>
     <div class="page-wrapper">
-        <!-- ============================================================== -->
-        <!-- Bread crumb and right sidebar toggle -->
-        <!-- ============================================================== -->
         <div class="row page-titles">
-            <div class="col-md-5 align-self-center">
-                <h3 class="text-themecolor">Dashboard</h3>
+        </div>
+        <div class="row mx-2">
+            <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                <div class="card bg-info">
+                    <div class="card-body">
+                        <div id="myCarousel" class="carousel slide" data-ride="carousel">
+                            <!-- Carousel items -->
+                            <div class="carousel-inner">
+                                <div class="carousel-item active flex-column">
+                                    <div class="row">
+                                        <div class="col-lg-6">
+                                            <h3 class="text-white font-light"><i class="fa fa-twitter fa-2x text-white"></i> <span class="font-bold">Kho vận</span></h3>
+                                            <div class="text-white m-t-20">
+                                                <p class="text-white"></p>
+                                                <div>
+                                                    <a class="btn btn-sm btn-outline-secondary waves-effect waves-light" type="button"><span class="btn-label"><i class="fa fa-hand-o-right"></i></span>Check</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-6">
+                                            <img class="card-img img-responsive" src="https://nld.mediacdn.vn/k:thumb_w/540/2016/hoa-1469585085546/loai-hoa-nao-cam-ky-cung-tren-ban-tho.jpg" alt="Kho vận" style="width: 100%; height: 200px;">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="carousel-item flex-column">
+                                    <div class="row">
+                                        <div class="col-lg-6">
+                                            <h3 class="text-white font-light"><i class="fa fa-twitter fa-2x text-white"></i> <span class="font-bold">Kế toán</span></h3>
+                                            <div class="text-white m-t-20">
+                                                <p class="text-white"></p>
+                                                <div>
+                                                    <button class="btn btn-sm btn-outline-secondary waves-effect waves-light" type="button"><span class="btn-label"><i class="fa fa-hand-o-right"></i></span>Check</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-6">
+                                            <img class="card-img img-responsive" src="http://chohoaviet.com/wp-content/uploads/2016/06/kim-ngan-hoa-6a.jpg" alt="Kế toán" style="width: 100%; height: 200px;">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <div class="col-md-7 align-self-center">
-                <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="javascript:void(0)">Home</a></li>
-                    <li class="breadcrumb-item active">Dashboard</li>
-                </ol>
+            <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                <div class="card bg-primary">
+                    <div class="card-body">
+                        <div id="myCarouse2" class="carousel slide" data-ride="carousel">
+                            <!-- Carousel items -->
+                            <div class="carousel-inner">
+                                <div class="carousel-item active flex-column">
+                                    <div class="row">
+                                        <div class="col-lg-6">
+                                            <h3 class="text-white font-light"><i class="fa fa-twitter fa-2x text-white"></i> <span class="font-bold">Kỹ thuật</span></h3>
+                                            <div class="text-white m-t-20">
+                                                <p class="text-white"></p>
+                                                <div>
+                                                    <a class="btn btn-sm btn-outline-secondary waves-effect waves-light" type="button"><span class="btn-label"><i class="fa fa-hand-o-right"></i></span>Check</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-6">
+                                            <img class="card-img img-responsive" src="http://shophoatuoitamky.com/wp-content/uploads/2017/07/cc1.jpg" alt="Kỹ thuật" style="width: 100%; height: 200px;">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="carousel-item flex-column">
+                                    <div class="row">
+                                        <div class="col-lg-6">
+                                            <h3 class="text-white font-light"><i class="fa fa-twitter fa-2x text-white"></i> <span class="font-bold">Kinh doanh</span></h3>
+                                            <div class="text-white m-t-20">
+                                                <p class="text-white"></p>
+                                                <div>
+                                                    <button class="btn btn-sm btn-outline-secondary waves-effect waves-light" type="button"><span class="btn-label"><i class="fa fa-hand-o-right"></i></span>Check</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-6">
+                                            <img class="card-img img-responsive" src="https://hatgiongf1.com/wp-content/uploads/2017/10/bat-tu-do.jpg" alt="Kinh doanh" style="width: 100%; height: 200px;">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
-        <!-- ============================================================== -->
-        <!-- End Bread crumb and right sidebar toggle -->
-        <!-- ============================================================== -->
-        <!-- ============================================================== -->
-        <!-- Container fluid  -->
-        <!-- ============================================================== -->
-        <div class="container-fluid">
-            <!-- ============================================================== -->
-            <!-- Start Page Content -->
-            <!-- ============================================================== -->
-            <!-- Row -->
-            <div class="card-group">
-                <div class="card">
+        <div class="row mx-2">
+            <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                <div class="card bg-warning">
                     <div class="card-body">
-                        <div class="row">
-                            <div class="col-12">
-                                <h2 class="m-b-0"><i class="mdi mdi-briefcase-check text-info"></i></h2>
-                                <h3 class="">2456</h3>
-                                <h6 class="card-subtitle">New Projects</h6></div>
-                            <div class="col-12">
-                                <div class="progress">
-                                    <div class="progress-bar bg-info" role="progressbar" style="width: 85%; height: 6px;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+                        <div id="myCarousel3" class="carousel slide" data-ride="carousel">
+                            <!-- Carousel items -->
+                            <div class="carousel-inner">
+                                <div class="carousel-item active flex-column">
+                                    <div class="row">
+                                        <div class="col-lg-6">
+                                            <h3 class="text-white font-light"><i class="fa fa-twitter fa-2x text-white"></i> <span class="font-bold">Nhân sự</span></h3>
+                                            <div class="text-white m-t-20">
+                                                <p class="text-white"></p>
+                                                <div>
+                                                    <ul class="list-unstyled">
+                                                        <li><a href="#" class="mb-1 text-white font-bold">Bộ phận</a></li>
+                                                        <li><a href="#" class="mb-1 text-white font-bold">Phòng ban</a></li>
+                                                        <li><a href="#" class="mb-1 text-white font-bold">Vị trí</a></li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-6">
+                                            <img class="card-img img-responsive" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ0tAT-qrXbfVX8GYO1kttUXalVlwlRO_DoBteleCE0aC_Gt7Sq" alt="Nhân sự" style="width: 100%; height: 200px;">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="carousel-item flex-column">
+                                    <div class="row">
+                                        <div class="col-lg-6">
+                                            <h3 class="text-white font-light"><i class="fa fa-twitter fa-2x text-white"></i> <span class="font-bold">Nhân sự</span></h3>
+                                            <div class="text-white m-t-20">
+                                                <p class="text-white"></p>
+                                                <div>
+                                                    <ul class="list-unstyled">
+                                                        <li><a href="#" class="mb-1 text-white font-bold">Bản lương</a></li>
+                                                        <li><a href="#" class="mb-1 text-white font-bold">Bản thưởng</a></li>
+                                                        <li><a href="#" class="mb-1 text-white font-bold">Danh sách nhân viên</a></li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-6">
+                                            <img class="card-img img-responsive" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR2fmUokIjjyPwsloHE91v6R_RNmR8LOkMN77FWmGBMp8s7xxIZKg" alt="Nhân sự" style="width: 100%; height: 200px;">
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-                <!-- Column -->
-                <!-- Column -->
-                <div class="card">
+            </div>x`
+            <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                <div class="card bg-danger">
                     <div class="card-body">
-                        <div class="row">
-                            <div class="col-12">
-                                <h2 class="m-b-0"><i class="mdi mdi-alert-circle text-success"></i></h2>
-                                <h3 class="">546</h3>
-                                <h6 class="card-subtitle">Pending Project</h6></div>
-                            <div class="col-12">
-                                <div class="progress">
-                                    <div class="progress-bar bg-success" role="progressbar" style="width: 40%; height: 6px;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!-- Column -->
-                <!-- Column -->
-                <div class="card">
-                    <div class="card-body">
-                        <div class="row">
-                            <div class="col-12">
-                                <h2 class="m-b-0"><i class="mdi mdi-wallet text-purple"></i></h2>
-                                <h3 class="">$24561</h3>
-                                <h6 class="card-subtitle">Total Cost</h6></div>
-                            <div class="col-12">
-                                <div class="progress">
-                                    <div class="progress-bar bg-primary" role="progressbar" style="width: 56%; height: 6px;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!-- Column -->
-                <!-- Column -->
-                <div class="card">
-                    <div class="card-body">
-                        <div class="row">
-                            <div class="col-12">
-                                <h2 class="m-b-0"><i class="mdi mdi-buffer text-warning"></i></h2>
-                                <h3 class="">$30010</h3>
-                                <h6 class="card-subtitle">Total Earnings</h6></div>
-                            <div class="col-12">
-                                <div class="progress">
-                                    <div class="progress-bar bg-warning" role="progressbar" style="width: 26%; height: 6px;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!-- Row -->
-            <div class="row">
-                <!-- Column -->
-                <div class="col-lg-8 col-xlg-9">
-                    <div class="card">
-                        <div class="card-body">
-                            <div class="row">
-                            <div class="col-12">
-                            <div class="d-flex flex-wrap">
-                            <div>
-                            <h4 class="card-title">Yearly Earning</h4>
-                            </div>
-                            <div class="ml-auto">
-                            <ul class="list-inline">
-                            <li>
-                            <h6 class="text-muted text-success"><i class="fa fa-circle font-10 m-r-10 "></i>Sales</h6> </li>
-                            <li>
-                            <h6 class="text-muted  text-info"><i class="fa fa-circle font-10 m-r-10"></i>Earning ($)</h6> </li>
-                            </ul>
-                            </div>
-                            </div>
-                            </div>
-                            <div class="col-12">
-                            <div id="earning" style="height: 355px;"></div>
-                            </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!-- Column -->
-                <div class="col-lg-4 col-xlg-3">
-                    <div class="card card-inverse card-info">
-                        <div class="card-body">
-                            <div class="d-flex">
-                                <div class="m-r-20 align-self-center">
-                                    <h1 class="text-white"><i class="ti-light-bulb"></i></h1></div>
-                                <div>
-                                    <h3 class="card-title">Sales Analytics</h3>
-                                    <h6 class="card-subtitle">March  2017</h6> </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-6 align-self-center">
-                                    <h2 class="font-light text-white"><sup><small><i class="ti-arrow-up"></i></small></sup>35487</h2>
-                                </div>
-                                <div class="col-6 p-t-10 p-b-20 text-right">
-                                    <div class="spark-count" style="height:65px"></div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="card card-inverse card-success">
-                        <div class="card-body">
-                            <div class="d-flex">
-                                <div class="m-r-20 align-self-center">
-                                    <h1 class="text-white"><i class="ti-pie-chart"></i></h1></div>
-                                <div>
-                                    <h3 class="card-title">Bandwidth usage</h3>
-                                    <h6 class="card-subtitle">March  2017</h6> </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-6 align-self-center">
-                                    <h2 class="font-light text-white">50 GB</h2>
-                                </div>
-                                <div class="col-6 p-t-10 p-b-20 text-right align-self-center">
-                                    <div class="spark-count2" style="height:65px"></div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!-- Column -->
-            </div>
-            <!-- Row -->
-            <div class="row">
-                <!-- Column -->
-                <div class="col-lg-4">
-                    <div class="card card-inverse card-success">
-                        <div class="card-body">
-                            <div id="myCarousel" class="carousel slide" data-ride="carousel">
-                                <!-- Carousel items -->
-                                <div class="carousel-inner">
-                                    <div class="carousel-item flex-column carousel-item-next carousel-item-left">
-                                        <i class="fa fa-facebook fa-2x text-white"></i>
-                                        <p class="text-white">25th Jan</p>
-                                        <h3 class="text-white font-light">Now Get <span class="font-bold">50% Off</span><br>
-                                            on buy</h3>
-                                        <div class="text-white m-t-20">
-                                            <i>- post form wrap</i>
+                        <div id="myCarouse4" class="carousel slide" data-ride="carousel">
+                            <!-- Carousel items -->
+                            <div class="carousel-inner">
+                                <div class="carousel-item active flex-column">
+                                    <div class="row">
+                                        <div class="col-lg-6">
+                                            <h3 class="text-white font-light"><i class="fa fa-twitter fa-2x text-white"></i> <span class="font-bold">Sản phẩm</span></h3>
+                                            <div class="text-white m-t-20">
+                                                <p class="text-white"></p>
+                                                <div>
+                                                    <button class="btn btn-sm btn-outline-secondary waves-effect waves-light" type="button"><span class="btn-label"><i class="fa fa-hand-o-right"></i></span>Check</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-6">
+                                            <img class="card-img img-responsive" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ3QUE-wOr-KyR40y5HPbMpnlw2HZ8aALjxZ4FQPk5NnUfwVrL0Mw" alt="Sản phẩm" style="width: 100%; height: 200px;">
                                         </div>
                                     </div>
-                                    <div class="carousel-item flex-column">
-                                        <i class="fa fa-facebook fa-2x text-white"></i>
-                                        <p class="text-white">25th Jan</p>
-                                        <h3 class="text-white font-light">Now Get <span class="font-bold">50% Off</span><br>
-                                            on buy</h3>
-                                        <div class="text-white m-t-20">
-                                            <i>- post form wrap</i>
+                                </div>
+                                <div class="carousel-item flex-column">
+                                    <div class="row">
+                                        <div class="col-lg-6">
+                                            <h3 class="text-white font-light"><i class="fa fa-twitter fa-2x text-white"></i> <span class="font-bold">Hệ thống</span></h3>
+                                            <div class="text-white m-t-20">
+                                                <p class="text-white"></p>
+                                                <div>
+                                                    <button class="btn btn-sm btn-outline-secondary waves-effect waves-light" type="button"><span class="btn-label"><i class="fa fa-hand-o-right"></i></span>Check</button>
+                                                </div>
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class="carousel-item flex-column active carousel-item-left">
-                                        <i class="fa fa-facebook fa-2x text-white"></i>
-                                        <p class="text-white">25th Jan</p>
-                                        <h3 class="text-white font-light">Now Get <span class="font-bold">50% Off</span><br>
-                                            on buy</h3>
-                                        <div class="text-white m-t-20">
-                                            <i>- post form wrap</i>
+                                        <div class="col-lg-6">
+                                            <img class="card-img img-responsive" src="http://hoaexpress.vn/upload/images/hoa-cuc-3.jpg" alt="Hệ thống" style="width: 100%; height: 200px;">
                                         </div>
                                     </div>
                                 </div>
@@ -206,92 +184,8 @@
                         </div>
                     </div>
                 </div>
-                <!-- Column -->
-                <!-- Column -->
-                <div class="col-lg-4">
-                    <div class="card card-inverse card-danger">
-                        <div class="card-body">
-                            <div id="myCarouse2" class="carousel slide" data-ride="carousel">
-                                <!-- Carousel items -->
-                                <div class="carousel-inner">
-                                    <div class="carousel-item flex-column carousel-item-next carousel-item-left">
-                                        <i class="fa fa-google-plus fa-2x text-white"></i>
-                                        <p class="text-white">25th Jan</p>
-                                        <h3 class="text-white font-light">Now Get <span class="font-bold">50% Off</span><br>
-                                            on buy</h3>
-                                        <div class="text-white m-t-20">
-                                            <i>- Eric fandanc</i>
-                                        </div>
-                                    </div>
-                                    <div class="carousel-item flex-column">
-                                        <i class="fa fa-google-plus fa-2x text-white"></i>
-                                        <p class="text-white">25th Jan</p>
-                                        <h3 class="text-white font-light">Now Get <span class="font-bold">50% Off</span><br>
-                                            on buy</h3>
-                                        <div class="text-white m-t-20">
-                                            <i>- Numbro zomix</i>
-                                        </div>
-                                    </div>
-                                    <div class="carousel-item flex-column active carousel-item-left">
-                                        <i class="fa fa-google-plus fa-2x text-white"></i>
-                                        <p class="text-white">25th Jan</p>
-                                        <h3 class="text-white font-light">Now Get <span class="font-bold">50% Off</span><br>
-                                            on buy</h3>
-                                        <div class="text-white m-t-20">
-                                            <i>- Sitrix stock</i>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!-- Column -->
-                <!-- Column -->
-                <div class="col-lg-4">
-                    <div class="card card-inverse card-info">
-                        <div class="card-body">
-                            <div id="myCarouse3" class="carousel slide" data-ride="carousel">
-                                <!-- Carousel items -->
-                                <div class="carousel-inner">
-                                    <div class="carousel-item flex-column carousel-item-next carousel-item-left">
-                                        <i class="fa fa-twitter fa-2x text-white"></i>
-                                        <p class="text-white">25th Jan</p>
-                                        <h3 class="text-white font-light">Tweet now <span class="font-bold">50% Off</span><br>
-                                            on buy</h3>
-                                        <div class="text-white m-t-20">
-                                            <i>- @shoperstaff</i>
-                                        </div>
-                                    </div>
-                                    <div class="carousel-item flex-column">
-                                        <i class="fa fa-twitter fa-2x text-white"></i>
-                                        <p class="text-white">25th Jan</p>
-                                        <h3 class="text-white font-light">Sachin #star <span class="font-bold">50% Off</span><br>
-                                            on buy</h3>
-                                        <div class="text-white m-t-20">
-                                            <i>- #shoperstaff</i>
-                                        </div>
-                                    </div>
-                                    <div class="carousel-item flex-column active carousel-item-left">
-                                        <i class="fa fa-twitter fa-2x text-white"></i>
-                                        <p class="text-white">25th Jan</p>
-                                        <h3 class="text-white font-light">Now Get <span class="font-bold">50% Off</span><br>
-                                            on buy</h3>
-                                        <div class="text-white m-t-20">
-                                            <i>- @shoperstaff</i>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!-- Column -->
             </div>
         </div>
-        <!-- ============================================================== -->
-        <!-- End Container fluid  -->
-        <!-- ============================================================== -->
     </div>
 </template>
 

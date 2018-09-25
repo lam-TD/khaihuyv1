@@ -159,10 +159,6 @@
                     $(".scroll-sidebar, .slimScrollDiv").css("overflow", "hidden").parent().css("overflow", "visible");
                     $("body").removeClass("mini-sidebar");
                     $('.navbar-brand span').show();
-<<<<<<< HEAD
-                    //$(".sidebartoggler i").addClass("ti-menu");
-=======
->>>>>>> b3c838a135ae33c81e665a4a3bf6bc9096284d18
                     $('#large-icon').attr('src','public/assets/images/logokh.png');
                 }
                 else {
@@ -170,10 +166,6 @@
                     $(".scroll-sidebar, .slimScrollDiv").css("overflow-x", "visible").parent().css("overflow", "visible");
                     $("body").addClass("mini-sidebar");
                     $('.navbar-brand span').hide();
-<<<<<<< HEAD
-                    //$(".sidebartoggler i").removeClass("ti-menu");
-=======
->>>>>>> b3c838a135ae33c81e665a4a3bf6bc9096284d18
                     $('#large-icon').attr('src','public/assets/images/logokh_small.png');
                 }
             },
