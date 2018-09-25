@@ -114,6 +114,7 @@ Route::group(['middleware' => 'jwt.auth'], function ($router) {
 
 // NGUOI PHU THUOC
 Route::group(['middleware' => 'jwt.auth'], function ($router) {
+    Route::get('get-all-npt', 'NguoiPhuThuocController@get_all_danh_sach_npt');
     Route::get('get-npt-theo-nhan-vien/{ma_nv}', 'NguoiPhuThuocController@get_danh_sach_npt_theo_nhan_vien');
     Route::post('add-npt', 'NguoiPhuThuocController@add_nhan_vien_npt');
     Route::post('edit-npt', 'NguoiPhuThuocController@edit_nhan_vien_npt');

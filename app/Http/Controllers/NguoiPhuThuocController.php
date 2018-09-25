@@ -7,9 +7,15 @@ use App\nguoi_phu_thuoc;
 
 class NguoiPhuThuocController extends Controller
 {
+    public function get_all_danh_sach_npt()
+    {
+        $npt = nguoi_phu_thuoc::join('nhan_vien','nhan_vien.ma_nv','=','nhan_vien_npt.ma_nv')->paginate(10);
+        return $npt;
+    }
     public function get_danh_sach_npt_theo_nhan_vien($ma_nv)
     {
-        $npt = nguoi_phu_thuoc::where('ma_nv',$ma_nv)->paginate(10);
+        $npt = nguoi_phu_thuoc::join('nhan_vien','nhan_vien','=','nhan_vien_npt.ma_nv')
+            ->where('ma_nv',$ma_nv)->paginate(10);
         return $npt;
     }
 
