@@ -12,11 +12,13 @@
                                 <div class="carousel-item active flex-column">
                                     <div class="row">
                                         <div class="col-lg-6">
-                                            <h3 class="text-white font-light"><i class="fa fa-twitter fa-2x text-white"></i> <span class="font-bold">Kho vận</span></h3>
+                                            <h3 class="text-white font-light"><i class="fa fa-tasks"></i> <span class="font-bold">Kho vận</span></h3>
                                             <div class="text-white m-t-20">
                                                 <p class="text-white"></p>
                                                 <div>
-                                                    <a class="btn btn-sm btn-outline-secondary waves-effect waves-light" type="button"><span class="btn-label"><i class="fa fa-hand-o-right"></i></span>Check</a>
+                                                    <ul class="list-unstyled">
+                                                        <li><a href="#" class="mb-1 font-bold"><i class="fa fa-arrow-right"></i> Kho vận</a></li>
+                                                    </ul>
                                                 </div>
                                             </div>
                                         </div>
@@ -28,11 +30,13 @@
                                 <div class="carousel-item flex-column">
                                     <div class="row">
                                         <div class="col-lg-6">
-                                            <h3 class="text-white font-light"><i class="fa fa-twitter fa-2x text-white"></i> <span class="font-bold">Kế toán</span></h3>
+                                            <h3 class="text-white font-light"><i class="fa fa-bank"></i> <span class="font-bold">Kế toán</span></h3>
                                             <div class="text-white m-t-20">
                                                 <p class="text-white"></p>
                                                 <div>
-                                                    <button class="btn btn-sm btn-outline-secondary waves-effect waves-light" type="button"><span class="btn-label"><i class="fa fa-hand-o-right"></i></span>Check</button>
+                                                    <ul class="list-unstyled">
+                                                        <li><a href="#" class="mb-1 font-bold"><i class="fa fa-arrow-right"></i> Kế toán</a></li>
+                                                    </ul>
                                                 </div>
                                             </div>
                                         </div>
@@ -55,11 +59,13 @@
                                 <div class="carousel-item active flex-column">
                                     <div class="row">
                                         <div class="col-lg-6">
-                                            <h3 class="text-white font-light"><i class="fa fa-twitter fa-2x text-white"></i> <span class="font-bold">Kỹ thuật</span></h3>
+                                            <h3 class="text-white font-light"><i class="fa fa-gavel"></i> <span class="font-bold">Kỹ thuật</span></h3>
                                             <div class="text-white m-t-20">
                                                 <p class="text-white"></p>
                                                 <div>
-                                                    <a class="btn btn-sm btn-outline-secondary waves-effect waves-light" type="button"><span class="btn-label"><i class="fa fa-hand-o-right"></i></span>Check</a>
+                                                    <ul class="list-unstyled">
+                                                        <li><a href="#" class="mb-1 font-bold"><i class="fa fa-arrow-right"></i> Kỹ thuật</a></li>
+                                                    </ul>
                                                 </div>
                                             </div>
                                         </div>
@@ -71,11 +77,13 @@
                                 <div class="carousel-item flex-column">
                                     <div class="row">
                                         <div class="col-lg-6">
-                                            <h3 class="text-white font-light"><i class="fa fa-twitter fa-2x text-white"></i> <span class="font-bold">Kinh doanh</span></h3>
+                                            <h3 class="text-white font-light"><i class="fa fa-handshake-o"></i> <span class="font-bold">Kinh doanh</span></h3>
                                             <div class="text-white m-t-20">
                                                 <p class="text-white"></p>
                                                 <div>
-                                                    <button class="btn btn-sm btn-outline-secondary waves-effect waves-light" type="button"><span class="btn-label"><i class="fa fa-hand-o-right"></i></span>Check</button>
+                                                    <ul class="list-unstyled">
+                                                        <li><a href="#" class="mb-1 font-bold"><i class="fa fa-arrow-right"></i> Kinh doanh</a></li>
+                                                    </ul>
                                                 </div>
                                             </div>
                                         </div>
@@ -100,14 +108,14 @@
                                 <div class="carousel-item active flex-column">
                                     <div class="row">
                                         <div class="col-lg-6">
-                                            <h3 class="text-white font-light"><i class="fa fa-twitter fa-2x text-white"></i> <span class="font-bold">Nhân sự</span></h3>
+                                            <h3 class="text-white font-light"><i class="fa fa-user-circle-o"></i> <span class="font-bold">Nhân sự</span></h3>
                                             <div class="text-white m-t-20">
                                                 <p class="text-white"></p>
                                                 <div>
                                                     <ul class="list-unstyled">
-                                                        <li><a href="#" class="mb-1 text-white font-bold">Bộ phận</a></li>
-                                                        <li><a href="#" class="mb-1 text-white font-bold">Phòng ban</a></li>
-                                                        <li><a href="#" class="mb-1 text-white font-bold">Vị trí</a></li>
+                                                        <li><a href="#" class="mb-1 font-bold"><i class="fa fa-arrow-right"></i> Bộ phận</a></li>
+                                                        <li><a href="#" class="mb-1 font-bold"><i class="fa fa-arrow-right"></i> Phòng ban</a></li>
+                                                        <li><a href="#" class="mb-1 font-bold"><i class="fa fa-arrow-right"></i> Vị trí</a></li>
                                                     </ul>
                                                 </div>
                                             </div>
@@ -120,14 +128,14 @@
                                 <div class="carousel-item flex-column">
                                     <div class="row">
                                         <div class="col-lg-6">
-                                            <h3 class="text-white font-light"><i class="fa fa-twitter fa-2x text-white"></i> <span class="font-bold">Nhân sự</span></h3>
+                                            <h3 class="text-white font-light"><i class="fa fa-user-circle-o"></i> <span class="font-bold">Nhân sự</span></h3>
                                             <div class="text-white m-t-20">
                                                 <p class="text-white"></p>
                                                 <div>
                                                     <ul class="list-unstyled">
-                                                        <li><a href="#" class="mb-1 text-white font-bold">Bản lương</a></li>
-                                                        <li><a href="#" class="mb-1 text-white font-bold">Bản thưởng</a></li>
-                                                        <li><a href="#" class="mb-1 text-white font-bold">Danh sách nhân viên</a></li>
+                                                        <li><a href="#" class="mb-1 font-bold"><i class="fa fa-arrow-right"></i> Bản lương</a></li>
+                                                        <li><a href="#" class="mb-1 font-bold"><i class="fa fa-arrow-right"></i> Bản thưởng</a></li>
+                                                        <li><a href="#" class="mb-1 font-bold"><i class="fa fa-arrow-right"></i> Danh sách nhân viên</a></li>
                                                     </ul>
                                                 </div>
                                             </div>
@@ -141,7 +149,7 @@
                         </div>
                     </div>
                 </div>
-            </div>x`
+            </div>
             <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
                 <div class="card bg-danger">
                     <div class="card-body">
@@ -151,11 +159,13 @@
                                 <div class="carousel-item active flex-column">
                                     <div class="row">
                                         <div class="col-lg-6">
-                                            <h3 class="text-white font-light"><i class="fa fa-twitter fa-2x text-white"></i> <span class="font-bold">Sản phẩm</span></h3>
+                                            <h3 class="text-white font-light"><i class="fa fa-bookmark-o"></i> <span class="font-bold">Sản phẩm</span></h3>
                                             <div class="text-white m-t-20">
                                                 <p class="text-white"></p>
                                                 <div>
-                                                    <button class="btn btn-sm btn-outline-secondary waves-effect waves-light" type="button"><span class="btn-label"><i class="fa fa-hand-o-right"></i></span>Check</button>
+                                                    <ul class="list-unstyled">
+                                                        <li><a href="#" class="mb-1 font-bold"><i class="fa fa-arrow-right"></i> Sản phẩm</a></li>
+                                                    </ul>
                                                 </div>
                                             </div>
                                         </div>
@@ -167,11 +177,13 @@
                                 <div class="carousel-item flex-column">
                                     <div class="row">
                                         <div class="col-lg-6">
-                                            <h3 class="text-white font-light"><i class="fa fa-twitter fa-2x text-white"></i> <span class="font-bold">Hệ thống</span></h3>
+                                            <h3 class="text-white font-light"><i class="fa fa-gears"></i> <span class="font-bold">Hệ thống</span></h3>
                                             <div class="text-white m-t-20">
                                                 <p class="text-white"></p>
                                                 <div>
-                                                    <button class="btn btn-sm btn-outline-secondary waves-effect waves-light" type="button"><span class="btn-label"><i class="fa fa-hand-o-right"></i></span>Check</button>
+                                                    <ul class="list-unstyled">
+                                                        <li><a href="#" class="mb-1 font-bold"><i class="fa fa-arrow-right"></i> Hệ thống</a></li>
+                                                    </ul>
                                                 </div>
                                             </div>
                                         </div>
@@ -194,3 +206,17 @@
         name: 'dashboard'
     }
 </script>
+<style scoped>
+    .card-body .carousel-item li
+    {
+
+    }
+    .card-body .carousel-item li a
+    {
+        color: #fff;
+    }
+    .card-body .carousel-item li a:hover
+    {
+        color: #4e647b;
+    }
+</style>
