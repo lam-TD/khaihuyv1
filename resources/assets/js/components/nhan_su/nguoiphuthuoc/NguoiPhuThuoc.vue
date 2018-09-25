@@ -78,7 +78,7 @@
                                                     <td class="" colspan="12"><b><i><i class="fa fa-spin fa-spinner"></i> Đang tải danh sách phòng...</i></b></td>
                                                 </tr>
                                                 <tr v-else-if="list_npt.length <= 0">
-                                                    <td class="" colspan="12"><b><i>Chưa có thân nhân</i></b></td>
+                                                    <td class="text-center" colspan="12"><b><i>Chưa có thân nhân</i></b></td>
                                                 </tr>
                                                 <tr v-for="(n, index) in list_npt" :id="'n' + n.id" class="row-nhom" @click="click_npt(n)">
                                                     <td class="text-left" style="padding-right: 0">
@@ -90,8 +90,8 @@
                                                         </button>
                                                     </td>
                                                     <td>{{ index + 1 }}</td>
-                                                    <td>KH09099</td>
-                                                    <td>Tran van a</td>
+                                                    <td>{{n.ma_nv}}</td>
+                                                    <td>{{n.ho_ten}}</td>
                                                     <td>{{n.ho_ten_npt}}</td>
                                                     <td>{{n.ngay_sinh_npt}}</td>
                                                     <td>{{n.tg_giam_tru_tu}} - {{n.tg_giam_tru_den}}</td>
@@ -317,7 +317,12 @@
             },
             danh_sach_npt: function (page = 1) {
                 this.loading_npt = true;
-                api_get_danh_sach_npt_theo_nhan_vien(this, this.npt.ma_nv, page);
+                if(this.nhan_vien == ''){
+                    api_get_all_danh_sach_npt(this, page);
+                }
+                else{
+                    api_get_danh_sach_npt_theo_nhan_vien(this, this.npt.ma_nv, page);
+                }
             },
             change_npt: function () {
                 // this.nhan_vien =
@@ -339,10 +344,17 @@
                     this.npt = { id: 0, ma_nv: $('#txtma_nv').val(), ho_ten_npt: '', ngay_sinh_npt: '', so_cmnd_npt: '', mst_npt: '', ma_quoc_tich_npt: 'VN', quoc_tich_npt: 'Việt Nam', ma_quan_he_nnt: '', quan_he_nnt: '', tg_giam_tru_tu: '', tg_giam_tru_den: '', ghi_chu: '' };
                 }
                 else {
-                    $('#select_phong_2').attr('disabled', 'disabled');
-                    this.npt = bophan;
+                    $('#select_phong_2').attr('disabled', 'disabled');;
                     this.flag_submit_npt = false;
                     this.flag_input_npt = true;
+                    this.nhan_vien = this.list_nhan_vien.filter(function(item){
+                        return (item['ma_nv'] == bophan.ma_nv);
+                    })[0];
+                    $('#txtma_nv').val(bophan.ma_nv);
+
+                    this.npt.id = bophan.id; this.npt.ma_nv = bophan.ma_nv; this.npt.ho_ten_npt = bophan.ho_ten_npt; this.npt.ngay_sinh_npt = bophan.ngay_sinh_npt;
+                    this.npt.so_cmnd_npt = bophan.so_cmnd_npt; this.npt.mst_npt = bophan.mst_npt; this.npt.ma_quoc_tich_npt = bophan.ma_quoc_tich_npt; this.npt.quoc_tich_npt = bophan.quoc_tich_npt;
+                    this.npt.ma_quan_he_nnt = bophan.ma_quan_he_nnt; this.npt.tg_giam_tru_tu = bophan.tg_giam_tru_tu; this.npt.tg_giam_tru_den = bophan.tg_giam_tru_den; this.npt.ghi_chu = bophan.ghi_chu;
                 }
             },
             submit_npt: function () {
@@ -352,6 +364,7 @@
                     this.add_npt();
                 }
                 else {
+                    console.log(this.npt);
                     this.nhom = this.nhom_selected;
                     this.flag_input_npt = true;
                     this.edit_npt();
