@@ -11,6 +11,7 @@ export function api_search_all_ttcv(vm, page) {
             vm.loading_ttcv = false;
             vm.list_ttcv = response.data.data;
             vm.total_ttcv = response.data.total;
+            vm.index_ttcv = page * 10;
         })
         .catch((error) => {
             console.log(error);
@@ -27,6 +28,7 @@ export function api_get_all_ttcv(vm, page) {
             vm.loading_ttcv = false;
             vm.list_ttcv = response.data.data;
             vm.total_ttcv = response.data.total;
+            vm.index_ttcv = page * 10;
         })
         .catch((error) => {
             console.log(error);
