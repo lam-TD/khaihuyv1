@@ -1,5 +1,5 @@
 <template>
-    <div class="page-wrapper" style="min-height: 291px;">
+    <div class="page-wrapper pb-0" style="min-height: 291px;">
         <!-- ============================================================== -->
         <!-- Bread crumb and right sidebar toggle -->
         <!-- ============================================================== -->
@@ -28,6 +28,13 @@
                 <div class="col-lg-12 col-md-12 lamlam">
                     <!-- Column -->
                     <div class="card content-lam">
+                        <div class="card-header">
+                            <div class="card-actions">
+                                <a class="" data-action="collapse"><i class="ti-minus"></i></a>
+                                <a class="btn-minimize" data-action="expand"><i class="mdi mdi-arrow-expand"></i></a>
+                            </div>
+                            <h4 class="card-title m-b-0">Thông tin công việc</h4>
+                        </div>
                         <div class="card-body bg-inverse">
                             <div class="row row-title">
                                 <div class="col-md-6 col-sm-6">
@@ -63,14 +70,14 @@
                                         <table class="table table-hover" id="table_npt">
                                             <thead>
                                             <tr style="border-top: 1px solid #ddd">
-                                                <th class="text-center">#</th>
-                                                <th>TT</th>
-                                                <th>Mã NV</th>
-                                                <th>Tên NV</th>
-                                                <th>Họ tên NPT</th>
-                                                <th>Ngày sinh</th>
-                                                <th>Từ ngày đến ngày</th>
-                                                <th>Ghi chú</th>
+                                                <th scope="col" class="text-center">#</th>
+                                                <th scope="col">TT</th>
+                                                <th scope="col">Mã NV</th>
+                                                <th scope="col">Tên NV</th>
+                                                <th scope="col">Họ tên NPT</th>
+                                                <th scope="col">Ngày sinh</th>
+                                                <th scope="col">Từ - đến ngày</th>
+                                                <th scope="col">Ghi chú</th>
                                             </tr>
                                             </thead>
                                             <tbody class="body-table loading-item">
@@ -395,6 +402,9 @@
                 console.log("unchange");
                 this.flag_btn_save = true;
                 $('#save').removeAttr('disabled');
+            },
+            maxview: function () {
+
             }
         }
     }
@@ -476,5 +486,205 @@
             padding-left: 0;
         }
     }
+    /*table*/
+
+    thead, tbody {
+        display: block;
+    }
+    tbody {
+        overflow-y: auto;
+        overflow-x: hidden;
+        height: 250px;
+    }
+    /*.table th*/
+    /*{*/
+        /*width: 12.5%;*/
+    /*}*/
+    /*.table td*/
+    /*{*/
+        /*width: 12.5%;*/
+    /*}*/
+    /*.table tr th:nth-child(2)*/
+    /*{*/
+        /*width: 5%;*/
+        /*!*min-width: 0px;*!*/
+    /*}*/
+    /*.table tr td:nth-child(2)*/
+    /*{*/
+        /*width: 5%;*/
+    /*}*/
+    /*.table tr th:nth-child(7)*/
+    /*{*/
+        /*width: 20%;*/
+    /*}*/
+    /*.table tr td:nth-child(7)*/
+    /*{*/
+        /*width: 20%;*/
+    /*}*/
+    .card-fullscreen
+    {
+        z-index: 100;
+    }
+    @media screen and (min-width: 1024px) {
+        .table td
+        {
+            padding-left: 10px;
+        }
+        .table tr th:nth-child(1)
+        {
+            min-width:130px;
+        }
+        .table tr td:nth-child(1)
+        {
+            min-width: 130px;
+        }
+        .table tr th:nth-child(2)
+        {
+            min-width: 50px;
+        }
+        .table tr td:nth-child(2)
+        {
+            min-width: 50px;
+        }
+        .table tr th:nth-child(3)
+        {
+            min-width: 130px;
+        }
+        .table tr td:nth-child(3)
+        {
+            min-width: 130px;
+        }
+        .table tr th:nth-child(4)
+        {
+            min-width: 150px;
+        }
+        .table tr td:nth-child(4)
+        {
+            min-width: 150px;
+        }
+        .table tr th:nth-child(5)
+        {
+            min-width: 150px;
+        }
+        .table tr td:nth-child(5)
+        {
+            min-width: 150px;
+        }
+        .table tr th:nth-child(6)
+        {
+            min-width: 110px;
+        }
+        .table tr td:nth-child(6)
+        {
+            min-width: 110px;
+        }
+        .table tr th:nth-child(7)
+        {
+            min-width: 200px;
+        }
+        .table tr td:nth-child(7)
+        {
+            min-width: 200px;
+        }
+        .table tr th:nth-child(8)
+        {
+            min-width: 100px;
+        }
+        .table tr td:nth-child(8)
+        {
+            min-width: 100px;
+        }
+        .card-fullscreen .table tr th:nth-child(4)
+        {
+            min-width: 260px;
+        }
+        .card-fullscreen .table tr td:nth-child(4)
+        {
+            min-width: 260px;
+        }
+        .card-fullscreen .table tr th:nth-child(5)
+        {
+            min-width: 260px;
+        }
+        .card-fullscreen .table tr td:nth-child(5)
+        {
+            min-width: 260px;
+        }
+        .card-fullscreen .table tr th:nth-child(8)
+        {
+            min-width: 140px;
+        }
+        .card-fullscreen .table tr td:nth-child(8)
+        {
+            min-width: 140px;
+        }
+    }
+    @media screen and (max-width: 1023px){
+        .table tr th:nth-child(1)
+        {
+            min-width:100px;
+        }
+        .table tr td:nth-child(1)
+        {
+            min-width: 100px;
+        }
+        .table tr th:nth-child(2)
+        {
+            min-width: 100px;
+        }
+        .table tr td:nth-child(2)
+        {
+            min-width: 100px;
+        }
+        .table tr th:nth-child(3)
+        {
+            min-width: 100px;
+        }
+        .table tr td:nth-child(3)
+        {
+            min-width: 100px;
+        }
+        .table tr th:nth-child(4)
+        {
+            min-width: 150px;
+        }
+        .table tr td:nth-child(4)
+        {
+            min-width: 150px;
+        }
+        .table tr th:nth-child(5)
+        {
+            min-width: 150px;
+        }
+        .table tr td:nth-child(5)
+        {
+            min-width: 150px;
+        }
+        .table tr th:nth-child(6)
+        {
+            min-width: 110px;
+        }
+        .table tr td:nth-child(6)
+        {
+            min-width: 110px;
+        }
+        .table tr th:nth-child(7)
+        {
+            min-width: 200px;
+        }
+        .table tr td:nth-child(7)
+        {
+            min-width: 200px;
+        }
+        .table tr th:nth-child(8)
+        {
+            min-width: 100px;
+        }
+        .table tr td:nth-child(8)
+        {
+            min-width: 100px;
+        }
+    }
+
 
 </style>
