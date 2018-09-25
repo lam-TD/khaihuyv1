@@ -496,9 +496,9 @@
                 $('#save').removeAttr('disabled');
             },
             scroll_table: function () {
-                $('table').on('scroll', function () {
-                    $("#"+this.id+" > *").width($(this).width() + $(this).scrollLeft());
-                });
+                // $('table').on('scroll', function () {
+                //     $("#"+this.id+" > *").width($(this).width() + $(this).scrollLeft());
+                // });
             }
         }
     }
