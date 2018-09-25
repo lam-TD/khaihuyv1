@@ -228,6 +228,7 @@
                                 </div>
                             </div>
 
+                            <!--Modal Add-->
                             <div class="modal" id="myModal">
                                 <div class="modal-dialog">
                                     <div class="modal-content">
@@ -276,6 +277,7 @@
                                     </div>
                                 </div>
                             </div>
+                            <!--End Modal Add-->
                         </div>
                     </div>
                 </div>
@@ -357,10 +359,10 @@
                 }
                 else {
                     // this.bo_phan = bophan;
-                    var id = bophan.id;
-                    this.bo_phan = this.list_bo_phan.filter(function (item) {
-                        return (item['id'] == id);
-                    })[0];
+                    this.bo_phan.id = bophan.id;
+                    this.bo_phan.ma_bo_phan = bophan.ma_bo_phan;
+                    this.bo_phan.ten_bo_phan = bophan.ten_bo_phan;
+                    this.bo_phan.dien_giai = bophan.dien_giai;
                     this.flag_submit_bo_phan = false;
                     this.flag_input_bo_phan = true;
                 }

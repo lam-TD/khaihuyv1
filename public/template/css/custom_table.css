@@ -95,15 +95,18 @@
 }
 
 #table_ttcv tr th:nth-child(1){
-  min-width: 125px;
+  min-width: 80px;
+  max-width: 80px;
 }
 
 #table_ttcv tr th:nth-child(2){
-  min-width: 125px;
+  min-width: 50px;
+  max-width: 50px;
 }
 
 #table_ttcv tr th:nth-child(3){
-  min-width: 180px;
+  min-width: 140px;
+  max-width: 140px;
 }
 
 #table_ttcv tr th:nth-child(4){
@@ -118,53 +121,44 @@
   min-width: 125px;
 }
 
-#table_ttcv tr th:nth-child(7){
+#table_ttcv tr td:nth-child(7){
   min-width: 125px;
 }
 
-#table_ttcv tr th:nth-child(8){
+#table_ttcv tr td:nth-child(1){
+  min-width: 80px;
+  max-width: 80px;
+}
+
+#table_ttcv tr td:nth-child(2){
+  min-width: 50px;
+  max-width: 50px;
+}
+
+#table_ttcv tr td:nth-child(3){
+  min-width: 140px;
+  max-width: 140px;
+}
+
+#table_ttcv tr td:nth-child(4){
+  min-width: 115px;
+}
+
+#table_ttcv tr td:nth-child(5){
+  min-width: 115px;
+}
+
+#table_ttcv tr td:nth-child(6){
   min-width: 125px;
 }
 
-#table_ttcv tr th:nth-child(9){
+#table_ttcv tr td:nth-child(7){
   min-width: 125px;
 }
 
-#table_ttcv tr th:nth-child(10){
-  min-width: 125px;
-}
 
-#table_ttcv tr th:nth-child(11){
-  min-width: 125px;
-}
 
-#table_ttcv tr th:nth-child(12){
-  min-width: 125px;
-}
-
-#table_ttcv tr th:nth-child(13){
-  min-width: 125px;
-}
-
-#table_ttcv tr th:nth-child(14){
-  max-width: 150px;
-  text-overflow: ellipsis;
-  overflow: hidden;
-  white-space: nowrap;
-}
-
-#table_ttcv tr th:nth-child(15){
-  min-width: 120px;
-  text-align: center;
-
-}
-
-#table_ttcv tr td:nth-child(14) {
-  max-width: 150px;
-  text-overflow: ellipsis;
-  overflow: hidden;
-  white-space: nowrap;
-}
+/*==============Nguoi phu thuoc============*/
 
 #table_npt tr th:nth-child(1){
   min-width: 125px;

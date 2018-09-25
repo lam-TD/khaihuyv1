@@ -28,8 +28,16 @@
                 <div class="col-lg-12 col-md-12">
                     <!-- Column -->
                     <div class="card">
+                        <div class="card-header">
+                            <div class="card-actions">
+                                <a class="" data-action="collapse"><i class="ti-minus"></i></a>
+                                <a class="btn-minimize" data-action="expand"><i class="mdi mdi-arrow-expand"></i></a>
+                                <a class="btn-close" data-action="close"><i class="ti-close"></i></a>
+                            </div>
+                            <h4 class="card-title m-b-0">Thông tin công việc</h4>
+                        </div>
                         <div class="card-body">
-                            <div class="row" style="padding-top: 10px;">
+                            <div class="row" style="padding-bottom:6px;">
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <form @submit.prevent="search_ttcv" id="formttcv">
@@ -51,24 +59,16 @@
                                 <!--</h2>-->
                                 <div class="message-widget contact-widget">
                                     <div class="table-responsive">
-                                        <table class="table table-hover" id="table_ttcv">
+                                        <table v-on:scroll="scroll_table" class="table table-hover" id="table_ttcv">
                                             <thead>
                                             <tr style="border-top: 1px solid #ddd">
                                                 <th class="text-center">#</th>
+                                                <th class="text-center thutu">TT</th>
                                                 <th class="text-center">Mã NV</th>
                                                 <th>Tên NV</th>
                                                 <th class="text-center">Ngày</th>
                                                 <th>Tình trạng</th>
-                                                <th class="text-center">BPLV</th>
-                                                <th class="text-center">Phòng</th>
-                                                <th class="text-center">Vị trí</th>
-                                                <th class="text-center">HS Lương</th>
-                                                <th>Lương CB</th>
-                                                <th>Lương HTCV</th>
-                                                <th class="text-center">TGLV</th>
-                                                <th class="text-center">Chấm công</th>
                                                 <th class="text-center">Ghi chú</th>
-                                                <th class="text-center">Vào Cty</th>
                                             </tr>
                                             </thead>
                                             <tbody class="body-table loading-item">
@@ -84,7 +84,7 @@
                                             <tr v-else-if="list_ttcv.length <= 0">
                                                 <td class="text-center" colspan="8"><b><i>Chưa có thông tin công việc</i></b></td>
                                             </tr>
-                                            <tr v-else v-for="n in list_ttcv" :id="'n' + n.id" class="row-nhom" @click="click_ttcv(n)">
+                                            <tr v-else v-for="(n, index) in list_ttcv" :id="'n' + n.id" class="row-nhom" @click="click_ttcv(n)">
                                                 <td class="text-center" style="padding-right: 0">
                                                     <button @click="_ttcv('edit',n)" id="edit_nhom" type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#myModal">
                                                         <i class="fa fa-edit"></i>
@@ -93,20 +93,12 @@
                                                         <i class="fa fa-trash"></i>
                                                     </button>
                                                 </td>
+                                                <td v-if="index_ttcv <= 10" class="text-center thutu">{{ index + 1 }}</td><td v-else class="text-center thutu">{{ index_ttcv + index + 1 }}</td>
                                                 <td class="text-center">{{n.ma_nv}}</td>
-                                                <td>{{n.ho_ten}}</td>
+                                                <td @click="_ttcv('edit',n)" data-toggle="modal" data-target="#myModal"><span class="hover_ten">{{n.ho_ten}}</span></td>
                                                 <td>{{n.ngay}}</td>
                                                 <td v-if="n.tinh_trang == 0">Thử việc</td><td v-else-if="n.tinh_trang == 1">Chính thức</td><td v-else>Thôi việc</td>
-                                                <td class="text-center">{{n.bo_phan_ma}}</td>
-                                                <td class="text-center">{{n.phong_ma}}</td>
-                                                <td class="text-center">{{n.vi_tri_ma}}</td>
-                                                <td class="text-center">{{n.he_so_luong}}</td>
-                                                <td>{{n.luong_co_ban}}</td>
-                                                <td>{{n.htcv}}</td>
-                                                <td class="text-center">{{n.thoi_gian_lv_bd}} - {{n.thoi_gian_lv_kt}}</td>
-                                                <td v-if="n.cham_cong == 0" class="text-center">Không</td><td v-else class="text-center">Có</td>
                                                 <td>{{n.ghi_chu}}</td>
-                                                <td class="text-center">X</td>
                                             </tr>
                                             </tbody>
                                         </table>
@@ -368,7 +360,8 @@
                 flag_btn_save: true,
                 flag_disabled_submit: false,
                 flag_input_ma_ttcv: false,
-                flag_disable_manv: false
+                flag_disable_manv: false,
+                index_ttcv: 1
             }
         },
         methods: {
@@ -448,8 +441,6 @@
                     this.bo_phan = cv.bo_phan_ma;
                     this.phong_ban = cv.phong_ma;
                     this.vi_tri = cv.vi_tri_ma;
-                    this.ttcv = cv;
-                    this.ttcv.id = cv.cv_id;
                     this.cham_cong = cv.cham_cong;
                     this.nhan_vien = this.list_nhan_vien.filter(function(item){
                         return (item['ma_nv'] == cv.ma_nv);
@@ -457,6 +448,12 @@
                     this.flag_disable_manv = true;
                     this.flag_submit_ttcv = false;
                     this.flag_input_ttcv = true;
+
+                    this.ttcv.id = cv.cv_id;
+                    this.ttcv.ngay = cv.ngay; this.ttcv.tinh_trang = cv.tinh_trang; this.ttcv.he_so_luong = cv.he_so_luong;
+                    this.ttcv.luong_co_ban = cv.luong_co_ban; this.ttcv.htcv = cv.htcv; this.ghi_chu = cv.ghi_chu;
+                    this.ttcv.nv_ma = cv.nv_ma; this.ttcv.bo_phan_ma; this.ttcv.phong_ma = cv.phong_ma;this.ttcv.vi_tri_ma = cv.vi_tri_ma;
+                    this.ttcv.thoi_gian_lv_bd = cv.thoi_gian_lv_bd; this.ttcv.thoi_gian_lv_kt = cv.thoi_gian_lv_kt; this.ttcv.cham_cong = cv.cham_cong;
                 }
             },
             submit_ttcv: function () {
@@ -497,6 +494,11 @@
             un_change_bnt_save: function () {
                 this.flag_btn_save = true;
                 $('#save').removeAttr('disabled');
+            },
+            scroll_table: function () {
+                $('table').on('scroll', function () {
+                    $("#"+this.id+" > *").width($(this).width() + $(this).scrollLeft());
+                });
             }
         }
     }
@@ -564,5 +566,33 @@
     .el-date-editor.el-input, .el-date-editor.el-input__inner {
         width: 100% !important;
     }
+
+    th.thutu {
+        max-width: 50px !important;
+    }
+
+    table {
+        border-collapse: collapse;
+        width: 100%;
+        overflow-x: auto;
+        display: block;
+    }
+    thead {
+        /*background-color: #EFEFEF;*/
+    }
+    thead, tbody {
+        display: block;
+    }
+    tbody {
+        overflow-y: auto;
+        overflow-x: hidden;
+        height: 300px;
+    }
+    /*td{*/
+        /*!*border: dashed 1px lightblue;*!*/
+        /*overflow:hidden;*/
+        /*white-space: nowrap;*/
+        /*text-overflow: ellipsis;*/
+    /*}*/
 
 </style>

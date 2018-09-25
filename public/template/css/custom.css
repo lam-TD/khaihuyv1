@@ -274,4 +274,13 @@ btn-white {
     color: white !important;
 }
 
+tr.thutu, td.thutu {
+    max-width: 51px !important;
+    min-width: 50px !important;
+}
+
+.hover_ten:hover {
+    text-decoration: blink;
+}
+
 
