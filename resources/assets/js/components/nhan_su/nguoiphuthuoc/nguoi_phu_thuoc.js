@@ -1,6 +1,22 @@
 import axios from "axios";
 import {sweetalert} from '../../../helper/sweetalert';
 
+export function api_get_all_danh_sach_npt(vm, page) {
+    axios({
+        method: 'GET',
+        url: 'api/get-all-npt/?page=' + page,
+        headers: {'Authorization':'Bearer ' + vm.$store.state.currentUser.token}
+    })
+        .then((response) => {
+            vm.loading_npt = false;
+            vm.list_npt = response.data.data;
+            vm.total_npt = response.data.total;
+        })
+        .catch((error) => {
+            console.log(error);
+        })
+}
+
 export function api_get_danh_sach_npt_theo_nhan_vien(vm, ma_nv, page) {
     axios({
         method: 'GET',

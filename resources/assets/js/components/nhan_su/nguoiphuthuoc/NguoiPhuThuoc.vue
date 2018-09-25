@@ -3,17 +3,17 @@
         <!-- ============================================================== -->
         <!-- Bread crumb and right sidebar toggle -->
         <!-- ============================================================== -->
-        <div class="row page-titles">
-            <div class="col-md-5 align-self-center">
-                <h3 class="text-themecolor">Danh sách người phụ thuộc</h3>
-            </div>
-            <div class="col-md-7 align-self-center">
-                <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="javascript:void(0)">Nhân sự</a></li>
-                    <li class="breadcrumb-item">Người phụ thuộc</li>
-                </ol>
-            </div>
-        </div>
+        <!--<div class="row page-titles">-->
+            <!--<div class="col-md-5 align-self-center">-->
+                <!--<h3 class="text-themecolor">Danh sách người phụ thuộc</h3>-->
+            <!--</div>-->
+            <!--<div class="col-md-7 align-self-center">-->
+                <!--<ol class="breadcrumb">-->
+                    <!--<li class="breadcrumb-item"><a href="javascript:void(0)">Nhân sự</a></li>-->
+                    <!--<li class="breadcrumb-item">Người phụ thuộc</li>-->
+                <!--</ol>-->
+            <!--</div>-->
+        <!--</div>-->
         <!-- ============================================================== -->
         <!-- End Bread crumb and right sidebar toggle -->
         <!-- ============================================================== -->
@@ -25,19 +25,19 @@
             <!-- Start Page Content -->
             <!-- ============================================================== -->
             <div class="row">
-                <div class="col-lg-12 col-md-12">
+                <div class="col-lg-12 col-md-12 lamlam">
                     <!-- Column -->
-                    <div class="card">
+                    <div class="card content-lam">
                         <div class="card-body bg-inverse">
                             <div class="row row-title">
                                 <div class="col-md-6 col-sm-6">
                                     <div class="row">
-                                        <div class="col-md-6">
-                                            <input v-model="npt.ma_nv" type="text" class="form-control" readonly>
+                                        <div class="col-md-4">
+                                            <input v-model="npt.ma_nv" type="text" class="form-control" readonly style="height: 40px;">
                                         </div>
-                                        <div class="col-md-6">
+                                        <div class="col-md-6 ganlaibennhau">
                                             <el-select v-model="nhan_vien" value-key="ma_nv" filterable placeholder="Chọn nhân viên" @change="select_npt_theo_nhan_vien" no-match-text="Không tìm thấy" no-data-text="Không có dữ liệu">
-                                                <!--<el-option :key="''" :label="'Tất cả bộ phận'" :value="''"></el-option>-->
+                                                <el-option :key="''" :label="'Tất cả nhân viên'" :value="''"></el-option>
                                                 <el-option v-for="item in list_nhan_vien" :key="item.ma_nv" :label="item.ho_ten" :value="item">
                                                     <span style="float: left">{{ item.ma_nv }}</span>
                                                     <span style="float: right; color: #8492a6; font-size: 13px">{{ item.ho_ten }}</span>
@@ -64,16 +64,12 @@
                                             <thead>
                                             <tr style="border-top: 1px solid #ddd">
                                                 <th class="text-center">#</th>
+                                                <th>TT</th>
+                                                <th>Mã NV</th>
+                                                <th>Tên NV</th>
                                                 <th>Họ tên NPT</th>
                                                 <th>Ngày sinh</th>
-                                                <th>Số CMND</th>
-                                                <th>MST NPT</th>
-                                                <th>Mã quốc tịch</th>
-                                                <th>Quốc tịch</th>
-                                                <th>Mã quan hệ</th>
-                                                <th>Quan hệ</th>
-                                                <th>Từ</th>
-                                                <th>Đến</th>
+                                                <th>Từ ngày đến ngày</th>
                                                 <th>Ghi chú</th>
                                             </tr>
                                             </thead>
@@ -84,7 +80,7 @@
                                                 <tr v-else-if="list_npt.length <= 0">
                                                     <td class="" colspan="12"><b><i>Chưa có thân nhân</i></b></td>
                                                 </tr>
-                                                <tr v-for="n in list_npt" :id="'n' + n.id" class="row-nhom" @click="click_npt(n)">
+                                                <tr v-for="(n, index) in list_npt" :id="'n' + n.id" class="row-nhom" @click="click_npt(n)">
                                                     <td class="text-left" style="padding-right: 0">
                                                         <button @click="_npt('edit',n)" id="edit_nhom" type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#myModal">
                                                             <i class="fa fa-edit"></i>
@@ -93,16 +89,12 @@
                                                             <i class="fa fa-trash"></i>
                                                         </button>
                                                     </td>
+                                                    <td>{{ index + 1 }}</td>
+                                                    <td>KH09099</td>
+                                                    <td>Tran van a</td>
                                                     <td>{{n.ho_ten_npt}}</td>
                                                     <td>{{n.ngay_sinh_npt}}</td>
-                                                    <td>{{n.so_cmnd_npt}}</td>
-                                                    <td>{{n.mst_npt}}</td>
-                                                    <td>{{n.ma_quoc_tich_npt}}</td>
-                                                    <td>{{n.quoc_tich_npt}}</td>
-                                                    <td>{{n.ma_quan_he_nnt}}</td>
-                                                    <td>{{n.quan_he_nnt}}</td>
-                                                    <td>{{n.tg_giam_tru_tu}}</td>
-                                                    <td>{{n.tg_giam_tru_den}}</td>
+                                                    <td>{{n.tg_giam_tru_tu}} - {{n.tg_giam_tru_den}}</td>
                                                     <td>{{n.ghi_chu}}</td>
                                                 </tr>
                                             </tbody>
@@ -250,6 +242,7 @@
 </template>
 
 <script>
+    import {api_get_all_danh_sach_npt} from "./nguoi_phu_thuoc";
     import {api_nhan_vien_get_all_no_pa} from "../../helper/nhan_vien";
     import {api_get_danh_sach_npt_theo_nhan_vien} from './nguoi_phu_thuoc';
     import {api_add_npt} from "./nguoi_phu_thuoc";
@@ -263,6 +256,7 @@
         components:{SelectLam},
         mounted () {
             api_nhan_vien_get_all_no_pa(this);
+            api_get_all_danh_sach_npt(this,1);
         },
         data () {
             return {
@@ -307,10 +301,16 @@
                 }
             },
             select_npt_theo_nhan_vien: function (nv) {
-                $('#txtma_nv').val(nv.ma_nv);
-                this.npt.ma_nv = nv.ma_nv;
-                this.error_select_nhan_vien = false;
-                this.danh_sach_npt(1);
+                if(nv == null || nv == '') {
+                    $('#txtma_nv').val('Tất cả nhân viên');
+                    api_get_all_danh_sach_npt(this,1);
+                }
+                else {
+                    $('#txtma_nv').val(nv.ma_nv);
+                    this.npt.ma_nv = nv.ma_nv;
+                    this.error_select_nhan_vien = false;
+                    this.danh_sach_npt(1);
+                }
             },
             danh_sach_nhan_vien: function () {
 
@@ -458,6 +458,9 @@
     @media (min-width: 576px){
         .modal-dialog {
             max-width: 600px;
+        }
+        .ganlaibennhau {
+            padding-left: 0;
         }
     }
 
