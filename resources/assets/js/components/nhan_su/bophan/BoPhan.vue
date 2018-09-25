@@ -157,7 +157,7 @@
                     <div class="card content-lam">
                         <div class="card-header">
                             <div class="card-actions">
-                                <a class="btn btn-success waves-effect waves-dark btn-white" style="color: white"><i class="fa fa-plus-circle"></i> Thêm mới</a>
+                                <a @click="_bo_phan('add')" title="Thêm mới bộ phận" data-toggle="modal" data-target="#myModal" class="btn btn-success waves-effect waves-dark btn-white" style="color: white"><i class="fa fa-plus-circle"></i> Thêm mới</a>
                                 <a class="" data-action="collapse"><i class="ti-minus"></i></a>
                                 <a class="btn-minimize" data-action="expand"><i class="mdi mdi-arrow-expand"></i></a>
                                 <!--<a class="btn-close" data-action="close"><i class="ti-close"></i></a>-->

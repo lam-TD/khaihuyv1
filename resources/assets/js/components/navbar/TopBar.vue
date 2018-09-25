@@ -35,7 +35,7 @@
                     <!-- ============================================================== -->
                     <ul class="navbar-nav mr-auto mt-md-0">
                         <!-- This is  -->
-                        <li class="nav-item"> <a @click="$('body').toggleClass('mini-sidebar')" class="nav-link nav-toggler hidden-md-up text-muted waves-effect waves-dark" ><i class="mdi mdi-menu"></i></a> </li>
+                        <li class="nav-item"> <a @click="toggle_leftbar_small" class="nav-link nav-toggler hidden-md-up text-muted waves-effect waves-dark" ><i class="mdi mdi-menu"></i></a> </li>
                         <li class="nav-item m-l-10"> <a @click="toggle_leftbar" class="nav-link sidebartoggler hidden-sm-down text-muted waves-effect waves-dark"><i class="ti-menu"></i></a> </li>
 
                     </ul>
@@ -159,7 +159,10 @@
                     $(".scroll-sidebar, .slimScrollDiv").css("overflow", "hidden").parent().css("overflow", "visible");
                     $("body").removeClass("mini-sidebar");
                     $('.navbar-brand span').show();
+<<<<<<< HEAD
                     //$(".sidebartoggler i").addClass("ti-menu");
+=======
+>>>>>>> b3c838a135ae33c81e665a4a3bf6bc9096284d18
                     $('#large-icon').attr('src','public/assets/images/logokh.png');
                 }
                 else {
@@ -167,16 +170,14 @@
                     $(".scroll-sidebar, .slimScrollDiv").css("overflow-x", "visible").parent().css("overflow", "visible");
                     $("body").addClass("mini-sidebar");
                     $('.navbar-brand span').hide();
+<<<<<<< HEAD
                     //$(".sidebartoggler i").removeClass("ti-menu");
+=======
+>>>>>>> b3c838a135ae33c81e665a4a3bf6bc9096284d18
                     $('#large-icon').attr('src','public/assets/images/logokh_small.png');
                 }
             },
             toggle_leftbar_small: function () {
-                // $(".nav-toggler").click(function () {
-                //     $("body").toggleClass("show-sidebar");
-                //     $(".nav-toggler i").toggleClass("mdi mdi-menu");
-                //     $(".nav-toggler i").addClass("mdi mdi-close");
-                // });
                 $("body").toggleClass("show-sidebar");
                 $(".nav-toggler i").toggleClass("mdi mdi-menu");
                 $(".nav-toggler i").addClass("mdi mdi-close");
@@ -184,8 +185,8 @@
             active_nhom: function (key) {
                 $('.row-nhom-cn').removeClass("active");
                 $('.ul-chuc-nang').removeClass("in");
-                $('#mcn' + key).toggleClass("active");
-                $('#ul' + key).toggleClass("in");
+                $('#mcn' + key).addClass("active");
+                $('#ul' + key).addClass("in");
             },
             active_chuc_nang: function (key) {
                 $('.row-chuc-nang').removeClass("active");
