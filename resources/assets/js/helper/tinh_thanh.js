@@ -87,28 +87,44 @@ export function api_get_item_phuong_xa_nhan_vien(vm, ma_tinh, ma_quan_huyen, ma_
         return (item['ma_tinh'] == ma_tinh);
     })
 
-    if(type == 1){
+    if(type == 1) {
         vm.nv_tam_tru.tinh_thanh = item_tt[0];
-        vm.load_quan_huyen(item_tt[0]);
-        setTimeout(function () {
-            vm.nv_tam_tru.quan_huyen = item_qh[0];
-            vm.load_phuong_xa(item_qh[0]);
-            setTimeout(function () {
-                vm.nv_tam_tru.phuong_xa = item_px[0];
-            },1000)
-        },1000);
+        vm.change_quan_huyen_tam_tru = vm.list_quan_huyen.filter(function (item) {
+            return (item['ma_tinh'] == ma_tinh);
+        })
+
+        vm.nv_tam_tru.quan_huyen = item_qh[0];
+        vm.change_phuong_xa_tam_tru = vm.list_phuong_xa.filter(function (item) {
+            return (item['quanhuyen_id'] == ma_quan_huyen);
+        })
+        vm.nv_tam_tru.phuong_xa = item_px[0];
     }
-    else if(type == 2) {
-        vm.nv_thuong_tru.tinh_thanh = item_tt[0];
-        vm.load_quan_huyen(item_tt[0]);
-        setTimeout(function () {
-            vm.nv_thuong_tru.quan_huyen = item_qh[0];
-            vm.load_phuong_xa(item_qh[0]);
-            setTimeout(function () {
-                vm.nv_thuong_tru.phuong_xa = item_px[0];
-            },1000)
-        },1000);
-    }
+}
+
+export function api_get_item_phuong_xa_nhan_vien_thuong_tru(vm, ma_tinh, ma_quan_huyen, ma_phuong_xa ) {
+    var item_px = vm.list_phuong_xa.filter(function(item){
+        return (item['phuongxa_id'] == ma_phuong_xa);
+    })
+
+    var item_qh = vm.list_quan_huyen.filter(function(item){
+        return (item['ma_quan_huyen'] == ma_quan_huyen);
+    })
+
+    var item_tt = vm.list_tinh_thanh.filter(function(item){
+        return (item['ma_tinh'] == ma_tinh);
+    })
+    vm.nv_thuong_tru.tinh_thanh = item_tt[0];
+    // vm.load_quan_huyen(item_tt[0]), 2;
+    vm.change_quan_huyen_thuong_tru = vm.list_quan_huyen.filter(function(item){
+        return (item['ma_tinh'] == item_tt[0].ma_tinh);
+    })
+
+    vm.nv_thuong_tru.quan_huyen = item_qh[0];
+    vm.change_phuong_xa_thuong_tru = vm.list_phuong_xa.filter(function(item){
+        return (item['quanhuyen_id'] == item_qh[0].ma_quan_huyen);
+    })
+
+    vm.nv_thuong_tru.phuong_xa = item_px[0];
 }
 
 export function api_get_item_phuong_xa_noi_sinh(vm, ma_tinh, ma_quan_huyen) {
@@ -121,10 +137,10 @@ export function api_get_item_phuong_xa_noi_sinh(vm, ma_tinh, ma_quan_huyen) {
     })
 
     vm.nv_noi_sinh.tinh_thanh = item_tt[0];
-    vm.load_quan_huyen_noi_sinh(item_tt[0]);
-    setTimeout(function () {
-        vm.nv_noi_sinh.quan_huyen = item_qh[0];
-    },1000);
+    vm.change_quan_huyen_noi_sinh = vm.list_quan_huyen.filter(function(item){
+        return (item['ma_tinh'] == ma_tinh);
+    })
+    vm.nv_noi_sinh.quan_huyen = item_qh[0];
 }
 
 export function api_get_item_phuong_xa_thuong_tru(vm, address) {
