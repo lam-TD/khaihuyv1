@@ -17,6 +17,7 @@ import nguoiphuthuoc from './components/nhan_su/nguoiphuthuoc/NguoiPhuThuoc';
 
 //======= SAN PHAM =======
 import thongtinsanpham from './components/san_pham/ThongTinSanPham';
+import danhsachsanpham from './components/san_pham/DanhSachSanPham';
 
 //======= HE THONG =======
 import quanlynhom from './components/he_thong/quan_ly_nhom/QuanLyNhom.vue';
@@ -81,6 +82,10 @@ export const routes = [
     {
         path: '/thongtinsanpham',
         component: thongtinsanpham
+    },
+    {
+        path: '/danhsachsanpham',
+        component: danhsachsanpham
     },
     {
         path: '/quanlynhom',
