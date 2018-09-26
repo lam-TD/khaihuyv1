@@ -763,7 +763,60 @@
                                                 </div>
                                             </form>
                                         </div>
-                                        <div class="tab-pane p-20" id="messages3" role="tabpanel">3</div>
+                                        <div class="tab-pane p-20" id="messages3" role="tabpanel">
+                                            <!--contrac-->
+                                            <div class="form-body">
+                                                <h3 class="box-title">Thông tin hợp đồng</h3>
+                                                <hr class="m-t-0 m-b-40">
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                        <div class="form-group row">
+                                                            <label class="control-label text-right col-md-6">Số hợp đồng</label>
+                                                            <div class="col-md-6">
+                                                                <label class="control-label text-right text-info col-md-12">{{hop_dong_lao_dong.so_hdld}}</label>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <div class="form-group row">
+                                                            <label class="control-label text-right col-md-6">Thời hạn hợp đồng</label>
+                                                            <div class="col-md-6">
+                                                                <label class="control-label text-right text-info col-md-12">{{hop_dong_lao_dong.thoi_han_hd}}</label>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                        <div class="form-group row">
+                                                            <label class="control-label text-right col-md-6">Ngày ký</label>
+                                                            <div class="col-md-6">
+                                                                <label class="control-label text-right text-info col-md-12">{{hop_dong_lao_dong.ngay_ky}}</label>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <div class="form-group row">
+                                                            <label class="control-label text-right col-md-6">Ngày kết thúc</label>
+                                                            <div class="col-md-6">
+                                                                <label class="control-label text-right text-info col-md-12">{{hop_dong_lao_dong.ngay_kt}}</label>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-md-12">
+                                                        <div class="form-group row">
+                                                            <label class="control-label text-right col-md-3">Ghi chú</label>
+                                                            <div class="col-md-9">
+                                                                <label class="control-label text-right text-info col-md-12">{{hop_dong_lao_dong.Ghi_chu}}</label>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <!--//contrac-->
+                                        </div>
                                         <div class="tab-pane p-20" id="messages4" role="tabpanel">4</div>
                                         <div class="tab-pane p-20" id="messages5" role="tabpanel">5</div>
 
@@ -804,6 +857,8 @@
     import {api_get_vi_tri_all_theo_phong} from "../thongtincongviec/thong_tin_cong_viec";
     import {api_get_ttcv_hien_tai_theo_nhan_vien} from "../thongtincongviec/thong_tin_cong_viec";
     import {api_edit_ttcv} from "../thongtincongviec/thong_tin_cong_viec";
+    import {api_get_hop_dong_lao_dong_moi_nhat} from "../thongtinlaodong/lao_dong";
+
 
     export default {
         name: 'danhsachnhanvien',
@@ -896,10 +951,18 @@
                     { label: 'Thử việc', value: 0 },
                     { label: 'Chính thức', value: 1 },
                     { label: 'Thôi việc', value: 2 },
-                ]
+                ],
+                // hop dong lao dong
+                hop_dong_lao_dong:[]
             }
         },
         methods: {
+            //get hop dong
+            load_hop_dong_nv: function(id_nv)
+            {
+                api_get_hop_dong_lao_dong_moi_nhat(this, id_nv);
+            },
+            //
             load_quan_huyen_noi_sinh: function (tinh) {
                 this.change_quan_huyen_noi_sinh = this.list_quan_huyen.filter(function(item){
                     return (item['ma_tinh'] == tinh.ma_tinh);
@@ -1061,6 +1124,9 @@
                     api_get_all_phong_ban_no_paginate(this);
                     api_get_ttcv_hien_tai_theo_nhan_vien(this, nv.ma_nv);
                     this.auto_select_bp_p_vt(nv.bo_phan_ma, nv.phong_ma, nv.vi_tri_ma);
+
+                    //hop dong lao dong
+                    api_get_hop_dong_lao_dong_moi_nhat(this,nv.ma_nv);
                     this.value = lma[0];
                     this.nhan_vien = nv;
                     if (nv.avatar != null){

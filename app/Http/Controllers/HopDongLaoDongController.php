@@ -58,6 +58,13 @@ class HopDongLaoDongController extends Controller
         return 1;
     }
 
+    //get hop_dong
+    public function get_thong_tin_lao_dong_theo_nhan_vien_moi_nhat($id_nv)
+    {
+        $hd = hop_dong_lao_dong::where('nv_ma',$id_nv)->orderBy('ngay_ky','desc')->first();
+        return $hd;
+    }
+
 //    public function check_ma_hop_dong_lao_dong()
 //    {
 //        $hd = hop_dong_lao_dong::find($id_hd);

@@ -283,4 +283,59 @@ tr.thutu, td.thutu {
     text-decoration: blink;
 }
 
+/**/
+.topbar {
+    background: #ededed;
+}
+.topbar .navbar-light .navbar-nav .nav-item > a.nav-link {
+    color: #515356 !important;
+}
+.topbar .navbar-header {
+    background: #dddddd;
+}
+.card-no-border .left-sidebar, .card-no-border .sidebar-nav {
+    background: #dddddd;
+}
+.sidebar-nav > ul > li > a i
+{
+    color: #000000;
+}
+.sidebar-nav > ul > li > a
+{
+    color: #000000 !important;
+}
+.page-wrapper
+{
+    background: #f7f7f7;
+}
+.sidebar-nav ul li a.active i, .sidebar-nav ul li a:hover i
+{
+    color: #979ca0;
+}
+.sidebar-nav > ul > li.active > a i {
+    color: #979ca0;
+}
+.sidebar-nav ul li a.active, .sidebar-nav ul li a:hover
+{
+    color: #000000;
+}
+.sidebar-nav > ul > li.active > a
+{
+    border-color: #000000;
+}
+@media (min-width: 768px) {
+    .mini-sidebar .sidebar-nav #sidebarnav > li:hover > a {
+        background: #cacaca;
+    }
+    .mini-sidebar .sidebar-nav #sidebarnav > li > ul {
+        background: #cacaca;
+    }
+    .mini-sidebar .sidebar-nav #sidebarnav > li > ul
+    {
+        left: 50px;
+        top: 0px;
+    }
+}
+
+/*//*/
 

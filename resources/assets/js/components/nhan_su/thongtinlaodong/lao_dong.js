@@ -14,7 +14,22 @@ export function api_search_all_lao_dong(vm, page) {
         })
         .catch((error) => {
             console.log(error);
+        });
+}
+
+export function api_get_hop_dong_lao_dong_moi_nhat(vm, id_nv) {
+    axios({
+        method: 'GET',
+        url: 'api/get-nhan-vien-thong-tin-lao-dong-moi-nhat/'+ id_nv,
+        headers: {'Authorization':'Bearer ' + vm.$store.state.currentUser.token}
+    })
+        .then((response) => {
+            vm.hop_dong_lao_dong = response.data;
+            console.log(response.data);
         })
+        .catch((error) => {
+            console.log(error);
+        });
 }
 
 export function api_get_all_lao_dong(vm, page) {

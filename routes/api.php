@@ -71,6 +71,7 @@ Route::group(['middleware' => 'jwt.auth'], function ($router) {
     Route::post('add-nhan-vien-thong-tin-lao-dong', 'NhanVienController@add_nhan_vien_thong_tin_lao_dong');
     Route::post('edit-nhan-vien-thong-tin-lao-dong', 'NhanVienController@edit_nhan_vien_thong_tin_lao_dong');
     Route::get('get-nhan-vien-thong-tin-lao-dong/{nv_id}', 'NhanVienController@get_thong_tin_lao_dong_theo_nhan_vien');
+    Route::get('get-nhan-vien-thong-tin-lao-dong-moi-nhat/{nv_id}', 'HopDongLaoDongController@get_thong_tin_lao_dong_theo_nhan_vien_moi_nhat');
 
 //    Thong Tin Cong Viec
     Route::get('get-nhan-vien-thong-tin-cong-viec/{nv_id}', 'NhanVienController@get_thong_tin_cong_viec_theo_nhan_vien');
