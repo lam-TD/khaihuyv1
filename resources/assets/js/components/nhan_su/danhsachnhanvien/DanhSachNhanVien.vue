@@ -428,37 +428,49 @@
                                     <div class="tab-content">
                                         <div class="tab-pane active" id="home2" role="tabpanel">
                                             <div style="padding-top:10px">
-                                                <div class="form-group row">
+                                                <div class="form-group row border-form">
                                                     <label class="label-form col-md-2 col-3 col-form-label">Mã NV:</label>
-                                                    <div class="col-md-1 col-8 tt-dacbiet">
+                                                    <div class="col-md-2 col-8 tt-dacbiet">
                                                         <p>{{nv_thong_tin_ca_nhan.ma_nv}}</p>
                                                     </div>
 
                                                     <label class="label-form col-md-2 col-3 col-form-label">Tên NV:</label>
-                                                    <div class="col-md-2 col-8">
+                                                    <div class="col-md-3 col-8">
                                                         <p>{{nv_thong_tin_ca_nhan.ho_ten}}</p>
                                                     </div>
 
                                                     <label class="label-form col-md-2 col-3 col-form-label">Giới tính:</label>
-                                                    <div class="col-md-2 col-8">
+                                                    <div class="col-md-1 col-8">
                                                         <p v-if="nv_thong_tin_ca_nhan.gioi_tinh == 0">Nữ</p>
                                                         <p v-else>Nam</p>
                                                     </div>
+                                                </div>
 
+                                                <div class="form-group row border-form">
                                                     <label class="label-form col-md-2 col-3 col-form-label">Ngày sinh:</label>
-                                                    <div class="col-md-2 col-8">
+                                                    <div class="col-md-2 col-8 tt-dacbiet">
                                                         <p>{{nv_thong_tin_ca_nhan.ngay_sinh}}</p>
+                                                    </div>
+
+                                                    <label class="label-form col-md-2 col-3 col-form-label">Nơi sinh:</label>
+                                                    <div class="col-md-3 col-9 tt-dacbiet">
+                                                        <p>{{nv_noi_sinh.tinh_thanh.ten_tinh}}, {{nv_noi_sinh.quan_huyen.ten_quan_huyen}}</p>
+                                                    </div>
+
+                                                    <label class="label-form col-md-2 col-3 col-form-label">Quốc tịch:</label>
+                                                    <div class="col-md-2 col-8">
+                                                        <p>{{nv_thong_tin_ca_nhan.quoc_tich}}</p>
                                                     </div>
                                                 </div>
 
-                                                <div class="form-group row">
+                                                <div class="form-group row border-form">
                                                     <label class="label-form col-md-2 col-3 col-form-label">Số CMND:</label>
-                                                    <div class="col-md-1 col-8 tt-dacbiet">
+                                                    <div class="col-md-2 col-8 tt-dacbiet">
                                                         <p>{{nv_thong_tin_ca_nhan.so_cmnd}}</p>
                                                     </div>
 
                                                     <label class="label-form col-md-2 col-3 col-form-label">Ngày cấp:</label>
-                                                    <div class="col-md-2 col-8">
+                                                    <div class="col-md-3 col-8">
                                                         <p>{{nv_thong_tin_ca_nhan.scmnd_ngay_cap}}</p>
                                                     </div>
 
@@ -466,10 +478,59 @@
                                                     <div class="col-md-2 col-8">
                                                         <p>{{nv_thong_tin_ca_nhan.scmnd_noi_cap}}</p>
                                                     </div>
+                                                </div>
 
-                                                    <label class="label-form col-md-2 col-3 col-form-label">Quốc tịch:</label>
+                                                <div class="form-group row border-form">
+                                                    <label class="label-form col-md-2 col-3 col-form-label">Tạm trú:</label>
+                                                    <div class="col-md-10 col-8" style="padding-left: 0">
+                                                        <p>{{nv_tam_tru.tinh_thanh.ten_tinh}}, {{nv_tam_tru.quan_huyen.ten_quan_huyen}}, {{nv_tam_tru.phuong_xa.ten_phuong_xa}}, {{nv_thong_tin_ca_nhan.tam_tru}}</p>
+                                                    </div>
+                                                </div>
+
+                                                <div class="form-group row border-form">
+                                                    <label class="label-form col-md-2 col-3 col-form-label" style="padding-right: 0">Thường trú:</label>
+                                                    <div class="col-md-10 col-8" style="padding-left: 0">
+                                                        <p>{{nv_thuong_tru.tinh_thanh.ten_tinh}}, {{nv_thuong_tru.quan_huyen.ten_quan_huyen}}, {{nv_thuong_tru.phuong_xa.ten_phuong_xa}}, {{nv_thong_tin_ca_nhan.thuong_tru}}</p>
+                                                    </div>
+                                                </div>
+
+                                                <div class="form-group row border-form">
+                                                    <label class="label-form col-md-2 col-3 col-form-label">ĐT bàn:</label>
+                                                    <div class="col-md-2 col-8 tt-dacbiet">
+                                                        <p>{{nv_thong_tin_ca_nhan.dt_ban}}</p>
+                                                    </div>
+
+                                                    <label class="label-form col-md-2 col-3 col-form-label">Di động 1:</label>
+                                                    <div class="col-md-3 col-8">
+                                                        <p>{{nv_thong_tin_ca_nhan.di_dong_1}}</p>
+                                                    </div>
+
+                                                    <label class="label-form col-md-2 col-3 col-form-label">Di động 2:</label>
                                                     <div class="col-md-2 col-8">
-                                                        <p>{{nv_thong_tin_ca_nhan.quoc_tich}}</p>
+                                                        <p>{{nv_thong_tin_ca_nhan.di_dong_2}}</p>
+                                                    </div>
+                                                </div>
+
+                                                <div class="form-group row border-form">
+                                                    <label class="label-form col-md-2 col-3 col-form-label">MST CN:</label>
+                                                    <div class="col-md-2 col-8 tt-dacbiet">
+                                                        <p>{{nv_thong_tin_ca_nhan.mst_cn}}</p>
+                                                    </div>
+                                                    <label class="label-form col-md-2 col-3 col-form-label">Nơi cấp:</label>
+                                                    <div class="col-md-3 col-8">
+                                                        <p>{{nv_thong_tin_ca_nhan.mst_cn_noi_cap}}</p>
+                                                    </div>
+
+                                                    <label class="label-form col-md-2 col-3 col-form-label" style="padding-right: 0">C/C thuế cấp:</label>
+                                                    <div class="col-md-2 col-8">
+                                                        <p>{{nv_thong_tin_ca_nhan.cc_thue_cap}}</p>
+                                                    </div>
+                                                </div>
+
+                                                <div class="form-group row border-form">
+                                                    <label class="label-form col-md-2 col-3 col-form-label">Ghi chú:</label>
+                                                    <div class="col-md-10 col-8 tt-dacbiet">
+                                                        <p>{{nv_thong_tin_ca_nhan.ghi_chu}}</p>
                                                     </div>
                                                 </div>
                                             </div>
@@ -691,9 +752,9 @@
 
                                     </div>
                                 </div>
-                                <!--<div class="modal-footer">-->
-                                <!--<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>-->
-                                <!--</div>-->
+                                <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -1072,6 +1133,9 @@
             },
             load_chi_tiet_nhan_vien: function (nv) {
                 this.nv_thong_tin_ca_nhan = nv;
+                api_get_item_phuong_xa_noi_sinh(this, nv.noi_sinh_tinh_thanh);
+                api_get_item_phuong_xa_nhan_vien(this, nv.tam_tru_tinh_thanh,1);
+                api_get_item_phuong_xa_nhan_vien_thuong_tru(this, nv.thuong_tru_tinh_thanh);
             }
         }
     }
@@ -1289,9 +1353,16 @@
         margin-top: 3px;
     }
 
-    .tt-dacbiet {
-        padding-left: 0;
-        padding-right: 0;
+    .border-form {
+        border-bottom: 1px solid #ddddff;
+        margin-left: 0px;
+        margin-right: 0;
     }
-
+    @media (min-width: 768px)
+    {
+        .tt-dacbiet {
+            padding-left: 0;
+            padding-right: 0;
+        }
+    }
 </style>
