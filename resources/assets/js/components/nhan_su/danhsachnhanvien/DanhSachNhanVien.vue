@@ -11,7 +11,7 @@
                     <h4 class="card-title m-b-0">Danh sách nhân viên</h4>
                 </div>
                 <div class="card-body">
-                    <div class="row" style="margin-bottom: 15px;">
+                    <div class="row" style="margin-bottom: 5px;">
                         <div class="col-md-6">
                             <div class="form-group">
                                 <form @submit.prevent="submit_search_thong_tin_nhan_vien">
@@ -285,7 +285,7 @@
                         </div>
                     </div>
                     <div class="table-responsive">
-                        <table v-on:scroll="scroll_table" class="table table-hover table-fixed" id="table_nhanvien">
+                        <table v-on:scroll="scroll_table" class="table table-hover table-fixed mb-0" id="table_nhanvien">
                             <thead>
                                 <tr style="border-top: 1px solid #ddd;">
                                     <th class="text-center">#</th>
@@ -295,8 +295,8 @@
                                     <th style="">Tên nhân viên</th>
                                     <th>G/T</th>
                                     <th>Ngày sinh</th>
-                                    <th>Nơi sinh</th>
-                                    <th style="width:400px;">Thường trú</th>
+
+
                                     <th>Di động 1</th>
                                     <th>Ghi chú</th>
                                 </tr>
@@ -315,13 +315,14 @@
                                     <td style="width:100px;">{{n.ma_nv}}</td>
                                     <td> <span @click="_nhan_vien('edit', n)" data-toggle="modal" data-target="#exampleModal2" class="ten-nv">{{n.ho_ten}}</span></td>
                                     <td><span v-if="n.gioi_tinh">Nam</span><span v-else>Nữ</span></td>
-                                    <td>{{n.ngay_sinh}}</td>
-                                    <td>noi sinh</td>
+
                                     <td class="hidden-text" style="width:400px;">{{n.thuong_tru}}</td>
                                     <td>{{n.di_dong_1}}</td>
+                                    <td>{{n.ghi_chu}}</td>
                                 </tr>
                             </tbody>
                         </table>
+
                         <el-pagination
                                 :page-size="10"
                                 layout="prev, pager, next"
@@ -1333,27 +1334,27 @@
         padding-top: 8px;
     }
 
-    table {
-        border-collapse: collapse;
-        width: 3000px;
-        overflow-x: scroll;
-        display: block;
-    }
+    /*table {*/
+        /*border-collapse: collapse;*/
+        /*width: 3000px;*/
+        /*overflow-x: scroll;*/
+        /*display: block;*/
+    /*}*/
     thead {
-        /*background-color: #EFEFEF;*/
+        background-color: #EFEFEF;
     }
-    thead, tbody {
+   thead, tbody {
         display: block;
     }
     tbody {
         overflow-y: scroll;
         overflow-x: hidden;
-        height: 300px;
+        height: 200px;
     }
     td{
-        /*min-width: 200px;*/
+        min-width: 200px;
         height: 25px;
-        /*border: dashed 1px lightblue;*/
+       /* border: dashed 1px lightblue;*/
         overflow:hidden;
         white-space: nowrap;
         text-overflow: ellipsis;
@@ -1362,98 +1363,278 @@
     /*#table_nhanvien {*/
 
     /*}*/
-
-    #table_nhanvien tr td:nth-child(1){
-        min-width: 100px;
-        max-width: 100px;
+    @media screen and (min-width: 1024px) {
+        #table_nhanvien td
+        {
+            padding-left: 10px;
+        }
+        #table_nhanvien tr th:nth-child(1)
+        {
+            min-width:130px;
+        }
+        #table_nhanvien tr td:nth-child(1)
+        {
+            min-width: 130px;
+        }
+        #table_nhanvien tr th:nth-child(2)
+        {
+            min-width: 50px;
+        }
+        #table_nhanvien tr td:nth-child(2)
+        {
+            min-width: 50px;
+        }
+        #table_nhanvien tr th:nth-child(3)
+        {
+            min-width: 130px;
+        }
+        #table_nhanvien tr td:nth-child(3)
+        {
+            min-width: 130px;
+        }
+        #table_nhanvien tr th:nth-child(4)
+        {
+            min-width: 150px;
+        }
+        #table_nhanvien tr td:nth-child(4)
+        {
+            min-width: 150px;
+        }
+        #table_nhanvien tr th:nth-child(5)
+        {
+            min-width: 150px;
+        }
+        #table_nhanvien tr td:nth-child(5)
+        {
+            min-width: 150px;
+        }
+        #table_nhanvien tr th:nth-child(6)
+        {
+            min-width: 110px;
+        }
+        #table_nhanvien tr td:nth-child(6)
+        {
+            min-width: 110px;
+        }
+        #table_nhanvien tr th:nth-child(7)
+        {
+            min-width: 200px;
+        }
+        #table_nhanvien tr td:nth-child(7)
+        {
+            min-width: 200px;
+        }
+        #table_nhanvien tr th:nth-child(8)
+        {
+            min-width: 100px;
+        }
+        #table_nhanvien tr td:nth-child(8)
+        {
+            min-width: 100px;
+        }
+        #table_nhanvien tr th:nth-child(9)
+        {
+            min-width: 100px;
+        }
+        #table_nhanvien tr td:nth-child(9)
+        {
+            min-width: 100px;
+        }
+        .card-fullscreen #table_nhanvien tbody
+        {
+            height: 50vh;
+        }
+        /*.card-fullscreen .table tr th:nth-child(4)*/
+        /*{*/
+            /*min-width: 260px;*/
+        /*}*/
+        /*.card-fullscreen .table tr td:nth-child(4)*/
+        /*{*/
+            /*min-width: 260px;*/
+        /*}*/
+        /*.card-fullscreen .table tr th:nth-child(5)*/
+        /*{*/
+            /*min-width: 260px;*/
+        /*}*/
+        /*.card-fullscreen .table tr td:nth-child(5)*/
+        /*{*/
+            /*min-width: 260px;*/
+        /*}*/
+        /*.card-fullscreen .table tr th:nth-child(8)*/
+        /*{*/
+            /*min-width: 140px;*/
+        /*}*/
+        /*.card-fullscreen .table tr td:nth-child(8)*/
+        /*{*/
+            /*min-width: 140px;*/
+        /*}*/
+    }
+    @media screen and (max-width: 1023px){
+        #table_nhanvien tr th:nth-child(1)
+        {
+            min-width:100px;
+        }
+        #table_nhanvien tr td:nth-child(1)
+        {
+            min-width: 100px;
+        }
+        #table_nhanvien tr th:nth-child(2)
+        {
+            min-width: 100px;
+        }
+        #table_nhanvien tr td:nth-child(2)
+        {
+            min-width: 100px;
+        }
+        #table_nhanvien tr th:nth-child(3)
+        {
+            min-width: 100px;
+        }
+        #table_nhanvien tr td:nth-child(3)
+        {
+            min-width: 100px;
+        }
+        #table_nhanvien tr th:nth-child(4)
+        {
+            min-width: 150px;
+        }
+        #table_nhanvien tr td:nth-child(4)
+        {
+            min-width: 150px;
+        }
+        #table_nhanvien tr th:nth-child(5)
+        {
+            min-width: 150px;
+        }
+        #table_nhanvien tr td:nth-child(5)
+        {
+            min-width: 150px;
+        }
+        #table_nhanvien tr th:nth-child(6)
+        {
+            min-width: 110px;
+        }
+        #table_nhanvien tr td:nth-child(6)
+        {
+            min-width: 110px;
+        }
+        #table_nhanvien tr th:nth-child(7)
+        {
+            min-width: 200px;
+        }
+        #table_nhanvien tr td:nth-child(7)
+        {
+            min-width: 200px;
+        }
+        #table_nhanvien tr th:nth-child(8)
+        {
+            min-width: 100px;
+        }
+        #table_nhanvien tr td:nth-child(8)
+        {
+            min-width: 100px;
+        }
+        #table_nhanvien tr th:nth-child(9)
+        {
+            min-width: 100px;
+        }
+        #table_nhanvien tr td:nth-child(9)
+        {
+            min-width: 100px;
+        }
     }
 
-    #table_nhanvien tr td:nth-child(2){
-        min-width: 50px;
-        max-width: 50px;
-    }
+    /*#table_nhanvien tr td:nth-child(1){*/
+        /*min-width: 100px;*/
+        /*max-width: 100px;*/
+    /*}*/
 
-    #table_nhanvien tr td:nth-child(3){
-        min-width: 100px;
-        max-width: 100px;
-    }
+    /*#table_nhanvien tr td:nth-child(2){*/
+        /*min-width: 50px;*/
+        /*max-width: 50px;*/
+    /*}*/
 
-    #table_nhanvien tr td:nth-child(4){
-        min-width: 200px;
-        max-width: 200px;
-    }
+    /*#table_nhanvien tr td:nth-child(3){*/
+        /*min-width: 100px;*/
+        /*max-width: 100px;*/
+    /*}*/
 
-    #table_nhanvien tr td:nth-child(5){
-        min-width: 100px;
-    }
+    /*#table_nhanvien tr td:nth-child(4){*/
+        /*min-width: 200px;*/
+        /*max-width: 200px;*/
+    /*}*/
 
-    #table_nhanvien tr td:nth-child(6){
-        min-width: 120px;
-        max-width: 120px;
-    }
+    /*#table_nhanvien tr td:nth-child(5){*/
+        /*min-width: 100px;*/
+    /*}*/
 
-    #table_nhanvien tr td:nth-child(7){
-        min-width: 220px;
-        max-width: 220px;
-    }
+    /*#table_nhanvien tr td:nth-child(6){*/
+        /*min-width: 120px;*/
+        /*max-width: 120px;*/
+    /*}*/
 
-    #table_nhanvien tr td:nth-child(8){
-        min-width: 120px;
-        max-width: 120px;
-    }
+    /*#table_nhanvien tr td:nth-child(7){*/
+        /*min-width: 220px;*/
+        /*max-width: 220px;*/
+    /*}*/
 
-    #table_nhanvien tr td:nth-child(9){
-        min-width: 105px;
-    }
+    /*#table_nhanvien tr td:nth-child(8){*/
+        /*min-width: 120px;*/
+        /*max-width: 120px;*/
+    /*}*/
 
-    #table_nhanvien tr td:nth-child(10){
-        min-width: 150px;
-    }
+    /*#table_nhanvien tr td:nth-child(9){*/
+        /*min-width: 105px;*/
+    /*}*/
 
-    #table_nhanvien tr td:nth-child(11){
-        min-width: 300px;
-        max-width: 300px;
-    }
+    /*#table_nhanvien tr td:nth-child(10){*/
+        /*min-width: 150px;*/
+    /*}*/
 
-    #table_nhanvien tr td:nth-child(12){
-        min-width: 300px;
-        max-width: 300px;
-    }
+    /*#table_nhanvien tr td:nth-child(11){*/
+        /*min-width: 300px;*/
+        /*max-width: 300px;*/
+    /*}*/
 
-    #table_nhanvien tr td:nth-child(13){
-        min-width: 120px;
-        max-width: 120px;
-    }
+    /*#table_nhanvien tr td:nth-child(12){*/
+        /*min-width: 300px;*/
+        /*max-width: 300px;*/
+    /*}*/
 
-    #table_nhanvien tr td:nth-child(14){
-        min-width: 120px;
-        max-width: 120px;
-    }
+    /*#table_nhanvien tr td:nth-child(13){*/
+        /*min-width: 120px;*/
+        /*max-width: 120px;*/
+    /*}*/
 
-    #table_nhanvien tr td:nth-child(15){
-        min-width: 120px;
-        max-width: 120px;
-    }
+    /*#table_nhanvien tr td:nth-child(14){*/
+        /*min-width: 120px;*/
+        /*max-width: 120px;*/
+    /*}*/
 
-    #table_nhanvien tr td:nth-child(16){
-        min-width: 120px;
-        max-width: 120px;
-    }
+    /*#table_nhanvien tr td:nth-child(15){*/
+        /*min-width: 120px;*/
+        /*max-width: 120px;*/
+    /*}*/
 
-    #table_nhanvien tr td:nth-child(17){
-        min-width: 120px;
-        max-width: 120px;
-    }
+    /*#table_nhanvien tr td:nth-child(16){*/
+        /*min-width: 120px;*/
+        /*max-width: 120px;*/
+    /*}*/
 
-    #table_nhanvien tr td:nth-child(18){
-        min-width: 300px;
-        max-width: 300px;
-    }
+    /*#table_nhanvien tr td:nth-child(17){*/
+        /*min-width: 120px;*/
+        /*max-width: 120px;*/
+    /*}*/
 
-    #table_nhanvien tr td:nth-child(19){
-        min-width: 120px;
-        max-width: 120px;
-    }
+    /*#table_nhanvien tr td:nth-child(18){*/
+        /*min-width: 300px;*/
+        /*max-width: 300px;*/
+    /*}*/
+
+    /*#table_nhanvien tr td:nth-child(19){*/
+        /*min-width: 120px;*/
+        /*max-width: 120px;*/
+    /*}*/
 
     .img-nv {
         width: 100%;
