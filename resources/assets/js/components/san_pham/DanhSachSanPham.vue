@@ -25,7 +25,7 @@
             <!-- Start Page Content -->
             <!-- ============================================================== -->
             <div class="row">
-                <div class="col-md-12 lamlam">
+                <div class="col-md-12">
                     <div class="card content-lam">
                         <div class="card-header">
                             <div class="card-actions">
@@ -38,120 +38,35 @@
                         </div>
                         <div class="card-body collapse show">
                             <div class="message-box contact-box">
-                                <!--<dic class="add-ct-btn">-->
-                                <!---->
-                                <!--</dic>-->
                                 <div class="message-widget contact-widget">
-                                    <!--<div class="row">-->
-                                    <!--<div class="col-md-6">-->
-                                    <!--<h4 class="card-title">Danh sách bộ phận</h4>-->
-                                    <!--</div>-->
-                                    <!--<div class="col-md-6">-->
-                                    <!--<button @click="_bo_phan('add')" title="Thêm mới bộ phận" type="button" data-toggle="modal" data-target="#myModal" class="btn btn-success waves-effect waves-dark pull-right">-->
-                                    <!--<i class="fa fa-plus-circle"></i> Thêm mới-->
-                                    <!--</button>-->
-                                    <!--</div>-->
-                                    <!--</div>-->
-
-                                    <div class="table-responsive">
-                                        <table class="table table-hover">
-                                            <thead>
-                                            <tr>
-                                                <th class="text-center" style="width: 100px;">#</th>
-                                                <th class="text-center">TT</th>
-                                                <th class="text-center">Hình ảnh</th>
-                                                <th>Mã SP</th>
-                                                <th>Thông tin SP</th>
-                                                <th>Diễn giải</th>
-                                                <th>Giá full VAT</th>
-                                                <!--<th>Ngày tạo</th>-->
-                                            </tr>
-                                            </thead>
-                                            <tbody class="body-table loading-item">
-                                            <tr v-if="loading_bo_phan">
-                                                <td class="text-center" colspan="6"><b><i><i class="fa fa-spin fa-spinner"></i> Đang tải danh sách bộ phận...</i></b></td>
-                                            </tr>
-                                            <tr v-else-if="list_bo_phan.length <= 0">
-                                                <td class="text-center" colspan="6"><b><i>Chưa có bộ phận</i></b></td>
-                                            </tr>
-                                            <tr v-else v-for="(n, index) in list_bo_phan" :id="'n' + n.id" class="row-nhom" @click="click_bo_phan(n)">
-                                                <td class="text-center" style="padding-right: 0">
-                                                    <button @click="_bo_phan('edit',n)" id="edit_nhom" type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#myModal">
-                                                        <i class="fa fa-edit"></i>
-                                                    </button>
-                                                    <button @click="delete_bo_phan(n)" type="button" class="btn btn-danger btn-sm">
-                                                        <i class="fa fa-trash"></i>
-                                                    </button>
-                                                </td>
-                                                <td class="text-center">{{index + 1}}</td>
-                                                <td></td>
-                                                <td>{{n.ma_bo_phan}}</td>
-                                                <td>{{n.ten_bo_phan}}</td>
-                                                <td>{{n.dien_giai}}</td>
-                                                <!--<td>{{n.created_at}}</td>-->
-                                            </tr>
-                                            </tbody>
-                                        </table>
-                                        <el-pagination
-                                                :page-size="10"
-                                                layout="prev, pager, next"
-                                                :total="total_bo_phan"
-                                                @current-change="danh_sach_bo_phan">
-                                        </el-pagination>
+                                    <div class="row mb-10">
+                                        <div class="col-md-12">
+                                            <input class="form-control"/>
+                                        </div>
+                                        <div class="col-md-12">
+                                            <el-table :data="tableData3" height="450" style="width: 100%" border>
+                                                <el-table-column  prop="date" label="Hình ảnh" width="100">
+                                                    <template slot-scope="scope">
+                                                        <img src="public/image_nhan_vien/1537859972.jpeg" alt="" class="img-sanpham">
+                                                    </template>
+                                                </el-table-column>
+                                                <el-table-column prop="name" label="Mã SP" width="100"></el-table-column>
+                                                <el-table-column prop="address" label="Tên SP"></el-table-column>
+                                                <el-table-column prop="address" label="Diễn giải"></el-table-column>
+                                                <el-table-column prop="address" label="Ngày tạo"></el-table-column>
+                                                <el-table-column label="Giá VND đã full VAT">
+                                                    <el-table-column label="Dealer"></el-table-column>
+                                                    <el-table-column label="Enduser"></el-table-column>
+                                                </el-table-column>
+                                            </el-table>
+                                        </div>
+                                        <div class="col-md-12">
+                                            <el-pagination :page-size="20" :pager-count="5" layout="prev, pager, next" :total="1000"></el-pagination>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
 
-                            <!--Modal Add-->
-                            <div class="modal" id="myModal">
-                                <div class="modal-dialog">
-                                    <div class="modal-content">
-                                        <form @submit.prevent="submit_bo_phan" id="form_bophan">
-                                            <!-- Modal Header -->
-                                            <div class="modal-header">
-                                                <h4 class="modal-title"><b>Thông tin bộ phận</b></h4>
-                                                <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                            </div>
-
-                                            <!-- Modal body -->
-                                            <div :disabled="flag_body_modal" class="modal-body">
-                                                <div class="form-group row">
-                                                    <label class="label-form col-md-3 col-form-label"><b>Mã bộ phận(*)</b></label>
-                                                    <div class="col-md-9">
-                                                        <input @input="validate_ma_bp" v-on:keypress="disable_spaces" v-bind:maxlength="7" v-model="bo_phan.ma_bo_phan" :disabled="flag_input_bo_phan" v-validate="'required'" :class="{'border-danger' : errors.has('txtmabophan')}" type="text" name="txtmabophan" class="form-control form-control-sm" id="txtmabophan" aria-describedby="" autofocus>
-                                                        <small v-if="flag_input_ma_bo_phan" class="help text-muted is-danger">Mã bộ phận phải có 7 ký tự, bắt đầu bằng BP</small>
-                                                    </div>
-
-                                                </div>
-                                                <div class="form-group row">
-                                                    <label class="label-form col-md-3 col-form-label"><b>Tên bộ phận(*)</b></label>
-                                                    <div class="col-md-9">
-                                                        <input v-model="bo_phan.ten_bo_phan" v-validate="'required'" :class="{'border-danger' : errors.has('txttenbophan')}" type="text" name="txttenbophan" class="form-control form-control-sm" id="txttenbophan" placeholder="">
-                                                        <small v-show="errors.has('txttenbophan')" class="help text-muted is-danger">Vui lòng nhập tên bộ phận</small>
-                                                    </div>
-                                                </div>
-                                                <div class="form-group row">
-                                                    <label class="label-form col-md-3 col-form-label"><b>Diễn giải</b></label>
-                                                    <div class="col-md-9">
-                                                        <textarea v-model="bo_phan.dien_giai" type="text" name="txtdiengiai" class="form-control form-control-sm" id="txtdiengiai"></textarea>
-                                                    </div>
-                                                </div>
-                                            </div>
-
-                                            <!-- Modal footer -->
-                                            <div class="modal-footer">
-                                                <button type="button" class="btn btn-danger" data-dismiss="modal">Hủy</button>
-                                                <!--<button id="save" type="submit" class="btn btn-primary">Lưu lại</button>-->
-                                                <button :disabled="flag_disabled_submit || errors.has('txttenbophan')" id="save" type="submit" class="btn btn-primary">
-                                                    <span v-if="flag_btn_save"><i class="fa fa-save"></i> Lưu lại</span>
-                                                    <span v-if="!flag_btn_save"><i class="fa fa-spin fa-spinner"></i> Đang xử lý...</span>
-                                                </button>
-                                            </div>
-                                        </form>
-                                    </div>
-                                </div>
-                            </div>
-                            <!--End Modal Add-->
                         </div>
                     </div>
                 </div>
@@ -193,7 +108,36 @@
                 flag_body_modal: false,
                 flag_btn_save: true,
                 flag_disabled_submit: false,
-                flag_input_ma_bo_phan: false
+                flag_input_ma_bo_phan: false,
+                tableData3: [{
+                    date: '2016-05-03',
+                    name: 'Tom',
+                    address: 'No. 189, Grove St, Los Angeles'
+                }, {
+                    date: '2016-05-02',
+                    name: 'Tom',
+                    address: 'No. 189, Grove St, Los Angeles'
+                }, {
+                    date: '2016-05-04',
+                    name: 'Tom',
+                    address: 'No. 189, Grove St, Los Angeles'
+                }, {
+                    date: '2016-05-01',
+                    name: 'Tom',
+                    address: 'No. 189, Grove St, Los Angeles'
+                }, {
+                    date: '2016-05-08',
+                    name: 'Tom',
+                    address: 'No. 189, Grove St, Los Angeles'
+                }, {
+                    date: '2016-05-06',
+                    name: 'Tom',
+                    address: 'No. 189, Grove St, Los Angeles'
+                }, {
+                    date: '2016-05-07',
+                    name: 'Tom',
+                    address: 'No. 189, Grove St, Los Angeles'
+                }],
             }
         },
         methods: {
@@ -276,6 +220,12 @@
             un_change_bnt_save: function () {
                 this.flag_btn_save = true;
                 $('#save').removeAttr('disabled');
+            },
+            handleEdit(index, row) {
+                console.log(index, row);
+            },
+            handleDelete(index, row) {
+                console.log(index, row);
             }
         }
     }
@@ -328,5 +278,15 @@
 
     .modal {
         transition: 1s ease-out;
+    }
+
+    .img-sanpham {
+        width: 100%;
+        height: 50px;
+    }
+
+    .el-table thead.is-group th {
+        font-weight: 600 !important;
+        text-align: center;
     }
 </style>

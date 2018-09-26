@@ -78,4 +78,14 @@ class NguoiPhuThuocController extends Controller
         $npt->delete();
         return 1;
     }
+
+    public function get_npt_con_thoi_han_theo_nhan_vien($nv_ma)
+    {
+        $current_day = Carbon\Carbon::now();
+        $npt = nguoi_phu_thuoc::where('ma_nv', $nv_ma)
+            ->where('tg_giam_tru_tu', '<=', $current_day)
+            ->where('tg_giam_tru_den', '>=', $current_day)
+            ->first();
+        return $npt;
+    }
 }

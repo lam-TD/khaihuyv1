@@ -58,4 +58,10 @@ class BaoHiemYTeController extends Controller
         $yt->delete();
         return 1;
     }
+
+    public function get_bhyt_theo_nhan_vien_moi_nhat($ma_nv)
+    {
+        $yt = bao_hiem_yte::where('nv_ma',$ma_nv)->orderby('created_at','desc')->first();
+        return $yt;
+    }
 }
