@@ -35,7 +35,7 @@ class NhanVienController extends Controller
             ->join('tinh_thanh','quan_huyen.ma_tinh','=','tinh_thanh.ma_tinh')
             ->orderby('nhan_vien.id','desc')
             ->paginate(10)->toArray();
-//        return $nv;
+        return $nv;
 //        return $nv['data'];
         $lam = null;
         foreach ($nv['data'] as $key => $value){
@@ -108,6 +108,7 @@ class NhanVienController extends Controller
         $nv->tam_tru_tinh_thanh = $request->tam_tru_tinh_thanh;
         $nv->thuong_tru_tinh_thanh = $request->thuong_tru_tinh_thanh;
         $nv->avatar = $avatar;
+        $nv->ghi_chu = $request->ghi_chu;
         $nv->save();
 
         return 1;
@@ -145,6 +146,7 @@ class NhanVienController extends Controller
         $nv->tinh_trang = $request->tinh_trang;
         $nv->tam_tru_tinh_thanh = $request->tam_tru_tinh_thanh;
         $nv->thuong_tru_tinh_thanh = $request->thuong_tru_tinh_thanh;
+        $nv->ghi_chu = $request->ghi_chu;
         ($avatar == '') ? $avatar = '' : $nv->avatar = $avatar;
         $nv->save();
         return 1;
