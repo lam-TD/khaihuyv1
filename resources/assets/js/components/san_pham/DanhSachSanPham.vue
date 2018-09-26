@@ -4,15 +4,15 @@
         <!-- Bread crumb and right sidebar toggle -->
         <!-- ============================================================== -->
         <!--<div class="row page-titles">-->
-            <!--<div class="col-md-5 align-self-center">-->
-                <!--&lt;!&ndash;<h3 class="text-themecolor">Danh sách nhóm người dùng</h3>&ndash;&gt;-->
-            <!--</div>-->
-            <!--<div class="col-md-7 align-self-center">-->
-                <!--<ol class="breadcrumb">-->
-                    <!--<li class="breadcrumb-item"><a href="javascript:void(0)">Nhân sự</a></li>-->
-                    <!--<li class="breadcrumb-item">Bộ phận</li>-->
-                <!--</ol>-->
-            <!--</div>-->
+        <!--<div class="col-md-5 align-self-center">-->
+        <!--&lt;!&ndash;<h3 class="text-themecolor">Danh sách nhóm người dùng</h3>&ndash;&gt;-->
+        <!--</div>-->
+        <!--<div class="col-md-7 align-self-center">-->
+        <!--<ol class="breadcrumb">-->
+        <!--<li class="breadcrumb-item"><a href="javascript:void(0)">Nhân sự</a></li>-->
+        <!--<li class="breadcrumb-item">Bộ phận</li>-->
+        <!--</ol>-->
+        <!--</div>-->
         <!--</div>-->
         <!-- ============================================================== -->
         <!-- End Bread crumb and right sidebar toggle -->
@@ -34,24 +34,23 @@
                                 <a class="btn-minimize" data-action="expand"><i class="mdi mdi-arrow-expand"></i></a>
                                 <!--<a class="btn-close" data-action="close"><i class="ti-close"></i></a>-->
                             </div>
-                            <h4 class="card-title m-b-0">Danh sách bộ phận</h4>
-                            <h6 class="card-subtitle m-0 op-5">Tổng số bộ phận: {{total_bo_phan}}</h6>
+                            <h4 class="card-title m-b-0">Danh sách sản phẩm</h4>
                         </div>
                         <div class="card-body collapse show">
                             <div class="message-box contact-box">
                                 <!--<dic class="add-ct-btn">-->
-                                    <!---->
+                                <!---->
                                 <!--</dic>-->
                                 <div class="message-widget contact-widget">
                                     <!--<div class="row">-->
-                                        <!--<div class="col-md-6">-->
-                                            <!--<h4 class="card-title">Danh sách bộ phận</h4>-->
-                                        <!--</div>-->
-                                        <!--<div class="col-md-6">-->
-                                            <!--<button @click="_bo_phan('add')" title="Thêm mới bộ phận" type="button" data-toggle="modal" data-target="#myModal" class="btn btn-success waves-effect waves-dark pull-right">-->
-                                                <!--<i class="fa fa-plus-circle"></i> Thêm mới-->
-                                            <!--</button>-->
-                                        <!--</div>-->
+                                    <!--<div class="col-md-6">-->
+                                    <!--<h4 class="card-title">Danh sách bộ phận</h4>-->
+                                    <!--</div>-->
+                                    <!--<div class="col-md-6">-->
+                                    <!--<button @click="_bo_phan('add')" title="Thêm mới bộ phận" type="button" data-toggle="modal" data-target="#myModal" class="btn btn-success waves-effect waves-dark pull-right">-->
+                                    <!--<i class="fa fa-plus-circle"></i> Thêm mới-->
+                                    <!--</button>-->
+                                    <!--</div>-->
                                     <!--</div>-->
 
                                     <div class="table-responsive">
@@ -60,9 +59,11 @@
                                             <tr>
                                                 <th class="text-center" style="width: 100px;">#</th>
                                                 <th class="text-center">TT</th>
-                                                <th>Mã bộ phận</th>
-                                                <th>Tên bộ phận</th>
+                                                <th class="text-center">Hình ảnh</th>
+                                                <th>Mã SP</th>
+                                                <th>Thông tin SP</th>
                                                 <th>Diễn giải</th>
+                                                <th>Giá full VAT</th>
                                                 <!--<th>Ngày tạo</th>-->
                                             </tr>
                                             </thead>
@@ -83,6 +84,7 @@
                                                     </button>
                                                 </td>
                                                 <td class="text-center">{{index + 1}}</td>
+                                                <td></td>
                                                 <td>{{n.ma_bo_phan}}</td>
                                                 <td>{{n.ten_bo_phan}}</td>
                                                 <td>{{n.dien_giai}}</td>
@@ -164,10 +166,10 @@
 </template>
 
 <script>
-    import {api_bophan_get} from './bo_phan.js';
-    import {api_add_bo_phan} from "./bo_phan";
-    import {api_edit_bo_phan} from "./bo_phan";
-    import {api_delete_bo_phan} from "./bo_phan";
+    import {api_bophan_get} from '../nhan_su/bophan/bo_phan.js';
+    import {api_add_bo_phan} from "../nhan_su/bophan/bo_phan";
+    import {api_edit_bo_phan} from "../nhan_su/bophan/bo_phan";
+    import {api_delete_bo_phan} from "../nhan_su/bophan/bo_phan";
 
     export default {
         name: 'bophan',
