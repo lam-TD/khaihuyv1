@@ -41,11 +41,11 @@ return [
 
         'mysql' => [
             'driver' => 'mysql',
-            'host' => '35.240.248.119',
+            'host' => 'localhost',
             'port' => '3306',
-            'database' => 'tdlam_test',
-            'username' => 'tdlam_test',
-            'password' => 'EwnTQ7c9do',
+            'database' => 'khaihuy',
+            'username' => 'root',
+            'password' => '',
             'unix_socket' => env('DB_SOCKET', ''),
             'charset' => 'utf8mb4',
             'collation' => 'utf8mb4_unicode_ci',
