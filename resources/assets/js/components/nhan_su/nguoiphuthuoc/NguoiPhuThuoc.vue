@@ -358,7 +358,7 @@
                         return (item['ma_nv'] == bophan.ma_nv);
                     })[0];
                     $('#txtma_nv').val(bophan.ma_nv);
-
+                    console.log(bophan);
                     this.npt.id = bophan.id; this.npt.ma_nv = bophan.ma_nv; this.npt.ho_ten_npt = bophan.ho_ten_npt; this.npt.ngay_sinh_npt = bophan.ngay_sinh_npt;
                     this.npt.so_cmnd_npt = bophan.so_cmnd_npt; this.npt.mst_npt = bophan.mst_npt; this.npt.ma_quoc_tich_npt = bophan.ma_quoc_tich_npt; this.npt.quoc_tich_npt = bophan.quoc_tich_npt;
                     this.npt.ma_quan_he_nnt = bophan.ma_quan_he_nnt; this.npt.tg_giam_tru_tu = bophan.tg_giam_tru_tu; this.npt.tg_giam_tru_den = bophan.tg_giam_tru_den; this.npt.ghi_chu = bophan.ghi_chu;
@@ -391,6 +391,7 @@
             },
             delete_npt: function(n) {
                 this.npt = n;
+                console.log(n);
                 if(this.npt.id <= 0) return -1;
                 api_delete_npt(this);
             },

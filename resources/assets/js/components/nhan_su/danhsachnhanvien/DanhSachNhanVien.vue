@@ -106,7 +106,7 @@
                                     </div>
                                 </div>
                                 <div class="col-md-12">
-                                    <el-table height="320px" :data="dsnhanvien" style="width: 100%" border empty-text="Chưa có dữ liệu">
+                                    <el-table :data="dsnhanvien" style="width: 100%" border empty-text="Chưa có dữ liệu">
                                         <el-table-column prop="name" label="#" width="90" align="center">
                                             <template slot-scope="scope" class="text-center" style="width: 100%">
                                                 <button @click="_nhan_vien('edit', scope.row)" data-toggle="modal" data-target="#modal_nv_tt_ca_nhan" class="btn btn-info btn-sm" title="Cập nhật thông tin cá nhân"> <i class="fa fa-edit"></i> </button>
@@ -116,13 +116,13 @@
                                         <el-table-column type="index" label="TT" :index="indexMethod" align="center"></el-table-column>
                                         <el-table-column  prop="date" label="Hình ảnh" width="80">
                                             <template slot-scope="props">
-                                                <img :src="'public/image_nhan_vien/'+props.row.avatar" alt="" class="img-sanpham">
+                                                <img @click="load_chi_tiet_nhan_vien(props.row)" :src="'public/image_nhan_vien/'+props.row.avatar" data-toggle="modal" data-target="#exampleModal2" alt="" class="img-sanpham" style="cursor: pointer" title="Click để xem chi tiết">
                                             </template>
                                         </el-table-column>
                                         <el-table-column prop="ma_nv" label="Mã NV" width="100"></el-table-column>
                                         <el-table-column label="Tên NV" width="150">
                                             <template slot-scope="scope">
-                                                <span @click="load_chi_tiet_nhan_vien(scope.row)" class="ten-nv" data-toggle="modal" data-target="#exampleModal2">{{scope.row.ho_ten}}</span>
+                                                <span @click="load_chi_tiet_nhan_vien(scope.row)" class="ten-nv" data-toggle="modal" data-target="#exampleModal2" title="Click để xem chi tiết">{{scope.row.ho_ten}}</span>
                                             </template>
                                         </el-table-column>
                                         <el-table-column label="Giới tính" width="80">
@@ -453,7 +453,7 @@
                                                     </div>
 
                                                     <label class="label-form col-md-2 col-3 col-form-label">Nơi sinh:</label>
-                                                    <div class="col-md-3 col-9 tt-dacbiet">
+                                                    <div class="col-md-3 col-9">
                                                         <p>{{nv_noi_sinh.tinh_thanh.ten_tinh}}, {{nv_noi_sinh.quan_huyen.ten_quan_huyen}}</p>
                                                     </div>
 
