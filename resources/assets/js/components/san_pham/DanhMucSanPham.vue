@@ -275,7 +275,7 @@
             },
             onEditorChange({ quill, html, text }) {
                 console.log('editor change!', quill, html, text)
-                this.content = html
+                // this.content = html
             }
         }
     }

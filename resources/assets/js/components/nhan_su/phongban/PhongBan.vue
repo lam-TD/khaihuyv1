@@ -3,31 +3,24 @@
         <!-- ============================================================== -->
         <!-- Bread crumb and right sidebar toggle -->
         <!-- ============================================================== -->
-        <div class="row page-titles">
-            <div class="col-md-5 align-self-center">
-                <h3 class="text-themecolor">Danh sách phòng ban</h3>
-            </div>
-            <div class="col-md-7 align-self-center">
-                <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="javascript:void(0)">Nhân sự</a></li>
-                    <li class="breadcrumb-item">Phòng ban</li>
-                </ol>
-            </div>
-        </div>
-        <!-- ============================================================== -->
-        <!-- End Bread crumb and right sidebar toggle -->
-        <!-- ============================================================== -->
-        <!-- ============================================================== -->
-        <!-- Container fluid  -->
-        <!-- ============================================================== -->
+
         <div class="container-fluid">
             <!-- ============================================================== -->
             <!-- Start Page Content -->
             <!-- ============================================================== -->
             <div class="row">
-                <div class="col-lg-12 col-md-12">
+                <div class="col-lg-12 col-md-12 lamlam">
                     <!-- Column -->
-                    <div class="card">
+                    <div class="card content-lam">
+                        <div class="card-header">
+                            <div class="card-actions">
+                                <!--<a @click="_bo_phan('add')" title="Thêm mới bộ phận" data-toggle="modal" data-target="#myModal" class="btn btn-success waves-effect waves-dark btn-white" style="color: white"><i class="fa fa-plus-circle"></i> Thêm mới</a>-->
+                                <a @click="scroll_card" id="thunho" class="" data-action="collapse"><i class="ti-minus"></i></a>
+                                <a @click="scroll_card_full_creem" id="phongto" class="btn-minimize" data-action="expand"><i class="mdi mdi-arrow-expand"></i></a>
+                                <!--<a class="btn-close" data-action="close"><i class="ti-close"></i></a>-->
+                            </div>
+                            <h4 class="card-title m-b-0">Danh sách phòng</h4>
+                        </div>
                         <div class="card-body bg-inverse">
                             <div class="row row-title">
                                 <div class="col-md-4 col-sm-6">
@@ -288,7 +281,11 @@
                 else {
                     $('#select_phong_2').attr('disabled', 'disabled');
                     this.error_select_bo_phan = false;
-                    this.phong_ban = bophan;
+                    this.phong_ban.id = bophan.id;
+                    this.phong_ban.ma_phong = bophan.ma_phong;
+                    this.phong_ban.id_bo_phan = bophan.id_bo_phan;
+                    this.phong_ban.ten_phong = bophan.ten_phong;
+                    this.phong_ban.dien_giai = bophan.dien_giai;
                     this.flag_submit_phong_ban = false;
                     this.flag_input_phong_ban = true;
                 }
@@ -330,6 +327,14 @@
                 console.log("unchange");
                 this.flag_btn_save = true;
                 $('#save').removeAttr('disabled');
+            },
+            scroll_card: function () {
+                $('#thunho').closest('.card').find('[data-action="collapse"] i').toggleClass('ti-minus ti-plus');
+                $('#thunho').closest('.card').children('.card-body').collapse('toggle');
+            },
+            scroll_card_full_creem: function () {
+                $('#phongto').closest('.card').find('[data-action="expand"] i').toggleClass('mdi-arrow-expand mdi-arrow-compress');
+                $('#phongto').closest('.card').toggleClass('card-fullscreen');
             }
         }
     }
