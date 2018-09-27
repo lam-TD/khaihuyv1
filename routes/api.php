@@ -128,6 +128,11 @@ Route::group(['middleware' => 'jwt.auth'], function ($router) {
     Route::get('get_npt_con_thoi_han_theo_nhan_vien/{nv_ma}', 'NguoiPhuThuocController@get_npt_con_thoi_han_theo_nhan_vien');
 });
 
+// ================= SAN PHAM =====================
+Route::group(['middleware' => 'jwt.auth'], function ($router) {
+    Route::get('get-danh-muc-san-pham', 'DanhMucController@get_all_danh_muc_san_pham');
+});
+
 // ================= HE THONG =====================
 Route::group(['middleware' => 'jwt.auth'], function ($router) {
     Route::get('danh-sach-nhom-nguoi-dung', 'HeThongController@get_danh_sach_nhom_nguoi_dung');
