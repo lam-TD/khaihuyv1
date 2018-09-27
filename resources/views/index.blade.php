@@ -69,7 +69,7 @@
         <!--stickey kit -->
         <script src="public/assets/plugins/sticky-kit-master/dist/sticky-kit.js"></script>
         <!--Menu sidebar -->
-        <script src="public/template/js/sidebarmenu.js"></script>
+        {{--<script src="public/template/js/sidebarmenu.js"></script>--}}
 
         <!--Custom JavaScript -->
         <script src="public/template/js/custom.js"></script>

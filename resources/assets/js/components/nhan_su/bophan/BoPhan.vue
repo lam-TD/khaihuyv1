@@ -30,8 +30,8 @@
                         <div class="card-header">
                             <div class="card-actions">
                                 <a @click="_bo_phan('add')" title="Thêm mới bộ phận" data-toggle="modal" data-target="#myModal" class="btn btn-success waves-effect waves-dark btn-white" style="color: white"><i class="fa fa-plus-circle"></i> Thêm mới</a>
-                                <a class="" data-action="collapse"><i class="ti-minus"></i></a>
-                                <a class="btn-minimize" data-action="expand"><i class="mdi mdi-arrow-expand"></i></a>
+                                <a @click="scroll_card" id="thunho" class="" data-action="collapse"><i class="ti-minus"></i></a>
+                                <a @click="scroll_card_full_creem" id="phongto" class="btn-minimize" data-action="expand"><i class="mdi mdi-arrow-expand"></i></a>
                                 <!--<a class="btn-close" data-action="close"><i class="ti-close"></i></a>-->
                             </div>
                             <h4 class="card-title m-b-0">Danh sách bộ phận</h4>
@@ -164,6 +164,7 @@
 </template>
 
 <script>
+
     import {api_bophan_get} from './bo_phan.js';
     import {api_add_bo_phan} from "./bo_phan";
     import {api_edit_bo_phan} from "./bo_phan";
@@ -274,6 +275,14 @@
             un_change_bnt_save: function () {
                 this.flag_btn_save = true;
                 $('#save').removeAttr('disabled');
+            },
+            scroll_card: function () {
+                $('#thunho').closest('.card').find('[data-action="collapse"] i').toggleClass('ti-minus ti-plus');
+                $('#thunho').closest('.card').children('.card-body').collapse('toggle');
+            },
+            scroll_card_full_creem: function () {
+                $('#phongto').closest('.card').find('[data-action="expand"] i').toggleClass('mdi-arrow-expand mdi-arrow-compress');
+                $('#phongto').closest('.card').toggleClass('card-fullscreen');
             }
         }
     }

@@ -23,7 +23,7 @@
                                             </div>
                                         </div>
                                         <div class="col-lg-6">
-                                            <img class="card-img img-responsive" src="https://nld.mediacdn.vn/k:thumb_w/540/2016/hoa-1469585085546/loai-hoa-nao-cam-ky-cung-tren-ban-tho.jpg" alt="Kho vận" style="width: 100%; height: 200px;">
+                                            <img class="card-img img-responsive" src="public/assets/images/img_hoa_1.jpg" alt="Kho vận" style="width: 100%; height: 200px;">
                                         </div>
                                     </div>
                                 </div>
@@ -41,7 +41,7 @@
                                             </div>
                                         </div>
                                         <div class="col-lg-6">
-                                            <img class="card-img img-responsive" src="http://chohoaviet.com/wp-content/uploads/2016/06/kim-ngan-hoa-6a.jpg" alt="Kế toán" style="width: 100%; height: 200px;">
+                                            <img class="card-img img-responsive" src="public/assets/images/img_hoa_2.jpg" alt="Kế toán" style="width: 100%; height: 200px;">
                                         </div>
                                     </div>
                                 </div>
@@ -70,7 +70,7 @@
                                             </div>
                                         </div>
                                         <div class="col-lg-6">
-                                            <img class="card-img img-responsive" src="http://shophoatuoitamky.com/wp-content/uploads/2017/07/cc1.jpg" alt="Kỹ thuật" style="width: 100%; height: 200px;">
+                                            <img class="card-img img-responsive" src="public/assets/images/img_hoa_3.jpg" alt="Kỹ thuật" style="width: 100%; height: 200px;">
                                         </div>
                                     </div>
                                 </div>
@@ -88,7 +88,7 @@
                                             </div>
                                         </div>
                                         <div class="col-lg-6">
-                                            <img class="card-img img-responsive" src="https://hatgiongf1.com/wp-content/uploads/2017/10/bat-tu-do.jpg" alt="Kinh doanh" style="width: 100%; height: 200px;">
+                                            <img class="card-img img-responsive" src="public/assets/images/img_hoa_4.jpg" alt="Kinh doanh" style="width: 100%; height: 200px;">
                                         </div>
                                     </div>
                                 </div>
@@ -121,7 +121,7 @@
                                             </div>
                                         </div>
                                         <div class="col-lg-6">
-                                            <img class="card-img img-responsive" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ0tAT-qrXbfVX8GYO1kttUXalVlwlRO_DoBteleCE0aC_Gt7Sq" alt="Nhân sự" style="width: 100%; height: 200px;">
+                                            <img class="card-img img-responsive" src="public/assets/images/img_hoa_5.jpg" alt="Nhân sự" style="width: 100%; height: 200px;">
                                         </div>
                                     </div>
                                 </div>
@@ -141,7 +141,7 @@
                                             </div>
                                         </div>
                                         <div class="col-lg-6">
-                                            <img class="card-img img-responsive" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR2fmUokIjjyPwsloHE91v6R_RNmR8LOkMN77FWmGBMp8s7xxIZKg" alt="Nhân sự" style="width: 100%; height: 200px;">
+                                            <img class="card-img img-responsive" src="public/assets/images/img_hoa_6.jpg" alt="Nhân sự" style="width: 100%; height: 200px;">
                                         </div>
                                     </div>
                                 </div>
@@ -170,7 +170,7 @@
                                             </div>
                                         </div>
                                         <div class="col-lg-6">
-                                            <img class="card-img img-responsive" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ3QUE-wOr-KyR40y5HPbMpnlw2HZ8aALjxZ4FQPk5NnUfwVrL0Mw" alt="Sản phẩm" style="width: 100%; height: 200px;">
+                                            <img class="card-img img-responsive" src="public/assets/images/img_hoa_7.jpg" alt="Sản phẩm" style="width: 100%; height: 200px;">
                                         </div>
                                     </div>
                                 </div>
@@ -188,7 +188,7 @@
                                             </div>
                                         </div>
                                         <div class="col-lg-6">
-                                            <img class="card-img img-responsive" src="http://hoaexpress.vn/upload/images/hoa-cuc-3.jpg" alt="Hệ thống" style="width: 100%; height: 200px;">
+                                            <img class="card-img img-responsive" src="public/assets/images/img_hoa_8.jpg" alt="Hệ thống" style="width: 100%; height: 200px;">
                                         </div>
                                     </div>
                                 </div>

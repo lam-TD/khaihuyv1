@@ -17,7 +17,7 @@
                             <span class="hide-menu">{{list.ten_nhom}}</span>
                         </a>
                         <ul aria-expanded="false" class="ul-chuc-nang collapse" :id="'ul' + key">
-                            <li v-for="cn in list_chuc_nang[key].chuc_nang" @click="active_chuc_nang(cn.id)" :id="'cn' + cn.id" class="row-chuc-nang">
+                            <li v-for="cn in list_chuc_nang[key].chuc_nang" class="row-chuc-nang">
                                 <router-link :to="cn.link">{{cn.ten_chuc_nang}}</router-link>
                             </li>
                         </ul>
@@ -77,19 +77,20 @@
                 },2000);
             },
             active_nhom: function (key) {
-                if($('#mcn' + key).hasClass("active") && $('#ul' + key).hasClass("in"))
-                {
-                    $('#mcn' + key).removeClass("active");
-                    $('#ul' + key).removeClass("in");
-                }else {
-                    $('#mcn' + key).toggleClass("active");
-                    $('#ul' + key).toggleClass("in");
-                }
+                // if($('#mcn' + key).hasClass("active") && $('#ul' + key).hasClass("in"))
+                // {
+                //     $('#mcn' + key).removeClass("active");
+                //     $('#ul' + key).removeClass("in");
+                // }else {
+                //     $('#mcn' + key).toggleClass("active");
+                //     $('#ul' + key).toggleClass("in");
+                // }
 
             },
             active_chuc_nang: function (key) {
-                $('.row-chuc-nang').removeClass("active");
-                $('#cn' + key).addClass("active");
+                console.log(key);
+                // $('.row-chuc-nang').removeClass("active");
+                // $('#cn' + key).addClass("active");
             }
         }
     }

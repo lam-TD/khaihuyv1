@@ -46,6 +46,6 @@ $(document).ready(function () {
     // Sidebarmenu
     // ==============================================================
     $(function () {
-        $('#sidebarnav').metisMenu();
+        // $('#sidebarnav').metisMenu();
     });
 })

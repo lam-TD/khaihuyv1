@@ -323,6 +323,9 @@ tr.thutu, td.thutu {
 {
     border-color: #000000;
 }
+.topbar .navbar-light .navbar-nav .nav-item > a.nav-link:hover{
+    color: #979ca0 !important;
+}
 @media (min-width: 768px) {
     .mini-sidebar .sidebar-nav #sidebarnav > li:hover > a {
         background: #cacaca;
@@ -334,6 +337,15 @@ tr.thutu, td.thutu {
     {
         left: 50px;
         top: 0px;
+        width: 210px;
+    }
+    .slimScrollDiv
+    {
+        background: #dddddd;
+    }
+    .card-no-border .left-sidebar, .card-no-border .sidebar-nav:hover
+    {
+        background: #dddddd00;
     }
 }
 
