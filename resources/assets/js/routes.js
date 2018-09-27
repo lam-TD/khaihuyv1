@@ -16,7 +16,7 @@ import baohiemyte from './components/nhan_su/baohiemyte/BaoHiemYTe';
 import nguoiphuthuoc from './components/nhan_su/nguoiphuthuoc/NguoiPhuThuoc';
 
 //======= SAN PHAM =======
-import danhmucsanpham from './components/san_pham/DanhMucSanPham'
+import danhmucsanpham from './components/san_pham/DanhMucSanPham';
 import thongtinsanpham from './components/san_pham/ThongTinSanPham';
 import danhsachsanpham from './components/san_pham/DanhSachSanPham';
 

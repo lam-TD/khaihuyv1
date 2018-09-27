@@ -418,11 +418,11 @@
                                 </div>
                                 <div class="modal-body" style="padding-top: 0">
                                     <ul class="nav nav-tabs customtab" role="tablist">
-                                        <li class="nav-item"> <a class="nav-link active" data-toggle="tab" href="#home2" role="tab"><span class="hidden-sm-up"><i class="ti-home"></i></span> <span class="hidden-xs-down">Thông tin cá nhân</span></a> </li>
-                                        <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#profile2" role="tab"><span class="hidden-sm-up"><i class="ti-user"></i></span> <span class="hidden-xs-down">Thông tin công việc</span></a> </li>
-                                        <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#messages3" role="tab"><span class="hidden-sm-up"><i class="ti-email"></i></span> <span class="hidden-xs-down">Hợp đồng</span></a> </li>
-                                        <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#messages4" role="tab"><span class="hidden-sm-up"><i class="ti-email"></i></span> <span class="hidden-xs-down">BHYT</span></a> </li>
-                                        <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#messages5" role="tab"><span class="hidden-sm-up"><i class="ti-email"></i></span> <span class="hidden-xs-down">Người phụ thuộc</span></a> </li>
+                                        <li class="nav-item"> <a class="nav-link active" data-toggle="tab" href="#home2" role="tab"><span class="hidden-sm-up"><i class="fa fa-info-circle"></i></span> <span class="hidden-xs-down">Thông tin cá nhân</span></a> </li>
+                                        <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#profile2" role="tab"><span class="hidden-sm-up"><i class="fa fa-info"></i></span> <span class="hidden-xs-down">Thông tin công việc</span></a> </li>
+                                        <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#messages3" role="tab"><span class="hidden-sm-up"><i class="fa fa-list-ol"></i></span> <span class="hidden-xs-down">Hợp đồng</span></a> </li>
+                                        <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#messages4" role="tab"><span class="hidden-sm-up"><i class="fa fa-user-md"></i></span> <span class="hidden-xs-down">BHYT</span></a> </li>
+                                        <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#messages5" role="tab"><span class="hidden-sm-up"><i class="fa fa-user-o"></i></span> <span class="hidden-xs-down">Người phụ thuộc</span></a> </li>
                                     </ul>
                                     <!-- Tab panes -->
                                     <div class="tab-content">
@@ -535,197 +535,111 @@
                                                 </div>
                                             </div>
                                         </div>
+
                                         <div class="tab-pane  p-20" id="profile2" role="tabpanel">
-                                            <form @submit.prevent="submit_ttcv">
-                                                <div class="form-group row">
-                                                    <label class="label-form col-md-3 col-form-label">Nhân viên(*)</label>
-                                                    <div class="col-md-9">
-                                                        <div class="row">
-                                                            <div class="col-md-6">
-                                                                <input v-model="nhan_vien.ma_nv" type="text" id="txtnhanvien-sua" class="form-control form-control-sm" readonly>
-                                                            </div>
-                                                            <div class="col-md-6">
-                                                                <input v-model="nhan_vien.ho_ten" type="text" id="-sua" class="form-control form-control-sm" readonly>
-                                                            </div>
-                                                        </div>
+                                            <!--thong tin cong viec-->
+                                            <div style="padding-top:10px">
+                                                <div class="form-group row border-form">
+                                                    <label class="label-form col-md-2 col-3 col-form-label">Nhân viên:</label>
+                                                    <div class="col-md-2 col-9 tt-dacbiet">
+                                                        <p>{{ttcv.nv_ma}}</p>
+                                                    </div>
 
+                                                    <label class="label-form col-md-2 col-3 col-form-label">Ngày:</label>
+                                                    <div class="col-md-2 col-9">
+                                                        <p>{{ttcv.ngay}}</p>
                                                     </div>
-                                                </div>
 
-                                                <div class="form-group row">
-                                                    <label class="label-form col-md-3 col-form-label">Ngày</label>
-                                                    <div class="col-md-9">
-                                                        <input v-model="ttcv.ngay" name="so_ttcv" type="date" class="form-control form-control-sm">
-                                                        <small v-show="errors.has('so_ttcv')" class="help text-muted is-danger">Vui lòng nhập số bảo hiểm y tết</small>
+                                                    <label class="label-form col-md-2 col-3 col-form-label">Tình trạng:</label>
+                                                    <div class="col-md-2 col-9">
+                                                        <!--<p>{{if(ttcv.tinh_trang == 0) 'Thử việc' elseif(ttcv.tinh_trang == 0) 'Chính thức' else 'Thôi việc'  }}</p>-->
+                                                        <p v-if="ttcv.tinh_trang == 0">Thử việc</p>
+                                                        <p v-else-if="ttcv.tinh_trang == 1">Chính thức</p>
+                                                        <p v-else>Thôi việc</p>
                                                     </div>
                                                 </div>
+                                                <div class="form-group row border-form">
+                                                    <label class="label-form col-md-2 col-3 col-form-label">Bộ phận LV:</label>
+                                                    <div class="col-md-2 col-9 tt-dacbiet">
+                                                        <p>{{ttcv.bo_phan_ma}}</p>
+                                                    </div>
 
-                                                <div class="form-group row">
-                                                    <label class="label-form col-md-3 col-form-label">Tình trạng</label>
-                                                    <div class="col-md-9">
-                                                        <select v-model="ttcv.tinh_trang" name="" id="" class="form-control form-control-sm" style="width:100%">
-                                                            <option value="0">Thử việc</option>
-                                                            <option value="1">Chính thức</option>
-                                                            <option value="2">Thôi việc</option>
-                                                        </select>
-                                                        <!--<small v-show="errors.has('so_bhxh')" class="help text-muted is-danger">Vui lòng nhập số bảo hiểm xã hội</small>-->
+                                                    <label class="label-form col-md-2 col-3 col-form-label">Phòng:</label>
+                                                    <div class="col-md-2 col-9">
+                                                        <p>{{ttcv.phong_ma}}</p>
                                                     </div>
-                                                </div>
 
-                                                <div class="form-group row">
-                                                    <label class="label-form col-md-3 col-form-label">Bộ phận LV</label>
-                                                    <div class="col-md-9">
-                                                        <el-select v-model="ttcv.bo_phan_ma" filterable size="small" placeholder="Chọn bộ phận" style="width: 100%" @change="select_bo_phan" no-match-text="Không tìm thấy" no-data-text="Không có dữ liệu">
-                                                            <!--<template slot="prefix"><label class="prefix">{{nhan_vien.ma_nv}}</label></template>-->
-                                                            <el-option
-                                                                    v-for="item in list_bo_phan"
-                                                                    :key="item.id"
-                                                                    :label="item.ma_bo_phan"
-                                                                    :value="item.ma_bo_phan">
-                                                                <span style="float: left">{{ item.ma_bo_phan }}</span>
-                                                                <span style="float: right; color: #8492a6; font-size: 13px">{{ item.ten_bo_phan }}</span>
-                                                            </el-option>
-                                                        </el-select>
-                                                        <small v-show="errors.has('so_bhxh')" class="help text-muted is-danger">Vui lòng nhập số bảo hiểm xã hội</small>
+                                                    <label class="label-form col-md-2 col-3 col-form-label">Vị trí:</label>
+                                                    <div class="col-md-2 col-9">
+                                                        <p>{{ttcv.vi_tri_ma}}</p>
                                                     </div>
                                                 </div>
+                                                <div class="form-group row border-form">
+                                                    <label class="label-form col-md-2 col-3 col-form-label">HS lương:</label>
+                                                    <div class="col-md-2 col-9 tt-dacbiet">
+                                                        <p>{{formatPrice(ttcv.he_so_luong)}}</p>
+                                                    </div>
 
-                                                <div class="form-group row">
-                                                    <label class="label-form col-md-3 col-form-label">Phòng</label>
-                                                    <div class="col-md-9">
-                                                        <el-select v-model="ttcv.phong_ma" size="small" placeholder="Chọn phòng" style="width: 100%" @change="select_phong" no-match-text="Không tìm thấy" no-data-text="Không có dữ liệu">
-                                                            <!--<template slot="prefix"><label class="prefix">{{nhan_vien.ma_nv}}</label></template>-->
-                                                            <el-option
-                                                                    v-for="item in list_change_phong"
-                                                                    :key="item.id"
-                                                                    :label="item.ma_phong"
-                                                                    :value="item.ma_phong">
-                                                                <span style="float: left">{{ item.ma_phong }}</span>
-                                                                <span style="float: right; color: #8492a6; font-size: 13px">{{ item.ten_phong }}</span>
-                                                            </el-option>
-                                                        </el-select>
+                                                    <label class="label-form col-md-2 col-3 col-form-label">Chấm công:</label>
+                                                    <div class="col-md-2 col-9">
+                                                        <p>{{ttcv.cham_cong}}</p>
                                                     </div>
-                                                </div>
 
-                                                <div class="form-group row">
-                                                    <label class="label-form col-md-3 col-form-label">Vị trí</label>
-                                                    <div class="col-md-9">
-                                                        <el-select v-model="ttcv.vi_tri_ma" filterable size="small" placeholder="Chọn phòng" style="width: 100%" @change="select_vi_tri" no-match-text="Không tìm thấy" no-data-text="Không có dữ liệu">
-                                                            <!--<template slot="prefix"><label class="prefix">{{nhan_vien.ma_nv}}</label></template>-->
-                                                            <el-option
-                                                                    v-for="item in list_vi_tri"
-                                                                    :key="item.ma_vi_tri"
-                                                                    :label="item.ma_vi_tri"
-                                                                    :value="item.ma_vi_tri">
-                                                                <span style="float: left">{{ item.ma_vi_tri }}</span>
-                                                                <span style="float: right; color: #8492a6; font-size: 13px">{{ item.ten_vi_tri }}</span>
-                                                            </el-option>
-                                                        </el-select>
-                                                    </div>
                                                 </div>
+                                                <div class="form-group row border-form">
+                                                    <label class="label-form col-md-2 col-3 col-form-label">Lương CB:</label>
+                                                    <div class="col-md-2 col-9 tt-dacbiet">
+                                                        <p>{{formatPrice(ttcv.luong_co_ban)}} VNĐ</p>
+                                                    </div>
 
-                                                <div class="form-group row">
-                                                    <label class="label-form col-md-3 col-form-label">Hệ số lương</label>
-                                                    <div class="col-md-9">
-                                                        <input v-on:keypress="only_number_input" v-model="ttcv.he_so_luong" name="txtngaykt" type="text" class="form-control form-control-sm">
-                                                        <!--<vue-numeric class="form-control form-control-sm" separator="," v-model="ttcv.he_so_luong"></vue-numeric>-->
-                                                        <!--<small v-show="errors.has('txtngaykt')" class="help text-muted is-danger">Vui lòng nhập ngày kết thúc</small>-->
+                                                    <label class="label-form col-md-2 col-3 col-form-label luong-htcv">Lương HTCV:</label>
+                                                    <div class="col-md-2 col-9">
+                                                        <p>{{formatPrice(ttcv.htcv)}} VNĐ</p>
                                                     </div>
-                                                </div>
 
-                                                <div class="form-group row">
-                                                    <label class="label-form col-md-3 col-form-label">Lương cơ bản</label>
-                                                    <div class="col-md-9">
-                                                        <!--<vue-numeric class="form-control form-control-sm" separator="," v-model="ttcv.luong_co_ban"></vue-numeric>-->
-                                                        <input v-on:keypress="only_number_input" v-model="ttcv.luong_co_ban" name="txtngaykt" type="text" class="form-control form-control-sm">
-                                                        <!--<small v-show="errors.has('txtngaykt')" class="help text-muted is-danger">Vui lòng nhập ngày kết thúc</small>-->
+                                                </div>
+                                                <div class="form-group row border-form">
+                                                    <label class="label-form col-md-2 col-3 col-form-label">ghi chú:</label>
+                                                    <div class="col-md-10 col-9 tt-dacbiet">
+                                                        <p>{{ttcv.ghi_chu}}</p>
                                                     </div>
                                                 </div>
-
-                                                <div class="form-group row">
-                                                    <label class="label-form col-md-3 col-form-label">Lương HTCV</label>
-                                                    <div class="col-md-9">
-                                                        <input v-on:keypress="only_number_input" v-model="ttcv.htcv" name="htcv" type="text" class="form-control form-control-sm">
-                                                        <!--<vue-numeric class="form-control form-control-sm" separator="," v-model="ttcv.htcv"></vue-numeric>-->
-                                                        <!--<small v-show="errors.has('txtngaykt')" class="help text-muted is-danger">Vui lòng nhập ngày kết thúc</small>-->
-                                                    </div>
-                                                </div>
-
-                                                <div class="form-group row">
-                                                    <label class="label-form col-md-3 col-form-label">Chấm công</label>
-                                                    <div class="col-md-9">
-                                                        <el-radio-group v-model="cham_cong">
-                                                            <el-radio :label="1">Có</el-radio>
-                                                            <el-radio :label="0">Không</el-radio>
-                                                        </el-radio-group>
-                                                    </div>
-                                                </div>
-
-                                                <div v-show="cham_cong" class="form-group row">
-                                                    <label class="label-form col-md-3 col-form-label">Thời gian LV</label>
-                                                    <div class="col-md-4">
-                                                        <!--<input v-model="ttcv.thoi_gian_lv_bd" name="txtngaykt" type="time" class="form-control form-control-sm">-->
-                                                        <el-time-select placeholder="Bắt đầu" v-model="ttcv.thoi_gian_lv_bd" :picker-options="{ start: '06:00', step: '00:30', end: '23:30' }" size="small">
-                                                        </el-time-select>
-                                                        <!--<small v-show="errors.has('txtngaykt')" class="help text-muted is-danger">Vui lòng nhập ngày kết thúc</small>-->
-                                                    </div>
-                                                    <label class="label-form col-md-1 col-form-label">-></label>
-                                                    <div class="col-md-4">
-                                                        <!--<input v-model="ttcv.thoi_gian_lv_kt" name="" type="time" class="form-control form-control-sm">-->
-                                                        <el-time-select placeholder="Kết thúc" v-model="ttcv.thoi_gian_lv_kt" :picker-options="{ start: '06:00', step: '00:30', end: '23:30' }" size="small">
-                                                        </el-time-select>
-                                                    </div>
-                                                </div>
-
-                                                <div class="form-group row">
-                                                    <label class="label-form col-md-3 col-form-label">Ghi chú</label>
-                                                    <div class="col-md-9">
-                                                        <textarea v-model="ttcv.ghi_chu" name="" id="" class="form-control form-control-sm"></textarea>
-                                                    </div>
-                                                </div>
-                                                <div class="form-group row">
-                                                    <div class="col-md-12">
-                                                        <button :disabled="!ttcv.vi_tri_ma" id="save_ttcv" type="submit" class="btn btn-primary pull-right">
-                                                            <span ><i class="fa fa-save"></i> Lưu lại</span>
-                                                            <!--<span v-if="!flag_btn_save"><i class="fa fa-spin fa-spinner"></i> Đang xử lý...</span>-->
-                                                        </button>
-                                                    </div>
-                                                </div>
-                                            </form>
+                                            </div>
+                                            <!--//thong tin cong viec-->
                                         </div>
                                         <div class="tab-pane p-20" id="messages3" role="tabpanel">
                                             <!--contrac-->
                                             <div style="padding-top:10px">
                                                 <div class="form-group row border-form">
-                                                    <label class="label-form col-md-3 col-form-label">Số hợp đồng:</label>
-                                                    <div class="col-md-9 tt-dacbiet">
+                                                    <label class="label-form col-md-3 col-3 col-form-label">Số hợp đồng:</label>
+                                                    <div class="col-md-9 col-9 tt-dacbiet">
                                                         <p>{{hop_dong_lao_dong.so_hdld}}</p>
                                                     </div>
                                                 </div>
 
                                                 <div class="form-group row border-form">
-                                                    <label class="label-form col-md-3 col-form-label">Thời hạn:</label>
-                                                    <div class="col-md-9 tt-dacbiet">
+                                                    <label class="label-form col-md-3 col-3 col-form-label">Thời hạn:</label>
+                                                    <div class="col-md-9 col-9 tt-dacbiet">
                                                         <p>{{hop_dong_lao_dong.thoi_han_hd}}</p>
                                                     </div>
                                                 </div>
 
                                                 <div class="form-group row border-form">
-                                                    <label class="label-form col-md-3 col-form-label">Ngày ký:</label>
-                                                    <div class="col-md-9 tt-dacbiet">
+                                                    <label class="label-form col-md-3 col-3 col-form-label">Ngày ký:</label>
+                                                    <div class="col-md-9 col-9 tt-dacbiet">
                                                         <p>{{hop_dong_lao_dong.ngay_ky}}</p>
                                                     </div>
                                                 </div>
                                                 <div class="form-group row border-form">
-                                                    <label class="label-form col-md-3 col-form-label">Ngày kết thúc:</label>
-                                                    <div class="col-md-9 tt-dacbiet">
+                                                    <label class="label-form col-md-3 col-3 col-form-label">Ngày kết thúc:</label>
+                                                    <div class="col-md-9 col-9 tt-dacbiet">
                                                         <p>{{hop_dong_lao_dong.ngay_kt}}</p>
                                                     </div>
                                                 </div>
 
                                                 <div class="form-group row border-form">
-                                                    <label class="label-form col-md-3 col-form-label">Ghi chú:</label>
-                                                    <div class="col-md-9 tt-dacbiet">
+                                                    <label class="label-form col-md-3 col-3 col-form-label">Ghi chú:</label>
+                                                    <div class="col-md-9 col-9 tt-dacbiet">
                                                         <p>{{hop_dong_lao_dong.ghi_chu}}</p>
                                                     </div>
                                                 </div>
@@ -737,35 +651,35 @@
                                             <!--bhyt-->
                                             <div style="padding-top:10px">
                                                 <div class="form-group row border-form">
-                                                    <label class="label-form col-md-3 col-form-label">Số bảo hiểm ý tế:</label>
-                                                    <div class="col-md-9 tt-dacbiet">
+                                                    <label class="label-form col-md-3 col-3 col-form-label">Số bảo hiểm ý tế:</label>
+                                                    <div class="col-md-9 col-9 tt-dacbiet">
                                                         <p>{{nhan_vien_bhyt.so_bhyt}}</p>
                                                     </div>
                                                 </div>
 
                                                 <div class="form-group row border-form">
-                                                    <label class="label-form col-md-3 col-form-label">Số bảo hiểm xã hội:</label>
-                                                    <div class="col-md-9 tt-dacbiet">
+                                                    <label class="label-form col-md-3 col-3 col-form-label">Số bảo hiểm xã hội:</label>
+                                                    <div class="col-md-9 col-9 tt-dacbiet">
                                                         <p>{{nhan_vien_bhyt.so_bhxh}}</p>
                                                     </div>
                                                 </div>
 
                                                 <div class="form-group row border-form">
-                                                    <label class="label-form col-md-3 col-form-label">Nơi khám:</label>
-                                                    <div class="col-md-9 tt-dacbiet">
+                                                    <label class="label-form col-md-3 col-3 col-form-label">Nơi khám:</label>
+                                                    <div class="col-md-9 col-9 tt-dacbiet">
                                                         <p>{{nhan_vien_bhyt.noi_kham}}</p>
                                                     </div>
                                                 </div>
                                                 <div class="form-group row border-form">
-                                                    <label class="label-form col-md-3 col-form-label">Địa chỉ khám:</label>
-                                                    <div class="col-md-9 tt-dacbiet">
+                                                    <label class="label-form col-md-3 col-3 col-form-label">Địa chỉ khám:</label>
+                                                    <div class="col-md-9 col-9 tt-dacbiet">
                                                         <p>{{nhan_vien_bhyt.dia_chi_kham}}</p>
                                                     </div>
                                                 </div>
 
                                                 <div class="form-group row border-form">
-                                                    <label class="label-form col-md-3 col-form-label">Ghi chú:</label>
-                                                    <div class="col-md-9 tt-dacbiet">
+                                                    <label class="label-form col-md-3 col-3 col-form-label">Ghi chú:</label>
+                                                    <div class="col-md-9 col-9 tt-dacbiet">
                                                         <p>{{nhan_vien_bhyt.ghi_chu}}</p>
                                                     </div>
                                                 </div>
@@ -958,6 +872,12 @@
             }
         },
         methods: {
+            //format price
+            formatPrice(value) {
+                if(value == '' || value == null ) return ;
+                let val = (value/1).toFixed().replace('.', ',')
+                return val.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")
+            },
             //get hop dong
             load_hop_dong_nv: function(id_nv)
             {
@@ -1105,10 +1025,10 @@
                     var lma = this.list_tinh_thanh.filter(function (item) {
                         return (item['ma_tinh'] == nv.scmnd_noi_cap);
                     });
-
+                    //
                     api_get_all_bo_phan(this);
                     api_get_all_phong_ban_no_paginate(this);
-                    api_get_ttcv_hien_tai_theo_nhan_vien(this, nv.ma_nv);
+                    //
                     // this.auto_select_bp_p_vt(nv.bo_phan_ma, nv.phong_ma, nv.vi_tri_ma);
 
                     this.value = lma[0];
@@ -1226,6 +1146,8 @@
                 api_get_bhyt_nhan_vien_moi_nhat(this, nv.ma_nv);
                 //nguoi phu thuoc con han theo nhan vien
                 api_get_npt_con_thoi_han_theo_nhan_vien(this, nv.ma_nv);
+                //thong tin cong viec nhan vien
+                api_get_ttcv_hien_tai_theo_nhan_vien(this, nv.ma_nv);
 
             }
         }
@@ -1453,11 +1375,29 @@
     {
         padding-bottom: 0px;
     }
+
+    @media (max-width: 768px)
+    {
+        #profile2
+        {
+            padding-left: 0px;
+            padding-right: 0px;
+        }
+        #message3,#message4,#message5
+        {
+            padding-left: 0px;
+            padding-right: 0px;
+        }
+    }
     @media (min-width: 768px)
     {
         .tt-dacbiet {
             padding-left: 0;
             padding-right: 0;
+        }
+        .luong-htcv
+        {
+            padding-right: 0px;
         }
     }
     .el-table

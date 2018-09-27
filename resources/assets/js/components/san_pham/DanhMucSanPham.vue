@@ -112,7 +112,6 @@
 </template>
 
 <script>
-    import VueCkeditor from 'vue-ckeditor2';
     import '../../../../../node_modules/quill/dist/quill.core.css'
     import '../../../../../node_modules/quill/dist/quill.snow.css'
     import '../../../../../node_modules/quill/dist/quill.bubble.css'
