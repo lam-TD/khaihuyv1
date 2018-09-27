@@ -34,12 +34,9 @@
                                             <div class="form-group row">
                                                 <label class="col-md-2 col-form-label">Danh mục cha(*)</label>
                                                 <div class="col-md-10">
-                                                    <select name="" size="8" class="form-control form-control-sm" id="">
-                                                        <option value="">ROOT</option>
-                                                        <option value="">May in</option>
-                                                        <option value="">|--May in 1</option>
-                                                        <option value="">May in</option>
-                                                        <option value="">|--May in 2</option>
+                                                    <select v-model="danh_muc.danh_muc_id" size="8" class="form-control form-control-sm" id="">
+                                                        <option value="0">ROOT</option>
+                                                        <option v-for="n in list_danh_muc" :value="n.danh_muc_id">{{n.level}}{{n.tieu_de}}</option>
                                                     </select>
                                                 </div>
                                             </div>
@@ -123,10 +120,12 @@
     import {api_edit_bo_phan} from "../nhan_su/bophan/bo_phan";
     import {api_delete_bo_phan} from "../nhan_su/bophan/bo_phan";
 
+    import {api_get_all_danh_muc_san_pham} from "./danh_muc_san_pham";
+
     export default {
         name: 'bophan',
         mounted () {
-            this.danh_sach_bo_phan();
+            api_get_all_danh_muc_san_pham(this);
         },
         components: { quillEditor },
         updated () {
