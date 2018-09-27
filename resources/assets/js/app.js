@@ -6,6 +6,11 @@ import Element from 'element-ui';
 import VueNumeric from 'vue-numeric';
 import VeeValidate from 'vee-validate';
 
+import lang from 'element-ui/lib/locale/lang/en';
+import locale from 'element-ui/lib/locale';
+
+locale.use(lang);
+
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { faCoffee } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
