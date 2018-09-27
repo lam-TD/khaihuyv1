@@ -1,23 +1,6 @@
 <template>
     <div class="page-wrapper" style="min-height: 291px;">
-        <!-- ============================================================== -->
-        <!-- Bread crumb and right sidebar toggle -->
-        <!-- ============================================================== -->
-        <div class="row page-titles">
-            <div class="col-md-5 align-self-center">
-                <h3 class="text-themecolor">Danh sách vị trí</h3>
-            </div>
-            <div class="col-md-7 align-self-center">
-                <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="javascript:void(0)">Vị trí</a></li>
-                    <li class="breadcrumb-item">Phòng ban</li>
-                </ol>
-            </div>
-        </div>
-        <!-- ============================================================== -->
-        <!-- End Bread crumb and right sidebar toggle -->
-        <!-- ============================================================== -->
-        <!-- ============================================================== -->
+
         <!-- Container fluid  -->
         <!-- ============================================================== -->
         <div class="container-fluid">
@@ -25,11 +8,19 @@
             <!-- Start Page Content -->
             <!-- ============================================================== -->
             <div class="row">
-                <div class="col-lg-12 col-md-12">
+                <div class="col-lg-12 col-md-12 lamlam">
                     <!-- Column -->
-                    <div class="card">
-                        <div class="card-body bg-inverse">
-                            <div class="row row-title">
+                    <div class="card content-lam">
+                        <div class="card-header">
+                            <div class="card-actions">
+                                <a @click="scroll_card" id="thunho" class="" data-action="collapse"><i class="ti-minus"></i></a>
+                                <a @click="scroll_card_full_creem" id="phongto" class="btn-minimize" data-action="expand"><i class="mdi mdi-arrow-expand"></i></a>
+                                <!--<a class="btn-close" data-action="close"><i class="ti-close"></i></a>-->
+                            </div>
+                            <h4 class="card-title m-b-0">Danh sách vị trí</h4>
+                        </div>
+                        <div class="card-body">
+                            <div class="row row-title" style="margin-bottom: 10px;">
                                 <div class="col-md-4 col-sm-6">
                                     <div class="">
                                         <el-select v-model="vi_tri.id_phong_ban" value-key="vi_tri.id_phong_ban" filterable placeholder="Tất cả phòng ban" @change="select_vi_tri_theo_phong" no-match-text="Không tìm thấy" no-data-text="Không có dữ liệu">
@@ -49,8 +40,7 @@
                                     </button>
                                 </div>
                             </div>
-                        </div>
-                        <div class="card-body">
+
                             <div class="message-box contact-box">
                                 <!--<h2 class="add-ct-btn">-->
                                 <!--&lt;!&ndash;<button @click="_vi_tri('add')" title="Thêm mới phòng" type="button" data-toggle="modal" data-target="#myModal" class="btn btn-circle btn-lg btn-success waves-effect waves-dark"><i class="fa fa-plus"></i></button>&ndash;&gt;-->
@@ -276,7 +266,11 @@
                 else {
                     this.error_select_phong = false;
                     $('#select_phong_2').attr('disabled', 'disabled');
-                    this.vi_tri = bophan;
+                    this.vi_tri.id = bophan.id;
+                    this.vi_tri.ma_vi_tri = bophan.ma_vi_tri;
+                    this.vi_tri.id_phong_ban = bophan.id_phong_ban;
+                    this.vi_tri.ten_vi_tri = bophan.ten_vi_tri;
+                    this.vi_tri.dien_giai = bophan.dien_giai;
                     this.flag_submit_vi_tri = false;
                     this.flag_input_vi_tri = true;
                 }
@@ -318,6 +312,14 @@
                 console.log("unchange");
                 this.flag_btn_save = true;
                 $('#save').removeAttr('disabled');
+            },
+            scroll_card: function () {
+                $('#thunho').closest('.card').find('[data-action="collapse"] i').toggleClass('ti-minus ti-plus');
+                $('#thunho').closest('.card').children('.card-body').collapse('toggle');
+            },
+            scroll_card_full_creem: function () {
+                $('#phongto').closest('.card').find('[data-action="expand"] i').toggleClass('mdi-arrow-expand mdi-arrow-compress');
+                $('#phongto').closest('.card').toggleClass('card-fullscreen');
             }
         }
     }
