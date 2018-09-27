@@ -24,6 +24,7 @@ export function api_get_hop_dong_lao_dong_moi_nhat(vm, id_nv) {
         headers: {'Authorization':'Bearer ' + vm.$store.state.currentUser.token}
     })
         .then((response) => {
+            vm.hop_dong_lao_dong = [];
             vm.hop_dong_lao_dong = response.data;
             console.log(response.data);
         })

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Carbon;
 use App\nguoi_phu_thuoc;
 
 class NguoiPhuThuocController extends Controller
@@ -81,11 +82,11 @@ class NguoiPhuThuocController extends Controller
 
     public function get_npt_con_thoi_han_theo_nhan_vien($nv_ma)
     {
-        $current_day = Carbon\Carbon::now();
+        $current_day = Carbon::now();
         $npt = nguoi_phu_thuoc::where('ma_nv', $nv_ma)
             ->where('tg_giam_tru_tu', '<=', $current_day)
             ->where('tg_giam_tru_den', '>=', $current_day)
-            ->first();
+            ->get();
         return $npt;
     }
 }

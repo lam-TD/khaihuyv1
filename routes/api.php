@@ -124,6 +124,8 @@ Route::group(['middleware' => 'jwt.auth'], function ($router) {
     Route::get('delete-npt/{id}', 'NguoiPhuThuocController@delete_nhan_vien_npt');
 //    Route::get('search-ttcv/{keyword}', 'NguoiPhuThuocController@search_hop_dong_lao_dong');
 //    Route::get('get-vi-tri-all-theo-phong/{id_phong}', 'ThongTinCongViecController@get_vi_tri_all_theo_phong');
+    //nguoi phu thuoc con han theo nhan vien
+    Route::get('get_npt_con_thoi_han_theo_nhan_vien/{nv_ma}', 'NguoiPhuThuocController@get_npt_con_thoi_han_theo_nhan_vien');
 });
 
 // ================= HE THONG =====================

@@ -115,3 +115,19 @@ export function api_delete_bhyt(vm) {
 
         });
 }
+//
+export function api_get_bhyt_nhan_vien_moi_nhat(vm, id_nv) {
+        axios({
+            method: 'GET',
+            url: 'api/get-bhyt-moi-nhat-theo-nv/' + id_nv,
+            headers: {'Authorization':'Bearer ' + vm.$store.state.currentUser.token}
+        })
+        .then((response) => {
+            vm.nhan_vien_bhyt = [];
+            vm.nhan_vien_bhyt = response.data;
+            console.log(response);
+        })
+        .catch((error) => {
+            console.log(error);
+        })
+}

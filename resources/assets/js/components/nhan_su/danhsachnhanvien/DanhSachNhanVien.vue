@@ -77,16 +77,16 @@
         <!--</div>-->
 
         <div class="col-md-12">
-            <div class="card content-lam">
+            <div class="card content-lam mb-0 pb-0">
                 <div class="card-header">
                     <div class="card-actions">
-                        <a class="" data-action="collapse"><i class="ti-minus"></i></a>
-                        <a class="btn-minimize" data-action="expand"><i class="mdi mdi-arrow-expand"></i></a>
+                        <a @click="scroll_card" id="thunho" class="" data-action="collapse"><i class="ti-minus"></i></a>
+                        <a @click="scroll_card_full_creem" id="phongto" class="btn-minimize" data-action="expand"><i class="mdi mdi-arrow-expand"></i></a>
                         <!--<a class="btn-close" data-action="close"><i class="ti-close"></i></a>-->
                     </div>
                     <h4 class="card-title m-b-0">Danh sách nhân viên</h4>
                 </div>
-                <div class="card-body collapse show">
+                <div class="card-body collapse show pb-0">
                     <div class="message-box contact-box">
                         <div class="message-widget contact-widget">
                             <div class="row mb-10">
@@ -106,7 +106,7 @@
                                     </div>
                                 </div>
                                 <div class="col-md-12">
-                                    <el-table :data="dsnhanvien" height="400" style="width: 100%" border empty-text="Chưa có dữ liệu">
+                                    <el-table height="320px" :data="dsnhanvien" style="width: 100%" border empty-text="Chưa có dữ liệu">
                                         <el-table-column prop="name" label="#" width="90" align="center">
                                             <template slot-scope="scope" class="text-center" style="width: 100%">
                                                 <button @click="_nhan_vien('edit', scope.row)" data-toggle="modal" data-target="#modal_nv_tt_ca_nhan" class="btn btn-info btn-sm" title="Cập nhật thông tin cá nhân"> <i class="fa fa-edit"></i> </button>
@@ -695,60 +695,122 @@
                                         </div>
                                         <div class="tab-pane p-20" id="messages3" role="tabpanel">
                                             <!--contrac-->
-                                            <div class="form-body">
-                                                <h3 class="box-title">Thông tin hợp đồng</h3>
-                                                <hr class="m-t-0 m-b-40">
-                                                <div class="row">
-                                                    <div class="col-md-6">
-                                                        <div class="form-group row">
-                                                            <label class="control-label text-right col-md-6">Số hợp đồng</label>
-                                                            <div class="col-md-6">
-                                                                <label class="control-label text-right text-info col-md-12">{{hop_dong_lao_dong.so_hdld}}</label>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-md-6">
-                                                        <div class="form-group row">
-                                                            <label class="control-label text-right col-md-6">Thời hạn hợp đồng</label>
-                                                            <div class="col-md-6">
-                                                                <label class="control-label text-right text-info col-md-12">{{hop_dong_lao_dong.thoi_han_hd}}</label>
-                                                            </div>
-                                                        </div>
+                                            <div style="padding-top:10px">
+                                                <div class="form-group row border-form">
+                                                    <label class="label-form col-md-3 col-form-label">Số hợp đồng:</label>
+                                                    <div class="col-md-9 tt-dacbiet">
+                                                        <p>{{hop_dong_lao_dong.so_hdld}}</p>
                                                     </div>
                                                 </div>
-                                                <div class="row">
-                                                    <div class="col-md-6">
-                                                        <div class="form-group row">
-                                                            <label class="control-label text-right col-md-6">Ngày ký</label>
-                                                            <div class="col-md-6">
-                                                                <label class="control-label text-right text-info col-md-12">{{hop_dong_lao_dong.ngay_ky}}</label>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-md-6">
-                                                        <div class="form-group row">
-                                                            <label class="control-label text-right col-md-6">Ngày kết thúc</label>
-                                                            <div class="col-md-6">
-                                                                <label class="control-label text-right text-info col-md-12">{{hop_dong_lao_dong.ngay_kt}}</label>
-                                                            </div>
-                                                        </div>
+
+                                                <div class="form-group row border-form">
+                                                    <label class="label-form col-md-3 col-form-label">Thời hạn:</label>
+                                                    <div class="col-md-9 tt-dacbiet">
+                                                        <p>{{hop_dong_lao_dong.thoi_han_hd}}</p>
                                                     </div>
                                                 </div>
-                                                <div class="row">
-                                                    <div class="col-md-12">
-                                                        <div class="form-group row">
-                                                            <label class="control-label text-right col-md-3">Ghi chú</label>
-                                                            <div class="col-md-9">
-                                                                <label class="control-label text-right text-info col-md-12">{{hop_dong_lao_dong.Ghi_chu}}</label>
-                                                            </div>
-                                                        </div>
+
+                                                <div class="form-group row border-form">
+                                                    <label class="label-form col-md-3 col-form-label">Ngày ký:</label>
+                                                    <div class="col-md-9 tt-dacbiet">
+                                                        <p>{{hop_dong_lao_dong.ngay_ky}}</p>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group row border-form">
+                                                    <label class="label-form col-md-3 col-form-label">Ngày kết thúc:</label>
+                                                    <div class="col-md-9 tt-dacbiet">
+                                                        <p>{{hop_dong_lao_dong.ngay_kt}}</p>
+                                                    </div>
+                                                </div>
+
+                                                <div class="form-group row border-form">
+                                                    <label class="label-form col-md-3 col-form-label">Ghi chú:</label>
+                                                    <div class="col-md-9 tt-dacbiet">
+                                                        <p>{{hop_dong_lao_dong.ghi_chu}}</p>
                                                     </div>
                                                 </div>
                                             </div>
                                             <!--//contrac-->
                                         </div>
-                                        <div class="tab-pane p-20" id="messages4" role="tabpanel">4</div>
-                                        <div class="tab-pane p-20" id="messages5" role="tabpanel">5</div>
+
+                                        <div class="tab-pane p-20" id="messages4" role="tabpanel">
+                                            <!--bhyt-->
+                                            <div style="padding-top:10px">
+                                                <div class="form-group row border-form">
+                                                    <label class="label-form col-md-3 col-form-label">Số bảo hiểm ý tế:</label>
+                                                    <div class="col-md-9 tt-dacbiet">
+                                                        <p>{{nhan_vien_bhyt.so_bhyt}}</p>
+                                                    </div>
+                                                </div>
+
+                                                <div class="form-group row border-form">
+                                                    <label class="label-form col-md-3 col-form-label">Số bảo hiểm xã hội:</label>
+                                                    <div class="col-md-9 tt-dacbiet">
+                                                        <p>{{nhan_vien_bhyt.so_bhxh}}</p>
+                                                    </div>
+                                                </div>
+
+                                                <div class="form-group row border-form">
+                                                    <label class="label-form col-md-3 col-form-label">Nơi khám:</label>
+                                                    <div class="col-md-9 tt-dacbiet">
+                                                        <p>{{nhan_vien_bhyt.noi_kham}}</p>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group row border-form">
+                                                    <label class="label-form col-md-3 col-form-label">Địa chỉ khám:</label>
+                                                    <div class="col-md-9 tt-dacbiet">
+                                                        <p>{{nhan_vien_bhyt.dia_chi_kham}}</p>
+                                                    </div>
+                                                </div>
+
+                                                <div class="form-group row border-form">
+                                                    <label class="label-form col-md-3 col-form-label">Ghi chú:</label>
+                                                    <div class="col-md-9 tt-dacbiet">
+                                                        <p>{{nhan_vien_bhyt.ghi_chu}}</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <!--//bhyt-->
+                                        </div>
+
+                                        <div class="tab-pane p-20" id="messages5" role="tabpanel">
+                                            <el-table
+                                                    :data="nhan_vien_npt"
+                                                    height="250"
+                                                    empty-text="Chưa có thân nhân"
+                                                    style="width: 100%">
+                                                <el-table-column
+                                                        prop="ho_ten_npt"
+                                                        label="Tên NPT"
+                                                        width="180">
+                                                </el-table-column>
+                                                <el-table-column
+                                                        prop="ngay_sinh_npt"
+                                                        label="Ngày sinh"
+                                                        width="180">
+                                                </el-table-column>
+                                                <el-table-column
+                                                        prop="so_cmnd_npt"
+                                                        label="Số CMND"
+                                                        width="180">
+                                                </el-table-column>
+                                                <el-table-column
+                                                        prop="quan_he_nnt"
+                                                        label="TG giảm trừ từ"
+                                                        width="120">
+                                                </el-table-column>
+                                                <el-table-column
+                                                        prop="tg_giam_tru_den"
+                                                        label="TG giảm đến"
+                                                        width="120">
+                                                </el-table-column>
+                                                <el-table-column
+                                                        prop="ghi_chu"
+                                                        label="Ghi chú">
+                                                </el-table-column>
+                                            </el-table>
+                                            <!--//-->
+                                        </div>
 
                                     </div>
                                 </div>
@@ -788,6 +850,8 @@
     import {api_get_ttcv_hien_tai_theo_nhan_vien} from "../thongtincongviec/thong_tin_cong_viec";
     import {api_edit_ttcv} from "../thongtincongviec/thong_tin_cong_viec";
     import {api_get_hop_dong_lao_dong_moi_nhat} from "../thongtinlaodong/lao_dong";
+    import {api_get_bhyt_nhan_vien_moi_nhat} from "../baohiemyte/bao_hiem_y_te";
+    import {api_get_npt_con_thoi_han_theo_nhan_vien} from "../nguoiphuthuoc/nguoi_phu_thuoc";
 
 
     export default {
@@ -885,6 +949,11 @@
                 ],
                 // hop dong lao dong
                 hop_dong_lao_dong:[],
+                //bao hiem y te nhan vien
+                nhan_vien_bhyt:[],
+                //nguoi phu thuoc con thoi han
+                nhan_vien_npt: [],
+
                 nv_thong_tin_ca_nhan: ''
             }
         },
@@ -1042,8 +1111,6 @@
                     api_get_ttcv_hien_tai_theo_nhan_vien(this, nv.ma_nv);
                     // this.auto_select_bp_p_vt(nv.bo_phan_ma, nv.phong_ma, nv.vi_tri_ma);
 
-                    //hop dong lao dong
-                    api_get_hop_dong_lao_dong_moi_nhat(this,nv.ma_nv);
                     this.value = lma[0];
                     // this.nhan_vien = nv;
                     if (nv.avatar != null){
@@ -1120,6 +1187,23 @@
                 this.flag_search = true;
                 api_search_thong_tin_nhan_vien(this, 1);
             },
+            //thu phong ma hinh
+            scroll_card: function () {
+                $('#thunho').closest('.card').find('[data-action="collapse"] i').toggleClass('ti-minus ti-plus');
+                $('#thunho').closest('.card').children('.card-body').collapse('toggle');
+            },
+            scroll_card_full_creem: function () {
+                $('#phongto').closest('.card').find('[data-action="expand"] i').toggleClass('mdi-arrow-expand mdi-arrow-compress');
+                $('#phongto').closest('.card').toggleClass('card-fullscreen');
+                if($('.el-table').css("height") == "320px")
+                {
+                    $('.el-table').css("height","70vh");
+                }else
+                {
+                    $('.el-table').css("height","320px");
+                }
+
+            },
             scroll_table: function () {
                 // $('table').on('scroll', function () {
                 //     $("#"+this.id+" > *").width($(this).width() + $(this).scrollLeft());
@@ -1136,6 +1220,13 @@
                 api_get_item_phuong_xa_noi_sinh(this, nv.noi_sinh_tinh_thanh);
                 api_get_item_phuong_xa_nhan_vien(this, nv.tam_tru_tinh_thanh,1);
                 api_get_item_phuong_xa_nhan_vien_thuong_tru(this, nv.thuong_tru_tinh_thanh);
+                //hop dong lao dong
+                api_get_hop_dong_lao_dong_moi_nhat(this,nv.ma_nv);
+                //bao hiem y te
+                api_get_bhyt_nhan_vien_moi_nhat(this, nv.ma_nv);
+                //nguoi phu thuoc con han theo nhan vien
+                api_get_npt_con_thoi_han_theo_nhan_vien(this, nv.ma_nv);
+
             }
         }
     }
@@ -1358,11 +1449,23 @@
         margin-left: 0px;
         margin-right: 0;
     }
+    .page-wrapper
+    {
+        padding-bottom: 0px;
+    }
     @media (min-width: 768px)
     {
         .tt-dacbiet {
             padding-left: 0;
             padding-right: 0;
         }
+    }
+    .el-table
+    {
+
+    }
+    .card-fullscreen .el-table
+    {
+        height: 70vh;
     }
 </style>

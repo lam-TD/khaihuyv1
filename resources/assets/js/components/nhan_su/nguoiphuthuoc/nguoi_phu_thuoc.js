@@ -117,3 +117,19 @@ export function api_delete_npt(vm) {
 
         });
 }
+//nguoi phu thuoc con han theo nhan vien
+export function api_get_npt_con_thoi_han_theo_nhan_vien(vm, ma_nv) {
+    axios({
+        method: 'GET',
+        url: 'api/get_npt_con_thoi_han_theo_nhan_vien/'+ ma_nv,
+        headers: {'Authorization':'Bearer ' + vm.$store.state.currentUser.token}
+    })
+        .then((response) => {
+            vm.nhan_vien_npt = [];
+            vm.nhan_vien_npt = response.data;
+            console.log(response.data);
+        })
+        .catch((error) => {
+            console.log(error);
+        })
+}
