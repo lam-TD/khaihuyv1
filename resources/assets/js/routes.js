@@ -25,6 +25,8 @@ import quanlynhom from './components/he_thong/quan_ly_nhom/QuanLyNhom.vue';
 import quanlynguoidung from './components/he_thong/quan_ly_nguoi_dung/QuanLyNguoiDung';
 
 import diachi from './components/he_thong/quan_ly_dia_chi/DiaChi';
+import quanhuyen from './components/he_thong/quan_ly_dia_chi/QuanHuyen';
+import phuongxa from './components/he_thong/quan_ly_dia_chi/PhuongXa';
 
 export const routes = [
     {
@@ -103,7 +105,15 @@ export const routes = [
         component: quanlynguoidung
     },
     {
-        path: '/diachi',
+        path: '/tinhthanh',
         component: diachi
+    },
+    {
+        path: '/quanhuyen',
+        component: quanhuyen
+    },
+    {
+        path: '/phuongxa',
+        component: phuongxa
     }
 ]

@@ -1,23 +1,5 @@
 <template>
     <div class="page-wrapper" style="min-height: 291px;">
-        <!-- ============================================================== -->
-        <!-- Bread crumb and right sidebar toggle -->
-        <!-- ============================================================== -->
-        <!--<div class="row page-titles">-->
-            <!--<div class="col-md-5 align-self-center">-->
-                <!--&lt;!&ndash;<h3 class="text-themecolor">Danh sách nhóm người dùng</h3>&ndash;&gt;-->
-            <!--</div>-->
-            <!--<div class="col-md-7 align-self-center">-->
-                <!--<ol class="breadcrumb">-->
-                    <!--<li class="breadcrumb-item"><a href="javascript:void(0)">Nhân sự</a></li>-->
-                    <!--<li class="breadcrumb-item">Bộ phận</li>-->
-                <!--</ol>-->
-            <!--</div>-->
-        <!--</div>-->
-        <!-- ============================================================== -->
-        <!-- End Bread crumb and right sidebar toggle -->
-        <!-- ============================================================== -->
-        <!-- ============================================================== -->
         <!-- Container fluid  -->
         <!-- ============================================================== -->
         <div class="container-fluid">
