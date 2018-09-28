@@ -1,23 +1,5 @@
 <template>
     <div class="page-wrapper" style="min-height: 291px;">
-        <!-- ============================================================== -->
-        <!-- Bread crumb and right sidebar toggle -->
-        <!-- ============================================================== -->
-        <div class="row page-titles">
-            <div class="col-md-5 align-self-center">
-                <h3 class="text-themecolor">Danh sách thông tin công việc</h3>
-            </div>
-            <div class="col-md-7 align-self-center">
-                <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="javascript:void(0)">Nhân sự</a></li>
-                    <li class="breadcrumb-item">Thông tin công việc</li>
-                </ol>
-            </div>
-        </div>
-        <!-- ============================================================== -->
-        <!-- End Bread crumb and right sidebar toggle -->
-        <!-- ============================================================== -->
-        <!-- ============================================================== -->
         <!-- Container fluid  -->
         <!-- ============================================================== -->
         <div class="container-fluid">
@@ -25,14 +7,12 @@
             <!-- Start Page Content -->
             <!-- ============================================================== -->
             <div class="row">
-                <div class="col-lg-12 col-md-12">
+                <div class="col-lg-12 col-md-12 lamlam">
                     <!-- Column -->
-                    <div class="card">
+                    <div class="card content-lam">
                         <div class="card-header">
                             <div class="card-actions">
-                                <a class="" data-action="collapse"><i class="ti-minus"></i></a>
-                                <a class="btn-minimize" data-action="expand"><i class="mdi mdi-arrow-expand"></i></a>
-                                <a class="btn-close" data-action="close"><i class="ti-close"></i></a>
+                                <a @click="scroll_card_full_creem" id="phongto" class="btn-minimize" data-action="expand"><i class="mdi mdi-arrow-expand"></i></a>
                             </div>
                             <h4 class="card-title m-b-0">Thông tin công việc</h4>
                         </div>
@@ -58,60 +38,45 @@
 
                                 <!--</h2>-->
                                 <div class="message-widget contact-widget">
-                                    <div class="table-responsive">
-                                        <table v-on:scroll="scroll_table" class="table table-hover" id="table_ttcv">
-                                            <thead>
-                                            <tr style="border-top: 1px solid #ddd">
-                                                <th class="text-center">#</th>
-                                                <th class="text-center thutu">TT</th>
-                                                <th class="text-center">Mã NV</th>
-                                                <th>Tên NV</th>
-                                                <th class="text-center">Ngày</th>
-                                                <th>Tình trạng</th>
-                                                <th class="text-center">Ghi chú</th>
-                                            </tr>
-                                            </thead>
-                                            <tbody class="body-table loading-item">
-                                            <!--<tr v-if="flag_search">-->
-                                                <!--<td class="text-center" colspan="8"><b><i><i class="fa fa-spin fa-spinner"></i> Đang tìm kiếm...</i></b></td>-->
-                                            <!--</tr>-->
-                                            <!--<tr v-if="flag_search && list_ttcv.length <= 0">-->
-                                                <!--<td class="text-center" colspan="8"><b><i>Không có kết quả</i></b></td>-->
-                                            <!--</tr>-->
-                                            <tr v-if="loading_ttcv">
-                                                <td class="text-center" colspan="8"><b><i><i class="fa fa-spin fa-spinner"></i> Đang tải danh sách...</i></b></td>
-                                            </tr>
-                                            <tr v-else-if="list_ttcv.length <= 0">
-                                                <td class="text-center" colspan="8"><b><i>Chưa có thông tin công việc</i></b></td>
-                                            </tr>
-                                            <tr v-else v-for="(n, index) in list_ttcv" :id="'n' + n.id" class="row-nhom" @click="click_ttcv(n)">
-                                                <td class="text-center" style="padding-right: 0">
-                                                    <button @click="_ttcv('edit',n)" id="edit_nhom" type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#myModal">
-                                                        <i class="fa fa-edit"></i>
-                                                    </button>
-                                                    <button @click="delete_ttcv(n)" type="button" class="btn btn-danger btn-sm">
-                                                        <i class="fa fa-trash"></i>
-                                                    </button>
-                                                </td>
-                                                <td v-if="index_ttcv <= 10" class="text-center thutu">{{ index + 1 }}</td><td v-else class="text-center thutu">{{ index_ttcv + index + 1 }}</td>
-                                                <td class="text-center">{{n.ma_nv}}</td>
-                                                <td @click="_ttcv('edit',n)" data-toggle="modal" data-target="#myModal"><span class="hover_ten">{{n.ho_ten}}</span></td>
-                                                <td>{{n.ngay}}</td>
-                                                <td v-if="n.tinh_trang == 0">Thử việc</td><td v-else-if="n.tinh_trang == 1">Chính thức</td><td v-else>Thôi việc</td>
-                                                <td>{{n.ghi_chu}}</td>
-                                            </tr>
-                                            </tbody>
-                                        </table>
-                                        <el-pagination
-                                                :page-size="10"
-                                                layout="prev, pager, next"
-                                                :total="total_ttcv"
-                                                @current-change="danh_sach_ttcv">
-                                        </el-pagination>
+                                    <div class="row">
+                                        <div class="col-md-12" style="margin-bottom: 10px;">
+                                            <el-table :data="list_ttcv" border style="width: 100%">
+                                                <el-table-column label="#" width="90" align="center">
+                                                    <template slot-scope="scope" class="text-center" style="width: 100%">
+                                                        <button @click="_ttcv('edit', scope.row)" data-toggle="modal" data-target="#myModal" class="btn btn-info btn-sm" title="Cập nhật thông tin cá nhân"> <i class="fa fa-edit"></i> </button>
+                                                        <button @click="delete_ttcv(scope.row)" class="btn btn-danger btn-sm" title="Xóa"> <i class="fa fa-trash-o"></i> </button>
+                                                    </template>
+                                                </el-table-column>
+                                                <el-table-column type="index" label="TT" :index="indexMethod" align="center"></el-table-column>
+                                                <el-table-column prop="ma_nv" label="Mã NV" width="180"></el-table-column>
+                                                <el-table-column prop="ho_ten" label="Tên NV"></el-table-column>
+                                                <el-table-column prop="tinh_trang" label="Tình trạng"></el-table-column>
+                                                <el-table-column prop="ghi_chu" label="Ghi chú"></el-table-column>
+                                            </el-table>
+                                        </div>
+
+                                        <div class="col-md-12">
+                                            <div class="row tb-row-hienthi">
+                                                <div class="col-md-2 tb-label">
+                                                    Tổng: 100 TTCV
+                                                </div>
+                                                <div class="col-md-1 tb-label">
+                                                    <span>Hiển thị</span>
+                                                </div>
+                                                <div class="col-md-1 tb-hienthi">
+                                                    <el-select v-model="value" placeholder="10" size="small">
+                                                        <el-option v-for="item in options_display" :key="item" :label="item" :value="item"></el-option>
+                                                    </el-select>
+                                                </div>
+                                                <div class="col-md-8">
+                                                    <el-pagination :page-size="10" layout="prev, pager, next" :total="total_ttcv" @current-change="danh_sach_ttcv"></el-pagination>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-
+                            <!-- MODAL THONG TIN CON VIEC-->
                             <div class="modal" id="myModal">
                                 <div class="modal-dialog">
                                     <div class="modal-content">
@@ -294,6 +259,7 @@
                                     </div>
                                 </div>
                             </div>
+                            <!-- END MODAL THONG TIN CON VIEC-->
                         </div>
                     </div>
                 </div>
@@ -361,7 +327,8 @@
                 flag_disabled_submit: false,
                 flag_input_ma_ttcv: false,
                 flag_disable_manv: false,
-                index_ttcv: 1
+                index_ttcv: 1,
+                options_display: [10,20,30]
             }
         },
         methods: {
@@ -430,7 +397,6 @@
                 if(state == 'add') {
                     this.flag_nhan_vien = true;
                     this.flag_btn = true;
-                    $('.row-nhom').removeClass("active-click-row");
                     this.flag_submit_ttcv = true;
                     this.flag_input_ttcv = false;
                     this.flag_disable_manv = false;
@@ -495,10 +461,9 @@
                 this.flag_btn_save = true;
                 $('#save').removeAttr('disabled');
             },
-            scroll_table: function () {
-                // $('table').on('scroll', function () {
-                //     $("#"+this.id+" > *").width($(this).width() + $(this).scrollLeft());
-                // });
+            scroll_card_full_creem: function () {
+                $('#phongto').closest('.card').find('[data-action="expand"] i').toggleClass('mdi-arrow-expand mdi-arrow-compress');
+                $('#phongto').closest('.card').toggleClass('card-fullscreen');
             }
         }
     }
@@ -571,23 +536,23 @@
         max-width: 50px !important;
     }
 
-    table {
-        border-collapse: collapse;
-        width: 100%;
-        overflow-x: auto;
-        display: block;
-    }
-    thead {
-        /*background-color: #EFEFEF;*/
-    }
-    thead, tbody {
-        display: block;
-    }
-    tbody {
-        overflow-y: auto;
-        overflow-x: hidden;
-        height: 300px;
-    }
+    /*table {*/
+        /*border-collapse: collapse;*/
+        /*width: 100%;*/
+        /*overflow-x: auto;*/
+        /*display: block;*/
+    /*}*/
+    /*thead {*/
+        /*!*background-color: #EFEFEF;*!*/
+    /*}*/
+    /*thead, tbody {*/
+        /*display: block;*/
+    /*}*/
+    /*tbody {*/
+        /*overflow-y: auto;*/
+        /*overflow-x: hidden;*/
+        /*height: 300px;*/
+    /*}*/
     /*td{*/
         /*!*border: dashed 1px lightblue;*!*/
         /*overflow:hidden;*/
