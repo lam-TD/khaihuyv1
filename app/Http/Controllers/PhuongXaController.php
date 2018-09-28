@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\nhan_vien;
 use Illuminate\Http\Request;
 use App\phuong_xa;
 
@@ -11,6 +12,13 @@ class PhuongXaController extends Controller
     public function get_list_phuong_xa_theo_quan_huyen_paginate($ma_quan_huyen,$limit)
     {
         $phuongxa = phuong_xa::where('quanhuyen_id',$ma_quan_huyen)->orderby('phuongxa_id', 'desc')
+            ->paginate($limit);
+        return $phuongxa;
+    }
+
+    public function get_list_search_phuong_xa_theo_quan_huyen_paginate($keyword, $ma_quan_huyen,$limit)
+    {
+        $phuongxa = phuong_xa::where('ten_quan_huyen','LIKE', '%'.$keyword.'%')->where('quanhuyen_id',$ma_quan_huyen)->orderby('phuongxa_id', 'desc')
             ->paginate($limit);
         return $phuongxa;
     }
@@ -66,6 +74,7 @@ class PhuongXaController extends Controller
     public function delete_phuong_xa($id)
     {
         try{
+            if($this->check_nhan_vien_phuong_xa($id) == 1) return 0;
             $phuongxa = phuong_xa::find($id);
             $phuongxa->delete();
             return 1;
@@ -73,5 +82,12 @@ class PhuongXaController extends Controller
         catch (\Exception $e){
             return $e;
         }
+    }
+
+    public function check_nhan_vien_phuong_xa($phuong_xa_id)
+    {
+        $px = nhan_vien::where('tam_tru_tinh_thanh', $phuong_xa_id)->orwhere('thuong_tru_tinh_thanh')->get();
+        (count($px) == 0) ? $result = -1: $result = 1;
+        return $result;
     }
 }
