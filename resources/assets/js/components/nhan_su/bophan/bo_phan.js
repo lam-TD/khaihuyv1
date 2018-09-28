@@ -20,7 +20,7 @@ export function api_get_all_bo_phan(vm) {
 export function api_bophan_get(vm, page) {
     axios({
         method: 'GET',
-        url: 'api/get-bo-phan?page=' + page,
+        url: 'api/get-bo-phan/' + vm.limit + '?page=' + page,
         headers: {'Authorization':'Bearer ' + vm.$store.state.currentUser.token}
     })
         .then((response) => {

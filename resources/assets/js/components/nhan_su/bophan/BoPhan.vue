@@ -102,12 +102,12 @@
                                                     <span>Hiển thị</span>
                                                 </div>
                                                 <div class="col-md-1 col-sm-2 col-4 tb-hienthi" style="padding-left: 4px;">
-                                                    <el-select v-model="limit" placeholder="10" size="small">
+                                                    <el-select v-model="limit" placeholder="10" size="small" @change="change_danh_sach_bo_phan">
                                                         <el-option v-for="item in options_display" :key="item" :label="item" :value="item"></el-option>
                                                     </el-select>
                                                 </div>
                                                 <div class="col-md-8 col-sm-4 col-6" style="padding-left: 0px;">
-                                                    <el-pagination :page-size="10" layout="prev, pager, next" :total="total_bo_phan" @current-change="danh_sach_bo_phan"></el-pagination>
+                                                    <el-pagination :page-size="limit" layout="prev, pager, next" :total="total_bo_phan" @current-change="danh_sach_bo_phan"></el-pagination>
                                                 </div>
                                                 <div class="col-md-2 col-sm-2 col-6 tb-label">
                                                     <span class="pull-right">Tổng: {{total_bo_phan}} BP</span>
@@ -213,7 +213,7 @@
                 flag_disabled_submit: false,
                 flag_input_ma_bo_phan: false,
                 options_display: [10,20,30],
-                limit: ''
+                limit: 10
             }
         },
         methods: {
@@ -238,8 +238,10 @@
                     return true;
                 }
             },
-            danh_sach_bo_phan: function (page = 1) {
-                this.loading_bo_phan = true;
+            change_danh_sach_bo_phan: function () {
+                api_bophan_get(this, 1);
+            },
+            danh_sach_bo_phan: function (page) {
                 api_bophan_get(this, page);
             },
             _bo_phan: function (state, bophan = null) {

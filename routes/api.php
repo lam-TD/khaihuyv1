@@ -30,7 +30,7 @@ Route::group(['middleware' => 'jwt.auth'], function ($router) {
 // BO PHAN
 Route::group(['middleware' => 'jwt.auth'], function ($router) {
     Route::get('get-all-bo-phan', 'BoPhanController@get_all_bo_phan');
-    Route::get('get-bo-phan', 'BoPhanController@get_danh_sach_bo_phan');
+    Route::get('get-bo-phan/{limit}', 'BoPhanController@get_danh_sach_bo_phan');
     Route::post('add-bo-phan', 'BoPhanController@add_bo_phan');
     Route::post('edit-bo-phan', 'BoPhanController@edit_bo_phan');
     Route::get('delete-bo-phan/{id}', 'BoPhanController@delete_bo_phan');
