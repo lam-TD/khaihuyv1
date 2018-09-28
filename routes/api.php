@@ -152,3 +152,16 @@ Route::get('get-qh/{ma_tinh}', 'TinhThanhController@quan_huyen_theo_tinh');
 
 Route::get('nhan-vien-pa/{page}&{limit}', 'NhanVienController@nhan_vien_paginate');
 
+// ========== QUAN HUYEN ==========
+Route::get('get-list-quan-huyen', 'QuanHuyenController@get_list_quan_huyen');
+Route::post('add-quan-huyen', 'QuanHuyenController@add_quan_huyen');
+Route::post('edit-quan-huyen/{id}', 'QuanHuyenController@edit_quan_huyen');
+Route::get('delete-quan-huyen/{id}', 'QuanHuyenController@delete_quan_huyen');
+// ===========PHUONG XA ============
+Route::get('get-list-phuong-xa', 'PhuongXaController@get_list_phuong_xa');
+Route::post('add-phuong-xa', 'PhuongXaController@add_phuong_xa');
+Route::post('edit-phuong-xa/{id}', 'PhuongXaController@edit_phuong_xa');
+Route::get('delete-phuong-xa/{id}', 'PhuongXaController@delete_phuong_xa');
+
+
+
