@@ -347,6 +347,22 @@ tr.thutu, td.thutu {
     {
         background: #dddddd00;
     }
+
+    .tb-row-hienthi {
+        padding-top: 5px;
+        padding-bottom: 5px;
+        margin-left: 0;
+        margin-right: 0;
+        border: 1px solid #ebeef5;
+    }
+
+    .tb-hienthi {
+        padding-right: 0;
+    }
+
+    .tb-label {
+        margin-top: 5px;
+    }
 }
 
 /*//*/

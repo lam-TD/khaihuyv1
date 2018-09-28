@@ -80,7 +80,6 @@
             <div class="card content-lam mb-0 pb-0">
                 <div class="card-header">
                     <div class="card-actions">
-                        <a @click="scroll_card" id="thunho" class="" data-action="collapse"><i class="ti-minus"></i></a>
                         <a @click="scroll_card_full_creem" id="phongto" class="btn-minimize" data-action="expand"><i class="mdi mdi-arrow-expand"></i></a>
                         <!--<a class="btn-close" data-action="close"><i class="ti-close"></i></a>-->
                     </div>
