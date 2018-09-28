@@ -3,17 +3,17 @@
         <!-- ============================================================== -->
         <!-- Bread crumb and right sidebar toggle -->
         <!-- ============================================================== -->
-        <div class="row page-titles">
-            <div class="col-md-5 align-self-center">
-                <h3 class="text-themecolor">Danh sách thông tin bảo hiểm y tế</h3>
-            </div>
-            <div class="col-md-7 align-self-center">
-                <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="javascript:void(0)">Nhân sự</a></li>
-                    <li class="breadcrumb-item">Bảo hiểm y tế</li>
-                </ol>
-            </div>
-        </div>
+        <!--<div class="row page-titles">-->
+            <!--<div class="col-md-5 align-self-center">-->
+                <!--<h3 class="text-themecolor">Danh sách thông tin bảo hiểm y tế</h3>-->
+            <!--</div>-->
+            <!--<div class="col-md-7 align-self-center">-->
+                <!--<ol class="breadcrumb">-->
+                    <!--<li class="breadcrumb-item"><a href="javascript:void(0)">Nhân sự</a></li>-->
+                    <!--<li class="breadcrumb-item">Bảo hiểm y tế</li>-->
+                <!--</ol>-->
+            <!--</div>-->
+        <!--</div>-->
         <!-- ============================================================== -->
         <!-- End Bread crumb and right sidebar toggle -->
         <!-- ============================================================== -->
@@ -25,9 +25,15 @@
             <!-- Start Page Content -->
             <!-- ============================================================== -->
             <div class="row">
-                <div class="col-lg-12 col-md-12">
+                <div class="col-lg-12 col-md-12 lamlam">
                     <!-- Column -->
-                    <div class="card">
+                    <div class="card content-lam">
+                        <div class="card-header">
+                            <div class="card-actions">
+                                <a @click="scroll_card_full_creem" id="phongto" class="btn-minimize" data-action="expand"><i class="mdi mdi-arrow-expand"></i></a>
+                            </div>
+                            <h4 class="card-title m-b-0">Bảo hiểm y tế</h4>
+                        </div>
                         <div class="card-body">
                             <div class="row" style="padding-top: 10px;margin-bottom: 15px;">
                                 <div class="col-md-6">
@@ -50,52 +56,90 @@
 
                                 <!--</h2>-->
                                 <div class="message-widget contact-widget">
-                                    <div class="table-responsive">
-                                        <table class="table table-hover">
-                                            <thead>
-                                            <tr style="border-top: 1px solid #ddd">
-                                                <th class="text-center">#</th>
-                                                <th>Mã NV</th>
-                                                <th>Tên nhân viên</th>
-                                                <th>Số BHYT</th>
-                                                <th>Số BHXH</th>
-                                                <th>Nơi khám</th>
-                                                <th>Địa chỉ khám</th>
-                                                <th>Ghi chú</th>
-                                            </tr>
-                                            </thead>
-                                            <tbody class="body-table loading-item">
-                                            <tr v-if="loading_bhyt">
-                                                <td class="text-center" colspan="8"><b><i><i class="fa fa-spin fa-spinner"></i> Đang tải danh sách...</i></b></td>
-                                            </tr>
-                                            <tr v-else-if="list_bhyt.length <= 0">
-                                                <td class="text-center" colspan="8"><b><i>Chưa có bảo hiểm y tế</i></b></td>
-                                            </tr>
-                                            <tr v-else v-for="n in list_bhyt" :id="'n' + n.id" class="row-nhom" @click="click_bhyt(n)">
-                                                <td class="text-left" style="padding-right: 0">
-                                                    <button @click="_bhyt('edit',n)" id="edit_nhom" type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#myModal">
-                                                        <i class="fa fa-edit"></i>
-                                                    </button>
-                                                    <button @click="delete_bhyt(n)" type="button" class="btn btn-danger btn-sm">
-                                                        <i class="fa fa-trash"></i>
-                                                    </button>
-                                                </td>
-                                                <td>{{n.ma_nv}}</td>
-                                                <td>{{n.ho_ten}}</td>
-                                                <td>{{n.so_bhyt}}</td>
-                                                <td>{{n.so_bhxh}}</td>
-                                                <td>{{n.noi_kham}}</td>
-                                                <td>{{n.dia_chi_kham}}</td>
-                                                <td>{{n.ghi_chu}}</td>
-                                            </tr>
-                                            </tbody>
-                                        </table>
-                                        <el-pagination
-                                                :page-size="10"
-                                                layout="prev, pager, next"
-                                                :total="total_bhyt"
-                                                @current-change="danh_sach_bhyt">
-                                        </el-pagination>
+                                    <!--<div class="table-responsive">-->
+                                        <!--<table class="table table-hover">-->
+                                            <!--<thead>-->
+                                            <!--<tr style="border-top: 1px solid #ddd">-->
+                                                <!--<th class="text-center">#</th>-->
+                                                <!--<th>Mã NV</th>-->
+                                                <!--<th>Tên nhân viên</th>-->
+                                                <!--<th>Số BHYT</th>-->
+                                                <!--<th>Số BHXH</th>-->
+                                                <!--<th>Nơi khám</th>-->
+                                                <!--<th>Địa chỉ khám</th>-->
+                                                <!--<th>Ghi chú</th>-->
+                                            <!--</tr>-->
+                                            <!--</thead>-->
+                                            <!--<tbody class="body-table loading-item">-->
+                                            <!--<tr v-if="loading_bhyt">-->
+                                                <!--<td class="text-center" colspan="8"><b><i><i class="fa fa-spin fa-spinner"></i> Đang tải danh sách...</i></b></td>-->
+                                            <!--</tr>-->
+                                            <!--<tr v-else-if="list_bhyt.length <= 0">-->
+                                                <!--<td class="text-center" colspan="8"><b><i>Chưa có bảo hiểm y tế</i></b></td>-->
+                                            <!--</tr>-->
+                                            <!--<tr v-else v-for="n in list_bhyt" :id="'n' + n.id" class="row-nhom" @click="click_bhyt(n)">-->
+                                                <!--<td class="text-left" style="padding-right: 0">-->
+                                                    <!--<button @click="_bhyt('edit',n)" id="edit_nhom" type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#myModal">-->
+                                                        <!--<i class="fa fa-edit"></i>-->
+                                                    <!--</button>-->
+                                                    <!--<button @click="delete_bhyt(n)" type="button" class="btn btn-danger btn-sm">-->
+                                                        <!--<i class="fa fa-trash"></i>-->
+                                                    <!--</button>-->
+                                                <!--</td>-->
+                                                <!--<td>{{n.ma_nv}}</td>-->
+                                                <!--<td>{{n.ho_ten}}</td>-->
+                                                <!--<td>{{n.so_bhyt}}</td>-->
+                                                <!--<td>{{n.so_bhxh}}</td>-->
+                                                <!--<td>{{n.noi_kham}}</td>-->
+                                                <!--<td>{{n.dia_chi_kham}}</td>-->
+                                                <!--<td>{{n.ghi_chu}}</td>-->
+                                            <!--</tr>-->
+                                            <!--</tbody>-->
+                                        <!--</table>-->
+                                        <!--<el-pagination-->
+                                                <!--:page-size="10"-->
+                                                <!--layout="prev, pager, next"-->
+                                                <!--:total="total_bhyt"-->
+                                                <!--@current-change="danh_sach_bhyt">-->
+                                        <!--</el-pagination>-->
+                                    <!--</div>-->
+                                    <div class="row">
+                                        <div class="col-md-12" style="margin-bottom: 10px;">
+                                            <el-table :data="list_bhyt" border style="width: 100%">
+                                                <el-table-column label="#" width="90" align="center">
+                                                    <template slot-scope="scope" class="text-center" style="width: 100%">
+                                                        <button @click="_bhyt('edit', scope.row)" data-toggle="modal" data-target="#myModal" class="btn btn-info btn-sm" title="Cập nhật thông tin bảo hiểm y tế"> <i class="fa fa-edit"></i> </button>
+                                                        <button @click="delete_bhyt(scope.row)" class="btn btn-danger btn-sm" title="Xóa"> <i class="fa fa-trash-o"></i> </button>
+                                                    </template>
+                                                </el-table-column>
+                                                <el-table-column type="index" label="TT" align="center"></el-table-column>
+                                                <el-table-column prop="ma_nv" label="Mã NV" width="100"></el-table-column>
+                                                <el-table-column prop="ho_ten" label="Tên NV" width="150"></el-table-column>
+                                                <el-table-column prop="so_bhyt" label="Số BHYT"></el-table-column>
+                                                <el-table-column prop="noi_kham" label="Nơi khám"></el-table-column>
+                                                <el-table-column prop="dia_chi_kham" label="Địa chỉ khám"></el-table-column>
+                                                <el-table-column prop="ghi_chu" label="Ghi chú"></el-table-column>
+                                            </el-table>
+                                        </div>
+
+                                        <div class="col-md-12">
+                                            <div class="row tb-row-hienthi">
+                                                <div class="col-md-1 col-sm-2 col-8 tb-label pr-0" style="padding-left: 15px;">
+                                                    <span>Hiển thị</span>
+                                                </div>
+                                                <div class="col-md-1 col-sm-2 col-4 tb-hienthi" style="padding-left: 4px;">
+                                                    <el-select v-model="value" placeholder="10" size="small">
+                                                        <el-option v-for="item in options_display" :key="item" :label="item" :value="item"></el-option>
+                                                    </el-select>
+                                                </div>
+                                                <div class="col-md-8 col-sm-4 col-6" style="padding-left: 0px;">
+                                                    <el-pagination :page-size="10" layout="prev, pager, next" :total="total_bhyt" @current-change="danh_sach_bhyt"></el-pagination>
+                                                </div>
+                                                <div class="col-md-2 col-sm-2 col-6 tb-label">
+                                                    <span class="pull-right">Tổng: {{total_bhyt}} BHYT</span>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -288,7 +332,9 @@
                 flag_btn_save: true,
                 flag_disabled_submit: false,
                 flag_input_ma_bhyt: false,
-                flag_disable_manv: false
+                flag_disable_manv: false,
+                options_display: [10,20,30],
+                value: ''
             }
         },
         methods: {
@@ -410,7 +456,12 @@
             un_change_bnt_save: function () {
                 this.flag_btn_save = true;
                 $('#save').removeAttr('disabled');
+            },
+            scroll_card_full_creem: function () {
+                $('#phongto').closest('.card').find('[data-action="expand"] i').toggleClass('mdi-arrow-expand mdi-arrow-compress');
+                $('#phongto').closest('.card').toggleClass('card-fullscreen');
             }
+
         }
     }
 </script>

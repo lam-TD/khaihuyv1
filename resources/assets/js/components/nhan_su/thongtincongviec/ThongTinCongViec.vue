@@ -47,7 +47,7 @@
                                                         <button @click="delete_ttcv(scope.row)" class="btn btn-danger btn-sm" title="Xóa"> <i class="fa fa-trash-o"></i> </button>
                                                     </template>
                                                 </el-table-column>
-                                                <el-table-column type="index" label="TT" :index="indexMethod" align="center"></el-table-column>
+                                                <el-table-column type="index" label="TT" align="center"></el-table-column>
                                                 <el-table-column prop="ma_nv" label="Mã NV" width="180"></el-table-column>
                                                 <el-table-column prop="ho_ten" label="Tên NV"></el-table-column>
                                                 <el-table-column prop="tinh_trang" label="Tình trạng"></el-table-column>
@@ -57,19 +57,19 @@
 
                                         <div class="col-md-12">
                                             <div class="row tb-row-hienthi">
-                                                <div class="col-md-2 tb-label">
-                                                    Tổng: 100 TTCV
-                                                </div>
-                                                <div class="col-md-1 tb-label">
+                                                <div class="col-md-1 col-sm-2 col-8 tb-label pr-0" style="padding-left: 15px;">
                                                     <span>Hiển thị</span>
                                                 </div>
-                                                <div class="col-md-1 tb-hienthi">
+                                                <div class="col-md-1 col-sm-2 col-4 tb-hienthi" style="padding-left: 4px;">
                                                     <el-select v-model="value" placeholder="10" size="small">
                                                         <el-option v-for="item in options_display" :key="item" :label="item" :value="item"></el-option>
                                                     </el-select>
                                                 </div>
-                                                <div class="col-md-8">
+                                                <div class="col-md-8 col-sm-4 col-6" style="padding-left: 0px;">
                                                     <el-pagination :page-size="10" layout="prev, pager, next" :total="total_ttcv" @current-change="danh_sach_ttcv"></el-pagination>
+                                                </div>
+                                                <div class="col-md-2 col-sm-2 col-6 tb-label">
+                                                    <span class="pull-right">Tổng: {{total_ttcv}} TTCV</span>
                                                 </div>
                                             </div>
                                         </div>
@@ -328,7 +328,8 @@
                 flag_input_ma_ttcv: false,
                 flag_disable_manv: false,
                 index_ttcv: 1,
-                options_display: [10,20,30]
+                options_display: [10,20,30],
+                value: ''
             }
         },
         methods: {

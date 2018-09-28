@@ -30,10 +30,9 @@
                     <div class="card content-lam">
                         <div class="card-header">
                             <div class="card-actions">
-                                <a class="" data-action="collapse"><i class="ti-minus"></i></a>
-                                <a class="btn-minimize" data-action="expand"><i class="mdi mdi-arrow-expand"></i></a>
+                                <a @click="scroll_card_full_creem" id="phongto" class="btn-minimize" data-action="expand"><i class="mdi mdi-arrow-expand"></i></a>
                             </div>
-                            <h4 class="card-title m-b-0">Thông tin công việc</h4>
+                            <h4 class="card-title m-b-0">Người phụ thuộc</h4>
                         </div>
                         <div class="card-body bg-inverse">
                             <div class="row row-title">
@@ -66,53 +65,94 @@
                                 <!--&lt;!&ndash;<button @click="_npt('add')" title="Thêm mới phòng" type="button" data-toggle="modal" data-target="#myModal" class="btn btn-circle btn-lg btn-success waves-effect waves-dark"><i class="fa fa-plus"></i></button>&ndash;&gt;-->
                                 <!--</h2>-->
                                 <div class="message-widget contact-widget">
-                                    <div class="table-responsive">
-                                        <table class="table table-hover" id="table_npt">
-                                            <thead>
-                                            <tr style="border-top: 1px solid #ddd">
-                                                <th scope="col" class="text-center">#</th>
-                                                <th scope="col">TT</th>
-                                                <th scope="col">Mã NV</th>
-                                                <th scope="col">Tên NV</th>
-                                                <th scope="col">Họ tên NPT</th>
-                                                <th scope="col">Ngày sinh</th>
-                                                <th scope="col">Từ - đến ngày</th>
-                                                <th scope="col">Ghi chú</th>
-                                            </tr>
-                                            </thead>
-                                            <tbody class="body-table loading-item">
-                                                <tr v-if="loading_npt">
-                                                    <td class="" colspan="12"><b><i><i class="fa fa-spin fa-spinner"></i> Đang tải danh sách phòng...</i></b></td>
-                                                </tr>
-                                                <tr v-else-if="list_npt.length <= 0">
-                                                    <td class="text-center" colspan="12"><b><i>Chưa có thân nhân</i></b></td>
-                                                </tr>
-                                                <tr v-for="(n, index) in list_npt" :id="'n' + n.id" class="row-nhom" @click="click_npt(n)">
-                                                    <td class="text-left" style="padding-right: 0">
-                                                        <button @click="_npt('edit',n)" id="edit_nhom" type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#myModal">
-                                                            <i class="fa fa-edit"></i>
-                                                        </button>
-                                                        <button @click="delete_npt(n)" type="button" class="btn btn-danger btn-sm">
-                                                            <i class="fa fa-trash"></i>
-                                                        </button>
-                                                    </td>
-                                                    <td>{{ index + 1 }}</td>
-                                                    <td>{{n.ma_nv}}</td>
-                                                    <td>{{n.ho_ten}}</td>
-                                                    <td>{{n.ho_ten_npt}}</td>
-                                                    <td>{{n.ngay_sinh_npt}}</td>
-                                                    <td>{{n.tg_giam_tru_tu}} - {{n.tg_giam_tru_den}}</td>
-                                                    <td>{{n.ghi_chu}}</td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
-                                        <el-pagination
-                                                :page-size="10"
-                                                layout="prev, pager, next"
-                                                :total="total_npt"
-                                                @current-change="danh_sach_npt">
-                                        </el-pagination>
+                                    <!--<div class="table-responsive">-->
+                                        <!--<table class="table table-hover" id="table_npt">-->
+                                            <!--<thead>-->
+                                            <!--<tr style="border-top: 1px solid #ddd">-->
+                                                <!--<th scope="col" class="text-center">#</th>-->
+                                                <!--<th scope="col">TT</th>-->
+                                                <!--<th scope="col">Mã NV</th>-->
+                                                <!--<th scope="col">Tên NV</th>-->
+                                                <!--<th scope="col">Họ tên NPT</th>-->
+                                                <!--<th scope="col">Ngày sinh</th>-->
+                                                <!--<th scope="col">Từ - đến ngày</th>-->
+                                                <!--<th scope="col">Ghi chú</th>-->
+                                            <!--</tr>-->
+                                            <!--</thead>-->
+                                            <!--<tbody class="body-table loading-item">-->
+                                                <!--<tr v-if="loading_npt">-->
+                                                    <!--<td class="" colspan="12"><b><i><i class="fa fa-spin fa-spinner"></i> Đang tải danh sách phòng...</i></b></td>-->
+                                                <!--</tr>-->
+                                                <!--<tr v-else-if="list_npt.length <= 0">-->
+                                                    <!--<td class="text-center" colspan="12"><b><i>Chưa có thân nhân</i></b></td>-->
+                                                <!--</tr>-->
+                                                <!--<tr v-for="(n, index) in list_npt" :id="'n' + n.id" class="row-nhom" @click="click_npt(n)">-->
+                                                    <!--<td class="text-left" style="padding-right: 0">-->
+                                                        <!--<button @click="_npt('edit',n)" id="edit_nhom" type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#myModal">-->
+                                                            <!--<i class="fa fa-edit"></i>-->
+                                                        <!--</button>-->
+                                                        <!--<button @click="delete_npt(n)" type="button" class="btn btn-danger btn-sm">-->
+                                                            <!--<i class="fa fa-trash"></i>-->
+                                                        <!--</button>-->
+                                                    <!--</td>-->
+                                                    <!--<td>{{ index + 1 }}</td>-->
+                                                    <!--<td>{{n.ma_nv}}</td>-->
+                                                    <!--<td>{{n.ho_ten}}</td>-->
+                                                    <!--<td>{{n.ho_ten_npt}}</td>-->
+                                                    <!--<td>{{n.ngay_sinh_npt}}</td>-->
+                                                    <!--<td>{{n.tg_giam_tru_tu}} - {{n.tg_giam_tru_den}}</td>-->
+                                                    <!--<td>{{n.ghi_chu}}</td>-->
+                                                <!--</tr>-->
+                                            <!--</tbody>-->
+                                        <!--</table>-->
+                                        <!--<el-pagination-->
+                                                <!--:page-size="10"-->
+                                                <!--layout="prev, pager, next"-->
+                                                <!--:total="total_npt"-->
+                                                <!--@current-change="danh_sach_npt">-->
+                                        <!--</el-pagination>-->
+                                    <!--</div>-->
+                                    <!--//-->
+                                    <div class="row">
+                                        <div class="col-md-12" style="margin-bottom: 10px;">
+                                            <el-table :data="list_npt" border style="width: 100%">
+                                                <el-table-column label="#" width="90" align="center">
+                                                    <template slot-scope="scope" class="text-center" style="width: 100%">
+                                                        <button @click="_npt('edit',scope.row)" data-toggle="modal" data-target="#myModal" class="btn btn-info btn-sm" title="Cập nhật thông tin cá nhân"> <i class="fa fa-edit"></i> </button>
+                                                        <button @click="delete_npt(scope.row)" class="btn btn-danger btn-sm" title="Xóa"> <i class="fa fa-trash-o"></i> </button>
+                                                    </template>
+                                                </el-table-column>
+                                                <el-table-column type="index" label="TT" align="center"></el-table-column>
+                                                <el-table-column prop="ma_nv" label="Mã NV" width="100"></el-table-column>
+                                                <el-table-column prop="ho_ten" label="Tên NV" width="150"></el-table-column>
+                                                <el-table-column prop="ho_ten_npt" label="Họ tên NPT" width="150"></el-table-column>
+                                                <el-table-column prop="ngay_sinh_npt" label="Ngày sinh"></el-table-column>
+                                                <el-table-column prop="tg_giam_tru_tu" label="TG Giảm trừ từ" width="150"></el-table-column>
+                                                <el-table-column prop="tg_giam_tru_den" label="TG Giảm trừ đến" width="150"></el-table-column>
+                                                <el-table-column prop="ghi_chu" label="Ghi chú"></el-table-column>
+                                            </el-table>
+                                        </div>
+
+                                        <div class="col-md-12">
+                                            <div class="row tb-row-hienthi">
+                                                <div class="col-md-1 col-sm-2 col-8 tb-label pr-0" style="padding-left: 15px;">
+                                                    <span>Hiển thị</span>
+                                                </div>
+                                                <div class="col-md-1 col-sm-2 col-4 tb-hienthi" style="padding-left: 4px;">
+                                                    <el-select v-model="value" placeholder="10" size="small">
+                                                        <el-option v-for="item in options_display" :key="item" :label="item" :value="item"></el-option>
+                                                    </el-select>
+                                                </div>
+                                                <div class="col-md-8 col-sm-4 col-6" style="padding-left: 0px;">
+                                                    <el-pagination :page-size="10" layout="prev, pager, next" :total="total_npt" @current-change="danh_sach_npt"></el-pagination>
+                                                </div>
+                                                <div class="col-md-2 col-sm-2 col-6 tb-label">
+                                                    <span class="pull-right">Tổng: {{total_npt}} NPT</span>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
+                                    <!--////-->
                                 </div>
                             </div>
 
@@ -282,7 +322,9 @@
                 flag_input_ma_phong: false,
                 flag_disabled_submit: false,
                 flag_btn_save: true,
-                error_select_nhan_vien: true
+                error_select_nhan_vien: true,
+                options_display: [10,20,30],
+                value: ''
             }
         },
         methods: {
@@ -406,6 +448,10 @@
             },
             maxview: function () {
 
+            },
+            scroll_card_full_creem: function () {
+                $('#phongto').closest('.card').find('[data-action="expand"] i').toggleClass('mdi-arrow-expand mdi-arrow-compress');
+                $('#phongto').closest('.card').toggleClass('card-fullscreen');
             }
         }
     }
@@ -522,170 +568,170 @@
     /*{*/
         /*width: 20%;*/
     /*}*/
-    .card-fullscreen
-    {
-        z-index: 100;
-    }
-    @media screen and (min-width: 1024px) {
-        .table td
-        {
-            padding-left: 10px;
-        }
-        .table tr th:nth-child(1)
-        {
-            min-width:130px;
-        }
-        .table tr td:nth-child(1)
-        {
-            min-width: 130px;
-        }
-        .table tr th:nth-child(2)
-        {
-            min-width: 50px;
-        }
-        .table tr td:nth-child(2)
-        {
-            min-width: 50px;
-        }
-        .table tr th:nth-child(3)
-        {
-            min-width: 130px;
-        }
-        .table tr td:nth-child(3)
-        {
-            min-width: 130px;
-        }
-        .table tr th:nth-child(4)
-        {
-            min-width: 150px;
-        }
-        .table tr td:nth-child(4)
-        {
-            min-width: 150px;
-        }
-        .table tr th:nth-child(5)
-        {
-            min-width: 150px;
-        }
-        .table tr td:nth-child(5)
-        {
-            min-width: 150px;
-        }
-        .table tr th:nth-child(6)
-        {
-            min-width: 110px;
-        }
-        .table tr td:nth-child(6)
-        {
-            min-width: 110px;
-        }
-        .table tr th:nth-child(7)
-        {
-            min-width: 200px;
-        }
-        .table tr td:nth-child(7)
-        {
-            min-width: 200px;
-        }
-        .table tr th:nth-child(8)
-        {
-            min-width: 100px;
-        }
-        .table tr td:nth-child(8)
-        {
-            min-width: 100px;
-        }
-        .card-fullscreen .table tr th:nth-child(4)
-        {
-            min-width: 260px;
-        }
-        .card-fullscreen .table tr td:nth-child(4)
-        {
-            min-width: 260px;
-        }
-        .card-fullscreen .table tr th:nth-child(5)
-        {
-            min-width: 260px;
-        }
-        .card-fullscreen .table tr td:nth-child(5)
-        {
-            min-width: 260px;
-        }
-        .card-fullscreen .table tr th:nth-child(8)
-        {
-            min-width: 140px;
-        }
-        .card-fullscreen .table tr td:nth-child(8)
-        {
-            min-width: 140px;
-        }
-    }
-    @media screen and (max-width: 1023px){
-        .table tr th:nth-child(1)
-        {
-            min-width:100px;
-        }
-        .table tr td:nth-child(1)
-        {
-            min-width: 100px;
-        }
-        .table tr th:nth-child(2)
-        {
-            min-width: 100px;
-        }
-        .table tr td:nth-child(2)
-        {
-            min-width: 100px;
-        }
-        .table tr th:nth-child(3)
-        {
-            min-width: 100px;
-        }
-        .table tr td:nth-child(3)
-        {
-            min-width: 100px;
-        }
-        .table tr th:nth-child(4)
-        {
-            min-width: 150px;
-        }
-        .table tr td:nth-child(4)
-        {
-            min-width: 150px;
-        }
-        .table tr th:nth-child(5)
-        {
-            min-width: 150px;
-        }
-        .table tr td:nth-child(5)
-        {
-            min-width: 150px;
-        }
-        .table tr th:nth-child(6)
-        {
-            min-width: 110px;
-        }
-        .table tr td:nth-child(6)
-        {
-            min-width: 110px;
-        }
-        .table tr th:nth-child(7)
-        {
-            min-width: 200px;
-        }
-        .table tr td:nth-child(7)
-        {
-            min-width: 200px;
-        }
-        .table tr th:nth-child(8)
-        {
-            min-width: 100px;
-        }
-        .table tr td:nth-child(8)
-        {
-            min-width: 100px;
-        }
-    }
+    /*.card-fullscreen*/
+    /*{*/
+        /*z-index: 100;*/
+    /*}*/
+    /*@media screen and (min-width: 1024px) {*/
+        /*.table td*/
+        /*{*/
+            /*padding-left: 10px;*/
+        /*}*/
+        /*.table tr th:nth-child(1)*/
+        /*{*/
+            /*min-width:130px;*/
+        /*}*/
+        /*.table tr td:nth-child(1)*/
+        /*{*/
+            /*min-width: 130px;*/
+        /*}*/
+        /*.table tr th:nth-child(2)*/
+        /*{*/
+            /*min-width: 50px;*/
+        /*}*/
+        /*.table tr td:nth-child(2)*/
+        /*{*/
+            /*min-width: 50px;*/
+        /*}*/
+        /*.table tr th:nth-child(3)*/
+        /*{*/
+            /*min-width: 130px;*/
+        /*}*/
+        /*.table tr td:nth-child(3)*/
+        /*{*/
+            /*min-width: 130px;*/
+        /*}*/
+        /*.table tr th:nth-child(4)*/
+        /*{*/
+            /*min-width: 150px;*/
+        /*}*/
+        /*.table tr td:nth-child(4)*/
+        /*{*/
+            /*min-width: 150px;*/
+        /*}*/
+        /*.table tr th:nth-child(5)*/
+        /*{*/
+            /*min-width: 150px;*/
+        /*}*/
+        /*.table tr td:nth-child(5)*/
+        /*{*/
+            /*min-width: 150px;*/
+        /*}*/
+        /*.table tr th:nth-child(6)*/
+        /*{*/
+            /*min-width: 110px;*/
+        /*}*/
+        /*.table tr td:nth-child(6)*/
+        /*{*/
+            /*min-width: 110px;*/
+        /*}*/
+        /*.table tr th:nth-child(7)*/
+        /*{*/
+            /*min-width: 200px;*/
+        /*}*/
+        /*.table tr td:nth-child(7)*/
+        /*{*/
+            /*min-width: 200px;*/
+        /*}*/
+        /*.table tr th:nth-child(8)*/
+        /*{*/
+            /*min-width: 100px;*/
+        /*}*/
+        /*.table tr td:nth-child(8)*/
+        /*{*/
+            /*min-width: 100px;*/
+        /*}*/
+        /*.card-fullscreen .table tr th:nth-child(4)*/
+        /*{*/
+            /*min-width: 260px;*/
+        /*}*/
+        /*.card-fullscreen .table tr td:nth-child(4)*/
+        /*{*/
+            /*min-width: 260px;*/
+        /*}*/
+        /*.card-fullscreen .table tr th:nth-child(5)*/
+        /*{*/
+            /*min-width: 260px;*/
+        /*}*/
+        /*.card-fullscreen .table tr td:nth-child(5)*/
+        /*{*/
+            /*min-width: 260px;*/
+        /*}*/
+        /*.card-fullscreen .table tr th:nth-child(8)*/
+        /*{*/
+            /*min-width: 140px;*/
+        /*}*/
+        /*.card-fullscreen .table tr td:nth-child(8)*/
+        /*{*/
+            /*min-width: 140px;*/
+        /*}*/
+    /*}*/
+    /*@media screen and (max-width: 1023px){*/
+        /*.table tr th:nth-child(1)*/
+        /*{*/
+            /*min-width:100px;*/
+        /*}*/
+        /*.table tr td:nth-child(1)*/
+        /*{*/
+            /*min-width: 100px;*/
+        /*}*/
+        /*.table tr th:nth-child(2)*/
+        /*{*/
+            /*min-width: 100px;*/
+        /*}*/
+        /*.table tr td:nth-child(2)*/
+        /*{*/
+            /*min-width: 100px;*/
+        /*}*/
+        /*.table tr th:nth-child(3)*/
+        /*{*/
+            /*min-width: 100px;*/
+        /*}*/
+        /*.table tr td:nth-child(3)*/
+        /*{*/
+            /*min-width: 100px;*/
+        /*}*/
+        /*.table tr th:nth-child(4)*/
+        /*{*/
+            /*min-width: 150px;*/
+        /*}*/
+        /*.table tr td:nth-child(4)*/
+        /*{*/
+            /*min-width: 150px;*/
+        /*}*/
+        /*.table tr th:nth-child(5)*/
+        /*{*/
+            /*min-width: 150px;*/
+        /*}*/
+        /*.table tr td:nth-child(5)*/
+        /*{*/
+            /*min-width: 150px;*/
+        /*}*/
+        /*.table tr th:nth-child(6)*/
+        /*{*/
+            /*min-width: 110px;*/
+        /*}*/
+        /*.table tr td:nth-child(6)*/
+        /*{*/
+            /*min-width: 110px;*/
+        /*}*/
+        /*.table tr th:nth-child(7)*/
+        /*{*/
+            /*min-width: 200px;*/
+        /*}*/
+        /*.table tr td:nth-child(7)*/
+        /*{*/
+            /*min-width: 200px;*/
+        /*}*/
+        /*.table tr th:nth-child(8)*/
+        /*{*/
+            /*min-width: 100px;*/
+        /*}*/
+        /*.table tr td:nth-child(8)*/
+        /*{*/
+            /*min-width: 100px;*/
+        /*}*/
+    /*}*/
 
 
 </style>

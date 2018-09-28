@@ -30,12 +30,12 @@
                         <div class="card-header">
                             <div class="card-actions">
                                 <a @click="_bo_phan('add')" title="Thêm mới bộ phận" data-toggle="modal" data-target="#myModal" class="btn btn-success waves-effect waves-dark btn-white" style="color: white"><i class="fa fa-plus-circle"></i> Thêm mới</a>
-                                <a @click="scroll_card" id="thunho" class="" data-action="collapse"><i class="ti-minus"></i></a>
+                                <!--<a @click="scroll_card" id="thunho" class="" data-action="collapse"><i class="ti-minus"></i></a>-->
                                 <a @click="scroll_card_full_creem" id="phongto" class="btn-minimize" data-action="expand"><i class="mdi mdi-arrow-expand"></i></a>
                                 <!--<a class="btn-close" data-action="close"><i class="ti-close"></i></a>-->
                             </div>
                             <h4 class="card-title m-b-0">Danh sách bộ phận</h4>
-                            <h6 class="card-subtitle m-0 op-5">Tổng số bộ phận: {{total_bo_phan}}</h6>
+                            <!--<h6 class="card-subtitle m-0 op-5">Tổng số bộ phận: {{total_bo_phan}}</h6>-->
                         </div>
                         <div class="card-body collapse show">
                             <div class="message-box contact-box">
@@ -54,49 +54,86 @@
                                         <!--</div>-->
                                     <!--</div>-->
 
-                                    <div class="table-responsive">
-                                        <table class="table table-hover">
-                                            <thead>
-                                            <tr>
-                                                <th class="text-center" style="width: 100px;">#</th>
-                                                <th class="text-center">TT</th>
-                                                <th>Mã bộ phận</th>
-                                                <th>Tên bộ phận</th>
-                                                <th>Diễn giải</th>
-                                                <!--<th>Ngày tạo</th>-->
-                                            </tr>
-                                            </thead>
-                                            <tbody class="body-table loading-item">
-                                            <tr v-if="loading_bo_phan">
-                                                <td class="text-center" colspan="6"><b><i><i class="fa fa-spin fa-spinner"></i> Đang tải danh sách bộ phận...</i></b></td>
-                                            </tr>
-                                            <tr v-else-if="list_bo_phan.length <= 0">
-                                                <td class="text-center" colspan="6"><b><i>Chưa có bộ phận</i></b></td>
-                                            </tr>
-                                            <tr v-else v-for="(n, index) in list_bo_phan" :id="'n' + n.id" class="row-nhom" @click="click_bo_phan(n)">
-                                                <td class="text-center" style="padding-right: 0">
-                                                    <button @click="_bo_phan('edit',n)" id="edit_nhom" type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#myModal">
-                                                        <i class="fa fa-edit"></i>
-                                                    </button>
-                                                    <button @click="delete_bo_phan(n)" type="button" class="btn btn-danger btn-sm">
-                                                        <i class="fa fa-trash"></i>
-                                                    </button>
-                                                </td>
-                                                <td class="text-center">{{index + 1}}</td>
-                                                <td>{{n.ma_bo_phan}}</td>
-                                                <td>{{n.ten_bo_phan}}</td>
-                                                <td>{{n.dien_giai}}</td>
-                                                <!--<td>{{n.created_at}}</td>-->
-                                            </tr>
-                                            </tbody>
-                                        </table>
-                                        <el-pagination
-                                                :page-size="10"
-                                                layout="prev, pager, next"
-                                                :total="total_bo_phan"
-                                                @current-change="danh_sach_bo_phan">
-                                        </el-pagination>
+                                    <!--<div class="table-responsive">-->
+                                        <!--<table class="table table-hover">-->
+                                            <!--<thead>-->
+                                            <!--<tr>-->
+                                                <!--<th class="text-center" style="width: 100px;">#</th>-->
+                                                <!--<th class="text-center">TT</th>-->
+                                                <!--<th>Mã bộ phận</th>-->
+                                                <!--<th>Tên bộ phận</th>-->
+                                                <!--<th>Diễn giải</th>-->
+                                                <!--&lt;!&ndash;<th>Ngày tạo</th>&ndash;&gt;-->
+                                            <!--</tr>-->
+                                            <!--</thead>-->
+                                            <!--<tbody class="body-table loading-item">-->
+                                            <!--<tr v-if="loading_bo_phan">-->
+                                                <!--<td class="text-center" colspan="6"><b><i><i class="fa fa-spin fa-spinner"></i> Đang tải danh sách bộ phận...</i></b></td>-->
+                                            <!--</tr>-->
+                                            <!--<tr v-else-if="list_bo_phan.length <= 0">-->
+                                                <!--<td class="text-center" colspan="6"><b><i>Chưa có bộ phận</i></b></td>-->
+                                            <!--</tr>-->
+                                            <!--<tr v-else v-for="(n, index) in list_bo_phan" :id="'n' + n.id" class="row-nhom" @click="click_bo_phan(n)">-->
+                                                <!--<td class="text-center" style="padding-right: 0">-->
+                                                    <!--<button @click="_bo_phan('edit',n)" id="edit_nhom" type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#myModal">-->
+                                                        <!--<i class="fa fa-edit"></i>-->
+                                                    <!--</button>-->
+                                                    <!--<button @click="delete_bo_phan(n)" type="button" class="btn btn-danger btn-sm">-->
+                                                        <!--<i class="fa fa-trash"></i>-->
+                                                    <!--</button>-->
+                                                <!--</td>-->
+                                                <!--<td class="text-center">{{index + 1}}</td>-->
+                                                <!--<td>{{n.ma_bo_phan}}</td>-->
+                                                <!--<td>{{n.ten_bo_phan}}</td>-->
+                                                <!--<td>{{n.dien_giai}}</td>-->
+                                                <!--&lt;!&ndash;<td>{{n.created_at}}</td>&ndash;&gt;-->
+                                            <!--</tr>-->
+                                            <!--</tbody>-->
+                                        <!--</table>-->
+                                        <!--<el-pagination-->
+                                                <!--:page-size="10"-->
+                                                <!--layout="prev, pager, next"-->
+                                                <!--:total="total_bo_phan"-->
+                                                <!--@current-change="danh_sach_bo_phan">-->
+                                        <!--</el-pagination>-->
+                                    <!--</div>-->
+                                    <!--//-->
+                                    <div class="row">
+                                        <div class="col-md-12" style="margin-bottom: 10px;">
+                                            <el-table :data="list_bo_phan" border style="width: 100%">
+                                                <el-table-column label="#" width="90" align="center">
+                                                    <template slot-scope="scope" class="text-center" style="width: 100%">
+                                                        <button @click="_bo_phan('edit', scope.row)" data-toggle="modal" data-target="#myModal" class="btn btn-info btn-sm" title="Cập nhật thông tin bộ phận"> <i class="fa fa-edit"></i> </button>
+                                                        <button @click="delete_bo_phan(scope.row)" class="btn btn-danger btn-sm" title="Xóa"> <i class="fa fa-trash-o"></i> </button>
+                                                    </template>
+                                                </el-table-column>
+                                                <el-table-column type="index" label="TT" align="center"></el-table-column>
+                                                <el-table-column prop="ma_bo_phan" label="Mã bộ phận" width="100"></el-table-column>
+                                                <el-table-column prop="ten_bo_phan" label="Tên bộ phận" width="150"></el-table-column>
+                                                <el-table-column prop="dien_giai" label="Điễn giải"></el-table-column>
+                                            </el-table>
+                                        </div>
+
+                                        <div class="col-md-12">
+                                            <div class="row tb-row-hienthi">
+                                                <div class="col-md-1 col-sm-2 col-8 tb-label pr-0" style="padding-left: 15px;">
+                                                    <span>Hiển thị</span>
+                                                </div>
+                                                <div class="col-md-1 col-sm-2 col-4 tb-hienthi" style="padding-left: 4px;">
+                                                    <el-select v-model="limit" placeholder="10" size="small">
+                                                        <el-option v-for="item in options_display" :key="item" :label="item" :value="item"></el-option>
+                                                    </el-select>
+                                                </div>
+                                                <div class="col-md-8 col-sm-4 col-6" style="padding-left: 0px;">
+                                                    <el-pagination :page-size="10" layout="prev, pager, next" :total="total_bo_phan" @current-change="danh_sach_bo_phan"></el-pagination>
+                                                </div>
+                                                <div class="col-md-2 col-sm-2 col-6 tb-label">
+                                                    <span class="pull-right">Tổng: {{total_bo_phan}} BP</span>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
+                                    <!--////-->
                                 </div>
                             </div>
 
@@ -192,7 +229,9 @@
                 flag_body_modal: false,
                 flag_btn_save: true,
                 flag_disabled_submit: false,
-                flag_input_ma_bo_phan: false
+                flag_input_ma_bo_phan: false,
+                options_display: [10,20,30],
+                limit: ''
             }
         },
         methods: {
@@ -276,10 +315,10 @@
                 this.flag_btn_save = true;
                 $('#save').removeAttr('disabled');
             },
-            scroll_card: function () {
-                $('#thunho').closest('.card').find('[data-action="collapse"] i').toggleClass('ti-minus ti-plus');
-                $('#thunho').closest('.card').children('.card-body').collapse('toggle');
-            },
+            // scroll_card: function () {
+            //     $('#thunho').closest('.card').find('[data-action="collapse"] i').toggleClass('ti-minus ti-plus');
+            //     $('#thunho').closest('.card').children('.card-body').collapse('toggle');
+            // },
             scroll_card_full_creem: function () {
                 $('#phongto').closest('.card').find('[data-action="expand"] i').toggleClass('mdi-arrow-expand mdi-arrow-compress');
                 $('#phongto').closest('.card').toggleClass('card-fullscreen');

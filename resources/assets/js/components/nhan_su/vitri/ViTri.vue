@@ -13,7 +13,7 @@
                     <div class="card content-lam">
                         <div class="card-header">
                             <div class="card-actions">
-                                <a @click="scroll_card" id="thunho" class="" data-action="collapse"><i class="ti-minus"></i></a>
+                                <!--<a @click="scroll_card" id="thunho" class="" data-action="collapse"><i class="ti-minus"></i></a>-->
                                 <a @click="scroll_card_full_creem" id="phongto" class="btn-minimize" data-action="expand"><i class="mdi mdi-arrow-expand"></i></a>
                                 <!--<a class="btn-close" data-action="close"><i class="ti-close"></i></a>-->
                             </div>
@@ -46,44 +46,80 @@
                                 <!--&lt;!&ndash;<button @click="_vi_tri('add')" title="Thêm mới phòng" type="button" data-toggle="modal" data-target="#myModal" class="btn btn-circle btn-lg btn-success waves-effect waves-dark"><i class="fa fa-plus"></i></button>&ndash;&gt;-->
                                 <!--</h2>-->
                                 <div class="message-widget contact-widget">
-                                    <div class="table-responsive">
-                                        <table class="table table-hover">
-                                            <thead>
-                                            <tr style="border-top: 1px solid #ddd">
-                                                <th class="text-center" style="width: 100px;">#</th>
-                                                <th>Mã vị trí</th>
-                                                <th>Tên vị trí</th>
-                                                <th>Diễn giải</th>
-                                            </tr>
-                                            </thead>
-                                            <tbody class="body-table loading-item">
-                                            <tr v-if="loading_vi_tri">
-                                                <td class="text-center" colspan="6"><b><i>Đang tải danh sách vị trí...</i></b></td>
-                                            </tr>
-                                            <tr v-else-if="list_vi_tri.length <= 0">
-                                                <td class="text-center" colspan="6"><b><i>Chưa có vị trí</i></b></td>
-                                            </tr>
-                                            <tr v-else-if="list_vi_tri.length > 0" v-for="n in list_vi_tri" :id="'n' + n.id" class="row-nhom" @click="click_vi_tri(n)">
-                                                <td class="text-center" style="padding-right: 0">
-                                                    <button @click="_vi_tri('edit',n)" id="edit_nhom" type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#myModal">
-                                                        <i class="fa fa-edit"></i>
-                                                    </button>
-                                                    <button @click="delete_vi_tri(n)" type="button" class="btn btn-danger btn-sm">
-                                                        <i class="fa fa-trash"></i>
-                                                    </button>
-                                                </td>
-                                                <td>{{n.ma_vi_tri}}</td>
-                                                <td>{{n.ten_vi_tri}}</td>
-                                                <td>{{n.dien_giai}}</td>
-                                            </tr>
-                                            </tbody>
-                                        </table>
-                                        <el-pagination
-                                                :page-size="10"
-                                                layout="prev, pager, next"
-                                                :total="total_vi_tri"
-                                                @current-change="danh_sach_vi_tri">
-                                        </el-pagination>
+                                    <!--<div class="table-responsive">-->
+                                        <!--<table class="table table-hover">-->
+                                            <!--<thead>-->
+                                            <!--<tr style="border-top: 1px solid #ddd">-->
+                                                <!--<th class="text-center" style="width: 100px;">#</th>-->
+                                                <!--<th>Mã vị trí</th>-->
+                                                <!--<th>Tên vị trí</th>-->
+                                                <!--<th>Diễn giải</th>-->
+                                            <!--</tr>-->
+                                            <!--</thead>-->
+                                            <!--<tbody class="body-table loading-item">-->
+                                            <!--<tr v-if="loading_vi_tri">-->
+                                                <!--<td class="text-center" colspan="6"><b><i>Đang tải danh sách vị trí...</i></b></td>-->
+                                            <!--</tr>-->
+                                            <!--<tr v-else-if="list_vi_tri.length <= 0">-->
+                                                <!--<td class="text-center" colspan="6"><b><i>Chưa có vị trí</i></b></td>-->
+                                            <!--</tr>-->
+                                            <!--<tr v-else-if="list_vi_tri.length > 0" v-for="n in list_vi_tri" :id="'n' + n.id" class="row-nhom" @click="click_vi_tri(n)">-->
+                                                <!--<td class="text-center" style="padding-right: 0">-->
+                                                    <!--<button @click="_vi_tri('edit',n)" id="edit_nhom" type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#myModal">-->
+                                                        <!--<i class="fa fa-edit"></i>-->
+                                                    <!--</button>-->
+                                                    <!--<button @click="delete_vi_tri(n)" type="button" class="btn btn-danger btn-sm">-->
+                                                        <!--<i class="fa fa-trash"></i>-->
+                                                    <!--</button>-->
+                                                <!--</td>-->
+                                                <!--<td>{{n.ma_vi_tri}}</td>-->
+                                                <!--<td>{{n.ten_vi_tri}}</td>-->
+                                                <!--<td>{{n.dien_giai}}</td>-->
+                                            <!--</tr>-->
+                                            <!--</tbody>-->
+                                        <!--</table>-->
+                                        <!--<el-pagination-->
+                                                <!--:page-size="10"-->
+                                                <!--layout="prev, pager, next"-->
+                                                <!--:total="total_vi_tri"-->
+                                                <!--@current-change="danh_sach_vi_tri">-->
+                                        <!--</el-pagination>-->
+                                    <!--</div>-->
+                                    <!--//-->
+                                    <div class="row">
+                                        <div class="col-md-12" style="margin-bottom: 10px;">
+                                            <el-table :data="list_vi_tri" style="width: 100%" border empty-text="Chưa có dữ liệu">
+                                                <el-table-column prop="name" label="#" width="90" align="center">
+                                                    <template slot-scope="scope" class="text-center" style="width: 100%">
+                                                        <button @click="_vi_tri('edit', scope.row)" data-toggle="modal" data-target="#myModal" class="btn btn-info btn-sm" title="Cập nhật thông tin vị trí"> <i class="fa fa-edit"></i> </button>
+                                                        <button @click="delete_vi_tri(scope.row.id)" class="btn btn-danger btn-sm" title="Xóa"> <i class="fa fa-trash-o"></i> </button>
+                                                    </template>
+                                                </el-table-column>
+                                                <el-table-column type="index" label="TT" align="center"></el-table-column>
+                                                <el-table-column prop="ma_vi_tri" label="Mã vị trí" width="120"></el-table-column>
+                                                <el-table-column prop="ten_vi_tri" label="Tên vị trí" width="180"></el-table-column>
+                                                <el-table-column prop="dien_giai" label="Diễn giải"></el-table-column>
+                                            </el-table>
+                                        </div>
+                                        <!--////-->
+                                        <div class="col-md-12">
+                                            <div class="row tb-row-hienthi">
+                                                <div class="col-md-1 col-sm-2 col-8 tb-label pr-0" style="padding-left: 15px;">
+                                                    <span>Hiển thị</span>
+                                                </div>
+                                                <div class="col-md-1 col-sm-2 col-4 tb-hienthi" style="padding-left: 4px;">
+                                                    <el-select v-model="value" placeholder="10" size="small">
+                                                        <el-option v-for="item in options_display" :key="item" :label="item" :value="item"></el-option>
+                                                    </el-select>
+                                                </div>
+                                                <div class="col-md-8 col-sm-4 col-6" style="padding-left: 0px;">
+                                                    <el-pagination :page-size="10" layout="prev, pager, next" :total="total_vi_tri" @current-change="danh_sach_vi_tri"></el-pagination>
+                                                </div>
+                                                <div class="col-md-2 col-sm-2 col-6 tb-label">
+                                                    <span class="pull-right">Tổng: {{total_vi_tri}} VT</span>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -202,7 +238,9 @@
                 flag_disabled_submit: false,
                 flag_select_phong: true,
                 flag_btn_save: true,
-                error_select_phong: true
+                error_select_phong: true,
+                options_display: [10,20,30],
+                value: ''
             }
         },
         methods: {
@@ -313,10 +351,10 @@
                 this.flag_btn_save = true;
                 $('#save').removeAttr('disabled');
             },
-            scroll_card: function () {
-                $('#thunho').closest('.card').find('[data-action="collapse"] i').toggleClass('ti-minus ti-plus');
-                $('#thunho').closest('.card').children('.card-body').collapse('toggle');
-            },
+            // scroll_card: function () {
+            //     $('#thunho').closest('.card').find('[data-action="collapse"] i').toggleClass('ti-minus ti-plus');
+            //     $('#thunho').closest('.card').children('.card-body').collapse('toggle');
+            // },
             scroll_card_full_creem: function () {
                 $('#phongto').closest('.card').find('[data-action="expand"] i').toggleClass('mdi-arrow-expand mdi-arrow-compress');
                 $('#phongto').closest('.card').toggleClass('card-fullscreen');

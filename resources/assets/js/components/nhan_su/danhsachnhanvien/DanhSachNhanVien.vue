@@ -88,7 +88,7 @@
                 <div class="card-body collapse show pb-0">
                     <div class="message-box contact-box">
                         <div class="message-widget contact-widget">
-                            <div class="row mb-10">
+                            <div class="row mb-4">
                                 <div class="col-md-12">
                                     <div class="row">
                                         <div class="col-md-6">
@@ -112,7 +112,7 @@
                                                 <button @click="delete_all_thong_tin_nv(scope.row.id)" class="btn btn-danger btn-sm" title="Xóa"> <i class="fa fa-trash-o"></i> </button>
                                             </template>
                                         </el-table-column>
-                                        <el-table-column type="index" label="TT" :index="indexMethod" align="center"></el-table-column>
+                                        <el-table-column type="index" label="TT" align="center"></el-table-column>
                                         <el-table-column  prop="date" label="Hình ảnh" width="80">
                                             <template slot-scope="props">
                                                 <img @click="load_chi_tiet_nhan_vien(props.row)" :src="'public/image_nhan_vien/'+props.row.avatar" data-toggle="modal" data-target="#exampleModal2" alt="" class="img-sanpham" style="cursor: pointer" title="Click để xem chi tiết">
@@ -134,9 +134,27 @@
                                         <el-table-column prop="ghi_chu"  label="Ghi chú"></el-table-column>
                                     </el-table>
                                 </div>
-                                <div class="col-md-12">
-                                    <el-pagination :page-size="10" layout="prev, pager, next" :total="dsnhanvien_total" @current-change="getNhanVien">
-                                    </el-pagination>
+                                <!--<div class="col-md-12">-->
+                                    <!--<el-pagination :page-size="10" layout="prev, pager, next" :total="dsnhanvien_total" @current-change="getNhanVien">-->
+                                    <!--</el-pagination>-->
+                                <!--</div>-->
+                                <div class="col-md-12 mt-2">
+                                    <div class="row tb-row-hienthi">
+                                        <div class="col-md-1 col-sm-2 col-8 tb-label pr-0" style="padding-left: 15px;">
+                                            <span>Hiển thị</span>
+                                        </div>
+                                        <div class="col-md-1 col-sm-2 col-4 tb-hienthi" style="padding-left: 4px;">
+                                            <el-select v-model="value" placeholder="10" size="small">
+                                                <el-option v-for="item in options_display" :key="item" :label="item" :value="item"></el-option>
+                                            </el-select>
+                                        </div>
+                                        <div class="col-md-8 col-sm-4 col-6" style="padding-left: 0px;">
+                                            <el-pagination :page-size="10" layout="prev, pager, next" :total="dsnhanvien_total" @current-change="getNhanVien"></el-pagination>
+                                        </div>
+                                        <div class="col-md-2 col-sm-2 col-6 tb-label">
+                                            <span class="pull-right">Tổng: {{dsnhanvien_total}} NV</span>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -866,8 +884,10 @@
                 nhan_vien_bhyt:[],
                 //nguoi phu thuoc con thoi han
                 nhan_vien_npt: [],
-
-                nv_thong_tin_ca_nhan: ''
+                //
+                nv_thong_tin_ca_nhan: '',
+                options_display: [10,20,30],
+                value: ''
             }
         },
         methods: {
@@ -1114,13 +1134,13 @@
             scroll_card_full_creem: function () {
                 $('#phongto').closest('.card').find('[data-action="expand"] i').toggleClass('mdi-arrow-expand mdi-arrow-compress');
                 $('#phongto').closest('.card').toggleClass('card-fullscreen');
-                if($('.el-table').css("height") == "320px")
-                {
-                    $('.el-table').css("height","70vh");
-                }else
-                {
-                    $('.el-table').css("height","320px");
-                }
+                // if($('.el-table').css("height") == "320px")
+                // {
+                //     $('.el-table').css("height","70vh");
+                // }else
+                // {
+                //     $('.el-table').css("height","320px");
+                // }
 
             },
             scroll_table: function () {
@@ -1398,13 +1418,5 @@
         {
             padding-right: 0px;
         }
-    }
-    .el-table
-    {
-
-    }
-    .card-fullscreen .el-table
-    {
-        height: 70vh;
     }
 </style>

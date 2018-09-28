@@ -16,9 +16,9 @@ class BoPhanController extends Controller
         return json_encode($ds_bo_phan);
     }
 
-    public function get_danh_sach_bo_phan()
+    public function get_danh_sach_bo_phan($limit)
     {
-        $ds_bo_phan = bo_phan::orderby('id','desc')->paginate(10);
+        $ds_bo_phan = bo_phan::orderby('id','desc')->paginate($limit);
         return json_encode($ds_bo_phan);
     }
 
