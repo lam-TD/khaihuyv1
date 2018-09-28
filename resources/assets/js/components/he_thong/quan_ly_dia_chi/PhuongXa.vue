@@ -104,14 +104,14 @@
                                                 <div class="form-group row">
                                                     <label class="label-form col-md-3 col-form-label">Tỉnh thành(*)</label>
                                                     <div class="col-md-9">
-                                                        <el-select v-model="tinh_thanh" value-key="ma_tinh" filterable size="small" placeholder="Chọn tỉnh thành phố" @change="load_quan_huyen" no-match-text="Không tìm thấy" no-data-text="Không có dữ liệu" style="width: 100%">
+                                                        <el-select v-model="tinh_thanh" disabled value-key="ma_tinh" filterable size="small" placeholder="Chọn tỉnh thành phố" @change="load_quan_huyen" no-match-text="Không tìm thấy" no-data-text="Không có dữ liệu" style="width: 100%">
                                                             <el-option v-for="item in list_tinh_thanh" :key="item.ma_tinh" :label="item.ten_tinh" :value="item"> </el-option>
                                                         </el-select>
                                                     </div>
 
                                                     <label class="label-form col-md-3 col-form-label">Tỉnh thành(*)</label>
                                                     <div class="col-md-9">
-                                                        <el-select v-model="quan_huyen" value-key="ma_quan_huyen" filterable size="small" placeholder="Chọn quận huyện" @change="load_quan_phuong_xa" no-match-text="Không tìm thấy" no-data-text="Không có dữ liệu" style="width: 100%">
+                                                        <el-select v-model="quan_huyen" disabled value-key="ma_quan_huyen" filterable size="small" placeholder="Chọn quận huyện" @change="load_quan_phuong_xa" no-match-text="Không tìm thấy" no-data-text="Không có dữ liệu" style="width: 100%">
                                                             <el-option v-for="item in list_change_quan_huyen" :key="item.ma_quan_huyen" :label="item.ten_quan_huyen" :value="item"> </el-option>
                                                         </el-select>
                                                     </div>
@@ -155,21 +155,20 @@
 
 <script>
 
-    import {api_get_tinh} from "../../../helper/tinh_thanh";
+    import {api_get_tinh_cua_phuong_xa} from "./dia_chi";
     import {api_get_quan_huyen} from "../../../helper/tinh_thanh";
 
     import {api_get_phuong_xa_theo_quan_huyen_paginate} from "./dia_chi";
 
-    import {api_add_quan_huyen} from "./dia_chi";
-    import {api_edit_quan_huyen} from "./dia_chi";
-    import {api_delete_quan_huyen} from "./dia_chi";
+    import {api_add_phuong_xa} from "./dia_chi";
+    import {api_edit_phuong_xa} from "./dia_chi";
+    import {api_delete_phuong_xa} from "./dia_chi";
 
 
     export default {
         name: 'quanhuyen',
         mounted () {
-            api_get_tinh(this);
-            api_get_quan_huyen(this);
+            api_get_tinh_cua_phuong_xa(this);
         },
         updated () {
             $(document).ready(function() {
@@ -245,19 +244,19 @@
                 }
             },
             submit_px: function () {
-                this.phuong_xa_new.ma_tinh = this.tinh_thanh.ma_tinh;
+                this.phuong_xa_new.quanhuyen_id = this.quan_huyen.ma_quan_huyen;
                 this.change_bnt_save();
                 if(this.flag_submit_px) {
-                    api_add_quan_huyen(this);
+                    api_add_phuong_xa(this);
                 }
                 else {
-                    api_edit_quan_huyen(this);
+                    api_edit_phuong_xa(this);
                 }
             },
             delete_px: function(bh) {
-                this.phuong_xa_new.ma_quan_huyen = bh.ma_quan_huyen;
-                this.phuong_xa_new.ma_tinh = bh.ma_tinh;
-                api_delete_quan_huyen(this);
+                this.phuong_xa_new.quanhuyen_id = bh.quanhuyen_id;
+                this.phuong_xa_new.phuongxa_id = bh.phuongxa_id;
+                api_delete_phuong_xa(this);
             },
             indexMethod(index) {
                 return (index + 1);
