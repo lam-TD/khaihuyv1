@@ -1,23 +1,5 @@
 <template>
     <div class="page-wrapper" style="min-height: 291px;">
-        <!-- ============================================================== -->
-        <!-- Bread crumb and right sidebar toggle -->
-        <!-- ============================================================== -->
-        <!--<div class="row page-titles">-->
-        <!--<div class="col-md-5 align-self-center">-->
-        <!--&lt;!&ndash;<h3 class="text-themecolor">Danh sách nhóm người dùng</h3>&ndash;&gt;-->
-        <!--</div>-->
-        <!--<div class="col-md-7 align-self-center">-->
-        <!--<ol class="breadcrumb">-->
-        <!--<li class="breadcrumb-item"><a href="javascript:void(0)">Nhân sự</a></li>-->
-        <!--<li class="breadcrumb-item">Bộ phận</li>-->
-        <!--</ol>-->
-        <!--</div>-->
-        <!--</div>-->
-        <!-- ============================================================== -->
-        <!-- End Bread crumb and right sidebar toggle -->
-        <!-- ============================================================== -->
-        <!-- ============================================================== -->
         <!-- Container fluid  -->
         <!-- ============================================================== -->
         <div class="container-fluid">
@@ -29,9 +11,7 @@
                     <div class="card content-lam">
                         <div class="card-header">
                             <div class="card-actions">
-                                <a @click="_bo_phan('add')" title="Thêm mới bộ phận" data-toggle="modal" data-target="#myModal" class="btn btn-success waves-effect waves-dark btn-white" style="color: white"><i class="fa fa-plus-circle"></i> Thêm mới</a>
-                                <a class="" data-action="collapse"><i class="ti-minus"></i></a>
-                                <a class="btn-minimize" data-action="expand"><i class="mdi mdi-arrow-expand"></i></a>
+                                <a @click="scroll_card_full_creem" class="btn-minimize" id="phongto" data-action="expand"><i class="mdi mdi-arrow-expand"></i></a>
                                 <!--<a class="btn-close" data-action="close"><i class="ti-close"></i></a>-->
                             </div>
                             <h4 class="card-title m-b-0">Danh sách sản phẩm</h4>
@@ -41,11 +21,29 @@
                                 <div class="message-widget contact-widget">
                                     <div class="row mb-10">
                                         <div class="col-md-12">
-                                            <input class="form-control"/>
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <form @submit.prevent="submit_search_san_pham">
+                                                            <input v-model="keyword" type="text" id="timkiem" class="form-control" placeholder="Nhập từ khóa để tìm kiếm...">
+                                                            <button type="submit" class="btn btn-info btn-sm btntimkiem" name="button">Tìm kiếm</button>
+                                                        </form>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <router-link to="/sanpham/themmoi" class="btn btn-success pull-right"><i class="fa fa-plus-circle"></i> Thêm mới </router-link>
+                                                </div>
+                                            </div>
                                         </div>
                                         <div class="col-md-12">
-                                            <el-table :data="tableData3" height="450" style="width: 100%" border>
-                                                <el-table-column  prop="date" label="Hình ảnh" width="100">
+                                            <el-table :data="list_san_pham" style="width: 100%" border>
+                                                <el-table-column prop="name" label="#" width="90" align="center">
+                                                    <template slot-scope="scope" class="text-center" style="width: 100%">
+                                                        <button @click="_san_pham('edit', scope.row)" data-toggle="modal" data-target="#modal_nv_tt_ca_nhan" class="btn btn-info btn-sm" title="Cập nhật thông tin sản phẩm"> <i class="fa fa-edit"></i> </button>
+                                                        <button @click="delete_san_pham(scope.row.id)" class="btn btn-danger btn-sm" title="Xóa sản phẩm"> <i class="fa fa-trash-o"></i> </button>
+                                                    </template>
+                                                </el-table-column>
+                                                <el-table-column  prop="date" label="Hình ảnh" width="80">
                                                     <template slot-scope="scope">
                                                         <img src="public/image_nhan_vien/1537859972.jpeg" alt="" class="img-sanpham">
                                                     </template>
@@ -54,14 +52,27 @@
                                                 <el-table-column prop="address" label="Tên SP"></el-table-column>
                                                 <el-table-column prop="address" label="Diễn giải"></el-table-column>
                                                 <el-table-column prop="address" label="Ngày tạo"></el-table-column>
-                                                <el-table-column label="Giá VND đã full VAT">
-                                                    <el-table-column label="Dealer"></el-table-column>
-                                                    <el-table-column label="Enduser"></el-table-column>
-                                                </el-table-column>
+                                                <el-table-column prop="address" label="Dealer"></el-table-column>
+                                                <el-table-column prop="address" label="Enduser"></el-table-column>
                                             </el-table>
                                         </div>
-                                        <div class="col-md-12">
-                                            <el-pagination :page-size="20" :pager-count="5" layout="prev, pager, next" :total="1000"></el-pagination>
+                                        <div class="col-md-12 mt-2">
+                                            <div class="row tb-row-hienthi">
+                                                <div class="col-md-1 col-sm-2 col-8 tb-label pr-0" style="padding-left: 15px;">
+                                                    <span>Hiển thị</span>
+                                                </div>
+                                                <div class="col-md-1 col-sm-2 col-4 tb-hienthi" style="padding-left: 4px;">
+                                                    <el-select v-model="value" placeholder="10" size="small">
+                                                        <el-option v-for="item in options_display" :key="item" :label="item" :value="item"></el-option>
+                                                    </el-select>
+                                                </div>
+                                                <div class="col-md-8 col-sm-4 col-6" style="padding-left: 0px;">
+                                                    <el-pagination :page-size="limit_sp" layout="prev, pager, next" :total="total_san_pham" @current-change="getSanPham"></el-pagination>
+                                                </div>
+                                                <div class="col-md-2 col-sm-2 col-6 tb-label">
+                                                    <span class="pull-right">Tổng: {{total_san_pham}} SP</span>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -89,7 +100,6 @@
     export default {
         name: 'bophan',
         mounted () {
-            this.danh_sach_bo_phan();
         },
         updated () {
             $(document).ready(function() {
@@ -109,35 +119,12 @@
                 flag_btn_save: true,
                 flag_disabled_submit: false,
                 flag_input_ma_bo_phan: false,
-                tableData3: [{
-                    date: '2016-05-03',
-                    name: 'Tom',
-                    address: 'No. 189, Grove St, Los Angeles'
-                }, {
-                    date: '2016-05-02',
-                    name: 'Tom',
-                    address: 'No. 189, Grove St, Los Angeles'
-                }, {
-                    date: '2016-05-04',
-                    name: 'Tom',
-                    address: 'No. 189, Grove St, Los Angeles'
-                }, {
-                    date: '2016-05-01',
-                    name: 'Tom',
-                    address: 'No. 189, Grove St, Los Angeles'
-                }, {
-                    date: '2016-05-08',
-                    name: 'Tom',
-                    address: 'No. 189, Grove St, Los Angeles'
-                }, {
-                    date: '2016-05-06',
-                    name: 'Tom',
-                    address: 'No. 189, Grove St, Los Angeles'
-                }, {
-                    date: '2016-05-07',
-                    name: 'Tom',
-                    address: 'No. 189, Grove St, Los Angeles'
-                }],
+                list_san_pham: [],
+                limit_sp: 10,
+                total_san_pham: 0,
+                keyword: '',
+                options_display: [10,20,30],
+                value: ''
             }
         },
         methods: {
@@ -162,11 +149,11 @@
                     return true;
                 }
             },
-            danh_sach_bo_phan: function (page = 1) {
+            getSanPham: function (page = 1) {
                 this.loading_bo_phan = true;
                 api_bophan_get(this, page);
             },
-            _bo_phan: function (state, bophan = null) {
+            _san_pham: function (state, bophan = null) {
                 if(state == 'add') {
                     console.log('add nhom');
                     this.flag_btn = true;
@@ -208,10 +195,13 @@
                 console.log(this.bo_phan);
                 api_edit_bo_phan(this);
             },
-            delete_bo_phan: function(bp) {
+            delete_san_pham: function(bp) {
                 this.bo_phan = bp;
                 if(this.bo_phan.id <= 0) return -1;
                 api_delete_bo_phan(this);
+            },
+            submit_search_san_pham: function () {
+
             },
             change_bnt_save: function () {
                 this.flag_btn_save = false;
@@ -226,6 +216,10 @@
             },
             handleDelete(index, row) {
                 console.log(index, row);
+            },
+            scroll_card_full_creem: function () {
+                $('#phongto').closest('.card').find('[data-action="expand"] i').toggleClass('mdi-arrow-expand mdi-arrow-compress');
+                $('#phongto').closest('.card').toggleClass('card-fullscreen');
             }
         }
     }

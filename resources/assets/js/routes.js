@@ -85,12 +85,12 @@ export const routes = [
         component: nguoiphuthuoc
     },
     {
-        path: '/thongtinsanpham',
-        component: thongtinsanpham
-    },
-    {
         path: '/danhsachsanpham',
         component: danhsachsanpham
+    },
+    {
+        path: '/sanpham/themmoi',
+        component: thongtinsanpham
     },
     {
         path: '/danhmucsanpham',
