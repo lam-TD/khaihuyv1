@@ -42,13 +42,51 @@ class BoPhanController extends Controller
             }
         }
     }
+//    public function check_ma_bo_phan($string){
+//        //kiem tra format
+//
+//        //kiem tra gia tri
+//        $string = substr($string,2);
+//        $num = (int)$string;
+//        $id = bo_phan::orderBy('created_at', 'desc')->first()->id;
+//        return ($num <= $id) ? 1 : 0 ;
+//    }
     public function get_ma_bo_phan()
     {
-        $ma_bo_phan = '';
-        $bo_phan = bo_phan::orderBy('created_at', 'desc')->first();
-        $ma = $bo_phan->ma_bo_phan;
-        $ma_bo_phan = $ma;
-        return $ma_bo_phan;
+        $bo_phan_first = bo_phan::orderBy('ma_bo_phan', 'desc')->first();
+        $ma_bo_phan_first = $bo_phan_first->ma_bo_phan;
+        $so = (int)substr($ma_bo_phan_first,2) + 1;
+        $str = 'BP';
+        if($so > 99999) return 0;
+        if($so < 10){
+            $str .= "0000" . $so;
+        }
+        else if ($so < 100){
+            $str .= "000" . $so;
+        }
+        else if($so < 1000){
+            $str .= "00" . $so;
+        }
+        else if($so < 10000){
+            $str .= "0" . $so;
+        }
+        else{
+            $str .= $so;
+        }
+        return $str;
+
+//        for ($i = 1 ; $i < ( (int)substr($ma_bo_phan_first,2) + 1) ; $i++)
+//        {
+//            for($j=0 ;$j<(6-strlen((string)$i)); $j++ )
+//            {
+//                $str  = $str . '0';
+//            }
+//            $str = $str . (string)$i;
+//            if(bo_phan::where($str,'ma_bo_phan').count == 0)
+//            {
+//                return $str;
+//            }
+//        }
     }
 
     public function edit_bo_phan(Request $request)
