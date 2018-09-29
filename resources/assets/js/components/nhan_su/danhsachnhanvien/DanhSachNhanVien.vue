@@ -144,12 +144,12 @@
                                             <span>Hiển thị</span>
                                         </div>
                                         <div class="col-md-1 col-sm-2 col-4 tb-hienthi" style="padding-left: 4px;">
-                                            <el-select v-model="value" placeholder="10" size="small">
+                                            <el-select v-model="limit" placeholder="10" size="small" @change="getNhanVien_limit">
                                                 <el-option v-for="item in options_display" :key="item" :label="item" :value="item"></el-option>
                                             </el-select>
                                         </div>
                                         <div class="col-md-8 col-sm-4 col-6" style="padding-left: 0px;">
-                                            <el-pagination :page-size="10" layout="prev, pager, next" :total="dsnhanvien_total" @current-change="getNhanVien"></el-pagination>
+                                            <el-pagination :page-size="limit" layout="prev, pager, next" :total="dsnhanvien_total" @current-change="getNhanVien"></el-pagination>
                                         </div>
                                         <div class="col-md-2 col-sm-2 col-6 tb-label">
                                             <span class="pull-right">Tổng: {{dsnhanvien_total}} NV</span>
@@ -887,7 +887,7 @@
                 //
                 nv_thong_tin_ca_nhan: '',
                 options_display: [10,20,30],
-                value: ''
+                limit: 10
             }
         },
         methods: {
@@ -1016,6 +1016,15 @@
                 }
                 else{
                     api_get_nhan_vien(this, page);
+                }
+            },
+            getNhanVien_limit() {
+                this.loading_dsnv = true;
+                if(this.flag_search){
+                    api_search_thong_tin_nhan_vien(this, 1);
+                }
+                else{
+                    api_get_nhan_vien(this, 1);
                 }
             },
             add_nhan_vien_thong_tin_ca_nhan: function () {

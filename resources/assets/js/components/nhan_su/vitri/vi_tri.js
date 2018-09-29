@@ -121,3 +121,17 @@ export function api_delete_vi_tri(vm) {
 
         });
 }
+export function api_get_ma_vi_tri(vm) {
+    axios({
+        method: 'GET',
+        url: 'api/get-ma-vi-tri',
+        headers: {'Authorization':'Bearer ' + vm.$store.state.currentUser.token},
+        data: vm.$data.vi_tri
+    })
+        .then((response) => {
+            vm.vi_tri.ma_vi_tri = response.data;
+        })
+        .catch((error) => {
+            console.log(error);
+        })
+}

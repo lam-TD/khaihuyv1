@@ -35,6 +35,7 @@ Route::group(['middleware' => 'jwt.auth'], function ($router) {
     Route::post('edit-bo-phan', 'BoPhanController@edit_bo_phan');
     Route::get('delete-bo-phan/{id}', 'BoPhanController@delete_bo_phan');
 //    Route::get('get-phong-theo-bo-phan/{id_bo_phan}', 'PhongBanController@get_phong_ban_theo_id_bo_phan');
+    Route::get('get-ma-bo-phan', 'BoPhanController@get_ma_bo_phan');
 });
 
 // PHONG BAN
@@ -46,6 +47,7 @@ Route::group(['middleware' => 'jwt.auth'], function ($router) {
     Route::get('delete-phong-ban/{id}', 'PhongBanController@delete_phong_ban');
     Route::get('get-phong-theo-bo-phan/{id_bo_phan}/{limit}', 'PhongBanController@get_phong_ban_theo_id_bo_phan');
     Route::get('group-all-phong-theo-bo-phan', 'PhongBanController@group_all_phong_ban_theo_bo_phan');
+    Route::get('get-ma-phong-ban', 'PhongBanController@get_ma_phong_ban');
 });
 
 // VI TRI
@@ -55,13 +57,14 @@ Route::group(['middleware' => 'jwt.auth'], function ($router) {
     Route::post('add-vi-tri', 'ViTriController@add_vi_tri');
     Route::post('edit-vi-tri', 'ViTriController@edit_vi_tri');
     Route::get('delete-vi-tri/{id}', 'ViTriController@delete_vi_tri');
+    Route::get('get-ma-vi-tri', 'ViTriController@get_ma_vi_tri');
 });
 
 // NHAN VIEN
 Route::group(['middleware' => 'jwt.auth'], function ($router) {
     Route::get('get-all-nhan-vien-no-pa','NhanVienController@get_nhan_vien_no_pa');
     Route::get('get-nhan-vien-all-thong-tin', 'NhanVienController@get_all_thong_tin_nhan_vien');
-    Route::get('nhan-vien', 'NhanVienController@get_all');
+    Route::get('nhan-vien/{limit}', 'NhanVienController@get_all');
     Route::post('add-nhan-vien-thong-tin-ca-nhan', 'NhanVienController@add_nhan_vien_thong_tin_ca_nhan');
     Route::post('edit-nhan-vien-thong-tin-ca-nhan', 'NhanVienController@edit_nhan_vien_thong_tin_ca_nhan');
     Route::post('image-upload', 'NhanVienController@upload_image');
@@ -83,6 +86,8 @@ Route::group(['middleware' => 'jwt.auth'], function ($router) {
 
 //    Xoa All Thong Tin Nhan Vien
     Route::get('delete-all-thong-tin-nhan-vien/{id_nhan_vien}', 'NhanVienController@delete_all_thong_tin_nhan_vien');
+
+//    Route::get('get-ma-nhan-vien', 'NhanVienController@get_ma_nhan_vien');
 });
 
 // HOP DONG LAO DONG
@@ -92,6 +97,8 @@ Route::group(['middleware' => 'jwt.auth'], function ($router) {
     Route::post('edit-hdld', 'HopDongLaoDongController@edit_hop_dong_lao_dong');
     Route::get('delete-hdld/{id}', 'HopDongLaoDongController@delete_hop_dong_lao_dong');
     Route::get('search-hdld/{keyword}', 'HopDongLaoDongController@search_hop_dong_lao_dong');
+
+//    Route::get('get-ma-hdld', 'HopDongLaoDongController@get_ma_hdld');
 });
 
 // BAO HIEM Y TE
@@ -102,6 +109,7 @@ Route::group(['middleware' => 'jwt.auth'], function ($router) {
     Route::get('delete-bhyt/{id}', 'BaoHiemYTeController@delete_bhyt');
     Route::get('search-bhyt/{keyword}', 'BaoHiemYTeController@search_danh_sach_bhyt');
     Route::get('get-bhyt-moi-nhat-theo-nv/{keyword}', 'BaoHiemYTeController@get_bhyt_theo_nhan_vien_moi_nhat');
+//    Route::get('get-ma-bhyt', 'HopDongLaoDongController@get_ma_bhyt');
 });
 
 // THONG TIN CONG VIEC
@@ -178,7 +186,4 @@ Route::get('delete-phuong-xa/{id}', 'PhuongXaController@delete_phuong_xa');
 
 // ======== DON VI TINH ===========
 Route::get('get-dvt', 'DonViTinhController@get_dvt');
-
-//test
-Route::get('test', 'BoPhanConTroller@get_ma_bo_phan');
 

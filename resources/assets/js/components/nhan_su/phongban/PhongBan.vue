@@ -217,6 +217,7 @@
     import {api_edit_phong_ban} from "./phong_ban";
     import {api_delete_phong_ban} from "./phong_ban";
     import SelectLam from '../../helper/select_lam';
+    import {api_get_ma_phong} from "./phong_ban";
 
     export default {
         name: 'bophan',
@@ -328,6 +329,7 @@
                     this.flag_submit_phong_ban = true;
                     this.flag_input_phong_ban = false;
                     this.phong_ban = { id: 0, ma_phong: '', ten_phong: '', dien_giai: '', id_bo_phan: '' };
+                    api_get_ma_phong(this);
                 }
                 else {
                     $('#select_phong_2').attr('disabled', 'disabled');

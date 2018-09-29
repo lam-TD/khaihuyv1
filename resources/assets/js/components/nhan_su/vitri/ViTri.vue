@@ -210,6 +210,7 @@
     import {api_edit_vi_tri} from "./vi_tri";
     import {api_delete_vi_tri} from "./vi_tri";
     import {api_group_all_phong_ban_theo_bo_phan} from "../phongban/phong_ban";
+    import {api_get_ma_vi_tri} from "./vi_tri";
 
     export default {
         name: 'bophan',
@@ -309,6 +310,7 @@
                     this.flag_submit_vi_tri = true;
                     this.flag_input_vi_tri = false;
                     this.vi_tri = { id: 0, ma_vi_tri: '', ten_vi_tri: '', dien_giai: '', id_phong_ban: '' }
+                    api_get_ma_vi_tri(this);
                 }
                 else {
                     this.error_select_phong = false;

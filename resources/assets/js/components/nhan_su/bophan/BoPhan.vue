@@ -188,6 +188,7 @@
     import {api_add_bo_phan} from "./bo_phan";
     import {api_edit_bo_phan} from "./bo_phan";
     import {api_delete_bo_phan} from "./bo_phan";
+    import {api_bophan_get_ma_bo_phan} from "./bo_phan";
 
     export default {
         name: 'bophan',
@@ -252,6 +253,7 @@
                     this.flag_submit_bo_phan = true;
                     this.flag_input_bo_phan = false;
                     this.bo_phan = { id: 0, ma_bo_phan: '', ten_bo_phan: '', dien_giai: '' }
+                    api_bophan_get_ma_bo_phan(this);
                 }
                 else {
                     // this.bo_phan = bophan;

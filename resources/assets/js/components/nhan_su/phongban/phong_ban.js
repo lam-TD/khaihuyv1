@@ -168,3 +168,19 @@ export function api_delete_phong_ban(vm) {
 
         });
 }
+//get ma_phong
+export function api_get_ma_phong(vm) {
+    axios({
+        method: 'GET',
+        url: 'api/get-ma-phong-ban',
+        headers: {'Authorization':'Bearer ' + vm.$store.state.currentUser.token},
+        data: vm.$data.phong_ban
+    })
+        .then((response) => {
+            vm.phong_ban.ma_phong = response.data;
+            console.log(vm.phong_ban.ma_phong);
+        })
+        .catch((error) => {
+            console.log(error);
+        })
+}

@@ -96,4 +96,25 @@ class PhongBanController extends Controller
         }
         return $arr_result;
     }
+
+    public function get_ma_phong_ban()
+    {
+        $bong_ban_first = phong_ban::orderBy('ma_phong', 'desc')->first();
+        $bong_ban_first = $bong_ban_first->ma_phong;
+        $so = (int)substr($bong_ban_first, 2) + 1;
+        $str = 'PH';
+        if ($so > 99999) return 0;
+        if ($so < 10) {
+            $str .= "0000" . $so;
+        } else if ($so < 100) {
+            $str .= "000" . $so;
+        } else if ($so < 1000) {
+            $str .= "00" . $so;
+        } else if ($so < 10000) {
+            $str .= "0" . $so;
+        } else {
+            $str .= $so;
+        }
+        return $str;
+    }
 }

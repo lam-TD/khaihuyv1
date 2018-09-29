@@ -23,7 +23,7 @@ export function api_get_thong_tin_nhan_vien_ca_nhan_lao_dong(vm, page) {
 export function api_get_nhan_vien(vm, page) {
     axios({
         method: 'GET',
-        url: 'api/nhan-vien?page=' + page,
+        url: 'api/nhan-vien/'+vm.limit+'?page=' + page,
         headers: {'Authorization':'Bearer ' + vm.$store.state.currentUser.token}
     })
         .then((response) => {

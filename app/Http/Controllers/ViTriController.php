@@ -63,4 +63,24 @@ class ViTriController extends Controller
         (count($nv) == 0) ? $result = -1 : $result = 1;
         return $result;
     }
+    public function get_ma_vi_tri()
+    {
+        $vi_tri_first = vi_tri::orderBy('ma_vi_tri', 'desc')->first();
+        $vi_tri_first = $vi_tri_first->ma_vi_tri;
+        $so = (int)substr($vi_tri_first, 2) + 1;
+        $str = 'VT';
+        if ($so > 99999) return 0;
+        if ($so < 10) {
+            $str .= "0000" . $so;
+        } else if ($so < 100) {
+            $str .= "000" . $so;
+        } else if ($so < 1000) {
+            $str .= "00" . $so;
+        } else if ($so < 10000) {
+            $str .= "0" . $so;
+        } else {
+            $str .= $so;
+        }
+        return $str;
+    }
 }

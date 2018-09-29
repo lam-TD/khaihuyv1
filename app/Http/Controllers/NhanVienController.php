@@ -28,13 +28,13 @@ class NhanVienController extends Controller
         return $tt;
     }
 
-    public function get_all()
+    public function get_all($limit)
     {
         $nv = nhan_vien::join('phuong_xa','nhan_vien.tam_tru_tinh_thanh','=','phuong_xa.phuongxa_id')
             ->join('quan_huyen','phuong_xa.quanhuyen_id','=','quan_huyen.ma_quan_huyen')
             ->join('tinh_thanh','quan_huyen.ma_tinh','=','tinh_thanh.ma_tinh')
             ->orderby('nhan_vien.id','desc')
-            ->paginate(10)->toArray();
+            ->paginate($limit)->toArray();
         return $nv;
 //        return $nv['data'];
         $lam = null;
