@@ -249,3 +249,30 @@ export function load_ten_tinh(ma_tinh) {
             return '';
         })
 }
+
+
+export function api_get_item_phuong_xa_bhyt_noi_kham(vm, ma_phuong_xa) {
+    var item_px = vm.list_phuong_xa.filter(function(item){
+        return (item['phuongxa_id'] == ma_phuong_xa);
+    })
+
+    var item_qh = vm.list_quan_huyen.filter(function(item){
+        return (item['ma_quan_huyen'] == item_px[0].quanhuyen_id);
+    })
+
+    var item_tt = vm.list_tinh_thanh.filter(function(item){
+        return (item['ma_tinh'] == item_qh[0].ma_tinh);
+    })
+
+    vm.dia_chi.tinh_thanh = item_tt[0];
+    vm.change_quan_huyen = vm.list_quan_huyen.filter(function(item){
+        return (item['ma_tinh'] == item_qh[0].ma_tinh);
+    })
+
+    vm.dia_chi.quan_huyen = item_qh[0];
+    vm.change_phuong_xa = vm.list_phuong_xa.filter(function(item){
+        return (item['quanhuyen_id'] == item_px[0].quanhuyen_id);
+    })
+
+    vm.dia_chi.phuong_xa = item_px[0];
+}

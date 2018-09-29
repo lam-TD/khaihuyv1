@@ -34,7 +34,7 @@ class NhanVienController extends Controller
             ->join('quan_huyen','phuong_xa.quanhuyen_id','=','quan_huyen.ma_quan_huyen')
             ->join('tinh_thanh','quan_huyen.ma_tinh','=','tinh_thanh.ma_tinh')
             ->orderby('nhan_vien.id','desc')
-            ->paginate(20)->toArray();
+            ->paginate(10)->toArray();
         return $nv;
 //        return $nv['data'];
         $lam = null;
