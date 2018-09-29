@@ -131,6 +131,10 @@ Route::group(['middleware' => 'jwt.auth'], function ($router) {
 // ================= SAN PHAM =====================
 Route::group(['middleware' => 'jwt.auth'], function ($router) {
     Route::get('get-danh-muc-san-pham', 'DanhMucController@get_all_danh_muc_san_pham');
+    Route::post('add-san-pham', 'SanPhamController@add_san_pham');
+    Route::post('edit-san-pham', 'SanPhamController@add_san_pham');
+    Route::post('delete-san-pham', 'SanPhamController@add_san_pham');
+    Route::post('add-img-san-pham', 'SanPhamController@add_san_pham');
 });
 
 // ================= HE THONG =====================
@@ -171,6 +175,9 @@ Route::get('get-list-phuong-xa-theo-quan-huyen-paginate/{ma_quan_huyen}&{limit}'
 Route::post('add-phuong-xa', 'PhuongXaController@add_phuong_xa');
 Route::post('edit-phuong-xa/{id}', 'PhuongXaController@edit_phuong_xa');
 Route::get('delete-phuong-xa/{id}', 'PhuongXaController@delete_phuong_xa');
+
+// ======== DON VI TINH ===========
+Route::get('get-dvt', 'DonViTinhController@get_dvt');
 
 //test
 Route::get('test', 'BoPhanConTroller@get_ma_bo_phan');
