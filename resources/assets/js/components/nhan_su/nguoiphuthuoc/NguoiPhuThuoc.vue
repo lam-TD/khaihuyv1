@@ -176,14 +176,14 @@
                                                                 <input id="txtma_nv" type="text" class="form-control form-control-sm" readonly>
                                                             </div>
                                                             <div class="col-md-6">
-                                                                <el-select v-model="nhan_vien" value-key="ma_nv" size="small" filterable placeholder="Chọn nhân viên" @change="select_npt_theo_nhan_vien" no-match-text="Không tìm thấy" no-data-text="Không có dữ liệu">
+                                                                <el-select disabled v-model="nhan_vien" value-key="ma_nv" size="small" filterable placeholder="Chọn nhân viên" @change="select_npt_theo_nhan_vien" no-match-text="Không tìm thấy" no-data-text="Không có dữ liệu">
                                                                     <!--<el-option :key="''" :label="'Tất cả bộ phận'" :value="''"></el-option>-->
                                                                     <el-option v-for="item in list_nhan_vien" :key="item.ma_nv" :label="item.ho_ten" :value="item">
                                                                         <span style="float: left">{{ item.ma_nv }}</span>
                                                                         <span style="float: right; color: #8492a6; font-size: 13px">{{ item.ho_ten }}</span>
                                                                     </el-option>
                                                                 </el-select>
-                                                                <small v-show="error_select_nhan_vien" class="help text-muted is-danger">Vui lòng chọn nhân viên</small>
+                                                                <!--<small v-show="error_select_nhan_vien" class="help text-muted is-danger">Vui lòng chọn nhân viên</small>-->
                                                             </div>
                                                         </div>
                                                     </div>

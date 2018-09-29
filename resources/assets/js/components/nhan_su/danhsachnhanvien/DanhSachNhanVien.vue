@@ -1122,9 +1122,14 @@
             },
             submit_search_thong_tin_nhan_vien: function () {
                 this.loading_dsnv = true;
-                if(this.key_word == '' || this.key_word == null){ this.flag_search = false; this.getNhanVien()  }
-                this.flag_search = true;
-                api_search_thong_tin_nhan_vien(this, 1);
+                if(this.key_word == '' || this.key_word == null){
+                    this.flag_search = false;
+                    this.getNhanVien();
+                }
+                else{
+                    this.flag_search = true;
+                    api_search_thong_tin_nhan_vien(this, 1);
+                }
             },
             //thu phong ma hinh
             scroll_card: function () {
