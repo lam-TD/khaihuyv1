@@ -9,15 +9,15 @@ use App\nhan_vien_cong_viec;
 
 class ViTriController extends Controller
 {
-    public function get_all_vi_tri()
+    public function get_all_vi_tri($limit)
     {
-        $vt = vi_tri::orderby('id', 'desc')->paginate(10);
+        $vt = vi_tri::orderby('id', 'desc')->paginate($limit);
         return json_encode($vt);
     }
 
-    public function get_vi_tri_theo_phong($id_phong_ban)
+    public function get_vi_tri_theo_phong($id_phong_ban, $limit)
     {
-        $vt = vi_tri::where('id_phong_ban', $id_phong_ban)->paginate(10);
+        $vt = vi_tri::where('id_phong_ban', $id_phong_ban)->paginate($limit);
         return json_encode($vt);
     }
 

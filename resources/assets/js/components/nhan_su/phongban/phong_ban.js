@@ -18,7 +18,7 @@ export function api_get_all_phong_ban_no_paginate(vm) {
 export function api_get_all_phong_ban(vm, page) {
     axios({
         method: 'GET',
-        url: 'api/get-all-phong-ban?page=' + page,
+        url: 'api/get-all-phong-ban/'+vm.limit+'?page=' + page,
         headers: {'Authorization':'Bearer ' + vm.$store.state.currentUser.token}
     })
         .then((response) => {
@@ -33,11 +33,11 @@ export function api_get_all_phong_ban(vm, page) {
 }
 
 export function api_get_danh_sach_phong_theo_bo_phan(vm, id, page) {
-    var lam = 'api/get-phong-theo-bo-phan/'+ id +'?page=' + page;
+    var lam = 'api/get-phong-theo-bo-phan/'+ id +'/'+vm.limit+'?page=' + page;
     console.log(lam);
     axios({
         method: 'GET',
-        url: 'api/get-phong-theo-bo-phan/'+ id +'?page=' + page,
+        url: 'api/get-phong-theo-bo-phan/'+ id +'/'+vm.limit+'?page=' + page,
         headers: {'Authorization':'Bearer ' + vm.$store.state.currentUser.token}
     })
         .then((response) => {

@@ -15,15 +15,15 @@ class PhongBanController extends Controller
         return ($p);
     }
 
-    public function get_all_phong_ban()
+    public function get_all_phong_ban($limit)
     {
-        $p = phong_ban::paginate(10);
+        $p = phong_ban::paginate($limit);
         return json_encode($p);
     }
 
-    public function get_phong_ban_theo_id_bo_phan($id_bo_phan)
+    public function get_phong_ban_theo_id_bo_phan($id_bo_phan,$limit)
     {
-        $pb = phong_ban::where('id_bo_phan', $id_bo_phan)->orderby('id', 'desc')->paginate(10);
+        $pb = phong_ban::where('id_bo_phan', $id_bo_phan)->orderby('id', 'desc')->paginate($limit);
         return json_encode($pb);
     }
 

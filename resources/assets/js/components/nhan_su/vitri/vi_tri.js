@@ -5,7 +5,7 @@ import {sweetalert} from "../../../helper/sweetalert";
 export function api_get_all_vi_tri(vm, page) {
     axios({
         method: 'GET',
-        url: 'api/get-all-vi-tri?page=' + page,
+        url: 'api/get-all-vi-tri/'+vm.limit+'?page=' + page,
         headers: {'Authorization':'Bearer ' + vm.$store.state.currentUser.token}
     })
         .then((response) => {
@@ -23,7 +23,7 @@ export function api_get_vi_tri_theo_phong(vm, id, page) {
     console.log('đấ: ' + id);
     axios({
         method: 'GET',
-        url: 'api/get-vi-tri-theo-phong/'+ id +'?page=' + page,
+        url: 'api/get-vi-tri-theo-phong/'+ id +'/'+vm.limit+'?page=' + page,
         headers: {'Authorization':'Bearer ' + vm.$store.state.currentUser.token}
     })
         .then((response) => {

@@ -108,12 +108,12 @@
                                                     <span>Hiển thị</span>
                                                 </div>
                                                 <div class="col-md-1 col-sm-2 col-4 tb-hienthi" style="padding-left: 4px;">
-                                                    <el-select v-model="value" placeholder="10" size="small">
+                                                    <el-select v-model="limit" placeholder="10" size="small" @change="danh_sach_vi_tri_limit">
                                                         <el-option v-for="item in options_display" :key="item" :label="item" :value="item"></el-option>
                                                     </el-select>
                                                 </div>
                                                 <div class="col-md-8 col-sm-4 col-6" style="padding-left: 0px;">
-                                                    <el-pagination :page-size="10" layout="prev, pager, next" :total="total_vi_tri" @current-change="danh_sach_vi_tri"></el-pagination>
+                                                    <el-pagination :page-size="limit" layout="prev, pager, next" :total="total_vi_tri" @current-change="danh_sach_vi_tri"></el-pagination>
                                                 </div>
                                                 <div class="col-md-2 col-sm-2 col-6 tb-label">
                                                     <span class="pull-right">Tổng: {{total_vi_tri}} VT</span>
@@ -240,7 +240,7 @@
                 flag_btn_save: true,
                 error_select_phong: true,
                 options_display: [10,20,30],
-                value: ''
+                limit: 10
             }
         },
         methods: {
@@ -280,6 +280,15 @@
                 }
                 else{
                     api_get_vi_tri_theo_phong(this, this.vi_tri.id_phong_ban, page);
+                }
+            },
+            danh_sach_vi_tri_limit: function () {
+                this.loading_vi_tri = true;
+                if(this.vi_tri.id_phong_ban == ''){
+                    api_get_all_vi_tri(this, 1);
+                }
+                else{
+                    api_get_vi_tri_theo_phong(this, this.vi_tri.id_phong_ban, 1);
                 }
             },
             change_vi_tri: function () {

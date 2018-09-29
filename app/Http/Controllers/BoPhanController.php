@@ -28,7 +28,9 @@ class BoPhanController extends Controller
         else {
             try{
                 $bo_phan = new bo_phan();
+                //
                 $bo_phan->ma_bo_phan = $request->ma_bo_phan;
+                //
                 $bo_phan->ten_bo_phan = $request->ten_bo_phan;
                 $bo_phan->dien_giai = $request->dien_giai;
                 $bo_phan->an_hien = 1;
@@ -39,6 +41,14 @@ class BoPhanController extends Controller
                 return $e;
             }
         }
+    }
+    public function get_ma_bo_phan()
+    {
+        $ma_bo_phan = '';
+        $bo_phan = bo_phan::orderBy('created_at', 'desc')->first();
+        $ma = $bo_phan->ma_bo_phan;
+        $ma_bo_phan = $ma;
+        return $ma_bo_phan;
     }
 
     public function edit_bo_phan(Request $request)

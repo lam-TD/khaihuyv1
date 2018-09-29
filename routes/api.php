@@ -40,18 +40,18 @@ Route::group(['middleware' => 'jwt.auth'], function ($router) {
 // PHONG BAN
 Route::group(['middleware' => 'jwt.auth'], function ($router) {
     Route::get('get-all-phong-ban-no-paginate', 'PhongBanController@get_all_phong_ban_no_paginate');
-    Route::get('get-all-phong-ban', 'PhongBanController@get_all_phong_ban');
+    Route::get('get-all-phong-ban/{limit}', 'PhongBanController@get_all_phong_ban');
     Route::post('add-phong-ban', 'PhongBanController@add_phong_ban');
     Route::post('edit-phong-ban', 'PhongBanController@edit_phong_ban');
     Route::get('delete-phong-ban/{id}', 'PhongBanController@delete_phong_ban');
-    Route::get('get-phong-theo-bo-phan/{id_bo_phan}', 'PhongBanController@get_phong_ban_theo_id_bo_phan');
+    Route::get('get-phong-theo-bo-phan/{id_bo_phan}/{limit}', 'PhongBanController@get_phong_ban_theo_id_bo_phan');
     Route::get('group-all-phong-theo-bo-phan', 'PhongBanController@group_all_phong_ban_theo_bo_phan');
 });
 
 // VI TRI
 Route::group(['middleware' => 'jwt.auth'], function ($router) {
-    Route::get('get-all-vi-tri', 'ViTriController@get_all_vi_tri');
-    Route::get('get-vi-tri-theo-phong/{id_phong}', 'ViTriController@get_vi_tri_theo_phong');
+    Route::get('get-all-vi-tri/{limit}', 'ViTriController@get_all_vi_tri');
+    Route::get('get-vi-tri-theo-phong/{id_phong}/{limit}', 'ViTriController@get_vi_tri_theo_phong');
     Route::post('add-vi-tri', 'ViTriController@add_vi_tri');
     Route::post('edit-vi-tri', 'ViTriController@edit_vi_tri');
     Route::get('delete-vi-tri/{id}', 'ViTriController@delete_vi_tri');
@@ -172,5 +172,6 @@ Route::post('add-phuong-xa', 'PhuongXaController@add_phuong_xa');
 Route::post('edit-phuong-xa/{id}', 'PhuongXaController@edit_phuong_xa');
 Route::get('delete-phuong-xa/{id}', 'PhuongXaController@delete_phuong_xa');
 
-
+//test
+Route::get('test', 'BoPhanConTroller@get_ma_bo_phan');
 

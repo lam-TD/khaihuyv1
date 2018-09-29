@@ -118,12 +118,12 @@
                                                     <span>Hiển thị</span>
                                                 </div>
                                                 <div class="col-md-1 col-sm-2 col-4 tb-hienthi" style="padding-left: 4px;">
-                                                    <el-select v-model="value" placeholder="10" size="small">
+                                                    <el-select v-model="limit" placeholder="10" size="small" @change="danh_sach_phong_ban_limit">
                                                         <el-option v-for="item in options_display" :key="item" :label="item" :value="item"></el-option>
                                                     </el-select>
                                                 </div>
                                                 <div class="col-md-8 col-sm-4 col-6" style="padding-left: 0px;">
-                                                    <el-pagination :page-size="10" layout="prev, pager, next" :total="total_phong_ban" @current-change="danh_sach_phong_ban"></el-pagination>
+                                                    <el-pagination :page-size="limit" layout="prev, pager, next" :total="total_phong_ban" @current-change="danh_sach_phong_ban" :current-page.sync="currentPage"></el-pagination>
                                                 </div>
                                                 <div class="col-md-2 col-sm-2 col-6 tb-label">
                                                     <span class="pull-right">Tổng: {{total_phong_ban}} PB</span>
@@ -255,7 +255,8 @@
                 flag_btn_save: true,
                 error_select_bo_phan: true,
                 options_display: [10,20,30],
-                value: ''
+                limit: 10,
+                currentPage: 1
             }
         },
         methods: {
@@ -288,6 +289,17 @@
             },
             danh_sach_bo_phan: function () {
 
+            },
+            danh_sach_phong_ban_limit: function () {
+                this.loading_phong_ban = true;
+                if(this.phong_ban.id_bo_phan == ''){
+                    this.currentPage = 1;
+                    api_get_all_phong_ban(this, 1);
+                }
+                else{
+                    this.currentPage = 1;
+                    api_get_danh_sach_phong_theo_bo_phan(this, this.phong_ban.id_bo_phan, 1);
+                }
             },
             danh_sach_phong_ban: function (page = 1) {
                 this.loading_phong_ban = true;
