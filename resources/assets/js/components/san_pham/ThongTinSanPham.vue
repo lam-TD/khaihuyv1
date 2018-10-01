@@ -79,17 +79,22 @@
                                                 <div class="form-group row">
                                                     <label class="label-form col-md-2 col-sm-12 col-12">Hình ảnh</label>
                                                     <div class="col-sm-10 col-12">
+                                                        <form @submit.prevent="upload_img" id="formAdd">
+                                                            <input type="file" multiple name="image[]" @change="change_image">
+                                                            <button type="submit">Luu anh</button>
+                                                        </form>
                                                         <!--<input type="file" name="files">-->
-                                                        <el-upload
-                                                                action="https://jsonplaceholder.typicode.com/posts/"
-                                                                multiple
-                                                                :auto-upload="false"
-                                                                list-type="picture-card"
-                                                                :file-list="fileList2"
-                                                                :on-preview="handlePictureCardPreview"
-                                                                :on-remove="handleRemove">
-                                                            <i class="el-icon-plus"></i>
-                                                        </el-upload>
+                                                        <!--<el-upload-->
+                                                                <!--action="api/upload-img/14"-->
+                                                                <!--ref="upload"-->
+                                                                <!--multiple-->
+                                                                <!--:auto-upload="false"-->
+                                                                <!--list-type="picture-card"-->
+                                                                <!--:on-preview="handlePictureCardPreview"-->
+                                                                <!--:on-remove="handleRemove">-->
+                                                            <!--<i class="el-icon-plus"></i>-->
+                                                            <!--<el-button style="margin-left: 10px;" size="small" type="success" @click="upload_img">upload to server</el-button>-->
+                                                        <!--</el-upload>-->
                                                     </div>
                                                 </div>
 
@@ -269,6 +274,8 @@
                 tk_ke_toan: '',
                 list_danh_muc: [],
                 danh_muc: '',
+                images: null,
+                form_lam: new FormData,
                 fileList2: [{name: 'food.jpeg', url: 'https://fuss10.elemecdn.com/3/63/4e7f3a15429bfda99bce42a18cdd1jpeg.jpeg?imageMogr2/thumbnail/360x360/format/webp/quality/100'}, {name: 'food2.jpeg', url: 'https://fuss10.elemecdn.com/3/63/4e7f3a15429bfda99bce42a18cdd1jpeg.jpeg?imageMogr2/thumbnail/360x360/format/webp/quality/100'}],
                 editorOption: {
                     modules: {
@@ -327,6 +334,30 @@
             handlePictureCardPreview(file) {
                 this.dialogImageUrl = file.url;
                 this.dialogVisible = true;
+            },
+            change_image: function (e) {
+                console.log(e);
+                let lam = e.target.files;
+                this.images = lam;
+                console.log(this.images);
+            },
+            upload_img: function (data) {
+                // this.form_lam.append('image',this);
+                var form = $('#formAdd')[0];
+                // console.log(form);
+                var data = new FormData();
+                data.append('image',this.images);
+                axios({
+                    method: 'POST',
+                    url: 'api/upload-img/14',
+                    data: {'image':this.images}
+                })
+                    .then((response) => {
+                        console.log(response.data);
+                    })
+                    .catch((error) => {
+                        console.log(error);
+                    })
             }
         },
         components: { VueNumeric,quillEditor }
