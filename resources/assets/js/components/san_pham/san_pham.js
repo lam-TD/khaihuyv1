@@ -19,7 +19,8 @@ export function api_get_dvt(vm) {
 export function api_get_all_tk_ke_toan(vm) {
     axios({
         method: 'GET',
-        url: 'api/get-all-tk-ke-toan'
+        url: 'api/get-all-tk-ke-toan',
+        headers: {'Authorization':'Bearer ' + vm.$store.state.currentUser.token}
     })
         .then((response) => {
             vm.list_tk_ke_toan = response.data;
@@ -39,7 +40,7 @@ export function api_add_san_pham(vm) {
         data: vm.$data.sp
     })
         .then((response) => {
-            vm.un_change_bnt_save();
+            // vm.un_change_bnt_save();
             if(response.data == 1){
                 sweetalert(1, 'Thêm thành công!');
             }
