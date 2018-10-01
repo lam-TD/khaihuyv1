@@ -145,6 +145,14 @@ Route::group(['middleware' => 'jwt.auth'], function ($router) {
     Route::post('add-img-san-pham', 'SanPhamController@add_san_pham');
 });
 
+// ============== TAI KHOAN KE TOAN ==============
+Route::group(['middleware' => 'jwt.auth'], function ($router) {
+    Route::get('get-all-tk-ke-toan', 'TaiKhoanKeToanConTroller@get_all_tk_ke_toan');
+    Route::post('add-tk-ke-toan', 'TaiKhoanKeToanConTroller@add_san_pham');
+    Route::post('edit-tk-ke-toan', 'TaiKhoanKeToanConTroller@add_san_pham');
+    Route::post('delete-tk-ke-toan', 'TaiKhoanKeToanConTroller@add_san_pham');
+});
+
 // ================= HE THONG =====================
 Route::group(['middleware' => 'jwt.auth'], function ($router) {
     Route::get('danh-sach-nhom-nguoi-dung', 'HeThongController@get_danh_sach_nhom_nguoi_dung');

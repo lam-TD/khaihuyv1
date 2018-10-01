@@ -12,4 +12,5 @@ class TaiKhoanKeToanConTroller extends Controller
         $tk = tai_khoan_ke_toan::all();
         return json_encode($tk);
     }
+
 }
