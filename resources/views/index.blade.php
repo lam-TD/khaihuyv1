@@ -94,7 +94,7 @@
 
         <script src="public/assets/plugins/sweetalert/jquery.sweet-alert.custom.js"></script>
 
-        <script src="https://cdn.ckeditor.com/4.6.1/full/ckeditor.js"></script>
+        {{--<script src="https://cdn.ckeditor.com/4.6.1/full/ckeditor.js"></script>--}}
         {{--<script src="public/assets/plugins/html5-editor/wysihtml5-0.3.0.js"></script>--}}
         {{--<script src="public/assets/plugins/html5-editor/bootstrap-wysihtml5.js"></script>--}}
 
