@@ -36,7 +36,7 @@ export function api_get_hop_dong_lao_dong_moi_nhat(vm, id_nv) {
 export function api_get_all_lao_dong(vm, page) {
     axios({
         method: 'GET',
-        url: 'api/get-all-hdld?page=' + page,
+        url: 'api/get-all-hdld/'+vm.limit+'?page=' + page,
         headers: {'Authorization':'Bearer ' + vm.$store.state.currentUser.token}
     })
         .then((response) => {

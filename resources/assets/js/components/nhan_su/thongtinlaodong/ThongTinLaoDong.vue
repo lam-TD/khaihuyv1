@@ -132,12 +132,12 @@
                                                     <span>Hiển thị</span>
                                                 </div>
                                                 <div class="col-md-1 col-sm-2 col-4 tb-hienthi" style="padding-left: 4px;">
-                                                    <el-select v-model="value" placeholder="10" size="small">
+                                                    <el-select v-model="limit" placeholder="10" size="small" @change="danh_sach_lao_dong_limit">
                                                         <el-option v-for="item in options_display" :key="item" :label="item" :value="item"></el-option>
                                                     </el-select>
                                                 </div>
                                                 <div class="col-md-8 col-sm-4 col-6" style="padding-left: 0px;">
-                                                    <el-pagination :page-size="10" layout="prev, pager, next" :total="total_lao_dong" @current-change="danh_sach_lao_dong"></el-pagination>
+                                                    <el-pagination :page-size="limit" layout="prev, pager, next" :total="total_lao_dong" @current-change="danh_sach_lao_dong" :current-page.sync="currentPage"></el-pagination>
                                                 </div>
                                                 <div class="col-md-2 col-sm-2 col-6 tb-label">
                                                     <span class="pull-right">Tổng: {{total_lao_dong}} LĐ</span>
@@ -306,7 +306,8 @@
                 flag_input_ma_lao_dong: false,
                 flag_disable_manv: false,
                 options_display: [10,20,30],
-                value: ''
+                limit: 10,
+                currentPage: 1
             }
         },
         methods: {
@@ -342,6 +343,17 @@
                 }
                 else{
                     api_get_all_lao_dong(this, page);
+                }
+            },
+            danh_sach_lao_dong_limit: function () {
+                this.loading_lao_dong = true;
+                if(this.flag_search){
+                    this.currentPage = 1;
+                    api_search_all_lao_dong(this, 1);
+                }
+                else{
+                    this.currentPage = 1;
+                    api_get_all_lao_dong(this, 1);
                 }
             },
             _lao_dong: function (state, laodong = null) {

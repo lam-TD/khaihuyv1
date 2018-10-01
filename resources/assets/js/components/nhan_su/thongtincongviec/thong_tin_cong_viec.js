@@ -4,7 +4,7 @@ import {sweetalert} from '../../../helper/sweetalert';
 export function api_search_all_ttcv(vm, page) {
     axios({
         method: 'GET',
-        url: 'api/search-ttcv/'+ vm.keyword +'?page=' + page,
+        url: 'api/search-ttcv/'+ vm.keyword +'/'+vm.limit+'?page=' + page,
         headers: {'Authorization':'Bearer ' + vm.$store.state.currentUser.token}
     })
         .then((response) => {
@@ -21,7 +21,7 @@ export function api_search_all_ttcv(vm, page) {
 export function api_get_all_ttcv(vm, page) {
     axios({
         method: 'GET',
-        url: 'api/get-all-ttcv?page=' + page,
+        url: 'api/get-all-ttcv/'+vm.limit+'?page=' + page,
         headers: {'Authorization':'Bearer ' + vm.$store.state.currentUser.token}
     })
         .then((response) => {

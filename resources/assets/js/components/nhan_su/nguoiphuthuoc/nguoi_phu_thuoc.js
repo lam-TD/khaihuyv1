@@ -4,7 +4,7 @@ import {sweetalert} from '../../../helper/sweetalert';
 export function api_get_all_danh_sach_npt(vm, page) {
     axios({
         method: 'GET',
-        url: 'api/get-all-npt/?page=' + page,
+        url: 'api/get-all-npt/'+vm.limit+'?page=' + page,
         headers: {'Authorization':'Bearer ' + vm.$store.state.currentUser.token}
     })
         .then((response) => {
@@ -20,7 +20,7 @@ export function api_get_all_danh_sach_npt(vm, page) {
 export function api_get_danh_sach_npt_theo_nhan_vien(vm, ma_nv, page) {
     axios({
         method: 'GET',
-        url: 'api/get-npt-theo-nhan-vien/'+ ma_nv +'?page=' + page,
+        url: 'api/get-npt-theo-nhan-vien/'+ ma_nv +'/'+vm.limit+'?page=' + page,
         headers: {'Authorization':'Bearer ' + vm.$store.state.currentUser.token}
     })
         .then((response) => {
