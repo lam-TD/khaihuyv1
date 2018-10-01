@@ -15,6 +15,21 @@ export function api_get_dvt(vm) {
         })
 }
 
+
+export function api_get_all_tk_ke_toan(vm) {
+    axios({
+        method: 'GET',
+        url: 'api/get-all-tk-ke-toan'
+    })
+        .then((response) => {
+            vm.list_tk_ke_toan = response.data;
+        })
+        .catch((error) => {
+            console.log(error);
+        })
+}
+
+
 export function api_add_san_pham(vm) {
     vm.flag_input_bo_phan = false;
     axios({

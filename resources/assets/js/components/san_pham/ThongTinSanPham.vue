@@ -211,6 +211,7 @@
 <script>
     import VueNumeric from 'vue-numeric';
     import {api_get_dvt} from "./san_pham";
+    import {api_get_all_tk_ke_toan} from "./san_pham";
     import { quillEditor } from 'vue-quill-editor';
 
     export default {
@@ -219,6 +220,7 @@
         },
         mounted() {
             api_get_dvt(this);
+            api_get_all_tk_ke_toan(this);
         },
         updated () {
             let j = document.createElement('script');
