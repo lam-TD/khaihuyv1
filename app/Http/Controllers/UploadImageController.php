@@ -131,12 +131,16 @@ class UploadImageController extends Controller
 
     public function multi_upload_img(Request $request, $id)
     {
-        $image = $request->get('image');
-//        return $image;
-        foreach ($image as $value){
-            $name = time().'.' . explode('/', explode(':', substr($image, 0, strpos($image, ';')))[1])[1];
-            Image::make($value)->save(public_path('/san_pham/').$name);
+        if ( $files =  $request->file('file')) {
+            foreach ($request->file('file') as $key => $file) {
+                $name = time() . $key . $file->getClientOriginalName();
+
+                $filename = $file->move('public/images/san_pham', $name);
+            }
+            return 1;
         }
-        return 1;
+        else{
+            return 2;
+        }
     }
 }

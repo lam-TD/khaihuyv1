@@ -84,17 +84,18 @@
                                                             <button type="submit">Luu anh</button>
                                                         </form>
                                                         <!--<input type="file" name="files">-->
-                                                        <!--<el-upload-->
-                                                                <!--action="api/upload-img/14"-->
-                                                                <!--ref="upload"-->
-                                                                <!--multiple-->
-                                                                <!--:auto-upload="false"-->
-                                                                <!--list-type="picture-card"-->
-                                                                <!--:on-preview="handlePictureCardPreview"-->
-                                                                <!--:on-remove="handleRemove">-->
-                                                            <!--<i class="el-icon-plus"></i>-->
-                                                            <!--<el-button style="margin-left: 10px;" size="small" type="success" @click="upload_img">upload to server</el-button>-->
-                                                        <!--</el-upload>-->
+                                                        <el-upload
+                                                                action="api/upload-img/14"
+                                                                name="file[]"
+                                                                ref="upload"
+                                                                multiple
+                                                                :auto-upload="false"
+                                                                list-type="picture-card"
+                                                                :on-preview="handlePictureCardPreview"
+                                                                :on-remove="handleRemove">
+                                                            <i class="el-icon-plus"></i>
+                                                        </el-upload>
+                                                        <button type="button" @click="upload_img">Luu anh</button>
                                                     </div>
                                                 </div>
 
@@ -342,22 +343,7 @@
                 console.log(this.images);
             },
             upload_img: function (data) {
-                // this.form_lam.append('image',this);
-                var form = $('#formAdd')[0];
-                // console.log(form);
-                var data = new FormData();
-                data.append('image',this.images);
-                axios({
-                    method: 'POST',
-                    url: 'api/upload-img/14',
-                    data: {'image':this.images}
-                })
-                    .then((response) => {
-                        console.log(response.data);
-                    })
-                    .catch((error) => {
-                        console.log(error);
-                    })
+                this.$refs.upload.submit();
             }
         },
         components: { VueNumeric,quillEditor }
