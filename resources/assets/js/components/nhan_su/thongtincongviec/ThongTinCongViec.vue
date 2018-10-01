@@ -215,10 +215,12 @@
                                                 <div class="form-group row">
                                                     <label class="label-form col-md-3 col-form-label">Chấm công</label>
                                                     <div class="col-md-9">
-                                                        <el-radio-group v-model="cham_cong">
-                                                            <el-radio :label="1">Có</el-radio>
-                                                            <el-radio :label="0">Không</el-radio>
-                                                        </el-radio-group>
+                                                        <!--<el-radio-group v-model="cham_cong">-->
+                                                            <!--<el-radio :label="1">Có</el-radio>-->
+                                                            <!--<el-radio :label="0">Không</el-radio>-->
+                                                        <!--</el-radio-group>-->
+                                                        <el-radio v-model="cham_cong" :label="1">Có</el-radio>
+                                                        <el-radio v-model="cham_cong" :label="0">Không</el-radio>
                                                     </div>
                                                 </div>
 
@@ -420,7 +422,7 @@
                     this.bo_phan = cv.bo_phan_ma;
                     this.phong_ban = cv.phong_ma;
                     this.vi_tri = cv.vi_tri_ma;
-                    this.cham_cong = cv.cham_cong;
+                    this.cham_cong = parseInt(cv.cham_cong);
                     this.nhan_vien = this.list_nhan_vien.filter(function(item){
                         return (item['ma_nv'] == cv.ma_nv);
                     })[0];

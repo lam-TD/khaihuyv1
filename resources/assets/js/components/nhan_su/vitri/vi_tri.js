@@ -11,7 +11,7 @@ export function api_get_all_vi_tri(vm, page) {
         .then((response) => {
             vm.list_vi_tri = response.data.data;
             vm.total_vi_tri = response.data.total;
-            vm.loading_vi_tri = false;
+            vm.loading_vi_tri = 'Không có dữ liệu';
             // console.log(response.data.data);
         })
         .catch((error) => {
@@ -87,7 +87,7 @@ export function api_edit_vi_tri(vm) {
         })
 }
 
-export function api_delete_vi_tri(vm) {
+export function api_delete_vi_tri(vm, ma_vi_tri) {
     swal({
             title: "Bạn có chắc chắn muốn xóa vị trí vừa chọn?",
             type: "warning",
@@ -99,15 +99,21 @@ export function api_delete_vi_tri(vm) {
         function() {
             axios({
                 method: 'GET',
-                url: 'api/delete-vi-tri/' + vm.vi_tri.ma_vi_tri,
+                url: 'api/delete-vi-tri/' + ma_vi_tri,
                 headers: {'Authorization':'Bearer ' + vm.$store.state.currentUser.token}
             })
                 .then((response) => {
                     if(response.data == 1) {
-                        sweetalert(1, 'Vị trí ' + vm.vi_tri.ma_vi_tri + ' đã được xóa!');
-                        $('.row-nhom').removeClass("active-click-row");
+                        sweetalert(1, 'Vị trí ' + ma_vi_tri + ' đã được xóa!');
                         vm.flag_btn = true;
-                        api_get_vi_tri_theo_phong(vm, vm.$data.vi_tri.id_phong_ban, 1);
+                        console.log(vm.vi_tri.id_phong_ban);
+                        if(vm.vi_tri.id_phong_ban == '' || vm.vi_tri.id_phong_ban == null){
+                            api_get_all_vi_tri(vm, 1);
+                        }
+                        else{
+                            api_get_vi_tri_theo_phong(vm, vm.vi_tri.id_phong_ban, 1);
+                        }
+                        // api_get_vi_tri_theo_phong(vm, vm.$data.vi_tri.id_phong_ban, 1);
                         vm.loading_phong_ban = false;
                     }
                     else if(response.data == 0){

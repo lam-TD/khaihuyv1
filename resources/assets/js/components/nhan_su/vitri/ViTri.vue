@@ -88,11 +88,11 @@
                                     <!--//-->
                                     <div class="row">
                                         <div class="col-md-12" style="margin-bottom: 10px;">
-                                            <el-table :data="list_vi_tri" style="width: 100%" border empty-text="Chưa có dữ liệu">
+                                            <el-table :data="list_vi_tri" style="width: 100%" border :empty-text="loading_vi_tri">
                                                 <el-table-column prop="name" label="#" width="90" align="center">
                                                     <template slot-scope="scope" class="text-center" style="width: 100%">
                                                         <button @click="_vi_tri('edit', scope.row)" data-toggle="modal" data-target="#myModal" class="btn btn-info btn-sm" title="Cập nhật thông tin vị trí"> <i class="fa fa-edit"></i> </button>
-                                                        <button @click="delete_vi_tri(scope.row.id)" class="btn btn-danger btn-sm" title="Xóa"> <i class="fa fa-trash-o"></i> </button>
+                                                        <button @click="delete_vi_tri(scope.row)" class="btn btn-danger btn-sm" title="Xóa"> <i class="fa fa-trash-o"></i> </button>
                                                     </template>
                                                 </el-table-column>
                                                 <el-table-column type="index" label="TT" align="center"></el-table-column>
@@ -228,7 +228,7 @@
                 bo_phan: [],
                 list_phong_ban: [],
                 list_bo_phan: [],
-                loading_vi_tri: true,
+                loading_vi_tri: 'Đang tải...',
                 list_vi_tri: [],
                 total_vi_tri: 0,
                 vi_tri: { id: 0, ma_vi_tri: '', ten_vi_tri: '', dien_giai: '', id_phong_ban: '' },
@@ -352,9 +352,12 @@
                 api_edit_vi_tri(this);
             },
             delete_vi_tri: function(n) {
-                this.vi_tri = n;
-                if(this.vi_tri.id <= 0) return -1;
-                api_delete_vi_tri(this);
+                // this.vi_tri = n;
+                // if(this.vi_tri.id <= 0) return -1;
+                console.log(this.vi_tri.id_phong_ban);
+                api_delete_vi_tri(this, n.ma_vi_tri);
+
+
             },
             change_bnt_save: function () {
                 this.flag_btn_save = false;

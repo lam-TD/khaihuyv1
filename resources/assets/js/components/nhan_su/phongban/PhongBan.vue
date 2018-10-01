@@ -368,9 +368,10 @@
                 api_edit_phong_ban(this);
             },
             delete_phong_ban: function(n) {
-                this.phong_ban = n;
-                if(this.phong_ban.id <= 0) return -1;
-                api_delete_phong_ban(this);
+                // this.phong_ban = n;
+                // if(this.phong_ban.id <= 0) return -1;
+                this.phong_ban.ma_phong = n.ma_phong;
+                api_delete_phong_ban(this, n.ma_phong);
             },
             change_bnt_save: function () {
                 this.flag_btn_save = false;

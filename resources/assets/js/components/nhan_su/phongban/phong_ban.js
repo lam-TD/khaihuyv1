@@ -134,7 +134,7 @@ export function api_edit_phong_ban(vm) {
         })
 }
 
-export function api_delete_phong_ban(vm) {
+export function api_delete_phong_ban(vm, ma_phong) {
     swal({
             title: "Bạn có chắc chắn muốn xóa phòng vừa chọn?",
             type: "warning",
@@ -146,15 +146,21 @@ export function api_delete_phong_ban(vm) {
         function() {
             axios({
                 method: 'GET',
-                url: 'api/delete-phong-ban/' + vm.phong_ban.ma_phong,
+                url: 'api/delete-phong-ban/' + ma_phong,
                 headers: {'Authorization':'Bearer ' + vm.$store.state.currentUser.token}
             })
                 .then((response) => {
                     if(response.data == 1) {
-                        sweetalert(1, 'Nhóm ' + vm.phong_ban.ma_phong + ' đã được xóa!');
-                        $('.row-nhom').removeClass("active-click-row");
-                        vm.flag_btn = true;
-                        api_get_danh_sach_phong_theo_bo_phan(vm, vm.$data.phong_ban.id_bo_phan,1);
+                        sweetalert(1, 'Phòng ' + vm.phong_ban.ma_phong + ' đã được xóa!');
+                        // $('.row-nhom').removeClass("active-click-row");
+                        // vm.flag_btn = true;
+                        if(vm.phong_ban.id_bo_phan == '' ){
+                            api_get_all_phong_ban(vm, 1);
+                        }
+                        else{
+                            api_get_danh_sach_phong_theo_bo_phan(vm, vm.phong_ban.id_bo_phan, 1);
+                        }
+                        // api_get_danh_sach_phong_theo_bo_phan(vm, vm.$data.phong_ban.id_bo_phan,1);
                         vm.loading_phong_ban = false;
                     }
                     else if(response.data == 0){
