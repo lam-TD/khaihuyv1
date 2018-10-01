@@ -31,7 +31,7 @@
                                                     </div>
                                                 </div>
                                                 <div class="col-md-6">
-                                                    <router-link to="/sanpham/themmoi" class="btn btn-success pull-right"><i class="fa fa-plus-circle"></i> Thêm mới </router-link>
+                                                    <router-link to="/sanpham/themmoi" class="btn btn-success pull-right" style="height: 38px;padding: 6px 20px;"><i class="fa fa-plus-circle"></i> Thêm mới </router-link>
                                                 </div>
                                             </div>
                                         </div>
