@@ -79,7 +79,17 @@
                                                 <div class="form-group row">
                                                     <label class="label-form col-md-2 col-sm-12 col-12">Hình ảnh</label>
                                                     <div class="col-sm-10 col-12">
-                                                        <input type="file" name="files">
+                                                        <!--<input type="file" name="files">-->
+                                                        <el-upload
+                                                                action="https://jsonplaceholder.typicode.com/posts/"
+                                                                multiple
+                                                                :auto-upload="false"
+                                                                list-type="picture-card"
+                                                                :file-list="fileList2"
+                                                                :on-preview="handlePictureCardPreview"
+                                                                :on-remove="handleRemove">
+                                                            <i class="el-icon-plus"></i>
+                                                        </el-upload>
                                                     </div>
                                                 </div>
 
@@ -99,7 +109,12 @@
                                                 <div class="form-group row">
                                                     <label style="padding-right: 0" class="label-form col-md-2 col-sm-12 col-12">Loại hàng</label>
                                                     <div class="col-sm-10 col-12">
-                                                        <input type="text" class="form-control" id="tsSt66" placeholder="">
+                                                        <!--<input type="text" class="form-control" id="tsSt66" placeholder="">-->
+                                                        <el-select v-model="danh_muc" value-key="danh_muc_id" placeholder="Select" style="width: 100%;height: 38px;">
+                                                            <el-option v-for="item in list_danh_muc" :key="item.danh_muc_id" :label="item.tieu_de" :value="item">
+                                                                <span style="float: left">{{item.level}}{{ item.tieu_de }}</span>
+                                                            </el-option>
+                                                        </el-select>
                                                     </div>
                                                 </div>
 
@@ -119,11 +134,11 @@
                                                 <div class="form-group row" style="margin-bottom: 10px">
                                                     <label class="label-form col-md-2 col-sm-12 col-12">Dealer</label>
                                                     <div class="col-sm-4 col-12">
-                                                        <input v-model="sp.dealer" v-on:keypress="only_number_input" type="text" class="form-control" placeholder="">
+                                                        <input v-model="sp.full_vat_dealer" v-on:keypress="only_number_input" type="text" class="form-control" placeholder="">
                                                     </div>
                                                     <label class="label-form col-md-2 col-sm-12 col-12">Enduser</label>
                                                     <div class="col-sm-4 col-12">
-                                                        <input v-model="sp.enduser" v-on:keypress="only_number_input" type="text" class="form-control" id="tt890" placeholder="">
+                                                        <input v-model="sp.full_vat_end_user" v-on:keypress="only_number_input" type="text" class="form-control" id="tt890" placeholder="">
                                                     </div>
                                                 </div>
                                                 <div class="" style="height: 1px;width: 100%;border-bottom: 1px dashed #ddd"></div>
@@ -133,22 +148,22 @@
                                                     <label class="label-form label-deal col-md-2 col-sm-12 col-12">Deal 1 (>= 1tr)</label>
                                                     <div class="col-sm-6 col-12">
                                                         <!--<vue-numeric class="form-control" separator="," v-model="sp.deal_1"></vue-numeric>-->
-                                                        <input v-on:keypress="only_number_input" v-model="sp.deal_1" type="text" class="form-control" placeholder="">
+                                                        <input @input="tinh_trung_bnh_cong_distri" v-on:keypress="only_number_input" v-model="sp.deal_1" type="text" class="form-control" placeholder="">
                                                     </div>
                                                     <label class="label-form col-md-2 col-sm-12 col-12"> Số lượng</label>
                                                     <div class="col-sm-2 col-12">
-                                                        <input v-model="sp.deal_1_sl" v-on:keypress="only_number_input" type="text" class="form-control" id="tt890h" placeholder="">
+                                                        <input v-model="sp.deal_1_sl" v-on:keypress="only_number_input" type="number" class="form-control" id="tt890h" placeholder="">
                                                     </div>
                                                 </div>
 
                                                 <div class="form-group row">
                                                     <label class="label-form label-deal col-md-2 col-sm-12 col-12">Deal 2 (>= 2tr)</label>
                                                     <div class="col-sm-6 col-12">
-                                                        <input v-on:keypress="only_number_input" v-model="sp.deal_2" type="text" class="form-control" placeholder="">
+                                                        <input @input="tinh_trung_bnh_cong_distri" v-on:keypress="only_number_input" v-model="sp.deal_2" type="text" class="form-control" placeholder="">
                                                     </div>
                                                     <label class="label-form col-md-2 col-sm-12 col-12"> Số lượng</label>
                                                     <div class="col-sm-2 col-12">
-                                                        <input v-model="sp.deal_2_sl" v-on:keypress="only_number_input" type="text" class="form-control" id="tt890yf" placeholder="">
+                                                        <input v-model="sp.deal_2_sl" v-on:keypress="only_number_input" type="number" class="form-control" id="tt890yf" placeholder="">
                                                     </div>
                                                 </div>
 
@@ -156,11 +171,11 @@
                                                     <label class="label-form label-deal col-md-2 col-sm-12 col-12">Deal 3 (>=3,5tr)</label>
                                                     <div class="col-sm-6 col-12">
                                                         <!--<vue-numeric class="form-control" separator="," v-model="sp.giasanpham"></vue-numeric>-->
-                                                        <input v-on:keypress="only_number_input" v-model="sp.deal_3" type="text" class="form-control" placeholder="">
+                                                        <input @input="tinh_trung_bnh_cong_distri" v-on:keypress="only_number_input" v-model="sp.deal_3" type="text" class="form-control" placeholder="">
                                                     </div>
                                                     <label class="label-form col-md-2 col-sm-12 col-12"> Số lượng</label>
                                                     <div class="col-sm-2 col-12">
-                                                        <input v-model="sp.deal_3_sl" v-on:keypress="only_number_input" type="text" class="form-control" id="tt890rr" placeholder="">
+                                                        <input v-model="sp.deal_3_sl" v-on:keypress="only_number_input" type="number" class="form-control" id="tt890rr" placeholder="">
                                                     </div>
                                                 </div>
                                                 <div class="" style="height: 1px;width: 100%;border-bottom: 1px dashed #ddd"></div>
@@ -169,7 +184,7 @@
                                                 <div class="form-group row" style="margin-bottom: 10px">
                                                     <label class="label-form col-md-2 col-sm-12 col-12">DISTRI</label>
                                                     <div class="col-sm-10 col-12">
-                                                        <input type="text" class="form-control" id="tt8d9" placeholder="">
+                                                        <input v-model="sp.distri" type="text" class="form-control" id="tt8d9" placeholder="">
                                                     </div>
                                                 </div>
                                                 <div class="" style="height: 1px;width: 100%;border-bottom: 1px dashed #ddd"></div>
@@ -180,7 +195,7 @@
                                                 <div class="form-group row" style="margin-bottom: 10px">
                                                     <label class="label-form col-md-2 col-sm-12 col-12">Cộng DV</label>
                                                     <div class="col-sm-10 col-12">
-                                                        <input type="text" class="form-control" id="tt8dsd9" placeholder="">
+                                                        <input v-on:keypress="only_number_input" v-model="sp.cong_dv" type="text" class="form-control" id="tt8dsd9" placeholder="">
                                                     </div>
                                                 </div>
                                             </div>
@@ -188,8 +203,8 @@
                                             <div class="col-md-12">
                                                 <hr>
                                                 <div class="form-actions pull-right">
-                                                    <button type="submit" class="btn btn-success"> <i class="fa fa-check"></i> Lưu</button>
-                                                    <button type="button" class="btn btn-inverse">Hủy</button>
+                                                    <button type="submit" class="btn btn-success"> <i class="fa fa-save"></i> Lưu</button>
+                                                    <!--<button type="button" class="btn btn-inverse">Hủy</button>-->
                                                 </div>
                                             </div>
                                         </div>
@@ -212,6 +227,9 @@
     import VueNumeric from 'vue-numeric';
     import {api_get_dvt} from "./san_pham";
     import {api_get_all_tk_ke_toan} from "./san_pham";
+    import {api_get_all_danh_muc_san_pham} from "./danh_muc_san_pham";
+
+    import {api_add_san_pham} from "./san_pham";
     import { quillEditor } from 'vue-quill-editor';
 
     export default {
@@ -221,6 +239,7 @@
         mounted() {
             api_get_dvt(this);
             api_get_all_tk_ke_toan(this);
+            api_get_all_danh_muc_san_pham(this);
         },
         updated () {
             let j = document.createElement('script');
@@ -236,14 +255,21 @@
             $('#fileupload-custom').remove();
             $('#fileupload-js').remove();
         },
+        watch: {
+
+        },
         data () {
             return {
-                sp: { id: '', ma_sp: '', ten_sp: '', dvt_id: '', net: '', warranty: '', dien_giai: '', full_vat_dealer: '', full_vat_end_user: '', deal_1: '', deal_2: '', deal_3: '', deal_1_sl: '', deal_2_sl: '', deal_3_sl: '', distri: '', cong_dv: '', danh_muc_id: '', image: '', ghi_chu: ''},
+                currentRoute: this.$route.query.id,
+                sp: { id: '', ma_sp: '', ten_sp: '', dvt_id: '', net: '', warranty: '', dien_giai: '', full_vat_dealer: '', full_vat_end_user: '', deal_1: '', deal_2: '', deal_3: '', deal_1_sl: '', deal_2_sl: '', deal_3_sl: '', distri: '', cong_dv: '', danh_muc_id: '', tk_ke_toan_id: '', image: '', ghi_chu: ''},
                 list_dvt: [],
                 don_vi_tinh: '',
                 disable_submit: true,
                 list_tk_ke_toan: [],
                 tk_ke_toan: '',
+                list_danh_muc: [],
+                danh_muc: '',
+                fileList2: [{name: 'food.jpeg', url: 'https://fuss10.elemecdn.com/3/63/4e7f3a15429bfda99bce42a18cdd1jpeg.jpeg?imageMogr2/thumbnail/360x360/format/webp/quality/100'}, {name: 'food2.jpeg', url: 'https://fuss10.elemecdn.com/3/63/4e7f3a15429bfda99bce42a18cdd1jpeg.jpeg?imageMogr2/thumbnail/360x360/format/webp/quality/100'}],
                 editorOption: {
                     modules: {
                         toolbar: [
@@ -268,18 +294,19 @@
         },
         methods: {
             onSubmit: function () {
-                console.log(this.sp);
-                // this.$validator.validateAll().then((value) =>{
-                //     if(value){
-                //         alert(this.sp.giasanpham);
-                //         alert("Submit");
-                //     }
-                // }).catch(reason => {
-                //     console.log(reason);
-                // })
+                this.sp.danh_muc_id = this.danh_muc.danh_muc_id;
+                this.sp.tk_ke_toan_id = this.tk_ke_toan.ma_tk;
+                if(typeof this.currentRoute === 'undefined'){
+                    console.log("them moi");
+                    api_add_san_pham(this);
+                }
+                else{
+                    console.log("cap nhat");
+                }
             },
-            format_money: function (num) {
-                return 1;
+            tinh_trung_bnh_cong_distri: function () {
+                this.sp.distri = 0;
+                this.sp.distri = (this.sp.deal_1 + this.sp.deal_2 + this.sp.deal_3)/3;
             },
             only_number_input: function (evt) {
                 evt = (evt) ? evt : window.event;
@@ -293,6 +320,13 @@
             scroll_card_full_creem: function () {
                 $('#phongto').closest('.card').find('[data-action="expand"] i').toggleClass('mdi-arrow-expand mdi-arrow-compress');
                 $('#phongto').closest('.card').toggleClass('card-fullscreen');
+            },
+            handleRemove(file, fileList) {
+                console.log(file, fileList);
+            },
+            handlePictureCardPreview(file) {
+                this.dialogImageUrl = file.url;
+                this.dialogVisible = true;
             }
         },
         components: { VueNumeric,quillEditor }

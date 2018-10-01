@@ -23,7 +23,8 @@ class SanPhamController extends Controller
             $sp->net             = $request->net;
             $sp->warranty        = $request->warranty;
             $sp->dien_giai       = $request->dien_giai;
-            $sp->full_vat_dealer = $request->full_vat_end_user;
+            $sp->full_vat_dealer = $request->full_vat_dealer;
+            $sp->full_vat_end_user = $request->full_vat_end_user;
             $sp->deal_1          = $request->deal_1;
             $sp->deal_2          = $request->deal_2;
             $sp->deal_3          = $request->deal_3;
@@ -33,6 +34,7 @@ class SanPhamController extends Controller
             $sp->distri          = $request->distri;
             $sp->cong_dv         = $request->cong_dv;
             $sp->danh_muc_id     = $request->danh_muc_id;
+            $sp->tk_ke_toan_id     = $request->tk_ke_toan_id;
             $sp->ghi_chu         = $request->ghi_chu;
             $sp->save();
             return 1;
@@ -53,7 +55,8 @@ class SanPhamController extends Controller
             $sp->net             = $request->net;
             $sp->warranty        = $request->warranty;
             $sp->dien_giai       = $request->dien_giai;
-            $sp->full_vat_dealer = $request->full_vat_end_user;
+            $sp->full_vat_dealer = $request->full_vat_dealer;
+            $sp->full_vat_end_user = $request->full_vat_end_user;
             $sp->deal_1          = $request->deal_1;
             $sp->deal_2          = $request->deal_2;
             $sp->deal_3          = $request->deal_3;
@@ -63,6 +66,7 @@ class SanPhamController extends Controller
             $sp->distri          = $request->distri;
             $sp->cong_dv         = $request->cong_dv;
             $sp->danh_muc_id     = $request->danh_muc_id;
+            $sp->tk_ke_toan_id     = $request->tk_ke_toan_id;
             $sp->ghi_chu         = $request->ghi_chu;
             $sp->save();
             return 1;
