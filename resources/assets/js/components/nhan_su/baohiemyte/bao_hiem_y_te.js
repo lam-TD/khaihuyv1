@@ -4,7 +4,7 @@ import {sweetalert} from '../../../helper/sweetalert';
 export function api_search_all_bhyt(vm, page) {
     axios({
         method: 'GET',
-        url: 'api/search-bhyt/'+ vm.keyword +'?page=' + page,
+        url: 'api/search-bhyt/'+ vm.keyword +'/'+vm.limit+'?page=' + page,
         headers: {'Authorization':'Bearer ' + vm.$store.state.currentUser.token}
     })
         .then((response) => {
@@ -20,7 +20,7 @@ export function api_search_all_bhyt(vm, page) {
 export function api_get_all_bhyt(vm, page) {
     axios({
         method: 'GET',
-        url: 'api/get-all-bhyt?page=' + page,
+        url: 'api/get-all-bhyt/'+vm.limit+'?page=' + page,
         headers: {'Authorization':'Bearer ' + vm.$store.state.currentUser.token}
     })
         .then((response) => {

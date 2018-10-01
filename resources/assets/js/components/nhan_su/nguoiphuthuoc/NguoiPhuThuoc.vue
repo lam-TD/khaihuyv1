@@ -139,12 +139,12 @@
                                                     <span>Hiển thị</span>
                                                 </div>
                                                 <div class="col-md-1 col-sm-2 col-4 tb-hienthi" style="padding-left: 4px;">
-                                                    <el-select v-model="value" placeholder="10" size="small">
+                                                    <el-select v-model="limit" placeholder="10" size="small" @change="danh_sach_npt_limit">
                                                         <el-option v-for="item in options_display" :key="item" :label="item" :value="item"></el-option>
                                                     </el-select>
                                                 </div>
                                                 <div class="col-md-8 col-sm-4 col-6" style="padding-left: 0px;">
-                                                    <el-pagination :page-size="10" layout="prev, pager, next" :total="total_npt" @current-change="danh_sach_npt"></el-pagination>
+                                                    <el-pagination :page-size="limit" layout="prev, pager, next" :total="total_npt" @current-change="danh_sach_npt" :current-page.sync="currentPage"></el-pagination>
                                                 </div>
                                                 <div class="col-md-2 col-sm-2 col-6 tb-label">
                                                     <span class="pull-right">Tổng: {{total_npt}} NPT</span>
@@ -324,7 +324,8 @@
                 flag_btn_save: true,
                 error_select_nhan_vien: true,
                 options_display: [10,20,30],
-                value: ''
+                limit: 10,
+                currentPage: 1
             }
         },
         methods: {
@@ -371,6 +372,15 @@
                 }
                 else{
                     api_get_danh_sach_npt_theo_nhan_vien(this, this.npt.ma_nv, page);
+                }
+            },
+            danh_sach_npt_limit: function () {
+                this.loading_npt = true;
+                if(this.nhan_vien == ''){
+                    api_get_all_danh_sach_npt(this, 1);
+                }
+                else{
+                    api_get_danh_sach_npt_theo_nhan_vien(this, this.npt.ma_nv, 1);
                 }
             },
             change_npt: function () {

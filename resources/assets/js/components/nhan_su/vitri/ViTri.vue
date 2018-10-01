@@ -113,7 +113,7 @@
                                                     </el-select>
                                                 </div>
                                                 <div class="col-md-8 col-sm-4 col-6" style="padding-left: 0px;">
-                                                    <el-pagination :page-size="limit" layout="prev, pager, next" :total="total_vi_tri" @current-change="danh_sach_vi_tri"></el-pagination>
+                                                    <el-pagination :page-size="limit" layout="prev, pager, next" :total="total_vi_tri" @current-change="danh_sach_vi_tri" :current-page.sync="currentPage"></el-pagination>
                                                 </div>
                                                 <div class="col-md-2 col-sm-2 col-6 tb-label">
                                                     <span class="pull-right">Tổng: {{total_vi_tri}} VT</span>
@@ -241,7 +241,8 @@
                 flag_btn_save: true,
                 error_select_phong: true,
                 options_display: [10,20,30],
-                limit: 10
+                limit: 10,
+                currentPage: 1
             }
         },
         methods: {
@@ -286,9 +287,11 @@
             danh_sach_vi_tri_limit: function () {
                 this.loading_vi_tri = true;
                 if(this.vi_tri.id_phong_ban == ''){
+                    this.currentPage = 1;
                     api_get_all_vi_tri(this, 1);
                 }
                 else{
+                    this.currentPage = 1;
                     api_get_vi_tri_theo_phong(this, this.vi_tri.id_phong_ban, 1);
                 }
             },

@@ -8,19 +8,19 @@ use App\nguoi_phu_thuoc;
 
 class NguoiPhuThuocController extends Controller
 {
-    public function get_all_danh_sach_npt()
+    public function get_all_danh_sach_npt($limit)
     {
         $npt = nguoi_phu_thuoc::join('nhan_vien','nhan_vien.ma_nv','=','nhan_vien_npt.ma_nv')
             ->select('nhan_vien.ma_nv','nhan_vien.ho_ten','nhan_vien_npt.ngay_sinh_npt','nhan_vien_npt.id','nhan_vien_npt.ho_ten_npt', 'nhan_vien_npt.so_cmnd_npt','nhan_vien_npt.mst_npt','nhan_vien_npt.ma_quoc_tich_npt','nhan_vien_npt.quoc_tich_npt','nhan_vien_npt.ma_quan_he_nnt','nhan_vien_npt.quan_he_nnt','nhan_vien_npt.tg_giam_tru_tu','nhan_vien_npt.tg_giam_tru_den','nhan_vien_npt.ghi_chu')
-            ->paginate(10);
+            ->paginate($limit);
         return $npt;
     }
-    public function get_danh_sach_npt_theo_nhan_vien($ma_nv)
+    public function get_danh_sach_npt_theo_nhan_vien($ma_nv, $limit)
     {
         $npt = nguoi_phu_thuoc::join('nhan_vien','nhan_vien.ma_nv','=','nhan_vien_npt.ma_nv')
             ->where('nhan_vien.ma_nv',$ma_nv)
             ->select('nhan_vien.ma_nv','nhan_vien.ho_ten','nhan_vien_npt.ngay_sinh_npt','nhan_vien_npt.id', 'nhan_vien_npt.ho_ten_npt', 'nhan_vien_npt.so_cmnd_npt','nhan_vien_npt.mst_npt','nhan_vien_npt.ma_quoc_tich_npt','nhan_vien_npt.quoc_tich_npt','nhan_vien_npt.ma_quan_he_nnt','nhan_vien_npt.quan_he_nnt','nhan_vien_npt.tg_giam_tru_tu','nhan_vien_npt.tg_giam_tru_den','nhan_vien_npt.ghi_chu')
-            ->paginate(10);
+            ->paginate($limit);
         return $npt;
     }
 

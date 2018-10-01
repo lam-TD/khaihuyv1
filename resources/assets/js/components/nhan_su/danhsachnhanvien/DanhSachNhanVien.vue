@@ -500,14 +500,14 @@
                                                 <div class="form-group row border-form">
                                                     <label class="label-form col-md-2 col-3 col-form-label">Tạm trú:</label>
                                                     <div class="col-md-10 col-8" style="padding-left: 0">
-                                                        <p>{{nv_tam_tru.tinh_thanh.ten_tinh}}, {{nv_tam_tru.quan_huyen.ten_quan_huyen}}, {{nv_tam_tru.phuong_xa.ten_phuong_xa}}, {{nv_thong_tin_ca_nhan.tam_tru}}</p>
+                                                        <p>{{nv_thong_tin_ca_nhan.tam_tru}}, {{nv_tam_tru.phuong_xa.ten_phuong_xa}}, {{nv_tam_tru.quan_huyen.ten_quan_huyen}}, {{nv_tam_tru.tinh_thanh.ten_tinh}}  </p>
                                                     </div>
                                                 </div>
 
                                                 <div class="form-group row border-form">
                                                     <label class="label-form col-md-2 col-3 col-form-label" style="padding-right: 0">Thường trú:</label>
                                                     <div class="col-md-10 col-8" style="padding-left: 0">
-                                                        <p>{{nv_thuong_tru.tinh_thanh.ten_tinh}}, {{nv_thuong_tru.quan_huyen.ten_quan_huyen}}, {{nv_thuong_tru.phuong_xa.ten_phuong_xa}}, {{nv_thong_tin_ca_nhan.thuong_tru}}</p>
+                                                        <p>{{nv_thong_tin_ca_nhan.thuong_tru}}, {{nv_thuong_tru.phuong_xa.ten_phuong_xa}}, {{nv_thuong_tru.quan_huyen.ten_quan_huyen}}, {{nv_thuong_tru.tinh_thanh.ten_tinh}} </p>
                                                     </div>
                                                 </div>
 
