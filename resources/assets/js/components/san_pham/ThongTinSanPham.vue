@@ -30,7 +30,7 @@
                                                 <hr>
 
                                                 <div class="form-group row">
-                                                    <label for="" class="label-form col-md-2 col-sm-12 col-12">Mã hàng</label>
+                                                    <label class="label-form col-md-2 col-sm-12 col-12">Mã hàng</label>
                                                     <div class="col-sm-10 col-12">
                                                         <!--<input type="text" class="form-control" id="wew1" placeholder="">-->
                                                         <input v-model="sp.ma_sp" v-validate="'required'" :class="{'border-danger' : errors.has('txtmahang')}" class="form-control" name="txtmahang" type="text" autofocus>
@@ -47,7 +47,7 @@
                                                 </div>
 
                                                 <div class="form-group row">
-                                                    <label for="" class="label-form col-md-2 col-sm-12 col-12">ĐVT</label>
+                                                    <label class="label-form col-md-2 col-sm-12 col-12">ĐVT</label>
                                                     <div class="col-sm-4 col-12">
                                                         <!--<input type="text" class="form-control" id="" placeholder="">-->
                                                         <el-select v-model="don_vi_tinh" value-key="id" placeholder="Select" filterable size="small">
@@ -55,28 +55,29 @@
                                                         </el-select>
                                                     </div>
 
-                                                    <label for="" class="label-form col-md-2 col-sm-12 col-12">Net.</label>
+                                                    <label  class="label-form col-md-2 col-sm-12 col-12">Net.</label>
                                                     <div class="col-sm-4 col-12">
                                                         <input v-model="sp.net" type="text" class="form-control" id="1" placeholder="">
                                                     </div>
                                                 </div>
 
                                                 <div class="form-group row">
-                                                    <label for="" class="label-form col-md-2 col-sm-12 col-12">Warranty</label>
+                                                    <label class="label-form col-md-2 col-sm-12 col-12">Warranty</label>
                                                     <div class="col-sm-10 col-12">
                                                         <input v-model="sp.warranty" type="text" class="form-control" id="tt66" placeholder="">
                                                     </div>
                                                 </div>
 
                                                 <div class="form-group row">
-                                                    <label for="" class="label-form col-md-2 col-sm-12 col-12">Diễn giả</label>
+                                                    <label  class="label-form col-md-2 col-sm-12 col-12">Diễn giả</label>
                                                     <div class="col-sm-10 col-12">
-                                                        <textarea class="form-control diengiai" id="tt6634" placeholder=""></textarea>
+                                                        <!--<textarea class="form-control diengiai" id="tt6634" placeholder=""></textarea>-->
+                                                        <quill-editor v-model="sp.dien_giai" :options="editorOption"></quill-editor>
                                                     </div>
                                                 </div>
 
                                                 <div class="form-group row">
-                                                    <label for="" class="label-form col-md-2 col-sm-12 col-12">Hình ảnh</label>
+                                                    <label class="label-form col-md-2 col-sm-12 col-12">Hình ảnh</label>
                                                     <div class="col-sm-10 col-12">
                                                         <input type="file" name="files">
                                                     </div>
@@ -86,9 +87,12 @@
                                                 <h4 class="card-title"><i class="fa fa-tasks"></i> <b>Kho</b></h4>
                                                 <hr>
                                                 <div class="form-group row">
-                                                    <label for="" class="label-form col-md-2 col-sm-12 col-12">Kho</label>
+                                                    <label class="label-form col-md-2 col-sm-12 col-12">Kho</label>
                                                     <div class="col-sm-10 col-12">
-                                                        <input type="text" class="form-control" id="tSt66" placeholder="">
+                                                        <!--<input type="text" class="form-control" id="tSt66" placeholder="">-->
+                                                        <el-select v-model="tk_ke_toan" value-key="ma_tk" placeholder="Select" style="width: 100%;height: 38px;">
+                                                            <el-option v-for="item in list_tk_ke_toan" :key="item.ma_tk" :label="item.ten_tk" :value="item"></el-option>
+                                                        </el-select>
                                                     </div>
                                                 </div>
 
@@ -113,11 +117,11 @@
                                                 <hr>
                                                 <label class="title-sanpham">Giá vnđ full VAT</label>
                                                 <div class="form-group row" style="margin-bottom: 10px">
-                                                    <label for="" class="label-form col-md-2 col-sm-12 col-12">Dealer</label>
+                                                    <label class="label-form col-md-2 col-sm-12 col-12">Dealer</label>
                                                     <div class="col-sm-4 col-12">
                                                         <input v-model="sp.dealer" v-on:keypress="only_number_input" type="text" class="form-control" placeholder="">
                                                     </div>
-                                                    <label for="" class="label-form col-md-2 col-sm-12 col-12">Enduser</label>
+                                                    <label class="label-form col-md-2 col-sm-12 col-12">Enduser</label>
                                                     <div class="col-sm-4 col-12">
                                                         <input v-model="sp.enduser" v-on:keypress="only_number_input" type="text" class="form-control" id="tt890" placeholder="">
                                                     </div>
@@ -131,30 +135,30 @@
                                                         <!--<vue-numeric class="form-control" separator="," v-model="sp.deal_1"></vue-numeric>-->
                                                         <input v-on:keypress="only_number_input" v-model="sp.deal_1" type="text" class="form-control" placeholder="">
                                                     </div>
-                                                    <label for="" class="label-form col-md-2 col-sm-12 col-12"> Số lượng</label>
+                                                    <label class="label-form col-md-2 col-sm-12 col-12"> Số lượng</label>
                                                     <div class="col-sm-2 col-12">
                                                         <input v-model="sp.deal_1_sl" v-on:keypress="only_number_input" type="text" class="form-control" id="tt890h" placeholder="">
                                                     </div>
                                                 </div>
 
                                                 <div class="form-group row">
-                                                    <label for="" class="label-form label-deal col-md-2 col-sm-12 col-12">Deal 2 (>= 2tr)</label>
+                                                    <label class="label-form label-deal col-md-2 col-sm-12 col-12">Deal 2 (>= 2tr)</label>
                                                     <div class="col-sm-6 col-12">
                                                         <input v-on:keypress="only_number_input" v-model="sp.deal_2" type="text" class="form-control" placeholder="">
                                                     </div>
-                                                    <label for="" class="label-form col-md-2 col-sm-12 col-12"> Số lượng</label>
+                                                    <label class="label-form col-md-2 col-sm-12 col-12"> Số lượng</label>
                                                     <div class="col-sm-2 col-12">
                                                         <input v-model="sp.deal_2_sl" v-on:keypress="only_number_input" type="text" class="form-control" id="tt890yf" placeholder="">
                                                     </div>
                                                 </div>
 
                                                 <div class="form-group row">
-                                                    <label for="" class="label-form label-deal col-md-2 col-sm-12 col-12">Deal 3 (>=3,5tr)</label>
+                                                    <label class="label-form label-deal col-md-2 col-sm-12 col-12">Deal 3 (>=3,5tr)</label>
                                                     <div class="col-sm-6 col-12">
                                                         <!--<vue-numeric class="form-control" separator="," v-model="sp.giasanpham"></vue-numeric>-->
                                                         <input v-on:keypress="only_number_input" v-model="sp.deal_3" type="text" class="form-control" placeholder="">
                                                     </div>
-                                                    <label for="" class="label-form col-md-2 col-sm-12 col-12"> Số lượng</label>
+                                                    <label class="label-form col-md-2 col-sm-12 col-12"> Số lượng</label>
                                                     <div class="col-sm-2 col-12">
                                                         <input v-model="sp.deal_3_sl" v-on:keypress="only_number_input" type="text" class="form-control" id="tt890rr" placeholder="">
                                                     </div>
@@ -163,7 +167,7 @@
                                                 <br>
                                                 <label class="title-sanpham">DISTRI</label>
                                                 <div class="form-group row" style="margin-bottom: 10px">
-                                                    <label for="" class="label-form col-md-2 col-sm-12 col-12">DISTRI</label>
+                                                    <label class="label-form col-md-2 col-sm-12 col-12">DISTRI</label>
                                                     <div class="col-sm-10 col-12">
                                                         <input type="text" class="form-control" id="tt8d9" placeholder="">
                                                     </div>
@@ -174,7 +178,7 @@
                                                 <br>
                                                 <label class="title-sanpham">Cộng dịch vụ</label>
                                                 <div class="form-group row" style="margin-bottom: 10px">
-                                                    <label for="" class="label-form col-md-2 col-sm-12 col-12">Cộng DV</label>
+                                                    <label class="label-form col-md-2 col-sm-12 col-12">Cộng DV</label>
                                                     <div class="col-sm-10 col-12">
                                                         <input type="text" class="form-control" id="tt8dsd9" placeholder="">
                                                     </div>
@@ -207,6 +211,7 @@
 <script>
     import VueNumeric from 'vue-numeric';
     import {api_get_dvt} from "./san_pham";
+    import { quillEditor } from 'vue-quill-editor';
 
     export default {
         name: 'thongtinsanpham',
@@ -234,31 +239,45 @@
                 sp: { id: '', ma_sp: '', ten_sp: '', dvt_id: '', net: '', warranty: '', dien_giai: '', full_vat_dealer: '', full_vat_end_user: '', deal_1: '', deal_2: '', deal_3: '', deal_1_sl: '', deal_2_sl: '', deal_3_sl: '', distri: '', cong_dv: '', danh_muc_id: '', image: '', ghi_chu: ''},
                 list_dvt: [],
                 don_vi_tinh: '',
-                disable_submit: true
+                disable_submit: true,
+                list_tk_ke_toan: [],
+                tk_ke_toan: '',
+                editorOption: {
+                    modules: {
+                        toolbar: [
+                            ['bold', 'italic', 'underline', 'strike'],
+                            ['blockquote', 'code-block'],
+                            [{ 'header': 1 }, { 'header': 2 }],
+                            [{ 'list': 'ordered' }, { 'list': 'bullet' }],
+                            [{ 'script': 'sub' }, { 'script': 'super' }],
+                            [{ 'indent': '-1' }, { 'indent': '+1' }],
+                            [{ 'direction': 'rtl' }],
+                            [{ 'size': ['small', false, 'large', 'huge'] }],
+                            [{ 'header': [1, 2, 3, 4, 5, 6, false] }],
+                            [{ 'font': [] }],
+                            [{ 'color': [] }, { 'background': [] }],
+                            [{ 'align': [] }],
+                            ['clean'],
+                            ['link', 'image', 'video']
+                        ]
+                    }
+                }
             }
         },
         methods: {
             onSubmit: function () {
-                // this.$validator.validateAll();
-                this.$validator.validateAll().then((value) =>{
-                    if(value){
-                        alert(this.sp.giasanpham);
-                        alert("Submit");
-                    }
-                }).catch(reason => {
-                    console.log(reason);
-                })
+                console.log(this.sp);
+                // this.$validator.validateAll().then((value) =>{
+                //     if(value){
+                //         alert(this.sp.giasanpham);
+                //         alert("Submit");
+                //     }
+                // }).catch(reason => {
+                //     console.log(reason);
+                // })
             },
             format_money: function (num) {
                 return 1;
-            },
-            number_format: function(num){
-                const formatter = new Intl.NumberFormat('en-US', {
-                    style: 'currency',
-                    minimumFractionDigits: 2
-                })
-
-                return formatter.format(num);
             },
             only_number_input: function (evt) {
                 evt = (evt) ? evt : window.event;
@@ -274,7 +293,7 @@
                 $('#phongto').closest('.card').toggleClass('card-fullscreen');
             }
         },
-        components: { VueNumeric }
+        components: { VueNumeric,quillEditor }
     }
 </script>
 
