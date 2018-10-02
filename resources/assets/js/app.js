@@ -6,7 +6,7 @@ import Element from 'element-ui';
 import VueNumeric from 'vue-numeric';
 import VeeValidate from 'vee-validate';
 
-import lang from 'element-ui/lib/locale/lang/en';
+import lang from 'element-ui/lib/locale/lang/vi';
 import locale from 'element-ui/lib/locale';
 
 locale.use(lang);

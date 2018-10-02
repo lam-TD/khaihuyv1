@@ -97,6 +97,7 @@
                         this.$router.push({path: '/dashboard'});
                     })
                     .catch((error) => {
+                        this.un_process_login();
                         this.$store.commit("loginFailed", {error})
                         this.error = true;
                     })
@@ -116,6 +117,10 @@
             process_login: function () {
                 $('#btnlogin').text('Đang xử lý...');
                 $('#btnlogin').attr('disabled','disabled');
+            },
+            un_process_login: function () {
+                $('#btnlogin').text('Đăng nhập');
+                $('#btnlogin').removeAttr('disabled');
             }
         }
     }

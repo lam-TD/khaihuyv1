@@ -19,6 +19,7 @@ import nguoiphuthuoc from './components/nhan_su/nguoiphuthuoc/NguoiPhuThuoc';
 import danhmucsanpham from './components/san_pham/DanhMucSanPham';
 import thongtinsanpham from './components/san_pham/ThongTinSanPham';
 import danhsachsanpham from './components/san_pham/DanhSachSanPham';
+import taikhoankho from './components/san_pham/taikhoankho/TaiKhoanKho';
 
 //======= HE THONG =======
 import quanlynhom from './components/he_thong/quan_ly_nhom/QuanLyNhom.vue';
@@ -95,6 +96,10 @@ export const routes = [
     {
         path: '/danhmucsanpham',
         component: danhmucsanpham
+    },
+    {
+        path: '/kho',
+        component: taikhoankho
     },
     {
         path: '/quanlynhom',

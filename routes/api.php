@@ -152,6 +152,12 @@ Route::group(['middleware' => 'jwt.auth'], function ($router) {
     Route::post('edit-san-pham', 'SanPhamController@add_san_pham');
     Route::post('delete-san-pham', 'SanPhamController@add_san_pham');
     Route::post('add-img-san-pham', 'SanPhamController@add_san_pham');
+
+    //    --- Tai Khoan Kho ---
+    Route::get('get-tk-kho-paginate/{limit}', 'TaiKhoanKeToanConTroller@get_tk_ke_toan_paginate');
+    Route::post('add-tk-kho', 'TaiKhoanKeToanConTroller@add_tk_ke_toan');
+    Route::post('edit-tk-kho', 'TaiKhoanKeToanConTroller@edit_tk_ke_toan');
+    Route::get('delete-tk-kho/{tk_id}', 'TaiKhoanKeToanConTroller@delete_tk_ke_toan');
 });
 
 // ============== TAI KHOAN KE TOAN ==============
