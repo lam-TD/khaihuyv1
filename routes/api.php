@@ -195,3 +195,6 @@ Route::get('delete-phuong-xa/{id}', 'PhuongXaController@delete_phuong_xa');
 // ======== DON VI TINH ===========
 Route::get('get-dvt', 'DonViTinhController@get_dvt');
 
+// ====== TEST ======
+Route::post('upload-img/{id}', 'UploadImageController@multi_upload_img');
+
