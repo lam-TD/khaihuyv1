@@ -55,7 +55,7 @@
                                                     <el-pagination :page-size="limit" layout="prev, pager, next" :total="total_tk_kho" @current-change="danh_sach_tk_kho"></el-pagination>
                                                 </div>
                                                 <div class="col-md-2 col-sm-2 col-6 tb-label">
-                                                    <span class="pull-right">Tổng: {{total_tk_kho}} BP</span>
+                                                    <span class="pull-right">Tổng: {{total_tk_kho}} mẫu tin</span>
                                                 </div>
                                             </div>
                                         </div>
