@@ -117,7 +117,11 @@
                                                 <el-table-column prop="ho_ten" label="Tên NV" width="150"></el-table-column>
                                                 <el-table-column prop="so_bhyt" label="Số BHYT"></el-table-column>
                                                 <el-table-column prop="noi_kham" label="Nơi khám"></el-table-column>
-                                                <el-table-column prop="dia_chi_kham" label="Địa chỉ khám"></el-table-column>
+                                                <el-table-column label="Địa chỉ khám" width="220">
+                                                    <template slot-scope="scope" class="text-center" style="width: 100%">
+                                                        {{scope.row.dia_chi_kham}}, {{scope.row.ten_phuong_xa}}, {{scope.row.ten_quan_huyen}}, {{scope.row.ten_tinh}}
+                                                    </template>
+                                                </el-table-column>
                                                 <el-table-column prop="ghi_chu" label="Ghi chú"></el-table-column>
                                             </el-table>
                                         </div>
