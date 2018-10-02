@@ -4,17 +4,22 @@ namespace App\Http\Controllers;
 
 use App\san_pham;
 use Illuminate\Http\Request;
+use App\UploadImageController;
 
 class SanPhamController extends Controller
 {
-    public function get_list_san_pham($limit)
+    public function get_list_san_pham_paginate($limit)
     {
-        $sp = san_pham::paginate($limit);
+        $sp = san_pham::join('don_vi_tinh', 'san_pham.dvt_id', '=', 'don_vi_tinh.id')
+            ->join('danh_muc_san_pham','san_pham.danh_muc_id', '=', 'danh_muc_san_pham.danh_muc_id')
+            ->paginate($limit);
         return json_encode($sp);
     }
 
+
     public function add_san_pham(Request $request)
     {
+//        return $request->all();
         try{
             $sp = new san_pham();
             $sp->ma_sp           = $request->ma_sp;
@@ -37,7 +42,9 @@ class SanPhamController extends Controller
             $sp->tk_ke_toan_id     = $request->tk_ke_toan_id;
             $sp->ghi_chu         = $request->ghi_chu;
             $sp->save();
-            return 1;
+
+            $id_sp_new = san_pham::max('id');
+            return $id_sp_new;
         }
         catch (\Exception $e){
             return $e;
@@ -86,5 +93,21 @@ class SanPhamController extends Controller
             return $e;
         }
 
+    }
+
+    public function multi_upload_img_san_pham(Request $request, $id)
+    {
+        $ar_name = [];
+        if ( $files =  $request->file('file')) {
+            foreach ($request->file('file') as $key => $file) {
+                $name = time() . $key . $file->getClientOriginalName();
+                $ar_name[] = $name;
+                $filename[] = $file->move('public/images/san_pham', $name);
+            }
+            return $ar_name;
+        }
+        else{
+            return 2;
+        }
     }
 }

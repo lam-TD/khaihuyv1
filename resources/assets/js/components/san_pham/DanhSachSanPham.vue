@@ -92,6 +92,8 @@
 </template>
 
 <script>
+    import {api_get_danh_sach_san_pham_paginate} from "./san_pham";
+
     import {api_bophan_get} from '../nhan_su/bophan/bo_phan.js';
     import {api_add_bo_phan} from "../nhan_su/bophan/bo_phan";
     import {api_edit_bo_phan} from "../nhan_su/bophan/bo_phan";
@@ -100,6 +102,7 @@
     export default {
         name: 'bophan',
         mounted () {
+            api_get_danh_sach_san_pham_paginate(this, 1);
         },
         updated () {
             $(document).ready(function() {
@@ -109,9 +112,7 @@
         data () {
             return {
                 loading_bo_phan: true,
-                list_bo_phan: [],
-                total_bo_phan: 0,
-                bo_phan: { id: 0, ma_bo_phan: '', ten_bo_phan: '', dien_giai: '' },
+                list_san_pham: [],
                 flag_btn: true,
                 flag_submit_bo_phan: true,
                 flag_input_bo_phan: false,
@@ -151,7 +152,7 @@
             },
             getSanPham: function (page = 1) {
                 this.loading_bo_phan = true;
-                api_bophan_get(this, page);
+                api_get_danh_sach_san_pham_paginate(this, page);
             },
             _san_pham: function (state, bophan = null) {
                 if(state == 'add') {

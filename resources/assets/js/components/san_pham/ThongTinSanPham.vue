@@ -22,7 +22,7 @@
                                     <h4 class="card-title m-b-0">Thêm mới sản phẩm</h4>
                                 </div>
                                 <div class="card-body">
-                                    <form @submit.prevent="onSubmit">
+                                    <form @submit.prevent="onSubmit" enctype="multipart/form-data">
                                         <div class="row">
                                             <div class="col-md-6 col-thongtinsanpham">
                                                 <!--================ THONG TIN SAN PHAM =============-->
@@ -64,7 +64,7 @@
                                                 <div class="form-group row">
                                                     <label class="label-form col-md-2 col-sm-12 col-12">Warranty</label>
                                                     <div class="col-sm-10 col-12">
-                                                        <input v-model="sp.warranty" type="text" class="form-control" id="tt66" placeholder="">
+                                                        <input v-model="sp.warranty" type="text" class="form-control" placeholder="">
                                                     </div>
                                                 </div>
 
@@ -78,49 +78,25 @@
 
                                                 <div class="form-group row">
                                                     <label class="label-form col-md-2 col-sm-12 col-12">Hình ảnh</label>
-                                                    <div class="col-sm-10 col-12">
-                                                        <form @submit.prevent="upload_img" id="formAdd">
-                                                            <input type="file" multiple name="image[]" @change="change_image">
-                                                            <button type="submit">Luu anh</button>
-                                                        </form>
-                                                        <!--<input type="file" name="files">-->
+                                                    <div class="col-sm-10 col-12 pb-2">
+                                                        <button class="btn btn-info btn-sm" type="button" @click="upload_img"><i class="fa fa-upload"></i> Tải ảnh lên</button>
+                                                    </div>
+                                                    <div class="col-md-12">
+                                                        <!--<input type="file" @change="change_image">-->
                                                         <el-upload
                                                                 action="api/upload-img/14"
-                                                                name="file[]"
+                                                                name="file"
                                                                 ref="upload"
+                                                                :on-change="change_image"
                                                                 multiple
                                                                 :auto-upload="false"
+                                                                :on-success="handleSuccess"
                                                                 list-type="picture-card"
+                                                                :file-list="fileList"
                                                                 :on-preview="handlePictureCardPreview"
                                                                 :on-remove="handleRemove">
                                                             <i class="el-icon-plus"></i>
                                                         </el-upload>
-                                                        <button type="button" @click="upload_img">Luu anh</button>
-                                                    </div>
-                                                </div>
-
-                                                <!--================ KHO =============-->
-                                                <h4 class="card-title"><i class="fa fa-tasks"></i> <b>Kho</b></h4>
-                                                <hr>
-                                                <div class="form-group row">
-                                                    <label class="label-form col-md-2 col-sm-12 col-12">Kho</label>
-                                                    <div class="col-sm-10 col-12">
-                                                        <!--<input type="text" class="form-control" id="tSt66" placeholder="">-->
-                                                        <el-select v-model="tk_ke_toan" value-key="ma_tk" placeholder="Select" style="width: 100%;height: 38px;">
-                                                            <el-option v-for="item in list_tk_ke_toan" :key="item.ma_tk" :label="item.ten_tk" :value="item"></el-option>
-                                                        </el-select>
-                                                    </div>
-                                                </div>
-
-                                                <div class="form-group row">
-                                                    <label style="padding-right: 0" class="label-form col-md-2 col-sm-12 col-12">Loại hàng</label>
-                                                    <div class="col-sm-10 col-12">
-                                                        <!--<input type="text" class="form-control" id="tsSt66" placeholder="">-->
-                                                        <el-select v-model="danh_muc" value-key="danh_muc_id" placeholder="Select" style="width: 100%;height: 38px;">
-                                                            <el-option v-for="item in list_danh_muc" :key="item.danh_muc_id" :label="item.tieu_de" :value="item">
-                                                                <span style="float: left">{{item.level}}{{ item.tieu_de }}</span>
-                                                            </el-option>
-                                                        </el-select>
                                                     </div>
                                                 </div>
 
@@ -204,6 +180,34 @@
                                                         <input v-on:keypress="only_number_input" v-model="sp.cong_dv" type="text" class="form-control" id="tt8dsd9" placeholder="">
                                                     </div>
                                                 </div>
+
+                                                <div class="" style="height: 1px;width: 100%;border-bottom: 1px dashed #ddd"></div>
+                                                <br>
+
+                                                <!--================ KHO =============-->
+                                                <h4 class="card-title"><i class="fa fa-tasks"></i> <b>Kho</b></h4>
+                                                <hr>
+                                                <div class="form-group row">
+                                                    <label class="label-form col-md-2 col-sm-12 col-12">Kho</label>
+                                                    <div class="col-sm-10 col-12">
+                                                        <!--<input type="text" class="form-control" id="tSt66" placeholder="">-->
+                                                        <el-select v-model="tk_ke_toan" value-key="ma_tk" @change="change_tk_ke_toan" placeholder="Select" style="width: 100%;height: 38px;">
+                                                            <el-option v-for="item in list_tk_ke_toan" :key="item.ma_tk" :label="item.ten_tk" :value="item"></el-option>
+                                                        </el-select>
+                                                    </div>
+                                                </div>
+
+                                                <div class="form-group row">
+                                                    <label style="padding-right: 0" class="label-form col-md-2 col-sm-12 col-12">Loại hàng</label>
+                                                    <div class="col-sm-10 col-12">
+                                                        <!--<input type="text" class="form-control" id="tsSt66" placeholder="">-->
+                                                        <el-select v-model="danh_muc" value-key="danh_muc_id" placeholder="Select" style="width: 100%;height: 38px;">
+                                                            <el-option v-for="item in list_danh_muc" :key="item.danh_muc_id" :label="item.tieu_de" :value="item">
+                                                                <span style="float: left">{{item.level}}{{ item.tieu_de }}</span>
+                                                            </el-option>
+                                                        </el-select>
+                                                    </div>
+                                                </div>
                                             </div>
 
                                             <div class="col-md-12">
@@ -234,6 +238,7 @@
     import {api_get_dvt} from "./san_pham";
     import {api_get_all_tk_ke_toan} from "./san_pham";
     import {api_get_all_danh_muc_san_pham} from "./danh_muc_san_pham";
+    import {sweetalert} from "../../helper/sweetalert";
 
     import {api_add_san_pham} from "./san_pham";
     import { quillEditor } from 'vue-quill-editor';
@@ -243,6 +248,7 @@
         created() {
         },
         mounted() {
+            api_get_danh_sach_san_pham_paginate(this,1);
             api_get_dvt(this);
             api_get_all_tk_ke_toan(this);
             api_get_all_danh_muc_san_pham(this);
@@ -277,7 +283,12 @@
                 danh_muc: '',
                 images: null,
                 form_lam: new FormData,
-                fileList2: [{name: 'food.jpeg', url: 'https://fuss10.elemecdn.com/3/63/4e7f3a15429bfda99bce42a18cdd1jpeg.jpeg?imageMogr2/thumbnail/360x360/format/webp/quality/100'}, {name: 'food2.jpeg', url: 'https://fuss10.elemecdn.com/3/63/4e7f3a15429bfda99bce42a18cdd1jpeg.jpeg?imageMogr2/thumbnail/360x360/format/webp/quality/100'}],
+                fileList: [],
+                url_add_img: 'upload-img/',
+                count_success_img: 0,
+                count_old_success: 0,
+                attachments: [],
+                uploadData: [],
                 editorOption: {
                     modules: {
                         toolbar: [
@@ -303,7 +314,10 @@
         methods: {
             onSubmit: function () {
                 this.sp.danh_muc_id = this.danh_muc.danh_muc_id;
-                this.sp.tk_ke_toan_id = this.tk_ke_toan.ma_tk;
+                this.sp.dvt_id = this.don_vi_tinh.id;
+                // this.sp.tk_ke_toan_id = this.tk_ke_toan.ma_tk;
+                console.log(this.tk_ke_toan.ma_tk);
+                return 1;
                 if(typeof this.currentRoute === 'undefined'){
                     console.log("them moi");
                     api_add_san_pham(this);
@@ -311,6 +325,10 @@
                 else{
                     console.log("cap nhat");
                 }
+            },
+            change_tk_ke_toan: function (tk) {
+                console.log(tk);
+                this.sp.tk_ke_toan_id = tk.ma_tk;
             },
             tinh_trung_bnh_cong_distri: function () {
                 this.sp.distri = 0;
@@ -336,14 +354,33 @@
                 this.dialogImageUrl = file.url;
                 this.dialogVisible = true;
             },
-            change_image: function (e) {
-                console.log(e);
-                let lam = e.target.files;
-                this.images = lam;
-                console.log(this.images);
+            change_image: function (file, fileList) {
+                this.fileList = fileList;
             },
-            upload_img: function (data) {
-                this.$refs.upload.submit();
+            upload_img: function () {
+                let formData = new FormData();
+                let elem = document.querySelector('.el-upload__input');
+                console.log(elem.files);
+                for (let i = 0; i < elem.files.length; i++) {
+                    formData.append(`file[${i}]`, elem.files[i]);
+                }
+
+                axios.post( 'api/upload-img/14',
+                    formData,
+                    ).then((response) => {
+                        console.log(response.data);
+                    })
+                    .catch((error) => {
+                        console.log(error);
+                    })
+            },
+            handleSuccess: function (response, file, fileList) {
+                this.count_old_success++;
+                console.log('old: ' + this.count_old_success);
+                console.log('suc' + this.count_success_img);
+                if (this.count_old_success == this.count_success_img) {
+                    sweetalert(1, 'Thêm sản phẩm thành công!');
+                }
             }
         },
         components: { VueNumeric,quillEditor }

@@ -9,7 +9,7 @@ class TaiKhoanKeToanConTroller extends Controller
 {
     public function get_all_tk_ke_toan()
     {
-        $tk = tai_khoan_ke_toan::all();
+        $tk = tai_khoan_ke_toan::orderby('id','desc')->get();
         return json_encode($tk);
     }
 
