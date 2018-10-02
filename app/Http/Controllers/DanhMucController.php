@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\danh_muc_san_pham;
+use App\san_pham;
 use Illuminate\Http\Request;
 
 class DanhMucController extends Controller
@@ -30,6 +31,19 @@ class DanhMucController extends Controller
         }
     }
 
+    public function get_all_danh_muc_pa($limit)
+    {
+        $dm = danh_muc_san_pham::orderBy('danh_muc_id', 'asc')->paginate($limit);
+        return $dm;
+    }
+    //
+    public function get_danh_muc($id_danh_muc)
+    {
+        $dm = danh_muc_san_pham::find($id_danh_muc);
+        return $dm;
+    }
+
+
     public function get_all_danh_muc_san_pham()
     {
         $dm = danh_muc_san_pham::orderby('thutu','asc')->get()->toArray();
@@ -39,14 +53,26 @@ class DanhMucController extends Controller
 
     public function add_danh_muc(Request $request)
     {
-        $dm = danh_muc_san_pham::find($request->danh_muc_id);
+        $dm = new danh_muc_san_pham();
         $dm->tieu_de      = $request->tieu_de;
         $dm->danh_muc_cha = $request->danh_muc_cha;
-        $dm->tom_tat      = $request->tom_tat;
-        $dm->hien_thi     = $request->hien_thi;
+        $dm->tomtat      = $request->tomtat;
+        $dm->hienthi     = $request->hienthi;
+        $dm->ghi_chu = $request->ghi_chu;
         $dm->save();
+        return 1;
+    }
 
-        $id_dm_new = danh_muc_san_pham::max('danh_muc_id');
+    //
+    public function edit_danh_muc(Request $request, $danh_muc_id)
+    {
+        $dm = danh_muc_san_pham::find($danh_muc_id);
+        $dm->tieu_de      = $request->tieu_de;
+        $dm->danh_muc_cha = $request->danh_muc_cha;
+        $dm->tomtat      = $request->tomtat;
+        $dm->hienthi     = $request->hienthi;
+        $dm->ghi_chu = $request->ghi_chu;
+        $dm->update();
         return 1;
     }
 
@@ -60,5 +86,20 @@ class DanhMucController extends Controller
                 $this->update_child_listId($table_row, $query, $row['danh_muc_id'], $danhmuc_id_assoc_child);
             }
         }
+    }
+    //xoa
+    public function xoa_danh_muc($id_danh_muc)
+    {
+        //kiem tra thong tin
+        $danh_muc = danh_muc_san_pham::find($id_danh_muc);
+        //co san pham hay khong
+        $san_pham = $danh_muc->san_pham;
+        $danh_muc_kiem_tra = danh_muc_san_pham::where('danh_muc_cha',$id_danh_muc)->get();
+        if((count($san_pham) > 0) || (count($danh_muc_kiem_tra) > 0)){
+            //  khong xoa
+            return 0;
+        }else
+            $danh_muc->delete();
+        return 1;
     }
 }

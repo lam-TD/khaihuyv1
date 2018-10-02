@@ -5,48 +5,230 @@
             <!-- Start Page Content -->
             <!-- ============================================================== -->
             <div class="row">
-                <div class="col-md-12 lamlam">
-                    <div class="card content-lam">
+                <!--<div class="col-md-12 lamlam">-->
+                <!--<div class="card content-lam">-->
+                <!--<div class="card-header">-->
+                <!--<div class="card-actions">-->
+                <!--&lt;!&ndash;<a @click="_danh_muc('add')" title="Thêm mới bộ phận" data-toggle="modal" data-target="#myModal" class="btn btn-success waves-effect waves-dark btn-white" style="color: white"><i class="fa fa-plus-circle"></i> Thêm mới</a>&ndash;&gt;-->
+                <!--<a @click="scroll_card" id="thunho" class="" data-action="collapse"><i class="ti-minus"></i></a>-->
+                <!--<a @click="scroll_card_full_creem" id="phongto" class="btn-minimize" data-action="expand"><i class="mdi mdi-arrow-expand"></i></a>-->
+                <!--&lt;!&ndash;<a class="btn-close" data-action="close"><i class="ti-close"></i></a>&ndash;&gt;-->
+                <!--</div>-->
+                <!--<h4 class="card-title m-b-0">Danh mục sản phẩm</h4>-->
+                <!--&lt;!&ndash;<h6 class="card-subtitle m-0 op-5">Tổng số bộ phận: {{total_danh_muc}}</h6>&ndash;&gt;-->
+                <!--</div>-->
+                <!--<div class="card-body collapse show">-->
+                <!--<div class="message-box contact-box">-->
+                <!--<div class="message-widget contact-widget">-->
+                <!--<div class="row">-->
+                <!--<div class="col-md-12">-->
+                <!--<div class="form-group row">-->
+                <!--<label class="col-md-2 col-form-label">Tên danh mục(*)</label>-->
+                <!--<div class="col-md-10">-->
+                <!--<input v-model="danh_muc.tieu_de" type="text" id="tieu_de" class="form-control form-control-sm">-->
+                <!--</div>-->
+                <!--</div>-->
+                <!--</div>-->
+
+                <!--<div class="col-md-12">-->
+                <!--<div class="form-group row">-->
+                <!--<label class="col-md-2 col-form-label">Danh mục cha(*)</label>-->
+                <!--<div class="col-md-10">-->
+                <!--<select v-model="danh_muc.danh_muc_id" size="8" class="form-control form-control-sm" id="">-->
+                <!--<option value="0">ROOT</option>-->
+                <!--<option v-for="n in list_danh_muc" :value="n.danh_muc_id">{{n.level}}{{n.tieu_de}}</option>-->
+                <!--</select>-->
+                <!--</div>-->
+                <!--</div>-->
+                <!--</div>-->
+
+                <!--<div class="col-md-12">-->
+                <!--<div class="form-group row">-->
+                <!--<label class="col-md-2 col-form-label">Mô tả(*)</label>-->
+                <!--<div class="col-md-10">-->
+                <!--<quill-editor v-model="danh_muc.tom_tat"-->
+                <!--ref="myQuillEditor"-->
+                <!--:options="editorOption"-->
+                <!--@blur="onEditorBlur($event)"-->
+                <!--@focus="onEditorFocus($event)"-->
+                <!--@ready="onEditorReady($event)">-->
+                <!--</quill-editor>-->
+                <!--</div>-->
+                <!--</div>-->
+                <!--</div>-->
+
+                <!--<div class="col-md-12">-->
+                <!--<div class="form-group row">-->
+                <!--<label class="col-md-2 col-form-label">Hiển thị(*)</label>-->
+                <!--<div class="col-md-10">-->
+                <!--<div class="demo-checkbox" style="margin-top: 5px;">-->
+                <!--<input type="checkbox" id="md_checkbox_26" class="filled-in chk-col-blue" checked />-->
+                <!--<label for="md_checkbox_26"></label>-->
+
+                <!--</div>-->
+                <!--</div>-->
+                <!--</div>-->
+                <!--</div>-->
+
+                <!--<div class="col-md-12">-->
+                <!--<div class="form-group row">-->
+                <!--<label class="col-md-2 col-form-label">Ngày tạo(*)</label>-->
+                <!--<div class="col-md-10">-->
+                <!--<el-date-picker-->
+                <!--v-model="danh_muc.created_at"-->
+                <!--type="date"-->
+                <!--placeholder="Pick a day">-->
+                <!--</el-date-picker>-->
+                <!--</div>-->
+                <!--</div>-->
+                <!--</div>-->
+
+                <!--<div class="col-md-12">-->
+                <!--<div class="form-group row">-->
+                <!--<div class="col-md-12">-->
+                <!--<button class="btn btn-primary waves-effect waves-dark btn-white pull-right"><i class="fa fa-save"></i> Lưu lại</button>-->
+                <!--</div>-->
+                <!--</div>-->
+                <!--</div>-->
+                <!--</div>-->
+                <!--</div>-->
+                <!--</div>-->
+
+
+                <!--</div>-->
+                <!--</div>-->
+                <!--</div>-->
+                <div class="col-md-12">
+                    <div class="card content-lam mb-0 pb-0">
                         <div class="card-header">
                             <div class="card-actions">
-                                <!--<a @click="_bo_phan('add')" title="Thêm mới bộ phận" data-toggle="modal" data-target="#myModal" class="btn btn-success waves-effect waves-dark btn-white" style="color: white"><i class="fa fa-plus-circle"></i> Thêm mới</a>-->
-                                <a @click="scroll_card" id="thunho" class="" data-action="collapse"><i class="ti-minus"></i></a>
                                 <a @click="scroll_card_full_creem" id="phongto" class="btn-minimize" data-action="expand"><i class="mdi mdi-arrow-expand"></i></a>
                                 <!--<a class="btn-close" data-action="close"><i class="ti-close"></i></a>-->
                             </div>
-                            <h4 class="card-title m-b-0">Danh mục sản phẩm</h4>
-                            <!--<h6 class="card-subtitle m-0 op-5">Tổng số bộ phận: {{total_bo_phan}}</h6>-->
+                            <h4 class="card-title m-b-0">Danh mục sản phẩn</h4>
                         </div>
-                        <div class="card-body collapse show">
+                        <!--danh sach danh muc-->
+                        <div class="card-body collapse show pb-0">
                             <div class="message-box contact-box">
                                 <div class="message-widget contact-widget">
-                                    <div class="row">
+                                    <div class="row mb-4">
                                         <div class="col-md-12">
-                                            <div class="form-group row">
-                                                <label class="col-md-2 col-form-label">Tên danh mục(*)</label>
-                                                <div class="col-md-10">
-                                                    <input v-model="danh_muc.tieu_de" type="text" id="tieu_de" class="form-control form-control-sm">
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <!--<form @submit.prevent="">-->
+                                                        <!--<input v-model="key_word" type="text" id="timkiem" class="form-control" placeholder="Nhập từ khóa để tìm kiếm...">-->
+                                                        <!--<button type="submit" class="btn btn-info btn-sm btntimkiem" name="button">Tìm kiếm</button>-->
+                                                        <!--</form>-->
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <button @click="__danh_muc('add')" class="btn btn-success pull-right" data-toggle="modal" data-target="#modal_danh_muc_san_pham"><i class="fa fa-plus-circle"></i> Thêm mới </button>
                                                 </div>
                                             </div>
                                         </div>
-
                                         <div class="col-md-12">
-                                            <div class="form-group row">
-                                                <label class="col-md-2 col-form-label">Danh mục cha(*)</label>
-                                                <div class="col-md-10">
-                                                    <select v-model="danh_muc.danh_muc_id" size="8" class="form-control form-control-sm" id="">
+                                            <template>
+                                                <el-table
+                                                        border
+                                                        :data="list_danh_muc"
+                                                        stripe
+                                                        style="width: 100%">
+                                                    <el-table-column
+                                                            type="index"
+                                                            width="50">
+                                                    </el-table-column>
+                                                    <el-table-column
+                                                            label="Thao tác" width="90" align="center">
+                                                        <template slot-scope="scope" class="text-center" style="width: 100%">
+                                                            <button @click="__danh_muc('edit', scope.row)" data-toggle="modal" data-target="#modal_danh_muc_san_pham" class="btn btn-info btn-sm" title="Cập nhật danh mục"> <i class="fa fa-edit"></i> </button>
+                                                            <button @click="delete_danh_muc(scope.row)" class="btn btn-danger btn-sm" title="Xóa"> <i class="fa fa-trash-o"></i> </button>
+                                                        </template>
+                                                    </el-table-column>
+                                                    <el-table-column
+                                                            prop="danh_muc_id"
+                                                            label="ID"
+                                                            width="50">
+                                                    </el-table-column>
+                                                    <el-table-column
+                                                            prop="tieu_de"
+                                                            label="Tiêu đề"
+                                                            width="180">
+                                                    </el-table-column>
+                                                    <el-table-column label="Tóm tắt">
+                                                        <template slot-scope="props">
+                                                            <span v-html="props.row.tomtat"></span>
+                                                        </template>
+                                                    </el-table-column>
+                                                    <el-table-column
+                                                            prop="ghi_chu"
+                                                            label="Ghi chú">
+                                                    </el-table-column>
+                                                    <el-table-column
+                                                            label="Hiển thị">
+                                                        <template slot-scope="props">
+                                                            <span v-if="props.row.hienthi == '0'">Không</span><span v-else>Hiển thị</span>
+                                                        </template>
+                                                    </el-table-column>
+
+                                                </el-table>
+                                            </template>
+                                        </div>
+                                        <div class="col-md-12">
+                                            <div class="row tb-row-hienthi">
+                                                <div class="col-md-1 col-sm-2 col-8 tb-label pr-0" style="padding-left: 15px;">
+                                                    <span>Hiển thị</span>
+                                                </div>
+                                                <div class="col-md-1 col-sm-2 col-4 tb-hienthi" style="padding-left: 4px;">
+                                                    <el-select v-model="limit" placeholder="10" size="small" @change="danh_sach_danh_muc_limit">
+                                                        <el-option v-for="item in options_display" :key="item" :label="item" :value="item"></el-option>
+                                                    </el-select>
+                                                </div>
+                                                <div class="col-md-8 col-sm-4 col-6" style="padding-left: 0px;">
+                                                    <el-pagination :page-size="limit" layout="prev, pager, next" :total="total_danh_muc" @current-change="danh_sach_danh_muc_" :current-page.sync="currentPage"></el-pagination>
+                                                </div>
+                                                <div class="col-md-2 col-sm-2 col-6 tb-label">
+                                                    <span class="pull-right">Tổng: {{total_danh_muc}} mẫu tin</span>
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!--end danh sach danh muc-->
+                        <!--modal danh muc-->
+                        <div class="modal" id="modal_danh_muc_san_pham" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel2" aria-hidden="true">
+                            <div class="modal-dialog modal-lg" role="document">
+                                <div class="modal-content">
+                                    <form @submit.prevent="submit_danh_muc">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="exampleModalLabel2">Thông tin danh mục</h5>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                        <div class="modal-body" style="padding-top: 0">
+                                            <div class="form-group row border-form mt-2">
+                                                <label class="label-form col-md-2 col-3 col-form-label">Tên danh mục:</label>
+                                                <div class="col-md-10 col-9 tt-dacbiet">
+                                                    <input v-model="danh_muc.tieu_de" type="text" class="form-control form-control-sm">
+                                                </div>
+                                            </div>
+                                            <div class="form-group row border-form">
+                                                <label class="label-form col-md-2 col-3 col-form-label">Danh mục cha(*):</label>
+                                                <div class="col-md-10 col-9 tt-dacbiet">
+                                                    <select v-model="danh_muc.danh_muc_cha" size="8" class="form-control form-control-sm">
                                                         <option value="0">ROOT</option>
-                                                        <option v-for="n in list_danh_muc" :value="n.danh_muc_id">{{n.level}}{{n.tieu_de}}</option>
+                                                        <option v-for="n in list_danh_muc_2" :value="n.danh_muc_id" :disabled="n.danh_muc_id == danh_muc.danh_muc_id">{{n.level}}{{n.tieu_de}}</option>
                                                     </select>
                                                 </div>
                                             </div>
-                                        </div>
-
-                                        <div class="col-md-12">
-                                            <div class="form-group row">
-                                                <label class="col-md-2 col-form-label">Mô tả(*)</label>
-                                                <div class="col-md-10">
-                                                    <quill-editor v-model="danh_muc.tom_tat"
+                                            <div class="form-group row border-form">
+                                                <label class="label-form col-md-2 col-3 col-form-label">Mô tả:</label>
+                                                <div class="col-md-10 col-9 tt-dacbiet">
+                                                    <quill-editor v-model="danh_muc.tomtat"
                                                                   ref="myQuillEditor"
                                                                   :options="editorOption"
                                                                   @blur="onEditorBlur($event)"
@@ -55,47 +237,44 @@
                                                     </quill-editor>
                                                 </div>
                                             </div>
-                                        </div>
-
-                                        <div class="col-md-12">
-                                            <div class="form-group row">
-                                                <label class="col-md-2 col-form-label">Hiển thị(*)</label>
-                                                <div class="col-md-10">
-                                                    <div class="demo-checkbox" style="margin-top: 5px;">
-                                                        <input type="checkbox" id="md_checkbox_26" class="filled-in chk-col-blue" checked />
-                                                        <label for="md_checkbox_26"></label>
-
-                                                    </div>
+                                            <div class="form-group row border-form">
+                                                <label class="label-form col-md-2 col-3 col-form-label">Hiển thị:</label>
+                                                <div class="col-md-10 col-9 tt-dacbiet">
+                                                    <input v-model="danh_muc.hienthi" type="checkbox" id="md_checkbox_26" class="filled-in chk-col-blue" checked />
+                                                    <label for="md_checkbox_26"></label>
+                                                </div>
+                                            </div>
+                                            <!--<div class="form-group row border-form">-->
+                                            <!--<label class="label-form col-md-2 col-3 col-form-label">Ngày tạo:</label>-->
+                                            <!--<div class="col-md-10 col-9 tt-dacbiet">-->
+                                            <!--<el-date-picker-->
+                                            <!--v-model="danh_muc.created_at"-->
+                                            <!--type="date"-->
+                                            <!--placeholder="Pick a day">-->
+                                            <!--</el-date-picker>-->
+                                            <!--</div>-->
+                                            <!--</div>-->
+                                            <div class="form-group row border-form">
+                                                <label class="label-form col-md-2 col-3 col-form-label">Ghi chú</label>
+                                                <div class="col-md-10 col-9 tt-dacbiet">
+                                                    <el-input v-model="danh_muc.ghi_chu"></el-input>
                                                 </div>
                                             </div>
                                         </div>
-
-                                        <div class="col-md-12">
-                                            <div class="form-group row">
-                                                <label class="col-md-2 col-form-label">Ngày tạo(*)</label>
-                                                <div class="col-md-10">
-                                                    <el-date-picker
-                                                            v-model="danh_muc.created_at"
-                                                            type="date"
-                                                            placeholder="Pick a day">
-                                                    </el-date-picker>
-                                                </div>
-                                            </div>
+                                        <div class="modal-footer">
+                                            <!--<button id="save" type="submit" class="btn btn-primary"><i class="fa fa-save"></i> Lưu lại</button>-->
+                                            <button type="button" class="btn btn-danger" data-dismiss="modal">Hủy</button>
+                                            <button :disabled="flag_disabled_submit || danh_muc.tieu_de.length == 0" id="save" type="submit" class="btn btn-primary">
+                                                <span v-if="flag_btn_save"><i class="fa fa-save"></i> Lưu lại</span>
+                                                <span v-if="!flag_btn_save"><i class="fa fa-spin fa-spinner"></i> Đang xử lý...</span>
+                                            </button>
                                         </div>
-
-                                        <div class="col-md-12">
-                                            <div class="form-group row">
-                                                <div class="col-md-12">
-                                                    <button class="btn btn-primary waves-effect waves-dark btn-white pull-right"><i class="fa fa-save"></i> Lưu lại</button>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
+                                    </form>
                                 </div>
                             </div>
 
-
                         </div>
+                        <!-- end Modal danh muc -->
                     </div>
                 </div>
             </div>
@@ -116,16 +295,22 @@
     import { quillEditor } from 'vue-quill-editor';
 
     import {api_bophan_get} from '../nhan_su/bophan/bo_phan';
-    import {api_add_bo_phan} from "../nhan_su/bophan/bo_phan";
-    import {api_edit_bo_phan} from "../nhan_su/bophan/bo_phan";
-    import {api_delete_bo_phan} from "../nhan_su/bophan/bo_phan";
+    // import {api_add_danh_muc} from "../nhan_su/bophan/bo_phan";
+    // import {api_edit_danh_muc} from "../nhan_su/bophan/bo_phan";
+    // import {api_delete_danh_muc} from "../nhan_su/bophan/bo_phan";
+
 
     import {api_get_all_danh_muc_san_pham} from "./danh_muc_san_pham";
+    import {api_get_all_danh_muc_san_pham_pa} from "./danh_muc_san_pham";
+    import {api_add_danh_muc} from "./danh_muc_san_pham";
+    import {api_edit_danh_muc} from "./danh_muc_san_pham";
+    import {api_delete_danh_muc} from "./danh_muc_san_pham";
 
     export default {
         name: 'bophan',
         mounted () {
             api_get_all_danh_muc_san_pham(this);
+            api_get_all_danh_muc_san_pham_pa(this, 1);
         },
         components: { quillEditor },
         updated () {
@@ -138,19 +323,24 @@
         },
         data () {
             return {
-                loading_bo_phan: true,
-                list_bo_phan: [],
-                total_bo_phan: 0,
-                bo_phan: { id: 0, ma_bo_phan: '', ten_bo_phan: '', dien_giai: '' },
+                loading_danh_muc: true,
+                bo_phan: { id: 0, ma_danh_muc: '', tieu_de: '', ten_danh_muc: '', dien_giai: '' },
                 flag_btn: true,
-                flag_submit_bo_phan: true,
-                flag_input_bo_phan: false,
+                flag_submit_danh_muc: true,
+                flag_input_danh_muc: false,
                 flag_body_modal: false,
                 flag_btn_save: true,
                 flag_disabled_submit: false,
-                flag_input_ma_bo_phan: false,
+                flag_input_ma_danh_muc: false,
+
+                total_danh_muc: 0,
                 list_danh_muc: [],
-                danh_muc: {danh_muc_id: '', danh_muc_cha: '', tieu_de: '', tom_tat: '', created_at: Date.now()},
+                list_danh_muc_2: [],
+                options_display: [10,20,30],
+                limit: 10,
+                currentPage: 1,
+
+                danh_muc: {danh_muc_id: '', danh_muc_cha: '',alias: '',hienthi: '1',  tieu_de: '', tomtat: '', created_at: Date.now(), ghi_chu: ''},
                 editorOption: {
                     modules: {
                         toolbar: [
@@ -175,14 +365,14 @@
         },
         methods: {
             validate_ma_bp: function () {
-                var length_nv = this.bo_phan.ma_bo_phan.length;
-                var value_nv  = this.bo_phan.ma_bo_phan;
+                var length_nv = this.bo_phan.ma_danh_muc.length;
+                var value_nv  = this.bo_phan.ma_danh_muc;
                 if((length_nv > 7 || length_nv < 7) || value_nv.indexOf('BP') == -1 || value_nv.indexOf(' ') > -1){
-                    this.flag_input_ma_bo_phan = true;
+                    this.flag_input_ma_danh_muc = true;
                     this.flag_disabled_submit = true;
                 }
                 else{
-                    this.flag_input_ma_bo_phan = false;
+                    this.flag_input_ma_danh_muc = false;
                     this.flag_disabled_submit = false;
                 }
             },
@@ -195,56 +385,81 @@
                     return true;
                 }
             },
-            danh_sach_bo_phan: function (page = 1) {
-                this.loading_bo_phan = true;
+            //
+            danh_sach_danh_muc_limit: function () {
+                this.currentPage = 1;
+                api_get_all_danh_muc_san_pham_pa(this, 1);
+            },
+            danh_sach_danh_muc_: function (page = 1) {
+                api_get_all_danh_muc_san_pham_pa(this, page);
+            },
+            ////
+            danh_sach_danh_muc: function (page = 1) {
+                this.loading_danh_muc = true;
                 api_bophan_get(this, page);
             },
-            _bo_phan: function (state, bophan = null) {
+            _danh_muc: function (state, bophan = null) {
                 if(state == 'add') {
                     console.log('add nhom');
                     this.flag_btn = true;
                     $('.row-nhom').removeClass("active-click-row");
-                    this.flag_submit_bo_phan = true;
-                    this.flag_input_bo_phan = false;
-                    this.bo_phan = { id: 0, ma_bo_phan: '', ten_bo_phan: '', dien_giai: '' }
+                    this.flag_submit_danh_muc = true;
+                    this.flag_input_danh_muc = false;
+                    this.bo_phan = { id: 0, ma_danh_muc: '', ten_danh_muc: '', dien_giai: '' }
                 }
                 else {
                     // this.bo_phan = bophan;
                     this.bo_phan.id = bophan.id;
-                    this.bo_phan.ma_bo_phan = bophan.ma_bo_phan;
-                    this.bo_phan.ten_bo_phan = bophan.ten_bo_phan;
+                    this.bo_phan.ma_danh_muc = bophan.ma_danh_muc;
+                    this.bo_phan.ten_danh_muc = bophan.ten_danh_muc;
                     this.bo_phan.dien_giai = bophan.dien_giai;
-                    this.flag_submit_bo_phan = false;
-                    this.flag_input_bo_phan = true;
+                    this.flag_submit_danh_muc = false;
+                    this.flag_input_danh_muc = true;
                 }
             },
-            submit_bo_phan: function () {
+            __danh_muc: function (state, danhmuc = null) {
+                api_get_all_danh_muc_san_pham(this);
+                if(state == 'add') {
+                    this.flag_submit_danh_muc = true;
+                    this.danh_muc =  {danh_muc_id: '', danh_muc_cha: '',alias: '',hienthi: '1',  tieu_de: '', tomtat: '', created_at: Date.now(), ghi_chu: ''};
+                }
+                else {
+                    this.flag_submit_danh_muc = false;
+                    this.danh_muc.danh_muc_id = danhmuc.danh_muc_id;
+                    this.danh_muc.tieu_de = danhmuc.tieu_de;
+                    this.danh_muc.danh_muc_cha = danhmuc.danh_muc_cha;
+                    this.danh_muc.tomtat = danhmuc.tomtat;
+                    this.danh_muc.hienthi = danhmuc.hienthi;
+                    // this.danh_muc.created_at = danhmuc.created_at;
+                    this.danh_muc.ghi_chu = danhmuc.ghi_chu;
+                }
+            },
+            submit_danh_muc: function () {
                 this.change_bnt_save();
-                if(this.flag_submit_bo_phan) {
-                    this.flag_input_bo_phan = false;
-                    this.add_bo_phan();
+                if(this.flag_submit_danh_muc) {
+                    this.flag_input_danh_muc = false;
+                    this.add_danh_muc();
                 }
                 else {
                     this.nhom = this.nhom_selected;
-                    this.flag_input_bo_phan = true;
-                    this.edit_bo_phan();
+                    this.flag_input_danh_muc = true;
+                    this.edit_danh_muc();
                 }
             },
-            click_bo_phan: function (bp) {
+            click_danh_muc: function (bp) {
                 $('.row-nhom').removeClass("active-click-row");
                 $('#n' + bp.id).addClass("active-click-row");
             },
-            add_bo_phan: function () {
-                api_add_bo_phan(this);
+            add_danh_muc: function () {
+                api_add_danh_muc(this);
             },
-            edit_bo_phan: function() {
-                console.log(this.bo_phan);
-                api_edit_bo_phan(this);
+            edit_danh_muc: function() {
+                api_edit_danh_muc(this);
             },
-            delete_bo_phan: function(bp) {
-                this.bo_phan = bp;
-                if(this.bo_phan.id <= 0) return -1;
-                api_delete_bo_phan(this);
+            delete_danh_muc: function(danhmuc) {
+                this.danh_muc = danhmuc;
+                if(this.danh_muc.id <= 0) return -1;
+                api_delete_danh_muc(this);
             },
             change_bnt_save: function () {
                 this.flag_btn_save = false;
@@ -322,10 +537,6 @@
 
     .form-group {
         margin-bottom: 5px;
-    }
-
-    .modal {
-        transition: 1s ease-out;
     }
 
     .col-form-label {
