@@ -34,14 +34,14 @@ export function api_get_all_tk_ke_toan(vm) {
 export function api_get_danh_sach_san_pham_paginate(vm, page) {
     axios({
         method: 'GET',
-        url: 'api/get-nhan-vien-all-thong-tin/'+ vm.limit +'?page=' + page,
+        url: 'api/get-all-san-pham-paginate/'+ vm.limit_sp +'?page=' + page,
         headers: {'Authorization':'Bearer ' + vm.$store.state.currentUser.token}
     })
         .then((response) => {
             vm.loading_dsnv = false;
             vm.list_san_pham = response.data.data;
-            vm.sp_total = response.data.total;
-            // console.log(response.data);
+            vm.total_san_pham = response.data.total;
+            console.log(vm.list_san_pham);
         })
         .catch((error) => {
             console.log(error);

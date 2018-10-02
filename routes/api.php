@@ -148,6 +148,7 @@ Route::group(['middleware' => 'jwt.auth'], function ($router) {
 
     //    --- San Pham ---
     Route::get('get-danh-muc-san-pham', 'DanhMucController@get_all_danh_muc_san_pham');
+    Route::get('get-all-san-pham-paginate/{limit}', 'SanPhamController@get_list_san_pham_paginate');
     Route::post('add-san-pham', 'SanPhamController@add_san_pham');
     Route::post('edit-san-pham', 'SanPhamController@add_san_pham');
     Route::post('delete-san-pham', 'SanPhamController@add_san_pham');

@@ -307,7 +307,7 @@
     import {api_delete_danh_muc} from "./danh_muc_san_pham";
 
     export default {
-        name: 'bophan',
+        name: 'danhmucsanpham',
         mounted () {
             api_get_all_danh_muc_san_pham(this);
             api_get_all_danh_muc_san_pham_pa(this, 1);

@@ -8,8 +8,8 @@ export function api_get_all_danh_muc_san_pham(vm) {
         headers: {'Authorization':'Bearer ' + vm.$store.state.currentUser.token}
     })
         .then((response) => {
-            vm.list_danh_muc_2 = response.data;
-            console.log(vm.list_danh_muc_2);
+            vm.list_danh_muc = response.data;
+            console.log(vm.list_danh_muc);
         })
         .catch((error) => {
             console.log(error);

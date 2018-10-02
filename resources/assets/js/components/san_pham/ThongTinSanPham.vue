@@ -248,7 +248,6 @@
         created() {
         },
         mounted() {
-            api_get_danh_sach_san_pham_paginate(this,1);
             api_get_dvt(this);
             api_get_all_tk_ke_toan(this);
             api_get_all_danh_muc_san_pham(this);
@@ -317,7 +316,7 @@
                 this.sp.dvt_id = this.don_vi_tinh.id;
                 // this.sp.tk_ke_toan_id = this.tk_ke_toan.ma_tk;
                 console.log(this.tk_ke_toan.ma_tk);
-                return 1;
+                // return 1;
                 if(typeof this.currentRoute === 'undefined'){
                     console.log("them moi");
                     api_add_san_pham(this);

@@ -45,15 +45,27 @@
                                                 </el-table-column>
                                                 <el-table-column  prop="date" label="Hình ảnh" width="80">
                                                     <template slot-scope="scope">
-                                                        <img src="public/image_nhan_vien/1537859972.jpeg" alt="" class="img-sanpham">
+                                                        <img :src="parse_img(scope.row)" alt="" class="img-sanpham">
                                                     </template>
                                                 </el-table-column>
-                                                <el-table-column prop="name" label="Mã SP" width="100"></el-table-column>
-                                                <el-table-column prop="address" label="Tên SP"></el-table-column>
-                                                <el-table-column prop="address" label="Diễn giải"></el-table-column>
-                                                <el-table-column prop="address" label="Ngày tạo"></el-table-column>
-                                                <el-table-column prop="address" label="Dealer"></el-table-column>
-                                                <el-table-column prop="address" label="Enduser"></el-table-column>
+                                                <el-table-column prop="ma_sp" label="Mã SP" width="100"></el-table-column>
+                                                <el-table-column prop="ten_sp" label="Tên SP"></el-table-column>
+                                                <el-table-column prop="dien_giai" label="Diễn giải" width="180">
+                                                    <template slot-scope="scope">
+                                                        <div class="limit-text" v-html="scope.row.dien_giai"></div>
+                                                    </template>
+                                                </el-table-column>
+                                                <el-table-column prop="created_at" label="Ngày tạo"></el-table-column>
+                                                <el-table-column prop="full_vat_dealer" label="Dealer">
+                                                    <template slot-scope="scope">
+                                                        {{formatPrice(scope.row.full_vat_dealer)}}
+                                                    </template>
+                                                </el-table-column>
+                                                <el-table-column prop="full_vat_end_user" label="Enduser">
+                                                    <template slot-scope="scope">
+                                                        {{formatPrice(scope.row.full_vat_end_user)}}
+                                                    </template>
+                                                </el-table-column>
                                             </el-table>
                                         </div>
                                         <div class="col-md-12 mt-2">
@@ -70,7 +82,7 @@
                                                     <el-pagination :page-size="limit_sp" layout="prev, pager, next" :total="total_san_pham" @current-change="getSanPham"></el-pagination>
                                                 </div>
                                                 <div class="col-md-2 col-sm-2 col-6 tb-label">
-                                                    <span class="pull-right">Tổng: {{total_san_pham}} SP</span>
+                                                    <span class="pull-right">Tổng: {{total_san_pham}} sản phẩm</span>
                                                 </div>
                                             </div>
                                         </div>
@@ -94,13 +106,12 @@
 <script>
     import {api_get_danh_sach_san_pham_paginate} from "./san_pham";
 
-    import {api_bophan_get} from '../nhan_su/bophan/bo_phan.js';
     import {api_add_bo_phan} from "../nhan_su/bophan/bo_phan";
     import {api_edit_bo_phan} from "../nhan_su/bophan/bo_phan";
     import {api_delete_bo_phan} from "../nhan_su/bophan/bo_phan";
 
     export default {
-        name: 'bophan',
+        name: 'danhsachsanpham',
         mounted () {
             api_get_danh_sach_san_pham_paginate(this, 1);
         },
@@ -149,6 +160,20 @@
                 } else {
                     return true;
                 }
+            },
+            formatPrice(value) {
+                if(value == '' || value == null ) return ;
+                let val = (value/1).toFixed().replace('.', ',')
+                return val.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")
+            },
+            parse_img: function (json) {
+                console.log(json);
+                if(json.image == null || json.image == ''){
+                    return 'public/images/san_pham/no-image.png';
+                }
+                let img = JSON.parse(json.image);
+                let path = 'public/images/san_pham/' + json.id + '/' + img[0];
+                return path;
             },
             getSanPham: function (page = 1) {
                 this.loading_bo_phan = true;
@@ -283,5 +308,14 @@
     .el-table thead.is-group th {
         font-weight: 600 !important;
         text-align: center;
+    }
+
+    .limit-text {
+        padding-top: 1px;
+        width: 160px;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        overflow: hidden;
+        height: 30px;
     }
 </style>

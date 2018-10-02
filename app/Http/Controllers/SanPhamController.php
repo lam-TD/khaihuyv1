@@ -12,8 +12,12 @@ class SanPhamController extends Controller
     {
         $sp = san_pham::join('don_vi_tinh', 'san_pham.dvt_id', '=', 'don_vi_tinh.id')
             ->join('danh_muc_san_pham','san_pham.danh_muc_id', '=', 'danh_muc_san_pham.danh_muc_id')
-            ->paginate($limit);
-        return json_encode($sp);
+            ->select('san_pham.id','san_pham.danh_muc_id','danh_muc_san_pham.tieu_de','san_pham.ma_sp','san_pham.ten_sp','san_pham.dvt_id',
+                'san_pham.net','san_pham.dien_giai','san_pham.full_vat_dealer','san_pham.full_vat_end_user',
+                'san_pham.created_at','san_pham.image','don_vi_tinh.ten_dvt')
+            ->orderby('id','desc')
+            ->paginate($limit)->toArray();
+        return ($sp);
     }
 
 
