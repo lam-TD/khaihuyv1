@@ -168,7 +168,7 @@
                                                                 <input v-model="bhyt.nv_ma" type="text" id="txtnhanvien-sua" class="form-control form-control-sm" readonly>
                                                             </div>
                                                             <div class="col-md-6">
-                                                                <el-select v-model="nhan_vien" :disabled="!flag_submit_bhyt" value-key="ma_nv" filterable size="small" :disabled="flag_disable_manv" placeholder="Chọn nhân viên" style="width: 100%" @change="select_nv" no-match-text="Không tìm thấy" no-data-text="Không có dữ liệu">
+                                                                <el-select v-model="nhan_vien"  value-key="ma_nv" filterable size="small" :disabled="flag_disable_manv" placeholder="Chọn nhân viên" style="width: 100%" @change="select_nv" no-match-text="Không tìm thấy" no-data-text="Không có dữ liệu">
                                                                     <!--<template slot="prefix"><label class="prefix">{{nhan_vien.ma_nv}}</label></template>-->
                                                                     <el-option
                                                                             v-for="item in list_nhan_vien"
