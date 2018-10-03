@@ -17,10 +17,22 @@ class SanPhamController extends Controller
                 'san_pham.net','san_pham.dien_giai','san_pham.full_vat_dealer','san_pham.full_vat_end_user',
                 'san_pham.created_at','san_pham.image','don_vi_tinh.ten_dvt')
             ->orderby('id','desc')
-            ->paginate($limit)->toArray();
+            ->paginate($limit);
         return ($sp);
     }
 
+
+    public function get_thong_tin_san_pham_theo_id($id)
+    {
+        $sp = san_pham::join('don_vi_tinh', 'san_pham.dvt_id', '=', 'don_vi_tinh.id')
+            ->join('danh_muc_san_pham','san_pham.danh_muc_id', '=', 'danh_muc_san_pham.danh_muc_id')
+            ->select('san_pham.id','san_pham.danh_muc_id','danh_muc_san_pham.tieu_de','san_pham.ma_sp','san_pham.ten_sp','san_pham.dvt_id',
+                'san_pham.net','san_pham.dien_giai','san_pham.full_vat_dealer','san_pham.full_vat_end_user',
+                'san_pham.created_at','san_pham.image','don_vi_tinh.ten_dvt','san_pham.tk_ke_toan_id', 'san_pham.deal_1','san_pham.deal_2','san_pham.deal_3','san_pham.deal_1_sl','san_pham.deal_2_sl','san_pham.deal_3_sl')
+            ->where('san_pham.id',$id)
+            ->first();
+        return ($sp);
+    }
 
     public function add_san_pham(Request $request)
     {
