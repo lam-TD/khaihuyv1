@@ -50,7 +50,13 @@
                                                 <el-table-column type="index" label="TT" align="center"></el-table-column>
                                                 <el-table-column prop="ma_nv" label="Mã NV" width="180"></el-table-column>
                                                 <el-table-column prop="ho_ten" label="Tên NV"></el-table-column>
-                                                <el-table-column prop="tinh_trang" label="Tình trạng"></el-table-column>
+                                                <el-table-column label="Tình trạng">
+                                                    <template slot-scope="scope" class="text-center" style="width: 100%">
+                                                         <div v-if="scope.row.tinh_trang == 0">Thử việc</div>
+                                                         <div v-else-if="scope.row.tinh_trang == 1">Chính thức</div>
+                                                         <div v-else>Thôi việc</div>
+                                                    </template>
+                                                </el-table-column>
                                                 <el-table-column prop="ghi_chu" label="Ghi chú"></el-table-column>
                                             </el-table>
                                         </div>
