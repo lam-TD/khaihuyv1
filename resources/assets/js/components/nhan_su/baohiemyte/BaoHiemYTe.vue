@@ -168,7 +168,7 @@
                                                                 <input v-model="bhyt.nv_ma" type="text" id="txtnhanvien-sua" class="form-control form-control-sm" readonly>
                                                             </div>
                                                             <div class="col-md-6">
-                                                                <el-select v-model="nhan_vien" value-key="ma_nv" filterable size="small" :disabled="flag_disable_manv" placeholder="Chọn nhân viên" style="width: 100%" @change="select_nv" no-match-text="Không tìm thấy" no-data-text="Không có dữ liệu">
+                                                                <el-select v-model="nhan_vien" :disabled="!flag_submit_bhyt" value-key="ma_nv" filterable size="small" :disabled="flag_disable_manv" placeholder="Chọn nhân viên" style="width: 100%" @change="select_nv" no-match-text="Không tìm thấy" no-data-text="Không có dữ liệu">
                                                                     <!--<template slot="prefix"><label class="prefix">{{nhan_vien.ma_nv}}</label></template>-->
                                                                     <el-option
                                                                             v-for="item in list_nhan_vien"
@@ -411,7 +411,7 @@
                     api_get_all_bhyt(this, 1);
                 }
             },
-            _bhyt: function (state, laodong = null) {
+            _bhyt: function (state, baohiem = null) {
                 if(state == 'add') {
                     this.flag_btn = true;
                     $('.row-nhom').removeClass("active-click-row");
@@ -425,18 +425,34 @@
                     document.getElementById('form_bhyt').reset();
                 }
                 else {
-                    api_get_item_phuong_xa_bhyt_noi_kham(this,laodong.phuong_xa_id);
+                    // api_get_item_phuong_xa_bhyt_noi_kham(this,laodong.phuong_xa_id);
+                    // this.flag_disable_manv = true;
+                    // let bh = laodong;
+                    // this.bhyt = bh;
+                    // this.bhyt.id = laodong.bhyt_id;
+                    // // api_get_item_phuong_xa(this, laodong.phuong_xa_id);
+                    // this.nhan_vien = this.list_nhan_vien.filter(function(item){
+                    //     return (item['ma_nv'] == laodong.ma_nv);
+                    // })[0];
+                    // this.flag_submit_bhyt = false;
+                    // this.flag_input_bhyt = true;
+
+
+                    // console.log(laodong.phuong_xa_id);
                     this.flag_disable_manv = true;
-                    let bh = laodong;
-                    this.bhyt = bh;
-                    this.bhyt.id = laodong.bhyt_id;
-                    // api_get_item_phuong_xa(this, laodong.phuong_xa_id);
+
+                    this.bhyt.id = baohiem.id;
+                    this.bhyt.so_bhyt = baohiem.so_bhyt;
+                    this.bhyt.so_bhxh = baohiem.so_bhxh;
+                    this.bhyt.noi_kham = baohiem.noi_kham;
+                    this.bhyt.dia_chi_kham = baohiem.dia_chi_kham;
+                    this.bhyt.ghi_chu = baohiem.ghi_chu;
                     this.nhan_vien = this.list_nhan_vien.filter(function(item){
                         return (item['ma_nv'] == laodong.ma_nv);
                     })[0];
+                    api_get_item_phuong_xa(this, laodong.phuong_xa_id);
                     this.flag_submit_bhyt = false;
                     this.flag_input_bhyt = true;
-                    // console.log(laodong.phuong_xa_id);
                 }
             },
             submit_bhyt: function () {
