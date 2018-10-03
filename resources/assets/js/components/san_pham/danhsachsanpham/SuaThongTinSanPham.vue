@@ -207,7 +207,7 @@
                                                     <div class="col-sm-10 col-12">
                                                         <!--<input type="text" class="form-control" id="tsSt66" placeholder="">-->
                                                         <el-select v-model="danh_muc" value-key="danh_muc_id" placeholder="Select" style="width: 100%;height: 38px;">
-                                                            <el-option v-for="item in list_danh_muc" :key="item.danh_muc_id" :label="item.tieu_de" :value="item">
+                                                            <el-option v-for="item in list_danh_muc_2" :key="item.danh_muc_id" :label="item.tieu_de" :value="item">
                                                                 <span style="float: left">{{item.level}}{{ item.tieu_de }}</span>
                                                             </el-option>
                                                         </el-select>
@@ -278,7 +278,7 @@
                 disable_submit: true,
                 list_tk_ke_toan: [],
                 tk_ke_toan: '',
-                list_danh_muc: [],
+                list_danh_muc_2: [],
                 danh_muc: '',
                 images: null,
                 form_lam: new FormData,

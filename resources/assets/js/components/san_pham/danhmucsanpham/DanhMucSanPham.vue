@@ -122,7 +122,7 @@
                                                         <!--</form>-->
                                                     </div>
                                                 </div>
-                                                <div class="col-md-6">
+                                                <div class="col-md-6" style="margin-bottom:5px;">
                                                     <button @click="__danh_muc('add')" class="btn btn-success pull-right" data-toggle="modal" data-target="#modal_danh_muc_san_pham"><i class="fa fa-plus-circle"></i> Thêm mới </button>
                                                 </div>
                                             </div>
@@ -206,15 +206,15 @@
                                                 <span aria-hidden="true">&times;</span>
                                             </button>
                                         </div>
-                                        <div class="modal-body" style="padding-top: 0">
+                                        <div class="modal-body" style="padding-left: 30px;padding-right: 30px;">
                                             <div class="form-group row border-form mt-2">
-                                                <label class="label-form col-md-2 col-3 col-form-label">Tên danh mục:</label>
+                                                <label class=" col-md-2 col-3 col-form-label">Tên danh mục:</label>
                                                 <div class="col-md-10 col-9 tt-dacbiet">
                                                     <input v-model="danh_muc.tieu_de" type="text" class="form-control form-control-sm">
                                                 </div>
                                             </div>
                                             <div class="form-group row border-form">
-                                                <label class="label-form col-md-2 col-3 col-form-label">Danh mục cha(*):</label>
+                                                <label class=" col-md-2 col-3 col-form-label">Danh mục cha(*):</label>
                                                 <div class="col-md-10 col-9 tt-dacbiet">
                                                     <select v-model="danh_muc.danh_muc_cha" size="8" class="form-control form-control-sm">
                                                         <option value="0">ROOT</option>
@@ -223,7 +223,7 @@
                                                 </div>
                                             </div>
                                             <div class="form-group row border-form">
-                                                <label class="label-form col-md-2 col-3 col-form-label">Mô tả:</label>
+                                                <label class=" col-md-2 col-3 col-form-label">Mô tả:</label>
                                                 <div class="col-md-10 col-9 tt-dacbiet">
                                                     <quill-editor v-model="danh_muc.tomtat"
                                                                   ref="myQuillEditor"
@@ -235,8 +235,8 @@
                                                 </div>
                                             </div>
                                             <div class="form-group row border-form">
-                                                <label class="label-form col-md-2 col-3 col-form-label">Hiển thị:</label>
-                                                <div class="col-md-10 col-9 tt-dacbiet">
+                                                <label class=" col-md-2 col-3 col-form-label">Hiển thị:</label>
+                                                <div class="col-md-10 col-9 tt-dacbiet" style="margin-top:3px;">
                                                     <input v-model="danh_muc.hienthi" type="checkbox" id="md_checkbox_26" class="filled-in chk-col-blue" checked />
                                                     <label for="md_checkbox_26"></label>
                                                 </div>
@@ -252,7 +252,7 @@
                                             <!--</div>-->
                                             <!--</div>-->
                                             <div class="form-group row border-form">
-                                                <label class="label-form col-md-2 col-3 col-form-label">Ghi chú</label>
+                                                <label class=" col-md-2 col-3 col-form-label">Ghi chú</label>
                                                 <div class="col-md-10 col-9 tt-dacbiet">
                                                     <el-input v-model="danh_muc.ghi_chu"></el-input>
                                                 </div>
@@ -533,5 +533,9 @@
 
     .col-form-label {
         font-size: 13px;
+    }
+
+    label {
+        font-weight: 600;
     }
 </style>

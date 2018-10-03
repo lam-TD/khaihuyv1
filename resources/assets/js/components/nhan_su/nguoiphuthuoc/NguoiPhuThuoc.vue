@@ -257,7 +257,7 @@
                                                     </div>
                                                     <label class="label-form col-md-2 col-form-label" style="padding-right: 0">Đến(*)</label>
                                                     <div class="col-md-4">
-                                                        <input v-model="npt.thoi_gian_giam_tru_den" name="thoi_gian_giam_tru_den" type="date" class="form-control form-control-sm" ref="giam_tru_den" v-validate="'required|date_format:MM/DD/YYYY|after:giam_tru_tu'">
+                                                        <input v-model="npt.tg_giam_tru_den" name="thoi_gian_giam_tru_den" type="date" class="form-control form-control-sm" ref="giam_tru_den" v-validate="'required|date_format:MM/DD/YYYY|after:giam_tru_tu'">
                                                         <small v-show="errors.has('thoi_gian_giam_tru_den')" class="help text-muted is-danger">Vui lòng chọn thời gian giảm trừ đến</small>
                                                     </div>
                                                 </div>

@@ -93,11 +93,11 @@ export function api_get_thong_tin_san_pham_theo_id(vm) {
             })[0];
 
             vm.tk_ke_toan = vm.list_tk_ke_toan.filter(function (item) {
-                return (item['ma_tk'] == vm.sp.tk_ke_toan_id)
+                return (item['ma_tk'] == response.data.tk_ke_toan_id)
             })[0];
 
-            vm.danh_muc = vm.list_danh_muc.filter(function (item) {
-                return (item['danh_muc_id'] == vm.sp.danh_muc_id)
+            vm.danh_muc = vm.list_danh_muc_2.filter(function (item) {
+                return (item['danh_muc_id'] == response.data.danh_muc_id)
             })[0];
 
             if(vm.sp.image == null || vm.sp.image == ''){
