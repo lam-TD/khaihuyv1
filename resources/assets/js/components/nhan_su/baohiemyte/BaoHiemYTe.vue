@@ -285,7 +285,6 @@
     import {api_add_bhyt} from "./bao_hiem_y_te";
     import {api_edit_bhyt} from "./bao_hiem_y_te";
     import {api_delete_bhyt} from "./bao_hiem_y_te";
-    import {select_lam} from "../../helper/selectlam";
     import {api_search_all_bhyt} from "./bao_hiem_y_te";
     import {api_nhan_vien_get_all_no_pa} from "../../helper/nhan_vien";
 
@@ -439,18 +438,19 @@
 
 
                     // console.log(laodong.phuong_xa_id);
+                    api_get_item_phuong_xa_bhyt_noi_kham(this, baohiem.phuong_xa_id);
                     this.flag_disable_manv = true;
 
                     this.bhyt.id = baohiem.id;
+                    this.bhyt.nv_ma = baohiem.nv_ma;
                     this.bhyt.so_bhyt = baohiem.so_bhyt;
                     this.bhyt.so_bhxh = baohiem.so_bhxh;
                     this.bhyt.noi_kham = baohiem.noi_kham;
                     this.bhyt.dia_chi_kham = baohiem.dia_chi_kham;
                     this.bhyt.ghi_chu = baohiem.ghi_chu;
                     this.nhan_vien = this.list_nhan_vien.filter(function(item){
-                        return (item['ma_nv'] == laodong.ma_nv);
+                        return (item['ma_nv'] == baohiem.ma_nv);
                     })[0];
-                    api_get_item_phuong_xa(this, laodong.phuong_xa_id);
                     this.flag_submit_bhyt = false;
                     this.flag_input_bhyt = true;
                 }
