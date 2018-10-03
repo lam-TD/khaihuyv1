@@ -5,8 +5,6 @@ namespace App\Http\Controllers;
 use App\san_pham;
 use Illuminate\Http\Request;
 use App\upload_img;
-use Intervention\Image\Facades\Image;
-use Illuminate\Support\Facades\Input;
 use File;
 
 class UploadImageController extends Controller

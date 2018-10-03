@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\san_pham;
 use Illuminate\Http\Request;
 use App\UploadImageController;
+use File;
 
 class SanPhamController extends Controller
 {
@@ -60,7 +61,6 @@ class SanPhamController extends Controller
     {
         try{
             $sp = san_pham::find($request->id);
-            $sp->ma_sp           = $request->ma_sp;
             $sp->ten_sp          = $request->ten_sp;
             $sp->dvt_id          = $request->dvt_id;
             $sp->net             = $request->net;
@@ -88,15 +88,26 @@ class SanPhamController extends Controller
 
     }
 
-    public function delete_san_pham(Request $request)
+    public function delete_san_pham($id_sp)
     {
         try{
+            $sp = san_pham::find($id_sp);
+            $sp->delete();
+            $this->delete_folder_image_san_pham($id_sp);
             return 1;
         }
         catch (\Exception $e){
             return $e;
         }
+    }
 
+    public function delete_folder_image_san_pham($id_sp)
+    {
+        $path = 'public/images/san_pham/'.$id_sp;
+        if(File::exists($path)) {
+            File::deleteDirectory($path);
+        }
+        return 1;
     }
 
     public function multi_upload_img_san_pham(Request $request, $id)

@@ -1,5 +1,6 @@
 import axios from "axios";
 import {sweetalert} from "../../helper/sweetalert";
+import {api_tk_kho_get_paginate} from "./taikhoankho/tai_khoan_kho";
 
 export function api_get_dvt(vm) {
     axios({
@@ -72,6 +73,56 @@ export function api_add_san_pham(vm) {
             console.log(error);
             sweetalert(2, 'Lỗi không thực hiện được chức năng này!');
         })
+}
+
+export function api_edit_san_pham(vm) {
+    vm.flag_input_bo_phan = false;
+    axios({
+        method: 'POST',
+        url: 'api/add-san-pham',
+        headers: {'Authorization':'Bearer ' + vm.$store.state.currentUser.token},
+        data: vm.$data.sp
+    })
+        .then((response) => {
+            // vm.un_change_bnt_save();
+            if(response.data >= 1){
+                sweetalert(0, 'Cập nhật thành công!');
+            }
+            else sweetalert(2, 'Lỗi không cập nhật được!');
+        })
+        .catch((error) => {
+            console.log(error);
+            sweetalert(2, 'Lỗi không thực hiện được chức năng này!');
+        })
+}
+
+export function api_delete_san_pham(vm) {
+    swal({
+            title: "Bạn có chắc chắn muốn xóa sản phẩm vừa chọn?",
+            type: "warning",
+            showCancelButton: true,
+            confirmButtonClass: "btn-danger",
+            confirmButtonText: "Đồng ý",
+            closeOnConfirm: true
+        },
+        function() {
+            axios({
+                method: 'GET',
+                url: 'api/delete-san-pham/' + vm.sp.id,
+                headers: {'Authorization':'Bearer ' + vm.$store.state.currentUser.token}
+            })
+                .then((response) => {
+                    if(response.data == 1) {
+                        sweetalert(1, 'Sản phẩm ' + vm.sp.ma_sp + ' đã được xóa!');
+                        api_get_danh_sach_san_pham_paginate(vm,1);
+                    }
+                    else {sweetalert(2, 'Lỗi không xóa được!');};
+                })
+                .catch((error) => {
+                    sweetalert(2, 'Lỗi không thực hiện được chức năng này!');
+                })
+
+        });
 }
 
 export function api_upload_image_san_pham(vm, id_san_pham) {

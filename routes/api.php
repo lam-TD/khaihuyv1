@@ -150,9 +150,9 @@ Route::group(['middleware' => 'jwt.auth'], function ($router) {
     Route::get('get-danh-muc-san-pham', 'DanhMucController@get_all_danh_muc_san_pham');
     Route::get('get-all-san-pham-paginate/{limit}', 'SanPhamController@get_list_san_pham_paginate');
     Route::post('add-san-pham', 'SanPhamController@add_san_pham');
-    Route::post('edit-san-pham', 'SanPhamController@add_san_pham');
-    Route::post('delete-san-pham', 'SanPhamController@add_san_pham');
-    Route::post('add-img-san-pham', 'SanPhamController@add_san_pham');
+    Route::post('edit-san-pham', 'SanPhamController@edit_san_pham');
+    Route::get('delete-san-pham/{id_sanpham}', 'SanPhamController@delete_san_pham');
+    Route::post('upload-img/{id}', 'UploadImageController@multi_upload_img');
 
     //    --- Tai Khoan Kho ---
     Route::get('get-tk-kho-paginate/{limit}', 'TaiKhoanKeToanConTroller@get_tk_ke_toan_paginate');
@@ -212,5 +212,4 @@ Route::get('delete-phuong-xa/{id}', 'PhuongXaController@delete_phuong_xa');
 Route::get('get-dvt', 'DonViTinhController@get_dvt');
 
 // ====== TEST ======
-Route::post('upload-img/{id}', 'UploadImageController@multi_upload_img');
 

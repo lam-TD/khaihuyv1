@@ -40,7 +40,7 @@
                                                 <el-table-column prop="name" label="#" width="90" align="center">
                                                     <template slot-scope="scope" class="text-center" style="width: 100%">
                                                         <button @click="_san_pham('edit', scope.row)" data-toggle="modal" data-target="#modal_nv_tt_ca_nhan" class="btn btn-info btn-sm" title="Cập nhật thông tin sản phẩm"> <i class="fa fa-edit"></i> </button>
-                                                        <button @click="delete_san_pham(scope.row.id)" class="btn btn-danger btn-sm" title="Xóa sản phẩm"> <i class="fa fa-trash-o"></i> </button>
+                                                        <button @click="delete_san_pham(scope.row)" class="btn btn-danger btn-sm" title="Xóa sản phẩm"> <i class="fa fa-trash-o"></i> </button>
                                                     </template>
                                                 </el-table-column>
                                                 <el-table-column  prop="date" label="Hình ảnh" width="80">
@@ -106,9 +106,9 @@
 <script>
     import {api_get_danh_sach_san_pham_paginate} from "./san_pham";
 
-    import {api_add_bo_phan} from "../nhan_su/bophan/bo_phan";
-    import {api_edit_bo_phan} from "../nhan_su/bophan/bo_phan";
-    import {api_delete_bo_phan} from "../nhan_su/bophan/bo_phan";
+    import {api_add_san_pham} from "./san_pham";
+    import {api_edit_san_pham} from "./san_pham";
+    import {api_delete_san_pham} from "./san_pham";
 
     export default {
         name: 'danhsachsanpham',
@@ -135,32 +135,12 @@
                 limit_sp: 10,
                 total_san_pham: 0,
                 keyword: '',
+                sp: { id: '', ma_sp: '', ten_sp: '' },
                 options_display: [10,20,30],
                 value: ''
             }
         },
         methods: {
-            validate_ma_bp: function () {
-                var length_nv = this.bo_phan.ma_bo_phan.length;
-                var value_nv  = this.bo_phan.ma_bo_phan;
-                if((length_nv > 7 || length_nv < 7) || value_nv.indexOf('BP') == -1 || value_nv.indexOf(' ') > -1){
-                    this.flag_input_ma_bo_phan = true;
-                    this.flag_disabled_submit = true;
-                }
-                else{
-                    this.flag_input_ma_bo_phan = false;
-                    this.flag_disabled_submit = false;
-                }
-            },
-            disable_spaces: function (evt) {
-                evt = (evt) ? evt : window.event;
-                var charCode = (evt.which) ? evt.which : evt.keyCode;
-                if (charCode == 32) {
-                    evt.preventDefault();;
-                } else {
-                    return true;
-                }
-            },
             formatPrice(value) {
                 if(value == '' || value == null ) return ;
                 let val = (value/1).toFixed().replace('.', ',')
@@ -210,21 +190,10 @@
                     this.edit_bo_phan();
                 }
             },
-            click_bo_phan: function (bp) {
-                $('.row-nhom').removeClass("active-click-row");
-                $('#n' + bp.id).addClass("active-click-row");
-            },
-            add_bo_phan: function () {
-                api_add_bo_phan(this);
-            },
-            edit_bo_phan: function() {
-                console.log(this.bo_phan);
-                api_edit_bo_phan(this);
-            },
             delete_san_pham: function(bp) {
-                this.bo_phan = bp;
-                if(this.bo_phan.id <= 0) return -1;
-                api_delete_bo_phan(this);
+                this.sp = bp;
+                if(this.sp.id <= 0) return -1;
+                api_delete_san_pham(this);
             },
             submit_search_san_pham: function () {
 
