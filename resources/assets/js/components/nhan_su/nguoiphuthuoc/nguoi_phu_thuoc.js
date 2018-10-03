@@ -41,6 +41,7 @@ export function api_add_npt(vm) {
         data: vm.$data.npt
     })
         .then((response) => {
+            console.log(response);
             vm.un_change_bnt_save();
             if(response.data == 1){
                 sweetalert(1, 'Thêm thành công!');
@@ -54,11 +55,10 @@ export function api_add_npt(vm) {
             }
             else sweetalert(2, 'Lỗi không thêm được!');
         })
-        .catch((error) => {
-            console.log(error);
-            sweetalert(2, 'Lỗi không thực hiện được chức năng này!');
+        .catch((error)=>{
+             console.log(error);
         })
-}
+    }
 
 export function api_edit_npt(vm) {
     axios({

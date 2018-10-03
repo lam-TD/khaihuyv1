@@ -26,6 +26,7 @@ export function api_get_all_bhyt(vm, page) {
         .then((response) => {
             vm.loading_bhyt = false;
             vm.list_bhyt = response.data.data;
+            console.log(response.data.data);
             vm.total_bhyt = response.data.total;
         })
         .catch((error) => {
@@ -69,6 +70,7 @@ export function api_edit_bhyt(vm) {
         data: vm.$data.bhyt
     })
         .then((response) => {
+            // console.log(response.data);
             vm.un_change_bnt_save();
             if(response.data == 1){
                 sweetalert(1, 'Cập nhật thành công!');

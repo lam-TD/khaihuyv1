@@ -58,8 +58,8 @@
                                     </button>
                                 </div>
                             </div>
-                        </div>
-                        <div class="card-body">
+                        <!--</div>-->
+                        <!--<div class="card-body">-->
                             <div class="message-box contact-box">
                                 <!--<h2 class="add-ct-btn">-->
                                 <!--&lt;!&ndash;<button @click="_npt('add')" title="Thêm mới phòng" type="button" data-toggle="modal" data-target="#myModal" class="btn btn-circle btn-lg btn-success waves-effect waves-dark"><i class="fa fa-plus"></i></button>&ndash;&gt;-->
@@ -113,7 +113,7 @@
                                         <!--</el-pagination>-->
                                     <!--</div>-->
                                     <!--//-->
-                                    <div class="row">
+                                    <div class="row mt-2">
                                         <div class="col-md-12" style="margin-bottom: 10px;">
                                             <el-table :data="list_npt" border style="width: 100%">
                                                 <el-table-column label="#" width="90" align="center">
@@ -129,7 +129,7 @@
                                                 <el-table-column prop="ngay_sinh_npt" label="Ngày sinh"></el-table-column>
                                                 <el-table-column prop="tg_giam_tru_tu" label="TG Giảm trừ từ" width="150"></el-table-column>
                                                 <el-table-column prop="tg_giam_tru_den" label="TG Giảm trừ đến" width="150"></el-table-column>
-                                                <el-table-column prop="ghi_chu" label="Ghi chú"></el-table-column>
+                                                <el-table-column prop="quan_he_nnt" label="Quan hệ"></el-table-column>
                                             </el-table>
                                         </div>
 
@@ -192,71 +192,73 @@
                                                 <div class="form-group row">
                                                     <label class="label-form col-md-2 col-form-label" style="padding-right: 0">Họ tên NPT(*)</label>
                                                     <div class="col-md-10">
-                                                        <input v-model="npt.ho_ten_npt" name="so_bhyt" type="text" class="form-control form-control-sm">
-                                                        <small v-show="errors.has('so_bhyt')" class="help text-muted is-danger">Vui lòng nhập tên người phụ thuộc</small>
+                                                        <input v-model="npt.ho_ten_npt" name="ho_ten_npt" type="text" class="form-control form-control-sm"  v-validate="'required'">
+                                                        <small v-show="errors.has('ho_ten_npt')" class="help text-muted is-danger">Vui lòng nhập tên người phụ thuộc</small>
                                                     </div>
                                                 </div>
 
                                                 <div class="form-group row">
-                                                    <label class="label-form col-md-2 col-form-label">Ngày sinh</label>
+                                                    <label class="label-form col-md-2 col-form-label">Ngày sinh(*)</label>
                                                     <div class="col-md-10">
-                                                        <input v-model="npt.ngay_sinh_npt" name="so_bhyt" type="date" class="form-control form-control-sm">
-                                                        <small v-show="errors.has('so_bhyt')" class="help text-muted is-danger">Vui lòng nhập tên người phụ thuộc</small>
+                                                        <input v-model="npt.ngay_sinh_npt" name="ngay_sinh_npt" type="date" class="form-control form-control-sm"  v-validate="'required|date_format:DD/MM/YYYY'">
+                                                        <small v-show="errors.has('ngay_sinh_npt')" class="help text-muted is-danger">Vui lòng chọn ngày sinh người phụ thuộc</small>
                                                     </div>
                                                 </div>
 
                                                 <div class="form-group row">
-                                                    <label class="label-form col-md-2 col-form-label">Số CMND</label>
+                                                    <label class="label-form col-md-2 col-form-label">Số CMND(*)</label>
                                                     <div class="col-md-10">
-                                                        <input v-on:keypress="only_number_input" v-model="npt.so_cmnd_npt" name="so_cmnd_npt" type="text" class="form-control form-control-sm">
-                                                        <small v-show="errors.has('so_cmnd_npt')" class="help text-muted is-danger">Vui lòng nhập tên người phụ thuộc</small>
+                                                        <input v-on:keypress="only_number_input" v-model="npt.so_cmnd_npt" name="so_cmnd_npt" type="text" class="form-control form-control-sm" v-validate="'required|min:9|numeric'">
+                                                        <small v-show="errors.has('so_cmnd_npt')" class="help text-muted is-danger">Vui lòng nhập số chứng minh người phụ thuộc</small>
                                                     </div>
                                                 </div>
 
                                                 <div class="form-group row">
-                                                    <label class="label-form col-md-2 col-form-label">MST NPT</label>
+                                                    <label class="label-form col-md-2 col-form-label">MST NPT(*)</label>
                                                     <div class="col-md-10">
-                                                        <input v-on:keypress="only_number_input" v-model="npt.mst_npt" name="mst_npt" type="text" class="form-control form-control-sm">
-                                                        <small v-show="errors.has('mst_npt')" class="help text-muted is-danger">Vui lòng nhập tên người phụ thuộc</small>
+                                                        <input v-on:keypress="only_number_input" v-model="npt.mst_npt" name="mst_npt" type="text" class="form-control form-control-sm" v-validate="'required|min:9|numeric'">
+                                                        <small v-show="errors.has('mst_npt')" class="help text-muted is-danger">Vui lòng nhập mã số thuế người phụ thuộc</small>
                                                     </div>
                                                 </div>
 
                                                 <div class="form-group row">
-                                                    <label class="label-form col-md-2 col-form-label" style="padding-right: 0">Mã quốc tịch</label>
+                                                    <label class="label-form col-md-2 col-form-label" style="padding-right: 0">Mã QT(*)</label>
                                                     <div class="col-md-4">
-                                                        <input v-model="npt.ma_quoc_tich_npt" name="mst_npt" type="text" class="form-control form-control-sm">
-                                                        <small v-show="errors.has('mst_npt')" class="help text-muted is-danger">Vui lòng nhập tên người phụ thuộc</small>
+                                                        <input v-model="npt.ma_quoc_tich_npt" name="ma_quoc_tich_npt" type="text" class="form-control form-control-sm" v-validate="'required|min:2'">
+                                                        <small v-show="errors.has('ma_quoc_tich_npt')" class="help text-muted is-danger">Vui lòng nhập mã quốc tịch người phụ thuộc</small>
                                                     </div>
 
-                                                    <label class="label-form col-md-2 col-form-label">Quốc tịch</label>
+                                                    <label class="label-form col-md-2 col-form-label">Quốc tịch(*)</label>
                                                     <div class="col-md-4">
-                                                        <input v-model="npt.quoc_tich_npt" name="quoc_tich_npt" type="text" class="form-control form-control-sm">
-                                                        <small v-show="errors.has('quoc_tich_npt')" class="help text-muted is-danger">Vui lòng nhập tên người phụ thuộc</small>
+                                                        <input v-model="npt.quoc_tich_npt" name="quoc_tich_npt" type="text" class="form-control form-control-sm" v-validate="'required|min:5'">
+                                                        <small v-show="errors.has('quoc_tich_npt')" class="help text-muted is-danger">Vui lòng nhập quốc tịch người phụ thuộc</small>
                                                     </div>
                                                 </div>
 
                                                 <div class="form-group row">
-                                                    <label class="label-form col-md-2 col-form-label" style="padding-right: 0">Mã quan hệ</label>
+                                                    <label class="label-form col-md-2 col-form-label" style="padding-right: 0">Mã QH(*)</label>
                                                     <div class="col-md-4">
-                                                        <input v-model="npt.ma_quan_he_nnt" name="quoc_tich_npt" type="text" class="form-control form-control-sm">
-                                                        <small v-show="errors.has('quoc_tich_npt')" class="help text-muted is-danger">Vui lòng nhập tên người phụ thuộc</small>
+                                                        <input v-model="npt.ma_quan_he_nnt" name="ma_quan_he_nnt" type="text" class="form-control form-control-sm" v-validate="'required'">
+                                                        <small v-show="errors.has('ma_quan_he_nnt')" class="help text-muted is-danger">Vui lòng nhập mã quan hệ người phụ thuộc</small>
                                                     </div>
 
-                                                    <label class="label-form col-md-2 col-form-label">Quan hệ</label>
+                                                    <label class="label-form col-md-2 col-form-label">Quan hệ(*)</label>
                                                     <div class="col-md-4">
-                                                        <input v-model="npt.quan_he_nnt" name="quoc_tich_npt" type="text" class="form-control form-control-sm">
-                                                        <small v-show="errors.has('quoc_tich_npt')" class="help text-muted is-danger">Vui lòng nhập tên người phụ thuộc</small>
+                                                        <input v-model="npt.quan_he_nnt" name="quan_he_nnt" type="text" class="form-control form-control-sm" v-validate="'required|min:3'">
+                                                        <small v-show="errors.has('quan_he_nnt')" class="help text-muted is-danger">Vui lòng nhập quan hệ người phụ thuộc</small>
                                                     </div>
                                                 </div>
 
                                                 <div class="form-group row">
-                                                    <label class="label-form col-md-2 col-form-label" style="padding-right: 0">TG giảm trừ</label>
+                                                    <label class="label-form col-md-2 col-form-label" style="padding-right: 0">TG giảm trừ(*)</label>
                                                     <div class="col-md-4">
-                                                        <input v-model="npt.tg_giam_tru_tu" name="quoc_tich_npt" type="date" class="form-control form-control-sm">
+                                                        <input v-model="npt.tg_giam_tru_tu" name="tg_giam_tru_tu" type="date" class="form-control form-control-sm" ref="giam_tru_tu" v-validate="'required|date_format:MM/DD/YYYY|before:giam_tru_den'">
+                                                        <small v-show="errors.has('tg_giam_tru_tu')" class="help text-muted is-danger">Vui lòng chọn thời gian giảm trừ từ</small>
                                                     </div>
-                                                    <label class="label-form col-md-2 col-form-label" style="padding-right: 0">Đến</label>
+                                                    <label class="label-form col-md-2 col-form-label" style="padding-right: 0">Đến(*)</label>
                                                     <div class="col-md-4">
-                                                        <input v-model="npt.tg_giam_tru_den" name="tg_giam_tru_den" type="date" class="form-control form-control-sm">
+                                                        <input v-model="npt.thoi_gian_giam_tru_den" name="thoi_gian_giam_tru_den" type="date" class="form-control form-control-sm" ref="giam_tru_den" v-validate="'required|date_format:MM/DD/YYYY|after:giam_tru_tu'">
+                                                        <small v-show="errors.has('thoi_gian_giam_tru_den')" class="help text-muted is-danger">Vui lòng chọn thời gian giảm trừ đến</small>
                                                     </div>
                                                 </div>
                                             </div>
@@ -333,7 +335,7 @@
                 evt = (evt) ? evt : window.event;
                 var charCode = (evt.which) ? evt.which : evt.keyCode;
                 if ((charCode > 31 && (charCode < 48 || charCode > 57)) && charCode !== 46) {
-                    evt.preventDefault();;
+                    evt.preventDefault();
                 } else {
                     return true;
                 }
@@ -413,21 +415,25 @@
                     console.log(bophan);
                     this.npt.id = bophan.id; this.npt.ma_nv = bophan.ma_nv; this.npt.ho_ten_npt = bophan.ho_ten_npt; this.npt.ngay_sinh_npt = bophan.ngay_sinh_npt;
                     this.npt.so_cmnd_npt = bophan.so_cmnd_npt; this.npt.mst_npt = bophan.mst_npt; this.npt.ma_quoc_tich_npt = bophan.ma_quoc_tich_npt; this.npt.quoc_tich_npt = bophan.quoc_tich_npt;
-                    this.npt.ma_quan_he_nnt = bophan.ma_quan_he_nnt; this.npt.tg_giam_tru_tu = bophan.tg_giam_tru_tu; this.npt.tg_giam_tru_den = bophan.tg_giam_tru_den; this.npt.ghi_chu = bophan.ghi_chu;
+                    this.npt.ma_quan_he_nnt = bophan.ma_quan_he_nnt; this.npt.quan_he_nnt = bophan.quan_he_nnt; this.npt.tg_giam_tru_tu = bophan.tg_giam_tru_tu; this.npt.tg_giam_tru_den = bophan.tg_giam_tru_den; this.npt.ghi_chu = bophan.ghi_chu;
                 }
             },
             submit_npt: function () {
-                if(this.npt.id_nhan_vien == '') { this.error_select_nhan_vien = true; return 1}
-                if(this.flag_submit_npt) {
-                    this.flag_input_npt = false;
-                    this.add_npt();
-                }
-                else {
-                    console.log(this.npt);
-                    this.nhom = this.nhom_selected;
-                    this.flag_input_npt = true;
-                    this.edit_npt();
-                }
+                this.$validator.validateAll().then((result) => {
+                    if (result) {
+                        if(this.npt.id_nhan_vien == '') { this.error_select_nhan_vien = true; return 1}
+                        if(this.flag_submit_npt) {
+                            this.flag_input_npt = false;
+                            this.add_npt();
+                        }
+                        else {
+                            console.log(this.npt);
+                            this.nhom = this.nhom_selected;
+                            this.flag_input_npt = true;
+                            this.edit_npt();
+                        }
+                    }
+                })
             },
             click_npt: function (bp) {
                 $('.row-nhom').removeClass("active-click-row");
@@ -468,6 +474,13 @@
 </script>
 
 <style scoped>
+    .label-form{
+        padding-right: 0;
+    }
+    .el-table .cell
+    {
+        display: block;
+    }
     .row-nhom:hover {
         cursor: pointer;
         color: black;

@@ -219,8 +219,17 @@
                                                             <!--<el-radio :label="1">Có</el-radio>-->
                                                             <!--<el-radio :label="0">Không</el-radio>-->
                                                         <!--</el-radio-group>-->
-                                                        <el-radio v-model="cham_cong" :label="1">Có</el-radio>
-                                                        <el-radio v-model="cham_cong" :label="0">Không</el-radio>
+                                                        <!--<el-radio v-model="cham_cong" :label="1">Có</el-radio>-->
+                                                        <!--<el-radio v-model="cham_cong" :label="0">Không</el-radio>-->
+                                                        <el-select v-model="cham_cong" placeholder="Select" size="small" style="width: 100%">
+                                                            <el-option
+                                                                    v-for="item in list_cham_cong"
+                                                                    :key="item.value"
+                                                                    :label="item.label"
+                                                                    :value="item.value">
+                                                            </el-option>
+                                                        </el-select>
+
                                                     </div>
                                                 </div>
 
@@ -304,6 +313,16 @@
         },
         data () {
             return {
+                list_cham_cong: [
+                    {
+                        value: 1,
+                        label: 'Có'
+                    },
+                    {
+                        value: 0,
+                        label: 'Không'
+                    }
+                ],
                 list_bo_phan: [],
                 list_phong_ban: [],
                 bo_phan: '',
@@ -432,7 +451,7 @@
 
                     this.ttcv.id = cv.cv_id;
                     this.ttcv.ngay = cv.ngay; this.ttcv.tinh_trang = cv.tinh_trang; this.ttcv.he_so_luong = cv.he_so_luong;
-                    this.ttcv.luong_co_ban = cv.luong_co_ban; this.ttcv.htcv = cv.htcv; this.ghi_chu = cv.ghi_chu;
+                    this.ttcv.luong_co_ban = cv.luong_co_ban; this.ttcv.htcv = cv.htcv; this.ttcv.ghi_chu = cv.ghi_chu;
                     this.ttcv.nv_ma = cv.nv_ma; this.ttcv.bo_phan_ma; this.ttcv.phong_ma = cv.phong_ma;this.ttcv.vi_tri_ma = cv.vi_tri_ma;
                     this.ttcv.thoi_gian_lv_bd = cv.thoi_gian_lv_bd; this.ttcv.thoi_gian_lv_kt = cv.thoi_gian_lv_kt; this.ttcv.cham_cong = cv.cham_cong;
                 }

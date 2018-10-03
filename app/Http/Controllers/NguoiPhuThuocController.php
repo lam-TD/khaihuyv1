@@ -26,6 +26,14 @@ class NguoiPhuThuocController extends Controller
 
     public function add_nhan_vien_npt(Request $request)
     {
+//        $this->validate($request,
+//        [
+//            'tg_giam_tru_tu' => 'required'
+//        ],
+//        [
+//            'tg_giam_tru_tu.required'=>'Hãy chọn Tỉnh/Thành phố'
+//        ]);
+
         $npt = new nguoi_phu_thuoc();
         $npt->ma_nv = $request->ma_nv;
         $npt->ho_ten_npt = $request->ho_ten_npt;

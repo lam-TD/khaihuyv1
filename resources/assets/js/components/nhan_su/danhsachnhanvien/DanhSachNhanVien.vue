@@ -188,10 +188,18 @@
                                                         <!--<option value="0" :selected="true">Nữ</option>-->
                                                         <!--<option value="1">Nam</option>-->
                                                         <!--</select>-->
-                                                        <el-radio-group v-model="nhan_vien.gioi_tinh" style="width: 100%">
-                                                            <el-radio :label="0">Nữ</el-radio>
-                                                            <el-radio :label="1">Nam</el-radio>
-                                                        </el-radio-group>
+                                                        <!--<el-radio-group v-model="nhan_vien.gioi_tinh" style="width: 100%">-->
+                                                            <!--<el-radio :label="0">Nữ</el-radio>-->
+                                                            <!--<el-radio :label="1">Nam</el-radio>-->
+                                                        <!--</el-radio-group>-->
+                                                        <el-select v-model="nhan_vien.gioi_tinh" placeholder="Select" size="small" style="width: 100%">
+                                                            <el-option
+                                                                    v-for="item in list_gioi_tinh"
+                                                                    :key="item.value"
+                                                                    :label="item.label"
+                                                                    :value="item.value">
+                                                            </el-option>
+                                                        </el-select>
                                                     </div>
                                                 </div>
 
@@ -805,6 +813,16 @@
         },
         data(){
             return {
+                list_gioi_tinh:[
+                    {
+                        value: 1,
+                        label: "Nam"
+                    },
+                    {
+                        value: 0,
+                        label: "Nữ"
+                    }
+                ],
                 list_tinh_thanh: [],
                 tinh_thanh: null,
                 list_quan_huyen: [],
@@ -844,7 +862,7 @@
                     ngay_sinh: '',
                     noi_sinh_tinh_thanh: '',
                     quoc_tich: 'Việt Nam',
-                    gioi_tinh: '0',
+                    gioi_tinh: 0,
                     so_cmnd: '',
                     scmnd_noi_cap: '',
                     scmnd_ngay_cap: '',
@@ -1038,7 +1056,7 @@
                     this.flag_submit_nhan_vien_tt_ca_nhan = true;
                     this.flag_input_nhan_vien_tt = false;
                     $('#wizardPicturePreview').attr('src', 'https://cdn0.vox-cdn.com/images/verge/default-avatar.v9899025.gif').fadeIn('slow');
-                    this.nhan_vien = { id: 0, ma_nv: '', ho_ten: '', ngay_sinh: '', noi_sinh_tinh_thanh: '', quoc_tich: 'Việt Nam', gioi_tinh: '0', so_cmnd: '', scmnd_noi_cap: '', scmnd_ngay_cap: '', thuong_tru: '',
+                    this.nhan_vien = { id: 0, ma_nv: '', ho_ten: '', ngay_sinh: '', noi_sinh_tinh_thanh: '', quoc_tich: 'Việt Nam', gioi_tinh: 0, so_cmnd: '', scmnd_noi_cap: '', scmnd_ngay_cap: '', thuong_tru: '',
                             thuong_tru_tinh_thanh: '', thuong_tru_quan_huyen: '', tam_tru: '', tam_tru_tinh_thanh: '', tam_tru_quan_huyen: '', di_dong_1: '',
                             di_dong_2: '', dt_ban: '', mst_cn: '', mst_cn_noi_cap: '', cc_thue_cap: '', avatar: '',
                             image: '', tinh_trang: 0, tam_tru_tinh_thanh: '', thuong_tru_tinh_thanh: ''
