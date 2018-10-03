@@ -49,6 +49,37 @@ export function api_get_danh_sach_san_pham_paginate(vm, page) {
         })
 }
 
+export function api_get_search_san_pham_paginate(vm, page) {
+    axios({
+        method: 'GET',
+        url: 'api/get-search-san-pham-paginate/' + vm.keyword + '&' + vm.limit_sp +'?page=' + page,
+        headers: {'Authorization':'Bearer ' + vm.$store.state.currentUser.token}
+    })
+        .then((response) => {
+            vm.loading_dsnv = false;
+            vm.list_san_pham = response.data.data;
+            vm.total_san_pham = response.data.total;
+            // console.log(vm.list_san_pham);
+        })
+        .catch((error) => {
+            console.log(error);
+        })
+}
+
+export function api_get_ma_san_pham_ke_tiep(vm) {
+    axios({
+        method: 'GET',
+        url: 'api/get-ma-san-pham-ke-tiep',
+        headers: {'Authorization':'Bearer ' + vm.$store.state.currentUser.token}
+    })
+        .then((response) => {
+            vm.sp.ma_sp = response.data;
+        })
+        .catch((error) => {
+            console.log(error);
+        })
+}
+
 export function api_get_thong_tin_san_pham_theo_id(vm) {
     axios({
         method: 'GET',
@@ -97,7 +128,7 @@ export function api_add_san_pham(vm) {
         .then((response) => {
             // vm.un_change_bnt_save();
             if(response.data >= 1){
-                api_upload_image_san_pham(vm, response.data)
+                api_upload_image_san_pham(vm, response.data,1)
             }
             else if(response.data == 0){
                 sweetalert(0, 'Mã sản phẩm đã tồn tại!');
@@ -122,8 +153,8 @@ export function api_edit_san_pham(vm) {
         .then((response) => {
             // vm.un_change_bnt_save();
             if(response.data >= 1){
-                sweetalert(1, 'Cập nhật thành công!');
-                api_upload_image_san_pham(vm, vm.sp.id);
+                // sweetalert(1, 'Cập nhật thành công!');
+                api_upload_image_san_pham(vm, vm.sp.id,2);
             }
             else sweetalert(2, 'Lỗi không cập nhật được!');
         })
@@ -162,22 +193,26 @@ export function api_delete_san_pham(vm) {
         });
 }
 
-export function api_upload_image_san_pham(vm, id_san_pham) {
+export function api_upload_image_san_pham(vm, id_san_pham, type) {
     let formData = new FormData();
     let elem = document.querySelector('.el-upload__input');
     console.log(elem.files);
+    if(elem.files.length == 0 && type == 1){
+        sweetalert(1, 'Thêm mới thành công!');
+        vm.$router.push({path: '/danhsachsanpham'});
+        return 1;
+    }
+
+    if(elem.files.length == 0 && type == 2){
+        sweetalert(1, 'Cập nhật thành công!');
+        vm.$router.push({path: '/danhsachsanpham'});
+        return 1;
+    }
+
+
     for (let i = 0; i < elem.files.length; i++) {
         formData.append(`file[${i}]`, elem.files[i]);
     }
-
-    // axios.post( 'api/upload-img/14',
-    //     formData,
-    // ).then((response) => {
-    //     console.log(response.data);
-    // })
-    //     .catch((error) => {
-    //         console.log(error);
-    //     })
 
     axios({
         method: 'POST',
@@ -193,7 +228,7 @@ export function api_upload_image_san_pham(vm, id_san_pham) {
             else{
                 sweetalert(0, 'Lỗi không thêm được ảnh sản phẩm!');
             }
-            // vm.$router.push({path: '/danhsachsanpham'});
+            vm.$router.push({path: '/danhsachsanpham'});
         })
         .catch((error) => {
             console.log(error);

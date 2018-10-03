@@ -47,16 +47,16 @@ class UploadImageController extends Controller
     public function delete_img(Request $request, $id)
     {
         $path = 'public/images/san_pham/'.$id . '/' . $request->name;
-        if(!File::exists($path)) {
+        if(file_exists($path)) {
             unlink($path);
-            return $path;
-        }
-
-        $sp = san_pham::where('id',$id)->first();
-        $arr_image = json_decode($sp->image);
-        $index = array_search($request->name, $arr_image);
-        if($index !== false){
-            unset($arr_image[$index]);
+            $sp = san_pham::where('id',$id)->first();
+            $arr_image = json_decode($sp->image);
+            $index = array_search($request->name, $arr_image);
+            if($index !== false){
+                unset($arr_image[$index]);
+//            return $arr_image;
+                san_pham::where('id',$id)->update(['image' => json_encode(array_values($arr_image))]);
+            }
         }
         return 1;
     }

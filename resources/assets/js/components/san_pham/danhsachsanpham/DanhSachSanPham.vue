@@ -43,6 +43,7 @@
                                                         <button @click="delete_san_pham(scope.row)" class="btn btn-danger btn-sm" title="Xóa sản phẩm"> <i class="fa fa-trash-o"></i> </button>
                                                     </template>
                                                 </el-table-column>
+                                                <el-table-column type="index" label="TT" width="50"></el-table-column>
                                                 <el-table-column  prop="date" label="Hình ảnh" width="80">
                                                     <template slot-scope="scope">
                                                         <img :src="parse_img(scope.row)" alt="" class="img-sanpham">
@@ -55,7 +56,9 @@
                                                         <div class="limit-text" v-html="scope.row.dien_giai"></div>
                                                     </template>
                                                 </el-table-column>
-                                                <el-table-column prop="created_at" label="Ngày tạo"></el-table-column>
+                                                <el-table-column label="Ngày tạo">
+                                                    <template slot-scope="scope">{{sort_date(scope.row.created_at)}}</template>
+                                                </el-table-column>
                                                 <el-table-column prop="full_vat_dealer" label="Dealer">
                                                     <template slot-scope="scope">
                                                         {{formatPrice(scope.row.full_vat_dealer)}}
@@ -74,7 +77,7 @@
                                                     <span>Hiển thị</span>
                                                 </div>
                                                 <div class="col-md-1 col-sm-2 col-4 tb-hienthi" style="padding-left: 4px;">
-                                                    <el-select v-model="value" placeholder="10" size="small">
+                                                    <el-select v-model="value" placeholder="10" size="small" @change="danh_sach_san_pham_limit">
                                                         <el-option v-for="item in options_display" :key="item" :label="item" :value="item"></el-option>
                                                     </el-select>
                                                 </div>
@@ -105,6 +108,7 @@
 
 <script>
     import {api_get_danh_sach_san_pham_paginate} from "./san_pham";
+    import {api_get_search_san_pham_paginate} from "./san_pham";
     import {api_delete_san_pham} from "./san_pham";
 
     export default {
@@ -122,9 +126,7 @@
                 loading_bo_phan: true,
                 list_san_pham: [],
                 flag_btn: true,
-                flag_submit_bo_phan: true,
                 flag_input_bo_phan: false,
-                flag_body_modal: false,
                 flag_btn_save: true,
                 flag_disabled_submit: false,
                 flag_input_ma_bo_phan: false,
@@ -132,6 +134,7 @@
                 limit_sp: 10,
                 total_san_pham: 0,
                 keyword: '',
+                flag_submit_search: false,
                 sp: { id: '', ma_sp: '', ten_sp: '' },
                 options_display: [10,20,30],
                 value: ''
@@ -152,39 +155,27 @@
                 let path = 'public/images/san_pham/' + json.id + '/' + img[0];
                 return path;
             },
+            sort_date: function (day) {
+                return day.slice(0,10);
+            },
             getSanPham: function (page = 1) {
                 this.loading_bo_phan = true;
-                api_get_danh_sach_san_pham_paginate(this, page);
-            },
-            _san_pham: function (state, bophan = null) {
-                if(state == 'add') {
-                    console.log('add nhom');
-                    this.flag_btn = true;
-                    $('.row-nhom').removeClass("active-click-row");
-                    this.flag_submit_bo_phan = true;
-                    this.flag_input_bo_phan = false;
-                    this.bo_phan = { id: 0, ma_bo_phan: '', ten_bo_phan: '', dien_giai: '' }
+                // api_get_danh_sach_san_pham_paginate(this, page);
+                if(this.flag_submit_search){
+                    api_get_search_san_pham_paginate(this,page);
                 }
-                else {
-                    // this.bo_phan = bophan;
-                    this.bo_phan.id = bophan.id;
-                    this.bo_phan.ma_bo_phan = bophan.ma_bo_phan;
-                    this.bo_phan.ten_bo_phan = bophan.ten_bo_phan;
-                    this.bo_phan.dien_giai = bophan.dien_giai;
-                    this.flag_submit_bo_phan = false;
-                    this.flag_input_bo_phan = true;
+                else{
+                    api_get_danh_sach_san_pham_paginate(this, page);
                 }
             },
-            submit_bo_phan: function () {
-                this.change_bnt_save();
-                if(this.flag_submit_bo_phan) {
-                    this.flag_input_bo_phan = false;
-                    this.add_bo_phan();
+            danh_sach_san_pham_limit: function (limit) {
+                this.currentPage = 1;
+                this.limit_sp = limit;
+                if(this.flag_submit_search){
+                    api_get_search_san_pham_paginate(this,1);
                 }
-                else {
-                    this.nhom = this.nhom_selected;
-                    this.flag_input_bo_phan = true;
-                    this.edit_bo_phan();
+                else{
+                    api_get_danh_sach_san_pham_paginate(this, 1);
                 }
             },
             delete_san_pham: function(bp) {
@@ -193,7 +184,12 @@
                 api_delete_san_pham(this);
             },
             submit_search_san_pham: function () {
-
+                if(this.keyword == '' || this.keyword == null){
+                    this.flag_submit_search = false;
+                    api_get_danh_sach_san_pham_paginate(this, 1);
+                }
+                this.flag_submit_search = true;
+                api_get_search_san_pham_paginate(this,1);
             },
             change_bnt_save: function () {
                 this.flag_btn_save = false;
@@ -296,5 +292,9 @@
         border: 1px solid #1976d2;
         -webkit-box-shadow: 0 14px 26px -12px rgba(23, 105, 255, 0.42), 0 4px 23px 0 rgba(0, 0, 0, 0.12), 0 8px 10px -5px rgba(23, 105, 255, 0.2);
         box-shadow: 0 14px 26px -12px rgba(23, 105, 255, 0.42), 0 4px 23px 0 rgba(0, 0, 0, 0.12), 0 8px 10px -5px rgba(23, 105, 255, 0.2);
+    }
+
+    .has-gutter tr th .cell {
+        font-weight: 800;
     }
 </style>

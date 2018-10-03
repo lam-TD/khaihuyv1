@@ -134,10 +134,7 @@
                                                         :data="list_danh_muc"
                                                         stripe
                                                         style="width: 100%">
-                                                    <el-table-column
-                                                            type="index"
-                                                            width="50">
-                                                    </el-table-column>
+                                                    <el-table-column type="index" width="50"></el-table-column>
                                                     <el-table-column
                                                             label="Thao tác" width="90" align="center">
                                                         <template slot-scope="scope" class="text-center" style="width: 100%">

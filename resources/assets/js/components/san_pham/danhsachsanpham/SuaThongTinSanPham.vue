@@ -171,7 +171,7 @@
                                                 <div class="form-group row" style="margin-bottom: 10px">
                                                     <label class="label-form col-md-2 col-sm-12 col-12">DISTRI</label>
                                                     <div class="col-sm-10 col-12">
-                                                        <input v-model="sp.distri" type="text" class="form-control" id="tt8d9" placeholder="">
+                                                        <input disabled v-model="distri_lam" type="text" class="form-control" id="tt8d9" placeholder="">
                                                     </div>
                                                 </div>
                                                 <div class="" style="height: 1px;width: 100%;border-bottom: 1px dashed #ddd"></div>
@@ -218,6 +218,7 @@
                                             <div class="col-md-12">
                                                 <hr>
                                                 <div class="form-actions pull-right">
+                                                    <router-link to="/danhsachsanpham" type="button" class="btn btn-warning"> <i class="fa fa-backward"></i> Quay về</router-link>
                                                     <button type="submit" class="btn btn-success"> <i class="fa fa-save"></i> Cập nhật</button>
                                                     <!--<button type="button" class="btn btn-inverse">Hủy</button>-->
                                                 </div>
@@ -260,11 +261,10 @@
             api_get_all_danh_muc_san_pham(this);
             api_get_thong_tin_san_pham_theo_id(this);
         },
-        updated () {
-
-        },
-        beforeDestroy() {
-
+        computed: {
+            distri_lam () {
+                return (parseInt(this.sp.deal_1) + parseInt(this.sp.deal_2) + parseInt(this.sp.deal_3))/3;
+            }
         },
         watch: {
 
@@ -316,7 +316,7 @@
             onSubmit: function () {
                 this.sp.danh_muc_id = this.danh_muc.danh_muc_id;
                 this.sp.dvt_id = this.don_vi_tinh.id;
-                // this.sp.tk_ke_toan_id = this.tk_ke_toan.ma_tk;
+                this.sp.distri = this.distri_lam;
                 console.log(this.tk_ke_toan.ma_tk);
                 // return 1;
                 api_edit_san_pham(this);

@@ -28,9 +28,24 @@ class SanPhamController extends Controller
             ->join('danh_muc_san_pham','san_pham.danh_muc_id', '=', 'danh_muc_san_pham.danh_muc_id')
             ->select('san_pham.id','san_pham.danh_muc_id','danh_muc_san_pham.tieu_de','san_pham.ma_sp','san_pham.ten_sp','san_pham.dvt_id',
                 'san_pham.net','san_pham.dien_giai','san_pham.full_vat_dealer','san_pham.full_vat_end_user',
-                'san_pham.created_at','san_pham.image','don_vi_tinh.ten_dvt','san_pham.tk_ke_toan_id', 'san_pham.deal_1','san_pham.deal_2','san_pham.deal_3','san_pham.deal_1_sl','san_pham.deal_2_sl','san_pham.deal_3_sl')
+                'san_pham.created_at','san_pham.image','don_vi_tinh.ten_dvt','san_pham.tk_ke_toan_id', 'san_pham.deal_1','san_pham.deal_2',
+                'san_pham.deal_3','san_pham.deal_1_sl','san_pham.deal_2_sl','san_pham.deal_3_sl','san_pham.cong_dv')
             ->where('san_pham.id',$id)
             ->first();
+        return ($sp);
+    }
+
+    public function search_san_pham($keyword, $limit)
+    {
+        $sp = san_pham::join('don_vi_tinh', 'san_pham.dvt_id', '=', 'don_vi_tinh.id')
+            ->join('danh_muc_san_pham','san_pham.danh_muc_id', '=', 'danh_muc_san_pham.danh_muc_id')
+            ->select('san_pham.id','san_pham.danh_muc_id','danh_muc_san_pham.tieu_de','san_pham.ma_sp','san_pham.ten_sp','san_pham.dvt_id',
+                'san_pham.net','san_pham.dien_giai','san_pham.full_vat_dealer','san_pham.full_vat_end_user',
+                'san_pham.created_at','san_pham.image','don_vi_tinh.ten_dvt')
+            ->orwhere('san_pham.ma_sp','LIKE','%'.$keyword.'%')
+            ->orwhere('san_pham.ten_sp','LIKE','%'.$keyword.'%')
+            ->orderby('id','desc')
+            ->paginate($limit);
         return ($sp);
     }
 
@@ -38,6 +53,7 @@ class SanPhamController extends Controller
     {
 //        return $request->all();
         try{
+            if($this->check_ma_san_pham($request->ma_sp) == 1) return 0;
             $sp = new san_pham();
             $sp->ma_sp           = $request->ma_sp;
             $sp->ten_sp          = $request->ten_sp;
@@ -67,6 +83,39 @@ class SanPhamController extends Controller
             return $e;
         }
 
+    }
+
+    public function get_ma_san_pham_ke_tiep()
+    {
+        $bo_phan_first = san_pham::orderBy('ma_sp', 'desc')->first();
+        $ma_bo_phan_first = $bo_phan_first->ma_sp;
+        $so = (int)substr($ma_bo_phan_first,2) + 1;
+        $str = 'MH';
+        if($so > 99999) return 0;
+        if($so < 10){
+            $str .= "0000" . $so;
+        }
+        else if ($so < 100){
+            $str .= "000" . $so;
+        }
+        else if($so < 1000){
+            $str .= "00" . $so;
+        }
+        else if($so < 10000){
+            $str .= "0" . $so;
+        }
+        else{
+            $str .= $so;
+        }
+        return $str;
+
+    }
+
+    public function check_ma_san_pham($ma_sp)
+    {
+        $sp = san_pham::where('ma_sp',$ma_sp)->get();
+        (count($sp) == 0) ? $result = -1: $result = 1;
+        return $result;
     }
 
     public function edit_san_pham(Request $request)

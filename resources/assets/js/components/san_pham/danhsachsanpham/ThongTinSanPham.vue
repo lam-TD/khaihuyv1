@@ -33,8 +33,9 @@
                                                     <label class="label-form col-md-2 col-sm-12 col-12">Mã hàng</label>
                                                     <div class="col-sm-10 col-12">
                                                         <!--<input type="text" class="form-control" id="wew1" placeholder="">-->
-                                                        <input v-model="sp.ma_sp" v-validate="'required'" :class="{'border-danger' : errors.has('txtmahang')}" class="form-control" name="txtmahang" type="text" autofocus>
-                                                        <small v-show="errors.has('txtmahang')" class="help text-muted is-danger">Vui lòng nhập mã hàng</small>
+                                                        <input @input="validate_ma_bp" v-on:keypress="disable_spaces" v-model="sp.ma_sp" v-bind:maxlength="7" v-validate="'required'" :class="{'border-danger' : errors.has('txtmahang')}" class="form-control" name="txtmahang" type="text" autofocus>
+                                                        <small v-show="errors.has('txtmahang') || flag_input_ma_san_pham" class="help text-muted is-danger">Mã hàng phải có 7 ký tự, bắt đầu bằng MH</small>
+                                                        <!--<small v-if="flag_input_ma_bo_phan" class="help text-muted is-danger">Mã hàng phải có 7 ký tự, bắt đầu bằng MH</small>-->
                                                     </div>
                                                 </div>
 
@@ -79,7 +80,7 @@
                                                 <div class="form-group row">
                                                     <label class="label-form col-md-2 col-sm-12 col-12">Hình ảnh</label>
                                                     <div class="col-sm-10 col-12 pb-2">
-                                                        <button class="btn btn-info btn-sm" type="button" @click="upload_img"><i class="fa fa-upload"></i> Tải ảnh lên</button>
+                                                        <!--<button class="btn btn-info btn-sm" type="button" @click="upload_img"><i class="fa fa-upload"></i> Tải ảnh lên</button>-->
                                                     </div>
                                                     <div class="col-md-12">
                                                         <!--<input type="file" @change="change_image">-->
@@ -97,15 +98,12 @@
                                                                 :on-remove="handleRemove">
                                                             <i class="el-icon-plus"></i>
                                                         </el-upload>
+                                                        <el-dialog :visible.sync="dialogVisible">
+                                                            <img width="100%" :src="dialogImageUrl" alt="">
+                                                        </el-dialog>
                                                     </div>
                                                 </div>
 
-                                                <!--<div class="form-group row">-->
-                                                    <!--<label style="padding-right: 0" class="label-form col-md-2 col-sm-12 col-12">Nhóm hàng</label>-->
-                                                    <!--<div class="col-sm-10 col-12">-->
-                                                        <!--<input type="text" class="form-control" id="tssSt66" placeholder="">-->
-                                                    <!--</div>-->
-                                                <!--</div>-->
                                             </div>
 
                                             <div class="col-md-6">
@@ -116,7 +114,7 @@
                                                 <div class="form-group row" style="margin-bottom: 10px">
                                                     <label class="label-form col-md-2 col-sm-12 col-12">Dealer</label>
                                                     <div class="col-sm-4 col-12">
-                                                        <input v-model="sp.full_vat_dealer" v-on:keypress="only_number_input" type="text" class="form-control" placeholder="">
+                                                        <input @input="format_money(sp.full_vat_dealer)" v-model="sp.full_vat_dealer" v-on:keypress="only_number_input" type="text" class="form-control" placeholder="">
                                                     </div>
                                                     <label class="label-form col-md-2 col-sm-12 col-12">Enduser</label>
                                                     <div class="col-sm-4 col-12">
@@ -134,7 +132,7 @@
                                                     </div>
                                                     <label class="label-form col-md-2 col-sm-12 col-12"> Số lượng</label>
                                                     <div class="col-sm-2 col-12">
-                                                        <input v-model="sp.deal_1_sl" v-on:keypress="only_number_input" type="number" class="form-control" id="tt890h" placeholder="">
+                                                        <input v-model="sp.deal_1_sl" min="0" v-on:keypress="only_number_input" type="number" class="form-control" id="tt890h" placeholder="">
                                                     </div>
                                                 </div>
 
@@ -145,7 +143,7 @@
                                                     </div>
                                                     <label class="label-form col-md-2 col-sm-12 col-12"> Số lượng</label>
                                                     <div class="col-sm-2 col-12">
-                                                        <input v-model="sp.deal_2_sl" v-on:keypress="only_number_input" type="number" class="form-control" id="tt890yf" placeholder="">
+                                                        <input v-model="sp.deal_2_sl" min="0" v-on:keypress="only_number_input" type="number" class="form-control" id="tt890yf" placeholder="">
                                                     </div>
                                                 </div>
 
@@ -157,7 +155,7 @@
                                                     </div>
                                                     <label class="label-form col-md-2 col-sm-12 col-12"> Số lượng</label>
                                                     <div class="col-sm-2 col-12">
-                                                        <input v-model="sp.deal_3_sl" v-on:keypress="only_number_input" type="number" class="form-control" id="tt890rr" placeholder="">
+                                                        <input v-model="sp.deal_3_sl" min="0" v-on:keypress="only_number_input" type="number" class="form-control" id="tt890rr" placeholder="">
                                                     </div>
                                                 </div>
                                                 <div class="" style="height: 1px;width: 100%;border-bottom: 1px dashed #ddd"></div>
@@ -166,7 +164,7 @@
                                                 <div class="form-group row" style="margin-bottom: 10px">
                                                     <label class="label-form col-md-2 col-sm-12 col-12">DISTRI</label>
                                                     <div class="col-sm-10 col-12">
-                                                        <input v-model="sp.distri" type="text" class="form-control" id="tt8d9" placeholder="">
+                                                        <input disabled v-model="distri_lam" v-on:keypress="only_number_input" type="text" class="form-control" id="tt8d9" placeholder="">
                                                     </div>
                                                 </div>
                                                 <div class="" style="height: 1px;width: 100%;border-bottom: 1px dashed #ddd"></div>
@@ -191,9 +189,11 @@
                                                     <label class="label-form col-md-2 col-sm-12 col-12">Kho</label>
                                                     <div class="col-sm-10 col-12">
                                                         <!--<input type="text" class="form-control" id="tSt66" placeholder="">-->
-                                                        <el-select v-model="tk_ke_toan" value-key="ma_tk" @change="change_tk_ke_toan" placeholder="Select" style="width: 100%;height: 38px;">
+                                                        <el-select v-validate="'required'" v-model="tk_ke_toan" name="txtkho" value-key="ma_tk" @change="change_tk_ke_toan" placeholder="Select" style="width: 100%;height: 38px;">
                                                             <el-option v-for="item in list_tk_ke_toan" :key="item.ma_tk" :label="item.ten_tk" :value="item"></el-option>
                                                         </el-select>
+                                                        <!--<small v-show="sp.tk_ke_toan_id == null" class="help text-muted is-danger">Vui lòng chọn Kho</small>-->
+                                                        <small v-show="errors.has('txtkho')" class="help text-muted is-danger">Vui lòng chọn Kho</small>
                                                     </div>
                                                 </div>
 
@@ -201,11 +201,13 @@
                                                     <label style="padding-right: 0" class="label-form col-md-2 col-sm-12 col-12">Loại hàng</label>
                                                     <div class="col-sm-10 col-12">
                                                         <!--<input type="text" class="form-control" id="tsSt66" placeholder="">-->
-                                                        <el-select v-model="danh_muc" value-key="danh_muc_id" placeholder="Select" style="width: 100%;height: 38px;">
+                                                        <el-select v-validate="'required'" v-model="danh_muc" name="txtdanhmuc" value-key="danh_muc_id" placeholder="Select" style="width: 100%;height: 38px;">
                                                             <el-option v-for="item in list_danh_muc" :key="item.danh_muc_id" :label="item.tieu_de" :value="item">
                                                                 <span style="float: left">{{item.level}}{{ item.tieu_de }}</span>
                                                             </el-option>
                                                         </el-select>
+                                                        <!--<small v-show="sp.danh_muc_id == null" class="help text-muted is-danger">Vui lòng chọn Loại hàng</small>-->
+                                                        <small v-show="errors.has('txtdanhmuc')" class="help text-muted is-danger">Vui lòng chọn Loại hàng</small>
                                                     </div>
                                                 </div>
                                             </div>
@@ -213,7 +215,8 @@
                                             <div class="col-md-12">
                                                 <hr>
                                                 <div class="form-actions pull-right">
-                                                    <button type="submit" class="btn btn-success"> <i class="fa fa-save"></i> Lưu</button>
+                                                    <router-link to="/danhsachsanpham" type="button" class="btn btn-warning"> <i class="fa fa-backward"></i> Quay về</router-link>
+                                                    <button type="submit" class="btn btn-success"> <i class="fa fa-save"></i> Thêm mới</button>
                                                     <!--<button type="button" class="btn btn-inverse">Hủy</button>-->
                                                 </div>
                                             </div>
@@ -240,6 +243,7 @@
     import {api_get_all_danh_muc_san_pham} from "../danhmucsanpham/danh_muc_san_pham";
     import {sweetalert} from "../../../helper/sweetalert";
 
+    import {api_get_ma_san_pham_ke_tiep} from "./san_pham";
     import {api_add_san_pham} from "./san_pham";
     import { quillEditor } from 'vue-quill-editor';
 
@@ -251,6 +255,7 @@
             api_get_dvt(this);
             api_get_all_tk_ke_toan(this);
             api_get_all_danh_muc_san_pham(this);
+            api_get_ma_san_pham_ke_tiep(this);
         },
         updated () {
             let j = document.createElement('script');
@@ -266,13 +271,19 @@
             $('#fileupload-custom').remove();
             $('#fileupload-js').remove();
         },
+        computed: {
+            distri_lam () {
+                return (parseInt(this.sp.deal_1) + parseInt(this.sp.deal_2) + parseInt(this.sp.deal_3))/3;
+            }
+        },
         watch: {
 
         },
         data () {
             return {
                 currentRoute: this.$route.query.id,
-                sp: { id: '', ma_sp: '', ten_sp: '', dvt_id: '', net: '', warranty: '', dien_giai: '', full_vat_dealer: '', full_vat_end_user: '', deal_1: '', deal_2: '', deal_3: '', deal_1_sl: '', deal_2_sl: '', deal_3_sl: '', distri: '', cong_dv: '', danh_muc_id: '', tk_ke_toan_id: '', image: '', ghi_chu: ''},
+                sp: { id: '', ma_sp: '', ten_sp: '', dvt_id: '', net: '', warranty: '', dien_giai: '', full_vat_dealer: '', full_vat_end_user: '', deal_1: 0, deal_2: 0, deal_3: 0, deal_1_sl: '', deal_2_sl: '', deal_3_sl: '', distri: '', cong_dv: '', danh_muc_id: '', tk_ke_toan_id: '', image: '', ghi_chu: ''},
+                distri_sp: 0,
                 list_dvt: [],
                 don_vi_tinh: '',
                 disable_submit: true,
@@ -288,6 +299,9 @@
                 count_old_success: 0,
                 attachments: [],
                 uploadData: [],
+                dialogImageUrl: '',
+                dialogVisible: false,
+                flag_input_ma_san_pham: false,
                 editorOption: {
                     modules: {
                         toolbar: [
@@ -311,27 +325,61 @@
             }
         },
         methods: {
-            onSubmit: function () {
-                this.sp.danh_muc_id = this.danh_muc.danh_muc_id;
-                this.sp.dvt_id = this.don_vi_tinh.id;
-                // this.sp.tk_ke_toan_id = this.tk_ke_toan.ma_tk;
-                console.log(this.tk_ke_toan.ma_tk);
-                // return 1;
-                if(typeof this.currentRoute === 'undefined'){
-                    console.log("them moi");
-                    api_add_san_pham(this);
+            validate_ma_bp: function () {
+                var length_nv = this.sp.ma_sp.length;
+                var value_nv  = this.sp.ma_sp;
+                if((length_nv > 7 || length_nv < 7) || value_nv.indexOf('MH') == -1 || value_nv.indexOf(' ') > -1){
+                    this.flag_input_ma_san_pham = true;
                 }
                 else{
-                    console.log("cap nhat");
+                    this.flag_input_ma_san_pham = false;
                 }
+            },
+            disable_spaces: function (evt) {
+                evt = (evt) ? evt : window.event;
+                var charCode = (evt.which) ? evt.which : evt.keyCode;
+                if (charCode == 32) {
+                    evt.preventDefault();;
+                } else {
+                    return true;
+                }
+            },
+            format_money: function (value) {
+                // if(this.sp.full_vat_dealer == '' || this.sp.full_vat_dealer == null ) this.sp.full_vat_dealer = 0;
+                // let val = (parseInt(this.sp.full_vat_dealer)/1).toFixed().replace('.', ',')
+                // this.sp.full_vat_dealer =  val.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+            },
+            onSubmit: function () {
+                this.sp.danh_muc_id = this.danh_muc.danh_muc_id;
+                this.sp.dvt_id = this.don_vi_tinh.id
+                this.sp.distri = this.distri_lam;
+                // this.sp.tk_ke_toan_id = this.tk_ke_toan.ma_tk;
+                // console.log(this.tk_ke_toan.ma_tk);
+                this.$validator.validateAll().then((result) => {
+                    if (this.sp.danh_muc_id == null || this.sp.tk_ke_toan_id == null) {
+
+                    }
+                    else if (result) {
+                        // console.log(this.sp);
+                        // return 1;
+                        api_add_san_pham(this);
+                        return;
+                    }
+                    else{
+                        var body = $("html, body");
+                        body.stop().animate({scrollTop:0}, 500, 'swing', function() {
+                        });
+                    }
+                })
             },
             change_tk_ke_toan: function (tk) {
                 console.log(tk);
                 this.sp.tk_ke_toan_id = tk.ma_tk;
             },
             tinh_trung_bnh_cong_distri: function () {
-                this.sp.distri = 0;
-                this.sp.distri = (this.sp.deal_1 + this.sp.deal_2 + this.sp.deal_3)/3;
+                // console.log(parseInt(this.sp.deal_1));
+                // this.sp.distri = 0;
+                // this.sp.distri = (parseInt(this.sp.deal_1) + parseInt(this.sp.deal_2) + parseInt(this.sp.deal_3))/3;
             },
             only_number_input: function (evt) {
                 evt = (evt) ? evt : window.event;
