@@ -8,7 +8,9 @@ h1,h2,h2,h4,h5,h6{
 input, button, select, .card, .btn, textarea{
   border-radius: 0px !important;
 }
-
+.card-title {
+    font-weight: 600;
+}
 .sidebar-nav > ul > li > a {
     color: white !important;
 }

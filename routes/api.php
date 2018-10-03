@@ -148,11 +148,15 @@ Route::group(['middleware' => 'jwt.auth'], function ($router) {
 
     //    --- San Pham ---
     Route::get('get-danh-muc-san-pham', 'DanhMucController@get_all_danh_muc_san_pham');
+    Route::get('get-ma-san-pham-ke-tiep', 'SanPhamController@get_ma_san_pham_ke_tiep');
     Route::get('get-all-san-pham-paginate/{limit}', 'SanPhamController@get_list_san_pham_paginate');
+    Route::get('get-search-san-pham-paginate/{keyword}&{limit}', 'SanPhamController@search_san_pham');
+    Route::get('get-san-pham-theo-id/{id_sp}', 'SanPhamController@get_thong_tin_san_pham_theo_id');
     Route::post('add-san-pham', 'SanPhamController@add_san_pham');
     Route::post('edit-san-pham', 'SanPhamController@edit_san_pham');
     Route::get('delete-san-pham/{id_sanpham}', 'SanPhamController@delete_san_pham');
     Route::post('upload-img/{id}', 'UploadImageController@multi_upload_img');
+    Route::post('delete-img-san-pham/{id}', 'UploadImageController@delete_img');
 
     //    --- Tai Khoan Kho ---
     Route::get('get-tk-kho-paginate/{limit}', 'TaiKhoanKeToanConTroller@get_tk_ke_toan_paginate');
