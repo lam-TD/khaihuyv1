@@ -382,5 +382,13 @@ td.center-text .cell {
     text-align: center !important;
 }
 
+td.tensp .cell {
+    display: block;
+    width: 178px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
 /*//*/
 

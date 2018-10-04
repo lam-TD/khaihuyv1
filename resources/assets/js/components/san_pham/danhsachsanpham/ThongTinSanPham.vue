@@ -26,7 +26,7 @@
                                         <div class="row">
                                             <div class="col-md-6 col-thongtinsanpham">
                                                 <!--================ THONG TIN SAN PHAM =============-->
-                                                <h4 class="card-title"><i class="fa fa-inbox"></i> <b>Thông tin sản phẩm</b></h4>
+                                                <h5 class="card-title"><i class="fa fa-inbox"></i> Thông tin sản phẩm</h5>
                                                 <hr>
 
                                                 <div class="form-group row">
@@ -62,26 +62,27 @@
                                                     </div>
                                                 </div>
 
-                                                <div class="form-group row">
+                                                <div class="form-group row" style="margin-bottom:30px;">
                                                     <label class="label-form col-md-2 col-sm-12 col-12">Warranty</label>
                                                     <div class="col-sm-10 col-12">
                                                         <input v-model="sp.warranty" type="text" class="form-control" placeholder="">
                                                     </div>
                                                 </div>
 
+                                                <h5 class="card-title"><i class="fa fa-edit"></i> Mô tả sản phẩm</h5>
+                                                <hr>
                                                 <div class="form-group row">
-                                                    <label  class="label-form col-md-2 col-sm-12 col-12">Diễn giả</label>
-                                                    <div class="col-sm-10 col-12">
+                                                    <div class="col-sm-12 col-12">
                                                         <!--<textarea class="form-control diengiai" id="tt6634" placeholder=""></textarea>-->
                                                         <quill-editor v-model="sp.dien_giai" :options="editorOption"></quill-editor>
                                                     </div>
                                                 </div>
 
+                                                <h5 class="card-title" style="margin-top:30px;"><i class="fa fa-photo"></i> Hình ảnh</h5>
+                                                <hr>
                                                 <div class="form-group row">
-                                                    <label class="label-form col-md-2 col-sm-12 col-12">Hình ảnh</label>
-                                                    <div class="col-sm-10 col-12 pb-2">
-                                                        <!--<button class="btn btn-info btn-sm" type="button" @click="upload_img"><i class="fa fa-upload"></i> Tải ảnh lên</button>-->
-                                                    </div>
+                                                    <!--<label class="label-form col-md-2 col-sm-12 col-12">Hình ảnh</label>-->
+
                                                     <div class="col-md-12">
                                                         <!--<input type="file" @change="change_image">-->
                                                         <el-upload
@@ -106,9 +107,11 @@
 
                                             </div>
 
+
+
                                             <div class="col-md-6">
                                                 <!--================ GIA SAN PHAM =============-->
-                                                <h4 class="card-title"><i class="fa fa-cubes"></i> <b>Giá sản phẩm</b></h4>
+                                                <h5 class="card-title"><i class="fa fa-cubes"></i> Giá sản phẩm</h5>
                                                 <hr>
                                                 <label class="title-sanpham">Giá vnđ full VAT</label>
                                                 <div class="form-group row" style="margin-bottom: 10px">
@@ -160,18 +163,18 @@
                                                 </div>
                                                 <div class="" style="height: 1px;width: 100%;border-bottom: 1px dashed #ddd"></div>
                                                 <br>
-                                                <label class="title-sanpham">DISTRI</label>
+                                                <!--<label class="title-sanpham">DISTRI</label>-->
                                                 <div class="form-group row" style="margin-bottom: 10px">
                                                     <label class="label-form col-md-2 col-sm-12 col-12">DISTRI</label>
                                                     <div class="col-sm-10 col-12">
                                                         <input disabled v-model="distri_lam" v-on:keypress="only_number_input" type="text" class="form-control" id="tt8d9" placeholder="">
                                                     </div>
                                                 </div>
-                                                <div class="" style="height: 1px;width: 100%;border-bottom: 1px dashed #ddd"></div>
+                                                <!--<div class="" style="height: 1px;width: 100%;border-bottom: 1px dashed #ddd"></div>-->
 
-                                                <div class="" style="height: 1px;width: 100%;border-bottom: 1px dashed #ddd"></div>
-                                                <br>
-                                                <label class="title-sanpham">Cộng dịch vụ</label>
+                                                <!--<div class="" style="height: 1px;width: 100%;border-bottom: 1px dashed #ddd"></div>-->
+                                                <!--<br>-->
+                                                <!--<label class="title-sanpham">Cộng dịch vụ</label>-->
                                                 <div class="form-group row" style="margin-bottom: 10px">
                                                     <label class="label-form col-md-2 col-sm-12 col-12">Cộng DV</label>
                                                     <div class="col-sm-10 col-12">
@@ -179,17 +182,17 @@
                                                     </div>
                                                 </div>
 
-                                                <div class="" style="height: 1px;width: 100%;border-bottom: 1px dashed #ddd"></div>
+                                                <!--<div class="" style="height: 1px;width: 100%;border-bottom: 1px dashed #ddd"></div>-->
                                                 <br>
 
                                                 <!--================ KHO =============-->
-                                                <h4 class="card-title"><i class="fa fa-tasks"></i> <b>Kho</b></h4>
+                                                <h4 class="card-title"><i class="fa fa-tasks"></i> Kho</h4>
                                                 <hr>
                                                 <div class="form-group row">
                                                     <label class="label-form col-md-2 col-sm-12 col-12">Kho</label>
                                                     <div class="col-sm-10 col-12">
                                                         <!--<input type="text" class="form-control" id="tSt66" placeholder="">-->
-                                                        <el-select v-validate="'required'" v-model="tk_ke_toan" name="txtkho" value-key="ma_tk" @change="change_tk_ke_toan" placeholder="Select" style="width: 100%;height: 38px;">
+                                                        <el-select v-validate="'required'" v-model="tk_ke_toan" name="txtkho" value-key="ma_tk" @change="change_tk_ke_toan" placeholder="Chọn kho" style="width: 100%;height: 38px;">
                                                             <el-option v-for="item in list_tk_ke_toan" :key="item.ma_tk" :label="item.ten_tk" :value="item"></el-option>
                                                         </el-select>
                                                         <!--<small v-show="sp.tk_ke_toan_id == null" class="help text-muted is-danger">Vui lòng chọn Kho</small>-->
@@ -201,7 +204,7 @@
                                                     <label style="padding-right: 0" class="label-form col-md-2 col-sm-12 col-12">Loại hàng</label>
                                                     <div class="col-sm-10 col-12">
                                                         <!--<input type="text" class="form-control" id="tsSt66" placeholder="">-->
-                                                        <el-select v-validate="'required'" v-model="danh_muc"  name="txtdanhmuc" value-key="danh_muc_id" placeholder="Select" style="width: 100%;height: 38px;">
+                                                        <el-select v-validate="'required'" v-model="danh_muc" multiple name="txtdanhmuc" value-key="danh_muc_id" @change="change_danh_muc" placeholder="Chọn loại hàng" style="width: 100%;height: 38px;">
                                                             <el-option v-for="item in list_danh_muc_2" :key="item.danh_muc_id" :label="item.tieu_de" :value="item">
                                                                 <span style="float: left">{{item.level}}{{ item.tieu_de }}</span>
                                                             </el-option>
@@ -282,7 +285,7 @@
         data () {
             return {
                 currentRoute: this.$route.query.id,
-                sp: { id: '', ma_sp: '', ten_sp: '', dvt_id: '', net: '', warranty: '', dien_giai: '', full_vat_dealer: '', full_vat_end_user: '', deal_1: 0, deal_2: 0, deal_3: 0, deal_1_sl: '', deal_2_sl: '', deal_3_sl: '', distri: '', cong_dv: '', danh_muc_id: '', tk_ke_toan_id: '', image: '', ghi_chu: ''},
+                sp: { id: '', ma_sp: '', ten_sp: '', dvt_id: '', net: '', warranty: '', dien_giai: '', full_vat_dealer: '', full_vat_end_user: '', deal_1: 0, deal_2: 0, deal_3: 0, deal_1_sl: '', deal_2_sl: '', deal_3_sl: '', distri: '', cong_dv: '', danh_muc_id: [], tk_ke_toan_id: '', image: '', hien_thi: 1, ghi_chu: ''},
                 distri_sp: 0,
                 list_dvt: [],
                 don_vi_tinh: '',
@@ -290,7 +293,7 @@
                 list_tk_ke_toan: [],
                 tk_ke_toan: '',
                 list_danh_muc_2: [],
-                danh_muc: '',
+                danh_muc: [],
                 images: null,
                 form_lam: new FormData,
                 fileList: [],
@@ -344,13 +347,19 @@
                     return true;
                 }
             },
+            change_danh_muc: function (arr_dm) {
+                // console.log(arr_dm);
+            },
             format_money: function (value) {
                 // if(this.sp.full_vat_dealer == '' || this.sp.full_vat_dealer == null ) this.sp.full_vat_dealer = 0;
                 // let val = (parseInt(this.sp.full_vat_dealer)/1).toFixed().replace('.', ',')
                 // this.sp.full_vat_dealer =  val.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
             },
             onSubmit: function () {
-                this.sp.danh_muc_id = this.danh_muc.danh_muc_id;
+                this.sp.danh_muc_id = this.danh_muc;
+                // console.log(this.sp);
+                // return 1;
+                // this.sp.danh_muc_id = this.danh_muc.danh_muc_id;
                 this.sp.dvt_id = this.don_vi_tinh.id
                 this.sp.distri = this.distri_lam;
                 // this.sp.tk_ke_toan_id = this.tk_ke_toan.ma_tk;

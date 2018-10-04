@@ -16,6 +16,21 @@ export function api_get_dvt(vm) {
         })
 }
 
+export function api_get_all_danh_muc_san_pham_edit_sp(vm) {
+    axios({
+        method: 'GET',
+        url: 'api/get-danh-muc-san-pham',
+        headers: {'Authorization':'Bearer ' + vm.$store.state.currentUser.token}
+    })
+        .then((response) => {
+            vm.list_danh_muc = response.data;
+            api_get_list_danh_muc_theo_san_pham(vm);
+        })
+        .catch((error) => {
+            console.log(error);
+        })
+}
+
 
 export function api_get_all_tk_ke_toan(vm) {
     axios({
@@ -25,6 +40,39 @@ export function api_get_all_tk_ke_toan(vm) {
     })
         .then((response) => {
             vm.list_tk_ke_toan = response.data;
+            // console.log(response.data);
+        })
+        .catch((error) => {
+            console.log(error);
+        })
+}
+
+export function api_get_all_tk_ke_toan_edit_sp(vm, tk_ke_toan_id) {
+    axios({
+        method: 'GET',
+        url: 'api/get-all-tk-ke-toan',
+        headers: {'Authorization':'Bearer ' + vm.$store.state.currentUser.token}
+    })
+        .then((response) => {
+            vm.list_tk_ke_toan = response.data;
+            vm.tk_ke_toan = vm.list_tk_ke_toan.filter(function (item) {
+                return (item['ma_tk'] == tk_ke_toan_id);
+            })[0];
+        })
+        .catch((error) => {
+            console.log(error);
+        })
+}
+
+export function api_get_list_danh_muc_theo_san_pham(vm) {
+    if(typeof vm.$route.query.id == 'undefined'){vm.$router.push({path: '/danhsachsanpham'});}
+    axios({
+        method: 'GET',
+        url: 'api/get-list-danh-muc-theo-san-pham/' + vm.$route.query.id,
+        headers: {'Authorization':'Bearer ' + vm.$store.state.currentUser.token}
+    })
+        .then((response) => {
+            vm.danh_muc = response.data;
             // console.log(response.data);
         })
         .catch((error) => {
@@ -81,6 +129,7 @@ export function api_get_ma_san_pham_ke_tiep(vm) {
 }
 
 export function api_get_thong_tin_san_pham_theo_id(vm) {
+    if(typeof vm.$route.query.id == 'undefined'){vm.$router.push({path: '/danhsachsanpham'});}
     axios({
         method: 'GET',
         url: 'api/get-san-pham-theo-id/' + vm.$route.query.id,
@@ -92,13 +141,7 @@ export function api_get_thong_tin_san_pham_theo_id(vm) {
                 return (item['id'] == vm.sp.dvt_id);
             })[0];
 
-            vm.tk_ke_toan = vm.list_tk_ke_toan.filter(function (item) {
-                return (item['ma_tk'] == response.data.tk_ke_toan_id)
-            })[0];
-
-            vm.danh_muc = vm.list_danh_muc_2.filter(function (item) {
-                return (item['danh_muc_id'] == response.data.danh_muc_id)
-            })[0];
+            api_get_all_tk_ke_toan_edit_sp(vm, response.data.tk_ke_toan_id);
 
             if(vm.sp.image == null || vm.sp.image == ''){
                 return;

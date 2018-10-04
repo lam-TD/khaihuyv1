@@ -54,7 +54,7 @@
 
                                                 <el-table-column prop="ma_sp" label="Mã SP" align="center" width="100" class-name="center-text"></el-table-column>
 
-                                                <el-table-column prop="ten_sp" label="Tên SP" class-name="no-center-text"></el-table-column>
+                                                <el-table-column prop="ten_sp" label="Tên SP" class-name="no-center-text tensp" width="180"></el-table-column>
 
                                                 <el-table-column prop="dien_giai" label="Diễn giải" width="180" class-name="no-center-text">
                                                     <template slot-scope="scope">
