@@ -109,20 +109,20 @@
                                     <div class="row">
                                         <div class="col-md-12" style="margin-bottom: 10px;">
                                             <el-table :data="list_lao_dong" border style="width: 100%">
-                                                <el-table-column label="#" width="90" align="center">
+                                                <el-table-column label="#" width="90" align="center" class-name="center-text">
                                                     <template slot-scope="scope" class="text-center" style="width: 100%">
                                                         <button @click="_lao_dong('edit', scope.row)" data-toggle="modal" data-target="#myModal" class="btn btn-info btn-sm" title="Cập nhật thông tin hợp đồng lao động"> <i class="fa fa-edit"></i> </button>
                                                         <button @click="delete_lao_dong(scope.row)" class="btn btn-danger btn-sm" title="Xóa"> <i class="fa fa-trash-o"></i> </button>
                                                     </template>
                                                 </el-table-column>
-                                                <el-table-column type="index" label="TT" align="center"></el-table-column>
-                                                <el-table-column prop="ma_nv" label="Mã NV" width="100"></el-table-column>
-                                                <el-table-column prop="ho_ten" label="Tên NV" width="150"></el-table-column>
-                                                <el-table-column prop="so_hdld" label="Số HĐ"></el-table-column>
-                                                <el-table-column prop="thoi_han_hd" label="Thời hạn"></el-table-column>
-                                                <el-table-column prop="ngay_ky" label="Ngày ký"></el-table-column>
-                                                <el-table-column prop="ngay_kt" label="Ngày kết thúc"></el-table-column>
-                                                <el-table-column prop="ghi_chu" label="Ghi chú"></el-table-column>
+                                                <el-table-column type="index" label="TT" align="center" class-name="center-text"></el-table-column>
+                                                <el-table-column prop="ma_nv" label="Mã NV" width="100" class-name="no-center-text"></el-table-column>
+                                                <el-table-column prop="ho_ten" label="Tên NV" width="150" class-name="no-center-text"></el-table-column>
+                                                <el-table-column prop="so_hdld" label="Số HĐ" class-name="no-center-text"></el-table-column>
+                                                <el-table-column prop="thoi_han_hd" label="Thời hạn" class-name="no-center-text"></el-table-column>
+                                                <el-table-column prop="ngay_ky" label="Ngày ký" class-name="no-center-text"></el-table-column>
+                                                <el-table-column prop="ngay_kt" label="Ngày kết thúc" class-name="no-center-text"></el-table-column>
+                                                <el-table-column prop="ghi_chu" label="Ghi chú" class-name="no-center-text"></el-table-column>
                                             </el-table>
                                         </div>
 

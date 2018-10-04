@@ -37,34 +37,42 @@
                                         </div>
                                         <div class="col-md-12">
                                             <el-table :data="list_san_pham" style="width: 100%" border>
-                                                <el-table-column prop="name" label="#" width="90" align="center">
+                                                <el-table-column prop="name" label="#" width="90" align="center" class-name="center-text">
                                                     <template slot-scope="scope" class="text-center" style="width: 100%">
                                                         <router-link :to="{path: '/sanpham/capnhat' , query: { id: scope.row.id }}" class="btn btn-info btn-sm" title="Cập nhật thông tin sản phẩm"> <i class="fa fa-edit"></i> </router-link>
                                                         <button @click="delete_san_pham(scope.row)" class="btn btn-danger btn-sm" title="Xóa sản phẩm"> <i class="fa fa-trash-o"></i> </button>
                                                     </template>
                                                 </el-table-column>
-                                                <el-table-column type="index" label="TT" width="50"></el-table-column>
-                                                <el-table-column  prop="date" label="Hình ảnh" width="80">
+
+                                                <el-table-column type="index" label="TT" align="center" width="50" class-name="center-text"></el-table-column>
+
+                                                <el-table-column  prop="date" label="Hình ảnh" align="center" width="80" class-name="center-text">
                                                     <template slot-scope="scope">
                                                         <img :src="parse_img(scope.row)" alt="" class="img-sanpham">
                                                     </template>
                                                 </el-table-column>
-                                                <el-table-column prop="ma_sp" label="Mã SP" width="100"></el-table-column>
-                                                <el-table-column prop="ten_sp" label="Tên SP"></el-table-column>
-                                                <el-table-column prop="dien_giai" label="Diễn giải" width="180">
+
+                                                <el-table-column prop="ma_sp" label="Mã SP" align="center" width="100" class-name="center-text"></el-table-column>
+
+                                                <el-table-column prop="ten_sp" label="Tên SP" class-name="no-center-text"></el-table-column>
+
+                                                <el-table-column prop="dien_giai" label="Diễn giải" width="180" class-name="no-center-text">
                                                     <template slot-scope="scope">
                                                         <div class="limit-text" v-html="scope.row.dien_giai"></div>
                                                     </template>
                                                 </el-table-column>
-                                                <el-table-column label="Ngày tạo">
+
+                                                <el-table-column label="Ngày tạo" align="center" class-name="center-text">
                                                     <template slot-scope="scope">{{sort_date(scope.row.created_at)}}</template>
                                                 </el-table-column>
-                                                <el-table-column prop="full_vat_dealer" label="Dealer">
+
+                                                <el-table-column prop="full_vat_dealer" label="Dealer" class-name="no-center-text">
                                                     <template slot-scope="scope">
                                                         {{formatPrice(scope.row.full_vat_dealer)}}
                                                     </template>
                                                 </el-table-column>
-                                                <el-table-column prop="full_vat_end_user" label="Enduser">
+
+                                                <el-table-column prop="full_vat_end_user" label="Enduser" class-name="no-center-text">
                                                     <template slot-scope="scope">
                                                         {{formatPrice(scope.row.full_vat_end_user)}}
                                                     </template>

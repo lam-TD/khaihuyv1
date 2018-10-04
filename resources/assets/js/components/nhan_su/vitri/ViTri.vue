@@ -89,16 +89,16 @@
                                     <div class="row">
                                         <div class="col-md-12" style="margin-bottom: 10px;">
                                             <el-table :data="list_vi_tri" style="width: 100%" border :empty-text="loading_vi_tri">
-                                                <el-table-column prop="name" label="#" width="90" align="center">
+                                                <el-table-column prop="name" label="#" width="90" align="center" class-name="center-text">
                                                     <template slot-scope="scope" class="text-center" style="width: 100%">
                                                         <button @click="_vi_tri('edit', scope.row)" data-toggle="modal" data-target="#myModal" class="btn btn-info btn-sm" title="Cập nhật thông tin vị trí"> <i class="fa fa-edit"></i> </button>
                                                         <button @click="delete_vi_tri(scope.row)" class="btn btn-danger btn-sm" title="Xóa"> <i class="fa fa-trash-o"></i> </button>
                                                     </template>
                                                 </el-table-column>
-                                                <el-table-column type="index" label="TT" align="center"></el-table-column>
-                                                <el-table-column prop="ma_vi_tri" label="Mã vị trí" width="120"></el-table-column>
-                                                <el-table-column prop="ten_vi_tri" label="Tên vị trí" width="180"></el-table-column>
-                                                <el-table-column prop="dien_giai" label="Diễn giải"></el-table-column>
+                                                <el-table-column type="index" label="TT" align="center" class-name="center-text"></el-table-column>
+                                                <el-table-column prop="ma_vi_tri" label="Mã vị trí" width="120" class-name="no-center-text"></el-table-column>
+                                                <el-table-column prop="ten_vi_tri" label="Tên vị trí" width="180" class-name="no-center-text"></el-table-column>
+                                                <el-table-column prop="dien_giai" label="Diễn giải" class-name="no-center-text"></el-table-column>
                                             </el-table>
                                         </div>
                                         <!--////-->

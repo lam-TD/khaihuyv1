@@ -28,16 +28,20 @@
                                     <div class="row">
                                         <div class="col-md-12" style="margin-bottom: 10px;">
                                             <el-table :data="list_tk_kho" border style="width: 100%">
-                                                <el-table-column label="#" width="90" align="center">
+                                                <el-table-column label="#" width="90" align="center"  class-name="center-text">
                                                     <template slot-scope="scope" class="text-center" style="width: 100%">
                                                         <button @click="_tk_kho('edit', scope.row)" data-toggle="modal" data-target="#myModal" class="btn btn-info btn-sm" title="Cập nhật thông tin bộ phận"> <i class="fa fa-edit"></i> </button>
                                                         <button @click="delete_tk_kho(scope.row)" class="btn btn-danger btn-sm" title="Xóa"> <i class="fa fa-trash-o"></i> </button>
                                                     </template>
                                                 </el-table-column>
-                                                <el-table-column type="index" label="TT" align="center"></el-table-column>
-                                                <el-table-column prop="ma_tk" label="Mã tài khoản" width="180"></el-table-column>
-                                                <el-table-column prop="ten_tk" label="Tên tài khoản" width="180"></el-table-column>
-                                                <el-table-column prop="ghi_chu" label="Ghi chú"></el-table-column>
+
+                                                <el-table-column type="index" label="TT" align="center" class-name="center-text"></el-table-column>
+
+                                                <el-table-column prop="ma_tk" label="Mã tài khoản" class-name="no-center-text"></el-table-column>
+
+                                                <el-table-column prop="ten_tk" label="Tên tài khoản" class-name="no-center-text"></el-table-column>
+
+                                                <el-table-column prop="ghi_chu" label="Ghi chú" class-name="no-center-text"></el-table-column>
                                             </el-table>
                                         </div>
 

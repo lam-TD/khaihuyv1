@@ -41,23 +41,23 @@
                                     <div class="row">
                                         <div class="col-md-12" style="margin-bottom: 10px;">
                                             <el-table :data="list_ttcv" border style="width: 100%">
-                                                <el-table-column label="#" width="90" align="center">
+                                                <el-table-column label="#" width="90" align="center" class-name="center-text">
                                                     <template slot-scope="scope" class="text-center" style="width: 100%">
                                                         <button @click="_ttcv('edit', scope.row)" data-toggle="modal" data-target="#myModal" class="btn btn-info btn-sm" title="Cập nhật thông tin cá nhân"> <i class="fa fa-edit"></i> </button>
                                                         <button @click="delete_ttcv(scope.row)" class="btn btn-danger btn-sm" title="Xóa"> <i class="fa fa-trash-o"></i> </button>
                                                     </template>
                                                 </el-table-column>
-                                                <el-table-column type="index" label="TT" align="center"></el-table-column>
-                                                <el-table-column prop="ma_nv" label="Mã NV" width="180"></el-table-column>
-                                                <el-table-column prop="ho_ten" label="Tên NV"></el-table-column>
-                                                <el-table-column label="Tình trạng">
+                                                <el-table-column type="index" label="TT" align="center" class-name="center-text"></el-table-column>
+                                                <el-table-column prop="ma_nv" label="Mã NV" width="180" class-name="no-center-text"></el-table-column>
+                                                <el-table-column prop="ho_ten" label="Tên NV" class-name="no-center-text"></el-table-column>
+                                                <el-table-column label="Tình trạng" class-name="no-center-text">
                                                     <template slot-scope="scope" class="text-center" style="width: 100%">
                                                          <div v-if="scope.row.tinh_trang == 0">Thử việc</div>
                                                          <div v-else-if="scope.row.tinh_trang == 1">Chính thức</div>
                                                          <div v-else>Thôi việc</div>
                                                     </template>
                                                 </el-table-column>
-                                                <el-table-column prop="ghi_chu" label="Ghi chú"></el-table-column>
+                                                <el-table-column prop="ghi_chu" label="Ghi chú" class-name="no-center-text"></el-table-column>
                                             </el-table>
                                         </div>
 

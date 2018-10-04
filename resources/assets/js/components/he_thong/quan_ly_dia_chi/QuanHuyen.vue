@@ -48,15 +48,15 @@
                                         <div v-show="loading_qh" class="col-md-12"><i>Đang tải danh sách...</i></div>
                                         <div class="col-md-12" style="margin-bottom: 10px;">
                                             <el-table :data="list_qh" border style="width: 100%">
-                                                <el-table-column label="#" width="90" align="center">
+                                                <el-table-column label="#" width="90" align="center" class-name="center-text">
                                                     <template slot-scope="scope" class="text-center" style="width: 100%">
                                                         <button @click="_qh('edit', scope.row)" data-toggle="modal" data-target="#myModalquan" class="btn btn-info btn-sm" title="Cập nhật thông tin cá nhân"> <i class="fa fa-edit"></i> </button>
                                                         <button @click="delete_qh(scope.row)" class="btn btn-danger btn-sm" title="Xóa"> <i class="fa fa-trash-o"></i> </button>
                                                     </template>
                                                 </el-table-column>
-                                                <el-table-column type="index" label="TT" align="center"></el-table-column>
-                                                <el-table-column prop="ma_quan_huyen" label="Mã quận huyện" width="180"></el-table-column>
-                                                <el-table-column prop="ten_quan_huyen" label="Tên quận huyện"></el-table-column>
+                                                <el-table-column type="index" label="TT" align="center" class-name="center-text"></el-table-column>
+                                                <el-table-column prop="ma_quan_huyen" label="Mã quận huyện" width="180" class-name="no-center-text"></el-table-column>
+                                                <el-table-column prop="ten_quan_huyen" label="Tên quận huyện" class-name="no-center-text"></el-table-column>
                                             </el-table>
                                         </div>
 

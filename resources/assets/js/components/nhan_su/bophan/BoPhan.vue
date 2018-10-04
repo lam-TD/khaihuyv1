@@ -83,16 +83,18 @@
                                     <div class="row">
                                         <div class="col-md-12" style="margin-bottom: 10px;">
                                             <el-table :data="list_bo_phan" border style="width: 100%">
-                                                <el-table-column label="#" width="90" align="center">
-                                                    <template slot-scope="scope" class="text-center" style="width: 100%">
-                                                        <button @click="_bo_phan('edit', scope.row)" data-toggle="modal" data-target="#myModal" class="btn btn-info btn-sm" title="Cập nhật thông tin bộ phận"> <i class="fa fa-edit"></i> </button>
-                                                        <button @click="delete_bo_phan(scope.row)" class="btn btn-danger btn-sm" title="Xóa"> <i class="fa fa-trash-o"></i> </button>
+                                                <el-table-column label="#" width="90" align="center" class-name="center-text">
+                                                    <template slot-scope="scope" align="center">
+                                                        <div class="text-center">
+                                                            <button @click="_bo_phan('edit', scope.row)" data-toggle="modal" data-target="#myModal" class="btn btn-info btn-sm" title="Cập nhật thông tin bộ phận"> <i class="fa fa-edit"></i> </button>
+                                                            <button @click="delete_bo_phan(scope.row)" class="btn btn-danger btn-sm" title="Xóa"> <i class="fa fa-trash-o"></i> </button>
+                                                        </div>
                                                     </template>
                                                 </el-table-column>
-                                                <el-table-column type="index" label="TT" align="center"></el-table-column>
-                                                <el-table-column prop="ma_bo_phan" label="Mã bộ phận" width="100"></el-table-column>
-                                                <el-table-column prop="ten_bo_phan" label="Tên bộ phận" width="150"></el-table-column>
-                                                <el-table-column prop="dien_giai" label="Điễn giải"></el-table-column>
+                                                <el-table-column type="index" label="TT" align="center" width="40" class-name="center-text"></el-table-column>
+                                                <el-table-column prop="ma_bo_phan" label="Mã bộ phận" width="100" class-name="no-center-text"></el-table-column>
+                                                <el-table-column prop="ten_bo_phan" label="Tên bộ phận" width="150" class-name="no-center-text"></el-table-column>
+                                                <el-table-column prop="dien_giai" label="Diễn giải" class-name="no-center-text"></el-table-column>
                                             </el-table>
                                         </div>
 
@@ -360,5 +362,9 @@
 
     .modal {
         transition: 1s ease-out;
+    }
+
+    .center-text {
+        text-align: center;
     }
 </style>

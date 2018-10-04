@@ -367,5 +367,18 @@ tr.thutu, td.thutu {
     }
 }
 
+th.center-text, th.no-center-text {
+    font-weight: 600 !important;
+}
+
+td.center-text {
+    text-align: center !important;
+}
+
+td.center-text .cell {
+    display: block !important;
+    text-align: center !important;
+}
+
 /*//*/
 

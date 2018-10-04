@@ -129,44 +129,34 @@
                                         </div>
                                         <div class="col-md-12">
                                             <template>
-                                                <el-table
-                                                        border
-                                                        :data="list_danh_muc"
-                                                        stripe
-                                                        style="width: 100%">
-                                                    <el-table-column type="index" width="50"></el-table-column>
-                                                    <el-table-column
-                                                            label="Thao tác" width="90" align="center">
+                                                <el-table border :data="list_danh_muc" stripe style="width: 100%">
+                                                    <el-table-column label="Thao tác" width="90" align="center" class-name="center-text">
                                                         <template slot-scope="scope" class="text-center" style="width: 100%">
                                                             <button @click="__danh_muc('edit', scope.row)" data-toggle="modal" data-target="#modal_danh_muc_san_pham" class="btn btn-info btn-sm" title="Cập nhật danh mục"> <i class="fa fa-edit"></i> </button>
                                                             <button @click="delete_danh_muc(scope.row)" class="btn btn-danger btn-sm" title="Xóa"> <i class="fa fa-trash-o"></i> </button>
                                                         </template>
                                                     </el-table-column>
-                                                    <el-table-column
-                                                            prop="danh_muc_id"
-                                                            label="ID"
-                                                            width="50">
-                                                    </el-table-column>
-                                                    <el-table-column
-                                                            prop="tieu_de"
-                                                            label="Tiêu đề"
-                                                            width="180">
-                                                    </el-table-column>
-                                                    <el-table-column label="Tóm tắt">
+
+                                                    <el-table-column type="index" width="50" align="center" class-name="center-text"></el-table-column>
+
+                                                    <!--<el-table-column prop="danh_muc_id" label="ID" width="50" class-name="no-center-text"></el-table-column>-->
+
+                                                    <el-table-column prop="tieu_de" label="Tiêu đề" width="180" class-name="no-center-text"> </el-table-column>
+
+                                                    <el-table-column label="Tóm tắt" class-name="no-center-text">
                                                         <template slot-scope="props">
                                                             <span v-html="props.row.tomtat"></span>
                                                         </template>
                                                     </el-table-column>
-                                                    <el-table-column
-                                                            prop="ghi_chu"
-                                                            label="Ghi chú">
-                                                    </el-table-column>
-                                                    <el-table-column
-                                                            label="Hiển thị">
+
+                                                    <el-table-column label="Hiển thị" class-name="no-center-text">
                                                         <template slot-scope="props">
-                                                            <span v-if="props.row.hienthi == '0'">Không</span><span v-else>Hiển thị</span>
+                                                            <span v-if="props.row.hienthi == '0'">Không</span>
+                                                            <span v-else>Hiển thị</span>
                                                         </template>
                                                     </el-table-column>
+
+                                                    <el-table-column prop="ghi_chu" label="Ghi chú" class-name="no-center-text"> </el-table-column>
 
                                                 </el-table>
                                             </template>

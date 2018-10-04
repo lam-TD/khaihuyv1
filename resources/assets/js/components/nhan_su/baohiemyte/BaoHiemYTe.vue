@@ -106,23 +106,23 @@
                                     <div class="row">
                                         <div class="col-md-12" style="margin-bottom: 10px;">
                                             <el-table :data="list_bhyt" border style="width: 100%">
-                                                <el-table-column label="#" width="90" align="center">
+                                                <el-table-column label="#" width="90" align="center" class-name="center-text">
                                                     <template slot-scope="scope" class="text-center" style="width: 100%">
                                                         <button @click="_bhyt('edit', scope.row)" data-toggle="modal" data-target="#myModal" class="btn btn-info btn-sm" title="Cập nhật thông tin bảo hiểm y tế"> <i class="fa fa-edit"></i> </button>
                                                         <button @click="delete_bhyt(scope.row)" class="btn btn-danger btn-sm" title="Xóa"> <i class="fa fa-trash-o"></i> </button>
                                                     </template>
                                                 </el-table-column>
-                                                <el-table-column type="index" label="TT" align="center"></el-table-column>
-                                                <el-table-column prop="ma_nv" label="Mã NV" width="100"></el-table-column>
-                                                <el-table-column prop="ho_ten" label="Tên NV" width="150"></el-table-column>
-                                                <el-table-column prop="so_bhyt" label="Số BHYT"></el-table-column>
-                                                <el-table-column prop="noi_kham" label="Nơi khám"></el-table-column>
-                                                <el-table-column label="Địa chỉ khám" width="220">
+                                                <el-table-column type="index" label="TT" align="center"class-name="center-text"></el-table-column>
+                                                <el-table-column prop="ma_nv" label="Mã NV" width="100" class-name="no-center-text"></el-table-column>
+                                                <el-table-column prop="ho_ten" label="Tên NV" width="150" class-name="no-center-text"></el-table-column>
+                                                <el-table-column prop="so_bhyt" label="Số BHYT" class-name="no-center-text"></el-table-column>
+                                                <el-table-column prop="noi_kham" label="Nơi khám" class-name="no-center-text"></el-table-column>
+                                                <el-table-column label="Địa chỉ khám" width="220" class-name="no-center-text">
                                                     <template slot-scope="scope" class="text-center" style="width: 100%">
                                                         {{scope.row.dia_chi_kham}}, {{scope.row.ten_phuong_xa}}, {{scope.row.ten_quan_huyen}}, {{scope.row.ten_tinh}}
                                                     </template>
                                                 </el-table-column>
-                                                <el-table-column prop="ghi_chu" label="Ghi chú"></el-table-column>
+                                                <el-table-column prop="ghi_chu" label="Ghi chú" class-name="no-center-text"></el-table-column>
                                             </el-table>
                                         </div>
 

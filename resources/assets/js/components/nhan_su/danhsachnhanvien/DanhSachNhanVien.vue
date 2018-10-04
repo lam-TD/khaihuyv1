@@ -106,32 +106,32 @@
                                 </div>
                                 <div class="col-md-12">
                                     <el-table :data="dsnhanvien" style="width: 100%" border empty-text="Chưa có dữ liệu">
-                                        <el-table-column prop="name" label="#" width="90" align="center">
+                                        <el-table-column prop="name" label="#" width="90" align="center" class-name="center-text">
                                             <template slot-scope="scope" class="text-center" style="width: 100%">
                                                 <button @click="_nhan_vien('edit', scope.row)" data-toggle="modal" data-target="#modal_nv_tt_ca_nhan" class="btn btn-info btn-sm" title="Cập nhật thông tin cá nhân"> <i class="fa fa-edit"></i> </button>
                                                 <button @click="delete_all_thong_tin_nv(scope.row.id)" class="btn btn-danger btn-sm" title="Xóa"> <i class="fa fa-trash-o"></i> </button>
                                             </template>
                                         </el-table-column>
-                                        <el-table-column type="index" label="TT" align="center"></el-table-column>
-                                        <el-table-column  prop="date" label="Hình ảnh" width="80">
+                                        <el-table-column type="index" label="TT" align="center" class-name="center-text"></el-table-column>
+                                        <el-table-column  prop="date" label="Hình ảnh" width="80" align="center" class-name="center-text">
                                             <template slot-scope="props">
                                                 <img @click="load_chi_tiet_nhan_vien(props.row)" :src="'public/image_nhan_vien/'+props.row.avatar" data-toggle="modal" data-target="#exampleModal2" alt="" class="img-sanpham" style="cursor: pointer" title="Click để xem chi tiết">
                                             </template>
                                         </el-table-column>
-                                        <el-table-column prop="ma_nv" label="Mã NV" width="100"></el-table-column>
-                                        <el-table-column label="Tên NV" width="150">
+                                        <el-table-column prop="ma_nv" label="Mã NV" width="100" class-name="no-center-text"></el-table-column>
+                                        <el-table-column label="Tên NV" width="150" class-name="no-center-text">
                                             <template slot-scope="scope">
                                                 <span @click="load_chi_tiet_nhan_vien(scope.row)" class="ten-nv" data-toggle="modal" data-target="#exampleModal2" title="Click để xem chi tiết">{{scope.row.ho_ten}}</span>
                                             </template>
                                         </el-table-column>
-                                        <el-table-column label="Giới tính" width="80">
+                                        <el-table-column label="Giới tính" width="80" class-name="no-center-text">
                                             <template slot-scope="props">
                                                 <span v-if="props.row.gioi_tinh == '0'">Nữ</span><span v-else>Nam</span>
                                             </template>
                                         </el-table-column>
-                                        <el-table-column prop="ngay_sinh"  label="Ngày sinh" width="100"></el-table-column>
-                                        <el-table-column prop="di_dong_1"  label="Di động" width="120"></el-table-column>
-                                        <el-table-column prop="ghi_chu"  label="Ghi chú"></el-table-column>
+                                        <el-table-column prop="ngay_sinh"  label="Ngày sinh" width="100" class-name="no-center-text"></el-table-column>
+                                        <el-table-column prop="di_dong_1"  label="Di động" width="120" class-name="no-center-text"></el-table-column>
+                                        <el-table-column prop="ghi_chu"  label="Ghi chú" class-name="no-center-text"></el-table-column>
                                     </el-table>
                                 </div>
                                 <!--<div class="col-md-12">-->
@@ -713,40 +713,13 @@
                                         </div>
 
                                         <div class="tab-pane p-20" id="messages5" role="tabpanel">
-                                            <el-table
-                                                    :data="nhan_vien_npt"
-                                                    height="250"
-                                                    empty-text="Chưa có thân nhân"
-                                                    style="width: 100%">
-                                                <el-table-column
-                                                        prop="ho_ten_npt"
-                                                        label="Tên NPT"
-                                                        width="180">
-                                                </el-table-column>
-                                                <el-table-column
-                                                        prop="ngay_sinh_npt"
-                                                        label="Ngày sinh"
-                                                        width="180">
-                                                </el-table-column>
-                                                <el-table-column
-                                                        prop="so_cmnd_npt"
-                                                        label="Số CMND"
-                                                        width="180">
-                                                </el-table-column>
-                                                <el-table-column
-                                                        prop="quan_he_nnt"
-                                                        label="TG giảm trừ từ"
-                                                        width="120">
-                                                </el-table-column>
-                                                <el-table-column
-                                                        prop="tg_giam_tru_den"
-                                                        label="TG giảm đến"
-                                                        width="120">
-                                                </el-table-column>
-                                                <el-table-column
-                                                        prop="ghi_chu"
-                                                        label="Ghi chú">
-                                                </el-table-column>
+                                            <el-table :data="nhan_vien_npt" height="250" empty-text="Chưa có thân nhân" style="width: 100%">
+                                                <el-table-column prop="ho_ten_npt" label="Tên NPT" width="180" class-name="no-center-text"></el-table-column>
+                                                <el-table-column prop="ngay_sinh_npt" label="Ngày sinh" width="180" class-name="no-center-text"></el-table-column>
+                                                <el-table-column prop="so_cmnd_npt" label="Số CMND" width="180" class-name="no-center-text"></el-table-column>
+                                                <el-table-column prop="quan_he_nnt" label="TG giảm trừ từ" width="120" class-name="no-center-text"></el-table-column>
+                                                <el-table-column prop="tg_giam_tru_den" label="TG giảm đến" width="120" class-name="no-center-text"></el-table-column>
+                                                <el-table-column prop="ghi_chu" label="Ghi chú"></el-table-column>
                                             </el-table>
                                             <!--//-->
                                         </div>

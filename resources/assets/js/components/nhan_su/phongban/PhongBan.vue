@@ -99,16 +99,16 @@
                                     <div class="row">
                                         <div class="col-md-12" style="margin-bottom: 10px;">
                                             <el-table :data="list_phong_ban" border style="width: 100%">
-                                                <el-table-column label="#" width="90" align="center">
+                                                <el-table-column label="#" width="90" align="center" class-name="center-text">
                                                     <template slot-scope="scope" class="text-center" style="width: 100%">
                                                         <button @click="_phong_ban('edit', scope.row)" data-toggle="modal" data-target="#myModal" class="btn btn-info btn-sm" title="Cập nhật thông tin phòng ban"> <i class="fa fa-edit"></i> </button>
                                                         <button @click="delete_phong_ban(scope.row)" class="btn btn-danger btn-sm" title="Xóa"> <i class="fa fa-trash-o"></i> </button>
                                                     </template>
                                                 </el-table-column>
-                                                <el-table-column type="index" label="TT" align="center"></el-table-column>
-                                                <el-table-column prop="ma_phong" label="Mã phòng" width="100"></el-table-column>
-                                                <el-table-column prop="ten_phong" label="Tên phòng" width="150"></el-table-column>
-                                                <el-table-column prop="dien_giai" label="Diễn giải"></el-table-column>
+                                                <el-table-column type="index" label="TT" align="center" class-name="center-text"></el-table-column>
+                                                <el-table-column prop="ma_phong" label="Mã phòng" width="100" class-name="no-center-text"></el-table-column>
+                                                <el-table-column prop="ten_phong" label="Tên phòng" width="150" class-name="no-center-text"></el-table-column>
+                                                <el-table-column prop="dien_giai" label="Diễn giải" class-name="no-center-text"></el-table-column>
                                             </el-table>
                                         </div>
 

@@ -116,20 +116,20 @@
                                     <div class="row mt-2">
                                         <div class="col-md-12" style="margin-bottom: 10px;">
                                             <el-table :data="list_npt" border style="width: 100%">
-                                                <el-table-column label="#" width="90" align="center">
+                                                <el-table-column label="#" width="90" align="center" class-name="center-text">
                                                     <template slot-scope="scope" class="text-center" style="width: 100%">
                                                         <button @click="_npt('edit',scope.row)" data-toggle="modal" data-target="#myModal" class="btn btn-info btn-sm" title="Cập nhật thông tin cá nhân"> <i class="fa fa-edit"></i> </button>
                                                         <button @click="delete_npt(scope.row)" class="btn btn-danger btn-sm" title="Xóa"> <i class="fa fa-trash-o"></i> </button>
                                                     </template>
                                                 </el-table-column>
-                                                <el-table-column type="index" label="TT" align="center"></el-table-column>
-                                                <el-table-column prop="ma_nv" label="Mã NV" width="100"></el-table-column>
-                                                <el-table-column prop="ho_ten" label="Tên NV" width="150"></el-table-column>
-                                                <el-table-column prop="ho_ten_npt" label="Họ tên NPT" width="150"></el-table-column>
-                                                <el-table-column prop="ngay_sinh_npt" label="Ngày sinh"></el-table-column>
-                                                <el-table-column prop="tg_giam_tru_tu" label="TG Giảm trừ từ" width="150"></el-table-column>
-                                                <el-table-column prop="tg_giam_tru_den" label="TG Giảm trừ đến" width="150"></el-table-column>
-                                                <el-table-column prop="quan_he_nnt" label="Quan hệ"></el-table-column>
+                                                <el-table-column type="index" label="TT" align="center" class-name="center-text"></el-table-column>
+                                                <el-table-column prop="ma_nv" label="Mã NV" align="center" width="100" class-name="center-text"></el-table-column>
+                                                <el-table-column prop="ho_ten" label="Tên NV" width="150" class-name="no-center-text"></el-table-column>
+                                                <el-table-column prop="ho_ten_npt" label="Họ tên NPT" width="150" class-name="no-center-text"></el-table-column>
+                                                <el-table-column prop="ngay_sinh_npt" label="Ngày sinh" align="center" class-name="center-text"></el-table-column>
+                                                <el-table-column prop="tg_giam_tru_tu" label="TG Giảm trừ từ" align="center" width="150" class-name="center-text"></el-table-column>
+                                                <el-table-column prop="tg_giam_tru_den" label="TG Giảm trừ đến" align="center" width="150" class-name="center-text"></el-table-column>
+                                                <el-table-column prop="quan_he_nnt" label="Quan hệ" class-name="no-center-text"></el-table-column>
                                             </el-table>
                                         </div>
 
