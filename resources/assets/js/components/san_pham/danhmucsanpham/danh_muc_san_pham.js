@@ -16,14 +16,15 @@ export function api_get_all_danh_muc_san_pham(vm) {
         })
 }
 export function api_get_all_danh_muc_san_pham_pa(vm, page) {
+    var old_url = 'api/get-danh-muc-san-pham-pa/ + vm.limit?page=page';
     axios({
         method: 'GET',
-        url: 'api/get-danh-muc-san-pham-pa/'+vm.limit+'?page='+page,
+        url: 'api/get-danh-muc-san-pham',
         headers: {'Authorization':'Bearer ' + vm.$store.state.currentUser.token}
     })
         .then((response) => {
-            vm.list_danh_muc = response.data.data;
-            vm.total_danh_muc = response.data.total;
+            vm.list_danh_muc = response.data;
+            vm.total_danh_muc = response.data.length;
             // console.log(vm.list_danh_muc);
         })
         .catch((error) => {
@@ -65,6 +66,7 @@ export function api_edit_danh_muc(vm) {
         data: vm.$data.danh_muc
     })
         .then((response) => {
+            console.log(response.data);
             vm.un_change_bnt_save();
             if(response.data == 1){
                 sweetalert(1, 'Thêm thành công!');
@@ -76,9 +78,12 @@ export function api_edit_danh_muc(vm) {
         })
         .catch((error) => {
             console.log(error);
+            vm.un_change_bnt_save();
             sweetalert(2, 'Lỗi không thực hiện được chức năng này!');
         })
 }
+
+
 //xoa
 export function api_delete_danh_muc(vm) {
     swal({
@@ -91,24 +96,23 @@ export function api_delete_danh_muc(vm) {
         },
         function() {
             axios({
-                method: 'POST',
-                url: 'api/xoa-danh-muc/'+vm.danh_muc.danh_muc_id,
+                method: 'GET',
+                url: 'api/xoa-danh-muc/' + vm.danh_muc.danh_muc_id,
                 headers: {'Authorization':'Bearer ' + vm.$store.state.currentUser.token}
             })
                 .then((response) => {
-                    console.log(response.data);
-                    if(response.data == 1){
-                        sweetalert(1, 'Thêm thành công!');
+                    if(response.data == 1) {
+                        sweetalert(1, 'Danh mục vừa chọn đã được xóa!');
                         api_get_all_danh_muc_san_pham_pa(vm,1);
                     }
-                    else if(parseInt(response.data) == 0){
-                        sweetalert(2, 'Lỗi không thể xóa được!');
+                    else if(response.data == 0){
+                        sweetalert(0, 'Danh mục này có chứa sản phẩm, vui lòng xóa sản phẩm trước');
                     }
-                    else sweetalert(2, 'Lỗi không thể xóa được!');
+                    else {sweetalert(2, 'Lỗi không xóa được!');}
                 })
                 .catch((error) => {
-                    console.log(error);
                     sweetalert(2, 'Lỗi không thực hiện được chức năng này!');
                 })
+
         });
 }

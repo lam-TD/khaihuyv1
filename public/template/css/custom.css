@@ -369,10 +369,12 @@ tr.thutu, td.thutu {
 
 th.center-text, th.no-center-text {
     font-weight: 600 !important;
+    color: black !important;
 }
 
 td.center-text {
     text-align: center !important;
+    color: black !important;
 }
 
 td.center-text .cell {

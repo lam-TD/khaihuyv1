@@ -137,11 +137,15 @@
                                                         </template>
                                                     </el-table-column>
 
-                                                    <el-table-column type="index" width="50" align="center" class-name="center-text"></el-table-column>
+                                                    <el-table-column type="index" label="TT" width="50" align="center" class-name="center-text"></el-table-column>
 
                                                     <!--<el-table-column prop="danh_muc_id" label="ID" width="50" class-name="no-center-text"></el-table-column>-->
 
-                                                    <el-table-column prop="tieu_de" label="Tiêu đề" width="180" class-name="no-center-text"> </el-table-column>
+                                                    <el-table-column label="Tiêu đề" width="180" class-name="no-center-text">
+                                                        <template slot-scope="scope">
+                                                            {{scope.row.level}} {{scope.row.tieu_de}}
+                                                        </template>
+                                                    </el-table-column>
 
                                                     <el-table-column label="Tóm tắt" class-name="no-center-text">
                                                         <template slot-scope="props">

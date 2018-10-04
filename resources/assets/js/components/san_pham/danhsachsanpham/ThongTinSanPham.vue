@@ -201,7 +201,7 @@
                                                     <label style="padding-right: 0" class="label-form col-md-2 col-sm-12 col-12">Loại hàng</label>
                                                     <div class="col-sm-10 col-12">
                                                         <!--<input type="text" class="form-control" id="tsSt66" placeholder="">-->
-                                                        <el-select v-validate="'required'" v-model="danh_muc" name="txtdanhmuc" value-key="danh_muc_id" placeholder="Select" style="width: 100%;height: 38px;">
+                                                        <el-select v-validate="'required'" v-model="danh_muc"  name="txtdanhmuc" value-key="danh_muc_id" placeholder="Select" style="width: 100%;height: 38px;">
                                                             <el-option v-for="item in list_danh_muc_2" :key="item.danh_muc_id" :label="item.tieu_de" :value="item">
                                                                 <span style="float: left">{{item.level}}{{ item.tieu_de }}</span>
                                                             </el-option>

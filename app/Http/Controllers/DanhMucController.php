@@ -5,11 +5,13 @@ namespace App\Http\Controllers;
 use App\danh_muc_san_pham;
 use App\san_pham;
 use Illuminate\Http\Request;
+use DB;
 
 class DanhMucController extends Controller
 {
     protected $dm = null;
     protected $category = null;
+    protected $query = null;
 
     function category($table_row, &$category, $danhmuccha = 0, $level = "")
     {
@@ -69,20 +71,27 @@ class DanhMucController extends Controller
         $dm = danh_muc_san_pham::find($danh_muc_id);
         $dm->tieu_de      = $request->tieu_de;
         $dm->danh_muc_cha = $request->danh_muc_cha;
-        $dm->tomtat      = $request->tomtat;
-        $dm->hienthi     = $request->hienthi;
-        $dm->ghi_chu = $request->ghi_chu;
+        $dm->tomtat       = $request->tomtat;
+        $dm->hienthi      = $request->hienthi;
+        $dm->ghi_chu      = $request->ghi_chu;
         $dm->update();
+
+        $dm_sp = danh_muc_san_pham::orderby('thutu','asc')->get()->toArray();
+        $this->update_child_listId($dm_sp, $query);
         return 1;
     }
 
     public function update_child_listId($table_row, &$query, $danhmuccha = 0, $danhmuc_id_assoc = 0)
     {
+//        return json_encode($table_row);
         foreach ($table_row as $key => $row) {
             if ($row['danh_muc_cha'] == $danhmuccha) {
                 $danhmuc_id_assoc_child = $danhmuc_id_assoc."," . $row["danh_muc_id"];
-                $query .= "UPDATE danhmuctintuc SET danhmuc_id_assoc = '" . $danhmuc_id_assoc_child . "' WHERE danhmuc_id = " . $row["danhmuc_id"] . ";";
-                unset($table_row[$key]);
+                $dm = danh_muc_san_pham::find($row["danh_muc_id"]);
+                $dm->danhmuc_id_assoc = $danhmuc_id_assoc_child;
+                $dm->save();
+//                $query .= "UPDATE danh_muc_san_pham SET danhmuc_id_assoc = '" . $danhmuc_id_assoc_child . "' WHERE danh_muc_id = " . $row["danh_muc_id"] . ";";
+//                unset($table_row[$key]);
                 $this->update_child_listId($table_row, $query, $row['danh_muc_id'], $danhmuc_id_assoc_child);
             }
         }
