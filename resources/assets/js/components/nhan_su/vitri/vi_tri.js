@@ -19,6 +19,20 @@ export function api_get_all_vi_tri(vm, page) {
         })
 }
 
+export function api_get_all_vi_tri_no_pa(vm) {
+    axios({
+        method: 'GET',
+        url: 'api/get-all-vi-tri-no-pa',
+        headers: {'Authorization':'Bearer ' + vm.$store.state.currentUser.token}
+    })
+        .then((response) => {
+            vm.list_vi_tri = response.data;
+        })
+        .catch((error) => {
+            console.log(error);
+        })
+}
+
 export function api_get_vi_tri_theo_phong(vm, id, page) {
     console.log('đấ: ' + id);
     axios({

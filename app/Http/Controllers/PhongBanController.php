@@ -17,7 +17,7 @@ class PhongBanController extends Controller
 
     public function get_all_phong_ban($limit)
     {
-        $p = phong_ban::paginate($limit);
+        $p = phong_ban::orderby('id', 'desc')->paginate($limit);
         return json_encode($p);
     }
 
@@ -100,6 +100,9 @@ class PhongBanController extends Controller
     public function get_ma_phong_ban()
     {
         $bong_ban_first = phong_ban::orderBy('ma_phong', 'desc')->first();
+
+        if($bong_ban_first == null || $bong_ban_first == []) return 'PH00001';
+
         $bong_ban_first = $bong_ban_first->ma_phong;
         $so = (int)substr($bong_ban_first, 2) + 1;
         $str = 'PH';

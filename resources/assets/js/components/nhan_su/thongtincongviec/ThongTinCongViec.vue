@@ -142,13 +142,13 @@
                                                 <div class="form-group row">
                                                     <label class="label-form col-md-3 col-form-label">Bộ phận LV</label>
                                                     <div class="col-md-9">
-                                                        <el-select v-model="bo_phan" filterable size="small" placeholder="Chọn bộ phận" style="width: 100%" @change="select_bo_phan" no-match-text="Không tìm thấy" no-data-text="Không có dữ liệu">
+                                                        <el-select v-model="bo_phan" filterable value-key="ma_bo_phan" size="small" placeholder="Chọn bộ phận" style="width: 100%" @change="select_bo_phan" no-match-text="Không tìm thấy" no-data-text="Không có dữ liệu">
                                                             <!--<template slot="prefix"><label class="prefix">{{nhan_vien.ma_nv}}</label></template>-->
                                                             <el-option
                                                                     v-for="item in list_bo_phan"
                                                                     :key="item.id"
                                                                     :label="item.ma_bo_phan"
-                                                                    :value="item.ma_bo_phan">
+                                                                    :value="item">
                                                                 <span style="float: left">{{ item.ma_bo_phan }}</span>
                                                                 <span style="float: right; color: #8492a6; font-size: 13px">{{ item.ten_bo_phan }}</span>
                                                             </el-option>
@@ -160,13 +160,13 @@
                                                 <div class="form-group row">
                                                     <label class="label-form col-md-3 col-form-label">Phòng</label>
                                                     <div class="col-md-9">
-                                                        <el-select v-model="phong_ban" size="small" placeholder="Chọn phòng" style="width: 100%" @change="select_phong" no-match-text="Không tìm thấy" no-data-text="Không có dữ liệu">
+                                                        <el-select v-model="phong_ban" size="small" value-key="ma_phong" placeholder="Chọn phòng" style="width: 100%" @change="select_phong" no-match-text="Không tìm thấy" no-data-text="Không có dữ liệu">
                                                             <!--<template slot="prefix"><label class="prefix">{{nhan_vien.ma_nv}}</label></template>-->
                                                             <el-option
                                                                     v-for="item in list_change_phong"
                                                                     :key="item.id"
                                                                     :label="item.ma_phong"
-                                                                    :value="item.ma_phong">
+                                                                    :value="item">
                                                                 <span style="float: left">{{ item.ma_phong }}</span>
                                                                 <span style="float: right; color: #8492a6; font-size: 13px">{{ item.ten_phong }}</span>
                                                             </el-option>
@@ -177,13 +177,13 @@
                                                 <div class="form-group row">
                                                     <label class="label-form col-md-3 col-form-label">Vị trí</label>
                                                     <div class="col-md-9">
-                                                        <el-select v-model="ttcv.vi_tri_ma" filterable size="small" placeholder="Chọn phòng" style="width: 100%" @change="select_vi_tri" no-match-text="Không tìm thấy" no-data-text="Không có dữ liệu">
+                                                        <el-select v-model="vi_tri" value-key="ma_vi_tri" filterable size="small" placeholder="Chọn phòng" style="width: 100%" @change="select_vi_tri" no-match-text="Không tìm thấy" no-data-text="Không có dữ liệu">
                                                             <!--<template slot="prefix"><label class="prefix">{{nhan_vien.ma_nv}}</label></template>-->
                                                             <el-option
-                                                                    v-for="item in list_vi_tri"
+                                                                    v-for="item in list_change_vi_tri"
                                                                     :key="item.ma_vi_tri"
                                                                     :label="item.ma_vi_tri"
-                                                                    :value="item.ma_vi_tri">
+                                                                    :value="item">
                                                                 <span style="float: left">{{ item.ma_vi_tri }}</span>
                                                                 <span style="float: right; color: #8492a6; font-size: 13px">{{ item.ten_vi_tri }}</span>
                                                             </el-option>
@@ -296,21 +296,23 @@
     import {api_add_ttcv} from "./thong_tin_cong_viec";
     import {api_edit_ttcv} from "./thong_tin_cong_viec";
     import {api_delete_ttcv} from "./thong_tin_cong_viec";
-    import {select_lam} from "../../helper/selectlam";
+
     import {api_search_all_ttcv} from "./thong_tin_cong_viec";
     import {api_nhan_vien_get_all_no_pa} from "../../helper/nhan_vien";
 
     import {api_get_all_bo_phan} from "../bophan/bo_phan";
     import {api_get_all_phong_ban_no_paginate} from "../phongban/phong_ban";
+    import {api_get_all_vi_tri_no_pa} from "../vitri/vi_tri";
     import {api_get_vi_tri_all_theo_phong} from "./thong_tin_cong_viec";
 
     export default {
-        name: 'bophan',
+        name: 'thongtincongviec',
         mounted () {
             this.danh_sach_ttcv(1);
             api_nhan_vien_get_all_no_pa(this);
             api_get_all_bo_phan(this);
             api_get_all_phong_ban_no_paginate(this);
+            api_get_all_vi_tri_no_pa(this);
         },
         updated () {
             $(document).ready(function() {
@@ -336,6 +338,7 @@
                 vi_tri: '',
                 list_change_phong: [],
                 list_vi_tri: [],
+                list_change_vi_tri: [],
                 nhan_vien: '',
                 list_nhan_vien: '',
                 flag_nhan_vien: true,
@@ -361,18 +364,21 @@
             }
         },
         methods: {
-            select_bo_phan: function (id_bp) {
-                this.ttcv.bo_phan_ma = id_bp;
+            select_bo_phan: function (bd) {
+                this.ttcv.bo_phan_ma = bd.ma_bo_phan;
                 this.list_change_phong = this.list_phong_ban.filter(function(item){
-                    return (item['id_bo_phan'] == id_bp);
+                    return (item['id_bo_phan'] == bd.ma_bo_phan);
                 })
             },
-            select_phong: function (id_bp) {
-                api_get_vi_tri_all_theo_phong(this, id_bp);
-                this.ttcv.phong_ma = id_bp;
+            select_phong: function (phong) {
+                // api_get_vi_tri_all_theo_phong(this, id_bp);
+                this.list_change_vi_tri = this.list_vi_tri.filter(function(item){
+                    return (item['id_phong_ban'] == phong.ma_phong);
+                })
+                this.ttcv.phong_ma = phong.ma_phong;
             },
-            select_vi_tri: function (id_vt) {
-                this.ttcv.vi_tri_ma = id_vt;
+            select_vi_tri: function (vt) {
+                this.ttcv.vi_tri_ma = vt.ma_vi_tri;
             },
             validate_ma_bp: function () {
                 var length_nv = this.ttcv.ma_ttcv.length;
@@ -444,13 +450,14 @@
                 }
                 else {
                     this.flag_nhan_vien = false;
-                    this.bo_phan = cv.bo_phan_ma;
-                    this.phong_ban = cv.phong_ma;
-                    this.vi_tri = cv.vi_tri_ma;
+                    // this.bo_phan = cv.bo_phan_ma;
+                    // this.phong_ban = cv.phong_ma;
+                    // this.vi_tri = cv.vi_tri_ma;
                     this.cham_cong = parseInt(cv.cham_cong);
                     this.nhan_vien = this.list_nhan_vien.filter(function(item){
                         return (item['ma_nv'] == cv.ma_nv);
                     })[0];
+
                     this.flag_disable_manv = true;
                     this.flag_submit_ttcv = false;
                     this.flag_input_ttcv = true;
@@ -460,10 +467,30 @@
                     this.ttcv.luong_co_ban = cv.luong_co_ban; this.ttcv.htcv = cv.htcv; this.ttcv.ghi_chu = cv.ghi_chu;
                     this.ttcv.nv_ma = cv.nv_ma; this.ttcv.bo_phan_ma; this.ttcv.phong_ma = cv.phong_ma;this.ttcv.vi_tri_ma = cv.vi_tri_ma;
                     this.ttcv.thoi_gian_lv_bd = cv.thoi_gian_lv_bd; this.ttcv.thoi_gian_lv_kt = cv.thoi_gian_lv_kt; this.ttcv.cham_cong = cv.cham_cong;
+                    // this.load_vi_tri_cong_viec(cv.bo_phan_ma,cv.phong_ma,cv.vi_tri_ma);
+
+                    this.bo_phan = this.list_bo_phan.filter(function (item) {
+                        return (item['ma_bo_phan'] == cv.bo_phan_ma);
+                    })[0];
+
+                    this.list_change_phong = this.list_phong_ban.filter(function (item) {
+                        return (item['ma_phong'] == cv.phong_ma);
+                    });
+                    this.phong_ban = this.list_phong_ban.filter(function (item) {
+                        return (item['ma_phong'] == cv.phong_ma);
+                    })[0];
+
+                    this.list_change_vi_tri = this.list_vi_tri.filter(function (item) {
+                        return (item['ma_vi_tri'] == cv.vi_tri_ma);
+                    });
+                    this.vi_tri = this.list_vi_tri.filter(function (item) {
+                        return (item['ma_vi_tri'] == cv.vi_tri_ma);
+                    })[0];
                 }
             },
             submit_ttcv: function () {
                 this.change_bnt_save();
+                this.ttcv.vi_tri_ma = this.vi_tri.ma_vi_tri;
                 this.ttcv.cham_cong = this.cham_cong;
                 if(this.flag_submit_ttcv) {
                     this.flag_input_ttcv = false;
@@ -471,9 +498,9 @@
                 }
                 else {
                     // this.ttcv.cham_cong = this.cham_cong;
-                    this.ttcv.bo_phan_ma = this.bo_phan;
-                    this.ttcv.phong_ma = this.phong_ban;
-                    this.ttcv.vi_tri_ma = this.vi_tri;
+                    this.ttcv.bo_phan_ma = this.bo_phan.ma_bo_phan;
+                    this.ttcv.phong_ma = this.phong_ban.ma_phong;
+                    this.ttcv.vi_tri_ma = this.vi_tri.ma_vi_tri;
                     this.flag_input_ttcv = true;
                     this.edit_ttcv();
                 }

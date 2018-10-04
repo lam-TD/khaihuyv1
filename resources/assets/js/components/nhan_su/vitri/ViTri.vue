@@ -139,7 +139,7 @@
                                                 <div class="form-group row">
                                                     <label class="label-form col-md-3 col-form-label"><b>Phòng ban(*)</b></label>
                                                     <div class="col-md-9">
-                                                        <el-select v-model="vi_tri.id_phong_ban" value-key="vi_tri.id_phong_ban" size="small" filterable placeholder="Tất cả phòng ban" @change="select_vi_tri_theo_phong" no-match-text="Không tìm thấy" no-data-text="Không có dữ liệu">
+                                                        <el-select :disabled="flag_disabled_phong" v-model="vi_tri.id_phong_ban" value-key="vi_tri.id_phong_ban" size="small" filterable placeholder="Tất cả phòng ban" @change="select_vi_tri_theo_phong" no-match-text="Không tìm thấy" no-data-text="Không có dữ liệu">
                                                             <el-option-group v-for="item in list_phong_ban" :label="item.ten_bo_phan" :key="item.ten_bo_phan">
                                                                 <el-option v-for="p in item.phong" :key="p.id" :label="p.ten_phong" :value="p.ma_phong">
                                                                     <span style="float: left">{{ p.ten_phong }}</span>
@@ -242,7 +242,8 @@
                 error_select_phong: true,
                 options_display: [10,20,30],
                 limit: 10,
-                currentPage: 1
+                currentPage: 1,
+                flag_disabled_phong: false
             }
         },
         methods: {
@@ -308,6 +309,7 @@
             },
             _vi_tri: function (state, bophan = null) {
                 if(state == 'add') {
+                    this.flag_disabled_phong = false;
                     this.flag_btn = true;
                     $('.row-nhom').removeClass("active-click-row");
                     this.flag_submit_vi_tri = true;
@@ -316,6 +318,7 @@
                     api_get_ma_vi_tri(this);
                 }
                 else {
+                    this.flag_disabled_phong = true;
                     this.error_select_phong = false;
                     $('#select_phong_2').attr('disabled', 'disabled');
                     this.vi_tri.id = bophan.id;

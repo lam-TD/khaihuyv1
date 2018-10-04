@@ -54,6 +54,9 @@ class BoPhanController extends Controller
     public function get_ma_bo_phan()
     {
         $bo_phan_first = bo_phan::orderBy('ma_bo_phan', 'desc')->first();
+        if($bo_phan_first == null || $bo_phan_first == []){
+            return 'BP00001';
+        }
         $ma_bo_phan_first = $bo_phan_first->ma_bo_phan;
         $so = (int)substr($ma_bo_phan_first,2) + 1;
         $str = 'BP';

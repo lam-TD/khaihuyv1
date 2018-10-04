@@ -18,7 +18,7 @@ export function api_get_all_phong_ban_no_paginate(vm) {
 export function api_get_all_phong_ban(vm, page) {
     axios({
         method: 'GET',
-        url: 'api/get-all-phong-ban/'+vm.limit+'?page=' + page,
+        url: 'api/get-all-phong-ban/' + vm.limit +'?page=' + page,
         headers: {'Authorization':'Bearer ' + vm.$store.state.currentUser.token}
     })
         .then((response) => {
@@ -33,11 +33,10 @@ export function api_get_all_phong_ban(vm, page) {
 }
 
 export function api_get_danh_sach_phong_theo_bo_phan(vm, id, page) {
-    var lam = 'api/get-phong-theo-bo-phan/'+ id +'/'+vm.limit+'?page=' + page;
-    console.log(lam);
+    let limit = vm.limit;
     axios({
         method: 'GET',
-        url: 'api/get-phong-theo-bo-phan/'+ id +'/'+vm.limit+'?page=' + page,
+        url: 'api/get-phong-theo-bo-phan/'+ id +'/' + limit + '?page=' + page,
         headers: {'Authorization':'Bearer ' + vm.$store.state.currentUser.token}
     })
         .then((response) => {
@@ -124,7 +123,12 @@ export function api_edit_phong_ban(vm) {
                 sweetalert(1, 'Cập nhật thành công!');
                 $('#myModal').modal('hide');
                 $('.modal-backdrop').css('display','none');
-                vm.danh_sach_phong_ban();
+                if(vm.bo_phan == ''){
+                    api_get_all_phong_ban(vm,1);
+                }
+                else{
+                    api_get_danh_sach_phong_theo_bo_phan(vm, vm.phong_ban.id_bo_phan, 1);
+                }
             }
             else sweetalert(2, 'Lỗi không cập nhật được!');
         })

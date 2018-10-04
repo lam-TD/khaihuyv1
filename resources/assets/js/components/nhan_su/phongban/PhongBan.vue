@@ -34,7 +34,7 @@
                                         <!--</ul>-->
                                     <!--</div>-->
                                     <div class="">
-                                        <el-select v-model="phong_ban.id_bo_phan" value-key="phong_ban.id_bo_phan" filterable placeholder="Tất cả bộ phận" @change="select_phong_theo_bo_phan" no-match-text="Không tìm thấy" no-data-text="Không có dữ liệu">
+                                        <el-select v-model="bo_phan" value-key="phong_ban.id_bo_phan" filterable placeholder="Tất cả bộ phận" @change="select_phong_theo_bo_phan" no-match-text="Không tìm thấy" no-data-text="Không có dữ liệu">
                                             <el-option :key="''" :label="'Tất cả bộ phận'" :value="''"></el-option>
                                             <el-option v-for="item in list_bo_phan" :key="item.id" :label="item.ten_bo_phan" :value="item.ma_bo_phan">
                                                 <span style="float: left">{{ item.ten_bo_phan }}</span>
@@ -150,7 +150,7 @@
                                                 <div class="form-group row">
                                                     <label class="label-form col-md-3 col-form-label"><b>Bộ phận(*)</b></label>
                                                     <div class="col-md-9">
-                                                        <el-select v-model="phong_ban.id_bo_phan" value-key="phong_ban.id_bo_phan" size="small" filterable placeholder="Chọn bộ phận" @change="select_phong_theo_bo_phan" no-match-text="Không tìm thấy" no-data-text="Không có dữ liệu">
+                                                        <el-select :disabled="flag_disabled_bo_phan" v-model="bo_phan" value-key="phong_ban.id_bo_phan" size="small" filterable placeholder="Chọn bộ phận" @change="select_phong_theo_bo_phan" no-match-text="Không tìm thấy" no-data-text="Không có dữ liệu">
                                                             <el-option v-for="item in list_bo_phan" :key="item.id" :label="item.ten_bo_phan" :value="item.ma_bo_phan">
                                                                 <span style="float: left">{{ item.ten_bo_phan }}</span>
                                                                 <span style="float: right; color: #8492a6; font-size: 13px">{{ item.ma_bo_phan }}</span>
@@ -241,7 +241,7 @@
             return {
                 loading_bo_phan: true,
                 select_bo_phan: '',
-                bo_phan: [],
+                bo_phan: '',
                 list_bo_phan: [],
                 loading_phong_ban: true,
                 list_phong_ban: [],
@@ -257,7 +257,9 @@
                 error_select_bo_phan: true,
                 options_display: [10,20,30],
                 limit: 10,
-                currentPage: 1
+                currentPage: 1,
+                flag_disabled_bo_phan: false,
+                id_old: ''
             }
         },
         methods: {
@@ -284,14 +286,15 @@
             },
             select_phong_theo_bo_phan: function (id_bo_phan) {
                 this.phong_ban.id_bo_phan = id_bo_phan;
-                console.log(id_bo_phan);
+                // console.log(id_bo_phan);
                 this.error_select_bo_phan = false;
                 this.danh_sach_phong_ban(1);
             },
             danh_sach_bo_phan: function () {
 
             },
-            danh_sach_phong_ban_limit: function () {
+            danh_sach_phong_ban_limit: function (limit) {
+                this.limit = limit;
                 this.loading_phong_ban = true;
                 if(this.phong_ban.id_bo_phan == ''){
                     this.currentPage = 1;
@@ -305,6 +308,7 @@
             danh_sach_phong_ban: function (page = 1) {
                 this.loading_phong_ban = true;
                 if(this.phong_ban.id_bo_phan == ''){
+                    this.phong_ban.id_bo_phan = '';
                     api_get_all_phong_ban(this, page);
                 }
                 else{
@@ -324,6 +328,7 @@
             },
             _phong_ban: function (state, bophan = null) {
                 if(state == 'add') {
+                    this.flag_disabled_bo_phan = false;
                     this.flag_btn = true;
                     $('.row-nhom').removeClass("active-click-row");
                     this.flag_submit_phong_ban = true;
@@ -332,6 +337,7 @@
                     api_get_ma_phong(this);
                 }
                 else {
+                    this.flag_disabled_bo_phan = true;
                     $('#select_phong_2').attr('disabled', 'disabled');
                     this.error_select_bo_phan = false;
                     this.phong_ban.id = bophan.id;

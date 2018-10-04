@@ -53,6 +53,7 @@ Route::group(['middleware' => 'jwt.auth'], function ($router) {
 // VI TRI
 Route::group(['middleware' => 'jwt.auth'], function ($router) {
     Route::get('get-all-vi-tri/{limit}', 'ViTriController@get_all_vi_tri');
+    Route::get('get-all-vi-tri-no-pa', 'ViTriController@get_all_vi_tri_no_pa');
     Route::get('get-vi-tri-theo-phong/{id_phong}/{limit}', 'ViTriController@get_vi_tri_theo_phong');
     Route::post('add-vi-tri', 'ViTriController@add_vi_tri');
     Route::post('edit-vi-tri', 'ViTriController@edit_vi_tri');

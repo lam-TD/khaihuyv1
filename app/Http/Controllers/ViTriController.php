@@ -15,6 +15,12 @@ class ViTriController extends Controller
         return json_encode($vt);
     }
 
+    public function get_all_vi_tri_no_pa()
+    {
+        $vt = $vt = vi_tri::orderby('id', 'desc')->get();
+        return json_encode($vt);
+    }
+
     public function get_vi_tri_theo_phong($id_phong_ban, $limit)
     {
         $vt = vi_tri::where('id_phong_ban', $id_phong_ban)->paginate($limit);
@@ -66,6 +72,7 @@ class ViTriController extends Controller
     public function get_ma_vi_tri()
     {
         $vi_tri_first = vi_tri::orderBy('ma_vi_tri', 'desc')->first();
+        if($vi_tri_first == null || $vi_tri_first == []) return 'VT00001';
         $vi_tri_first = $vi_tri_first->ma_vi_tri;
         $so = (int)substr($vi_tri_first, 2) + 1;
         $str = 'VT';

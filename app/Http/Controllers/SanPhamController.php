@@ -88,6 +88,9 @@ class SanPhamController extends Controller
     public function get_ma_san_pham_ke_tiep()
     {
         $bo_phan_first = san_pham::orderBy('ma_sp', 'desc')->first();
+
+        if($bo_phan_first == null || $bo_phan_first == []) return 'MH00001';
+
         $ma_bo_phan_first = $bo_phan_first->ma_sp;
         $so = (int)substr($ma_bo_phan_first,2) + 1;
         $str = 'MH';
