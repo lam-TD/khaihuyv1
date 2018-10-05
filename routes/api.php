@@ -142,10 +142,11 @@ Route::group(['middleware' => 'jwt.auth'], function ($router) {
     //    --- Danh Muc San Pham ---
     Route::get('get-danh-muc-san-pham', 'DanhMucController@get_all_danh_muc_san_pham');
     Route::get('get-danh-muc-san-pham-pa/{limit}', 'DanhMucController@get_all_danh_muc_pa');
-    Route::get('get-danh-muc/{id_danh_muc}', 'DanhMucController@get_danh_muc');
+    Route::get('get-danh-muc-san-pham-theo-id/{id_danh_muc}', 'DanhMucController@get_danh_muc_theo_id');
     Route::post('add-danh-muc', 'DanhMucController@add_danh_muc');
     Route::post('edit-danh-muc/{danh_muc_id}', 'DanhMucController@edit_danh_muc');
     Route::get('xoa-danh-muc/{danh_muc_id}', 'DanhMucController@xoa_danh_muc');
+    Route::get('get-danh-sach-san-pham-theo-danh-muc/{danh_muc_id}&{limit}', 'DanhMucController@get_danh_sach_san_pham_theo_danh_muc');
 
     //    --- San Pham ---
     Route::get('get-danh-muc-san-pham', 'DanhMucController@get_all_danh_muc_san_pham');

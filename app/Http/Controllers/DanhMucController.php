@@ -39,18 +39,27 @@ class DanhMucController extends Controller
         return $dm;
     }
     //
-    public function get_danh_muc($id_danh_muc)
+    public function get_danh_muc_theo_id($id_danh_muc)
     {
         $dm = danh_muc_san_pham::find($id_danh_muc);
         return $dm;
     }
-
 
     public function get_all_danh_muc_san_pham()
     {
         $dm = danh_muc_san_pham::orderby('thutu','asc')->get()->toArray();
         $this->category($dm,$category);
         return $category;
+    }
+
+    public function get_danh_sach_san_pham_theo_danh_muc($danh_muc_id, $limit)
+    {
+        $danh_sach_san_pham = san_pham::join('sanpham_danhmuc','san_pham.ma_sp','=','sanpham_danhmuc.ma_sp')
+            ->join('danh_muc_san_pham','sanpham_danhmuc.danh_muc_san_pham_id','=','danh_muc_san_pham.danh_muc_id')
+            ->where('danh_muc_san_pham.danh_muc_id',$danh_muc_id)
+            ->paginate($limit);
+
+        return $danh_sach_san_pham;
     }
 
     public function add_danh_muc(Request $request)

@@ -1,6 +1,41 @@
 import axios from "axios";
 import {sweetalert} from "../../../helper/sweetalert";
 
+export function api_get_danh_muc_san_pham_theo_id(vm) {
+    if(typeof vm.$route.query.id == 'undefined'){vm.$router.push({path: '/danhmucsanpham'});}
+    axios({
+        method: 'GET',
+        url: 'api/get-danh-muc-san-pham-theo-id/' + vm.$route.query.id,
+        headers: {'Authorization':'Bearer ' + vm.$store.state.currentUser.token}
+    })
+        .then((response) => {
+            vm.danh_muc = response.data;
+            console.log(vm.danh_muc);
+        })
+        .catch((error) => {
+            console.log(error);
+        })
+}
+
+export function api_get_danh_sach_san_pham_theo_danh_muc(vm, page) {
+    if(typeof vm.$route.query.id == 'undefined'){vm.$router.push({path: '/danhmucsanpham'});}
+    vm.loading_sp = true;
+    axios({
+        method: 'GET',
+        url: 'api/get-danh-sach-san-pham-theo-danh-muc/' + vm.$route.query.id + '&' + vm.limit + '?page=' + page,
+        headers: {'Authorization':'Bearer ' + vm.$store.state.currentUser.token}
+    })
+        .then((response) => {
+            vm.loading_sp = false;
+            vm.list_san_pham = response.data.data;
+            vm.total_san_pham = response.data.total;
+            console.log(vm.list_san_pham);
+        })
+        .catch((error) => {
+            console.log(error);
+        })
+}
+
 export function api_get_all_danh_muc_san_pham(vm) {
     axios({
         method: 'GET',

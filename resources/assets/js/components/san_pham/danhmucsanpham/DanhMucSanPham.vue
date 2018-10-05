@@ -105,7 +105,7 @@
                                 <a @click="scroll_card_full_creem" id="phongto" class="btn-minimize" data-action="expand"><i class="mdi mdi-arrow-expand"></i></a>
                                 <!--<a class="btn-close" data-action="close"><i class="ti-close"></i></a>-->
                             </div>
-                            <h4 class="card-title m-b-0">Danh mục sản phẩn</h4>
+                            <h4 class="card-title m-b-0">Danh mục sản phẩm</h4>
                         </div>
                         <!--danh sach danh muc-->
                         <div class="card-body collapse show pb-0">
@@ -132,7 +132,7 @@
                                                 <el-table border :data="list_danh_muc" stripe style="width: 100%">
                                                     <el-table-column label="Thao tác" width="90" align="center" class-name="center-text">
                                                         <template slot-scope="scope" class="text-center" style="width: 100%">
-                                                            <button @click="__danh_muc('edit', scope.row)" data-toggle="modal" data-target="#modal_danh_muc_san_pham" class="btn btn-info btn-sm" title="Cập nhật danh mục"> <i class="fa fa-edit"></i> </button>
+                                                            <router-link :to="{path: '/capnhatdanhmucsanpham', query: { id: scope.row.danh_muc_id }}" class="btn btn-info btn-sm" title="Cập nhật danh mục"> <i class="fa fa-edit"></i></router-link>
                                                             <button @click="delete_danh_muc(scope.row)" class="btn btn-danger btn-sm" title="Xóa"> <i class="fa fa-trash-o"></i> </button>
                                                         </template>
                                                     </el-table-column>
@@ -531,5 +531,18 @@
 
     label {
         font-weight: 600;
+    }
+
+    .message-box .message-widget a {
+        border-bottom: 1px solid rgba(120, 130, 140, 0.13);
+        display: inline-block;
+        text-decoration: none;
+        padding: 4px 8px;
+    }
+    .message-box .message-widget a:hover {
+        background: #1976d2;
+        border: 1px solid #1976d2;
+        -webkit-box-shadow: 0 14px 26px -12px rgba(23, 105, 255, 0.42), 0 4px 23px 0 rgba(0, 0, 0, 0.12), 0 8px 10px -5px rgba(23, 105, 255, 0.2);
+        box-shadow: 0 14px 26px -12px rgba(23, 105, 255, 0.42), 0 4px 23px 0 rgba(0, 0, 0, 0.12), 0 8px 10px -5px rgba(23, 105, 255, 0.2);
     }
 </style>

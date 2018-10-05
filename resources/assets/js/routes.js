@@ -17,7 +17,7 @@ import nguoiphuthuoc from './components/nhan_su/nguoiphuthuoc/NguoiPhuThuoc';
 
 //======= SAN PHAM =======
 import danhmucsanpham from './components/san_pham/danhmucsanpham/DanhMucSanPham';
-import capnhatdanhmucsanpham from './components/san_pham/danhsachsanpham/DanhSachSanPham';
+import capnhatdanhmucsanpham from './components/san_pham/danhmucsanpham/CapNhatDanhMucSanPham';
 import thongtinsanpham from './components/san_pham/danhsachsanpham/ThongTinSanPham';
 import capnhatthongtinsanpham from './components/san_pham/danhsachsanpham/SuaThongTinSanPham';
 import danhsachsanpham from './components/san_pham/danhsachsanpham/DanhSachSanPham';

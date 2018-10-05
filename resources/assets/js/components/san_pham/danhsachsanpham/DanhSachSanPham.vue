@@ -305,4 +305,5 @@
     .has-gutter tr th .cell {
         font-weight: 800;
     }
+
 </style>
