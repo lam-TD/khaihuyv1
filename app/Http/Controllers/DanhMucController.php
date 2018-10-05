@@ -57,8 +57,8 @@ class DanhMucController extends Controller
         $danh_sach_san_pham = san_pham::join('sanpham_danhmuc','san_pham.ma_sp','=','sanpham_danhmuc.ma_sp')
             ->join('danh_muc_san_pham','sanpham_danhmuc.danh_muc_san_pham_id','=','danh_muc_san_pham.danh_muc_id')
             ->where('danh_muc_san_pham.danh_muc_id',$danh_muc_id)
+            ->orderby('order_num','asc')
             ->paginate($limit);
-
         return $danh_sach_san_pham;
     }
 

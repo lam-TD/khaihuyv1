@@ -19,7 +19,6 @@
                             <div class="message-box contact-box">
                                 <div class="message-widget contact-widget">
                                     <div class="row mb-4">
-                                        <form @submit.prevent="submit_danh_muc">
                                             <div class="modal-body" style="padding-left: 30px;padding-right: 30px;">
                                                 <div class="form-group row border-form mt-2">
                                                     <label class=" col-md-2 col-3 col-form-label">Tên danh mục:</label>
@@ -73,20 +72,26 @@
                                                 </div>
                                                 <br>
                                                 <h5 style="font-weight: 600">Thứ tự hiển thị sản phẩm</h5>
-                                                <small>Kéo thả chuột để sắp xếp vị trí</small>
 
                                                 <div class="form-group row border-form">
-                                                    <div class="col-md-12">
+                                                    <div class="col-md-12 mb-2">
                                                         <div class="row">
-                                                            <div class="col-md-6">
-                                                                <el-input placeholder="Type something" size="small" suffix-icon="el-icon-search" v-model="keyword">
-                                                                </el-input>
+                                                            <div class="col-md-5">
+                                                                <form @submit.prevent="submit_search">
+                                                                    <el-input placeholder="Tìm kiếm sản phẩm" size="small" suffix-icon="el-icon-search" v-model="keyword"></el-input>
+                                                                </form>
                                                             </div>
-                                                            <div class="col-md-6"></div>
+                                                            <div class="col-md-7">
+                                                                <el-select v-model="sap_xep" value-key="key" placeholder="Thủ công" size="small" @change="change_sap_xep" class="pull-right">
+                                                                    <el-option v-for="item in list_sap_xep" :key="item.key" :label="item.label" :value="item"></el-option>
+                                                                </el-select>
+                                                                <label class="col-form-label pull-right mr-2">Sắp xếp</label>
+                                                            </div>
                                                         </div>
                                                     </div>
+                                                    <!--<div class="col-md-12"><small>Kéo thả chuột để sắp xếp vị trí</small></div>-->
                                                     <div class="col-md-12 table-responsive">
-                                                        <table class="table table-bordered">
+                                                        <table class="table table-bordered mb-2">
                                                             <thead>
                                                             <tr>
                                                                 <th class="text-center" style="width:38px;border-right: 1px solid #ddd;">#</th>
@@ -130,7 +135,7 @@
 
                                                 <div class="form-group row border-form pull-right">
                                                     <div class="col-md-12">
-                                                        <button :disabled="flag_disabled_submit" id="save" type="submit" class="btn btn-primary pull-right">
+                                                        <button @click="submit_danh_muc" :disabled="flag_disabled_submit" id="save" type="button" class="btn btn-primary pull-right">
                                                             <span v-if="flag_btn_save"><i class="fa fa-save"></i> Lưu lại</span>
                                                             <span v-if="!flag_btn_save"><i class="fa fa-spin fa-spinner"></i> Đang xử lý...</span>
                                                         </button>
@@ -139,7 +144,7 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                        </form>
+
                                     </div>
                                 </div>
                             </div>
@@ -170,6 +175,10 @@
     import {api_add_danh_muc} from "./danh_muc_san_pham";
     import {api_edit_danh_muc} from "./danh_muc_san_pham";
     import {api_delete_danh_muc} from "./danh_muc_san_pham";
+
+    import {api_search_san_pham_trong_danh_muc} from "./danh_muc_san_pham";
+    import {api_delete_san_pham_trong_danh_muc} from "./danh_muc_san_pham";
+    import {api_sap_xep_san_pham_trong_danh_muc} from "./danh_muc_san_pham";
 
     export default {
         name: 'capnhatdanhmucsanpham',
@@ -229,7 +238,23 @@
                             ['link', 'image', 'video']
                         ]
                     }
-                }
+                },
+                sap_xep: {label: 'Thủ công',key: 1},
+                list_sap_xep: [
+                    {
+                        label: 'Thủ công',
+                        key: 1
+                    },
+                    {
+                        label: 'A - Z',
+                        key: 2
+                    },
+                    {
+                        label: 'Z - A',
+                        key: 3
+                    },
+                ],
+                value: ''
             }
         },
         methods: {
@@ -256,9 +281,27 @@
             },
             getSanPham: function (page = 1) {
                 if(this.flag_search_san_pham){
-                    return 1;
+                    api_search_san_pham_trong_danh_muc(this,page);
+                }else{
+                    api_get_danh_sach_san_pham_theo_danh_muc(this,page);
                 }
-                api_get_danh_sach_san_pham_theo_danh_muc(this,page);
+                this.currentPage = page;
+            },
+            danh_sach_san_pham_limit: function () {
+
+            },
+            change_sap_xep: function () {
+                
+            },
+            submit_search: function () {
+                if(this.keyword == '' || this.keyword == null){
+                    this.flag_search = false;
+                    api_get_danh_sach_san_pham_theo_danh_muc(this,1);
+                }
+                else{
+                    this.flag_search = true;
+                    api_search_san_pham_trong_danh_muc(this,1);
+                }
             },
             _danh_muc: function (state, bophan = null) {
                 if(state == 'add') {
@@ -279,34 +322,19 @@
                     this.flag_input_danh_muc = true;
                 }
             },
-            __danh_muc: function (state, danhmuc = null) {
-                api_get_all_danh_muc_san_pham(this);
-                if(state == 'add') {
-                    this.flag_submit_danh_muc = true;
-                    this.danh_muc =  {danh_muc_id: '', danh_muc_cha: '',alias: '',hienthi: '1',  tieu_de: '', tomtat: '', created_at: Date.now(), ghi_chu: ''};
-                }
-                else {
-                    this.flag_submit_danh_muc = false;
-                    this.danh_muc.danh_muc_id = danhmuc.danh_muc_id;
-                    this.danh_muc.tieu_de = danhmuc.tieu_de;
-                    this.danh_muc.danh_muc_cha = danhmuc.danh_muc_cha;
-                    this.danh_muc.tomtat = danhmuc.tomtat;
-                    this.danh_muc.hienthi = danhmuc.hienthi;
-                    // this.danh_muc.created_at = danhmuc.created_at;
-                    this.danh_muc.ghi_chu = danhmuc.ghi_chu;
-                }
-            },
             submit_danh_muc: function () {
                 this.change_bnt_save();
-                if(this.flag_submit_danh_muc) {
-                    this.flag_input_danh_muc = false;
-                    this.add_danh_muc();
-                }
-                else {
-                    this.nhom = this.nhom_selected;
-                    this.flag_input_danh_muc = true;
-                    this.edit_danh_muc();
-                }
+                // this.danh_muc = danhmuc;
+                api_sap_xep_san_pham_trong_danh_muc(this);
+                // if(this.flag_submit_danh_muc) {
+                //     this.flag_input_danh_muc = false;
+                //     this.add_danh_muc();
+                // }
+                // else {
+                //     this.nhom = this.nhom_selected;
+                //     this.flag_input_danh_muc = true;
+                //     this.edit_danh_muc();
+                // }
             },
             click_danh_muc: function (bp) {
                 $('.row-nhom').removeClass("active-click-row");
@@ -432,7 +460,7 @@
     }
 
     .table td, .table th {
-        padding: 2px 5px;
+        padding: 4px 4px;
         vertical-align: middle;
         border-top: 1px solid #dee2e6;
     }

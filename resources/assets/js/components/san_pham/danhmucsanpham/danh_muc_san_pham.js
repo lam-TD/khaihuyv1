@@ -151,3 +151,59 @@ export function api_delete_danh_muc(vm) {
 
         });
 }
+
+// --- San Pham Danh Muc ---
+export function api_search_san_pham_trong_danh_muc(vm, page) {
+    if(typeof vm.$route.query.id == 'undefined'){vm.$router.push({path: '/danhmucsanpham'});}
+    axios({
+        method: 'GET',
+        url: 'api/tim-kiem-san-pham-trong-danh-muc/' + vm.keyword + '&' + vm.danh_muc.danh_muc_id + '&' + vm.danh_muc.danh_muc_id + '?page=' + page,
+        headers: {'Authorization':'Bearer ' + vm.$store.state.currentUser.token}
+    })
+        .then((response) => {
+            vm.loading_sp = false;
+            vm.list_san_pham = response.data.data;
+            vm.total_san_pham = response.data.total;
+            console.log(vm.list_san_pham);
+        })
+        .catch((error) => {
+            console.log(error);
+        })
+}
+
+export function api_delete_san_pham_trong_danh_muc(vm) {
+    if(typeof vm.$route.query.id == 'undefined'){vm.$router.push({path: '/danhmucsanpham'});}
+    axios({
+        method: 'GET',
+        url: 'api/delete-san-pham-ra-khoi-danh-muc/' + vm.$route.query.id + '&' + vm.danh_muc.danh_muc_id,
+        headers: {'Authorization':'Bearer ' + vm.$store.state.currentUser.token}
+    })
+        .then((response) => {
+            console.log(response.data);
+        })
+        .catch((error) => {
+            console.log(error);
+        })
+}
+
+export function api_sap_xep_san_pham_trong_danh_muc(vm) {
+    if(typeof vm.$route.query.id == 'undefined'){vm.$router.push({path: '/danhmucsanpham'});}
+    axios({
+        method: 'POST',
+        url: 'api/sap-xep-thu-tu-san-pham-trong-danh-muc',
+        headers: {'Authorization':'Bearer ' + vm.$store.state.currentUser.token},
+        data: {
+            list_san_pham: vm.list_san_pham,
+            currentPage: vm.currentPage,
+            limit: vm.limit
+        }
+    })
+        .then((response) => {
+            vm.un_change_bnt_save();
+            console.log(response.data);
+        })
+        .catch((error) => {
+            vm.un_change_bnt_save();
+            console.log(error);
+        })
+}
