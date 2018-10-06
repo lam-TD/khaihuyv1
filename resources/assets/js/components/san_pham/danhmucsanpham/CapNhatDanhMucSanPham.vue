@@ -21,14 +21,14 @@
                                     <div class="row mb-4">
                                             <div class="modal-body" style="padding-left: 30px;padding-right: 30px;">
                                                 <div class="form-group row border-form mt-2">
-                                                    <label class=" col-md-2 col-3 col-form-label">Tên danh mục:</label>
-                                                    <div class="col-md-10 col-9 tt-dacbiet">
+                                                    <label class="col-md-2 col-form-label">Tên danh mục:</label>
+                                                    <div class="col-md-10 tt-dacbiet">
                                                         <input v-model="danh_muc.tieu_de" type="text" class="form-control form-control-sm">
                                                     </div>
                                                 </div>
                                                 <div class="form-group row border-form">
-                                                    <label class=" col-md-2 col-3 col-form-label">Danh mục cha(*):</label>
-                                                    <div class="col-md-10 col-9 tt-dacbiet">
+                                                    <label class=" col-md-2 col-form-label">Danh mục cha(*):</label>
+                                                    <div class="col-md-10 tt-dacbiet">
                                                         <select v-model="danh_muc.danh_muc_cha" size="8" class="form-control form-control-sm">
                                                             <option value="0">ROOT</option>
                                                             <option v-for="n in list_danh_muc_2" :value="n.danh_muc_id" :disabled="n.danh_muc_id == danh_muc.danh_muc_id">{{n.level}}{{n.tieu_de}}</option>
@@ -36,8 +36,8 @@
                                                     </div>
                                                 </div>
                                                 <div class="form-group row border-form">
-                                                    <label class=" col-md-2 col-3 col-form-label">Mô tả:</label>
-                                                    <div class="col-md-10 col-9 tt-dacbiet">
+                                                    <label class=" col-md-2 col-form-label">Mô tả:</label>
+                                                    <div class="col-md-10 tt-dacbiet">
                                                         <quill-editor v-model="danh_muc.tomtat"
                                                                       ref="myQuillEditor"
                                                                       :options="editorOption"
@@ -48,8 +48,8 @@
                                                     </div>
                                                 </div>
                                                 <div class="form-group row border-form">
-                                                    <label class=" col-md-2 col-3 col-form-label">Hiển thị:</label>
-                                                    <div class="col-md-10 col-9 tt-dacbiet" style="margin-top:3px;">
+                                                    <label class=" col-md-2 col-form-label">Hiển thị:</label>
+                                                    <div class="col-md-10 tt-dacbiet" style="margin-top:3px;">
                                                         <input v-model="danh_muc.hienthi" type="checkbox" id="md_checkbox_26" class="filled-in chk-col-blue" checked />
                                                         <label for="md_checkbox_26"></label>
                                                     </div>
@@ -65,8 +65,8 @@
                                                 <!--</div>-->
                                                 <!--</div>-->
                                                 <div class="form-group row border-form">
-                                                    <label class=" col-md-2 col-3 col-form-label">Ghi chú</label>
-                                                    <div class="col-md-10 col-9 tt-dacbiet">
+                                                    <label class=" col-md-2 col-form-label">Ghi chú</label>
+                                                    <div class="col-md-10 tt-dacbiet">
                                                         <input v-model="danh_muc.ghi_chu" type="text" class="form-control form-control-sm">
                                                     </div>
                                                 </div>
@@ -105,7 +105,7 @@
                                                                 <th class="text-center" style="width:38px;border-right: 1px solid #ddd;">HA</th>
                                                                 <th style="border-right: 1px solid #ddd;">Tên sản phẩm</th>
                                                                 <th class="text-center" style="border-right: 1px solid #ddd;width:100px;">Ngày tạo</th>
-                                                                <th class="text-center" style="width:50px;"></th>
+                                                                <th class="text-center" style="width:50px;">Xóa</th>
                                                             </tr>
                                                             </thead>
                                                             <draggable v-model="list_san_pham" :options="{'disabled':flag_diasebled_draggable, 'animation':'150', 'handle':'.btn-move'}" :element="'tbody'">
@@ -313,8 +313,17 @@
                     return (item['key'] == key);
                 })[0];
             },
-            short_date: function (day) {
-                return day.slice(0,10);
+            short_date: function (itemday) {
+                var date_ = itemday.slice(0,10);
+                var d     = new Date(date_);
+                var month = '' + (d.getMonth() + 1);
+                var day_   = '' + d.getDate();
+                var year  = d.getFullYear();
+
+                if (month.length < 2) month = '0' + month;
+                if (day_.length < 2) day_ = '0' + day_;
+
+                return [day_,month,year].join('-');
             },
             getSanPham: function (page = 1) {
                 if(this.flag_search_san_pham){
@@ -410,16 +419,16 @@
                 $('#phongto').closest('.card').toggleClass('card-fullscreen');
             },
             onEditorBlur(quill) {
-                console.log('editor blur!', quill)
+                // console.log('editor blur!', quill)
             },
             onEditorFocus(quill) {
-                console.log('editor focus!', quill)
+                // console.log('editor focus!', quill)
             },
             onEditorReady(quill) {
-                console.log('editor ready!', quill)
+                // console.log('editor ready!', quill)
             },
             onEditorChange({ quill, html, text }) {
-                console.log('editor change!', quill, html, text)
+                // console.log('editor change!', quill, html, text)
                 // this.content = html
             },
             quay_ve: function () {

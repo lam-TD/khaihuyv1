@@ -32,7 +32,7 @@ export function api_get_danh_sach_san_pham_theo_danh_muc(vm, page) {
             vm.loading_sp = false;
             vm.list_san_pham = response.data.data;
             vm.total_san_pham = response.data.total;
-            console.log(vm.list_san_pham);
+            // console.log(vm.list_san_pham);
         })
         .catch((error) => {
             console.log(error);
@@ -169,7 +169,7 @@ export function api_search_san_pham_trong_danh_muc(vm, page) {
             vm.loading_sp = false;
             vm.list_san_pham = response.data.data;
             vm.total_san_pham = response.data.total;
-            console.log(vm.list_san_pham);
+            // console.log(vm.list_san_pham);
         })
         .catch((error) => {
             console.log(error);
