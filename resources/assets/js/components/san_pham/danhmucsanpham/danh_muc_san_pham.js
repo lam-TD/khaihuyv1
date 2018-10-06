@@ -10,7 +10,9 @@ export function api_get_danh_muc_san_pham_theo_id(vm) {
     })
         .then((response) => {
             vm.danh_muc = response.data;
-            console.log(vm.danh_muc);
+            vm.load_select_sap_xep(response.data.danhmucsapxep);
+            api_get_danh_sach_san_pham_theo_danh_muc(vm,1);
+            // console.log(vm.danh_muc);
         })
         .catch((error) => {
             console.log(error);
@@ -19,10 +21,11 @@ export function api_get_danh_muc_san_pham_theo_id(vm) {
 
 export function api_get_danh_sach_san_pham_theo_danh_muc(vm, page) {
     if(typeof vm.$route.query.id == 'undefined'){vm.$router.push({path: '/danhmucsanpham'});}
+    console.log('api/get-danh-sach-san-pham-theo-danh-muc/' + vm.$route.query.id + '&' + vm.limit + '&' + vm.danh_muc.danhmucsapxep + '?page=' + page);
     vm.loading_sp = true;
     axios({
         method: 'GET',
-        url: 'api/get-danh-sach-san-pham-theo-danh-muc/' + vm.$route.query.id + '&' + vm.limit + '?page=' + page,
+        url: 'api/get-danh-sach-san-pham-theo-danh-muc/' + vm.$route.query.id + '&' + vm.limit + '&' + vm.danh_muc.danhmucsapxep + '?page=' + page,
         headers: {'Authorization':'Bearer ' + vm.$store.state.currentUser.token}
     })
         .then((response) => {
@@ -104,10 +107,12 @@ export function api_edit_danh_muc(vm) {
             console.log(response.data);
             vm.un_change_bnt_save();
             if(response.data == 1){
-                sweetalert(1, 'Thêm thành công!');
-                $('#modal_danh_muc_san_pham').modal('hide');
-                $('.modal-backdrop').css('display','none');
-                api_get_all_danh_muc_san_pham_pa(vm,vm.currentPage);
+                if(vm.danh_muc.danhmucsapxep == 'manual'){
+                    api_sap_xep_san_pham_trong_danh_muc(vm);
+                }
+                sweetalert(1, 'Cập nhật thành công!');
+                api_get_danh_muc_san_pham_theo_id(vm);
+                api_get_all_danh_muc_san_pham(vm);
             }
             else sweetalert(2, 'Lỗi không thể cập nhật được!');
         })
@@ -171,19 +176,34 @@ export function api_search_san_pham_trong_danh_muc(vm, page) {
         })
 }
 
-export function api_delete_san_pham_trong_danh_muc(vm) {
+export function api_delete_san_pham_trong_danh_muc(vm, ma_sp) {
     if(typeof vm.$route.query.id == 'undefined'){vm.$router.push({path: '/danhmucsanpham'});}
-    axios({
-        method: 'GET',
-        url: 'api/delete-san-pham-ra-khoi-danh-muc/' + vm.$route.query.id + '&' + vm.danh_muc.danh_muc_id,
-        headers: {'Authorization':'Bearer ' + vm.$store.state.currentUser.token}
-    })
-        .then((response) => {
-            console.log(response.data);
-        })
-        .catch((error) => {
-            console.log(error);
-        })
+    swal({
+            title: "Bạn có chắc chắn muốn xóa sản phẩm vừa chọn ra khỏi danh mục ?",
+            type: "warning",
+            showCancelButton: true,
+            confirmButtonClass: "btn-danger",
+            confirmButtonText: "Đồng ý",
+            closeOnConfirm: true
+        },
+        function() {
+            axios({
+                method: 'GET',
+                url: 'api/delete-san-pham-ra-khoi-danh-muc/' + ma_sp + '&' + vm.$route.query.id,
+                headers: {'Authorization':'Bearer ' + vm.$store.state.currentUser.token}
+            })
+                .then((response) => {
+                    if(response.data == 1) {
+                        sweetalert(1, 'Đã xóa sản phẩm khỏi danh mục!');
+                        api_get_danh_muc_san_pham_theo_id(vm);
+                    }
+                    else {sweetalert(2, 'Lỗi không xóa được!');}
+                    console.log(response.data);
+                })
+                .catch((error) => {
+                    console.log(error);
+                })
+        });
 }
 
 export function api_sap_xep_san_pham_trong_danh_muc(vm) {

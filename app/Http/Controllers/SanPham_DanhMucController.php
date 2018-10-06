@@ -8,12 +8,68 @@ use App\san_pham;
 
 class SanPham_DanhMucController extends Controller
 {
+    public function get_danh_sach_san_pham_theo_danh_muc($danh_muc_id, $limit, $type_sort = 'manual')
+    {
+        $danh_sach_san_pham = [];
+        switch ($type_sort) {
+            case 'manual':
+                $danh_sach_san_pham = san_pham::join('sanpham_danhmuc','san_pham.ma_sp','=','sanpham_danhmuc.ma_sp')
+                    ->join('danh_muc_san_pham','sanpham_danhmuc.danh_muc_san_pham_id','=','danh_muc_san_pham.danh_muc_id')
+                    ->where('danh_muc_san_pham.danh_muc_id',$danh_muc_id)
+                    ->select('san_pham.id','san_pham.ten_sp','san_pham.ma_sp','san_pham.image','san_pham.created_at','sanpham_danhmuc.order_num','sanpham_danhmuc.danh_muc_san_pham_id')
+                    ->orderby('order_num','asc')
+                    ->paginate($limit);
+                break;
+            case 'a-z':
+                $danh_sach_san_pham = san_pham::join('sanpham_danhmuc','san_pham.ma_sp','=','sanpham_danhmuc.ma_sp')
+                    ->join('danh_muc_san_pham','sanpham_danhmuc.danh_muc_san_pham_id','=','danh_muc_san_pham.danh_muc_id')
+                    ->where('danh_muc_san_pham.danh_muc_id',$danh_muc_id)
+                    ->select('san_pham.id','san_pham.ten_sp','san_pham.ma_sp','san_pham.image','san_pham.created_at','sanpham_danhmuc.order_num','sanpham_danhmuc.danh_muc_san_pham_id')
+                    ->orderby('san_pham.ten_sp','asc')
+                    ->paginate($limit);
+                break;
+            case 'z-a':
+                $danh_sach_san_pham = san_pham::join('sanpham_danhmuc','san_pham.ma_sp','=','sanpham_danhmuc.ma_sp')
+                    ->join('danh_muc_san_pham','sanpham_danhmuc.danh_muc_san_pham_id','=','danh_muc_san_pham.danh_muc_id')
+                    ->where('danh_muc_san_pham.danh_muc_id',$danh_muc_id)
+                    ->select('san_pham.id','san_pham.ten_sp','san_pham.ma_sp','san_pham.image','san_pham.created_at','sanpham_danhmuc.order_num','sanpham_danhmuc.danh_muc_san_pham_id')
+                    ->orderby('san_pham.ten_sp','desc')
+                    ->paginate($limit);
+                break;
+            case 'created_desc':
+                $danh_sach_san_pham = san_pham::join('sanpham_danhmuc','san_pham.ma_sp','=','sanpham_danhmuc.ma_sp')
+                    ->join('danh_muc_san_pham','sanpham_danhmuc.danh_muc_san_pham_id','=','danh_muc_san_pham.danh_muc_id')
+                    ->where('danh_muc_san_pham.danh_muc_id',$danh_muc_id)
+                    ->select('san_pham.id','san_pham.ten_sp','san_pham.ma_sp','san_pham.image','san_pham.created_at','sanpham_danhmuc.order_num','sanpham_danhmuc.danh_muc_san_pham_id')
+                    ->orderby('created_at','desc')
+                    ->paginate($limit);
+                break;
+            case 'created_asc':
+                $danh_sach_san_pham = san_pham::join('sanpham_danhmuc','san_pham.ma_sp','=','sanpham_danhmuc.ma_sp')
+                    ->join('danh_muc_san_pham','sanpham_danhmuc.danh_muc_san_pham_id','=','danh_muc_san_pham.danh_muc_id')
+                    ->where('danh_muc_san_pham.danh_muc_id',$danh_muc_id)
+                    ->select('san_pham.id','san_pham.ten_sp','san_pham.ma_sp','san_pham.image','san_pham.created_at','sanpham_danhmuc.order_num','sanpham_danhmuc.danh_muc_san_pham_id')
+                    ->orderby('created_at','asc')
+                    ->paginate($limit);
+                break;
+            default:
+                $danh_sach_san_pham = san_pham::join('sanpham_danhmuc','san_pham.ma_sp','=','sanpham_danhmuc.ma_sp')
+                    ->join('danh_muc_san_pham','sanpham_danhmuc.danh_muc_san_pham_id','=','danh_muc_san_pham.danh_muc_id')
+                    ->where('danh_muc_san_pham.danh_muc_id',$danh_muc_id)
+                    ->select('san_pham.id','san_pham.ten_sp','san_pham.ma_sp','san_pham.image','san_pham.created_at','sanpham_danhmuc.order_num','sanpham_danhmuc.danh_muc_san_pham_id')
+                    ->orderby('order_num','asc')
+                    ->paginate($limit);
+        }
+        return $danh_sach_san_pham;
+    }
+
     public function tim_kiem_san_pham_trong_danh_muc($keyword, $danh_muc_id, $limit)
     {
         $danh_sach_san_pham = san_pham::join('sanpham_danhmuc','san_pham.ma_sp','=','sanpham_danhmuc.ma_sp')
             ->join('danh_muc_san_pham','sanpham_danhmuc.danh_muc_san_pham_id','=','danh_muc_san_pham.danh_muc_id')
             ->where('danh_muc_san_pham.danh_muc_id',$danh_muc_id)
             ->where('san_pham.ten_sp','LIKE','%'.$keyword.'%')
+            ->select('san_pham.id','san_pham.ten_sp','san_pham.image','san_pham.created_at','sanpham_danhmuc.order_num','sanpham_danhmuc.danh_muc_san_pham_id')
             ->orderby('order_num','asc')
             ->paginate($limit);
         return $danh_sach_san_pham;

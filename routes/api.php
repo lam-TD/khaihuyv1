@@ -146,7 +146,6 @@ Route::group(['middleware' => 'jwt.auth'], function ($router) {
     Route::post('add-danh-muc', 'DanhMucController@add_danh_muc');
     Route::post('edit-danh-muc/{danh_muc_id}', 'DanhMucController@edit_danh_muc');
     Route::get('xoa-danh-muc/{danh_muc_id}', 'DanhMucController@xoa_danh_muc');
-    Route::get('get-danh-sach-san-pham-theo-danh-muc/{danh_muc_id}&{limit}', 'DanhMucController@get_danh_sach_san_pham_theo_danh_muc');
 
     //    --- San Pham ---
     Route::get('get-danh-muc-san-pham', 'DanhMucController@get_all_danh_muc_san_pham');
@@ -162,6 +161,7 @@ Route::group(['middleware' => 'jwt.auth'], function ($router) {
     Route::post('delete-img-san-pham/{id}', 'UploadImageController@delete_img');
 
     //    --- San Pham Danh Muc ---
+    Route::get('get-danh-sach-san-pham-theo-danh-muc/{danh_muc_id}&{limit}&{type_sort}', 'SanPham_DanhMucController@get_danh_sach_san_pham_theo_danh_muc');
     Route::get('tim-kiem-san-pham-trong-danh-muc/{key_word}&{danh_muc_id}&{limit}','SanPham_DanhMucController@tim_kiem_san_pham_trong_danh_muc');
     Route::get('delete-san-pham-ra-khoi-danh-muc/{ma_sp}&{danh_muc_id}', 'SanPham_DanhMucController@delete_san_pham_khoi_danh_muc');
     Route::post('sap-xep-thu-tu-san-pham-trong-danh-muc', 'SanPham_DanhMucController@sap_xep_thu_tu_san_pham_trong_sanh_muc');

@@ -83,7 +83,13 @@
                                                             </div>
                                                             <div class="col-md-7">
                                                                 <el-select v-model="sap_xep" value-key="key" placeholder="Thủ công" size="small" @change="change_sap_xep" class="pull-right">
-                                                                    <el-option v-for="item in list_sap_xep" :key="item.key" :label="item.label" :value="item"></el-option>
+                                                                    <el-option v-for="item in list_sap_xep" :key="item.key" :label="item.label" :value="item">
+                                                                        <span v-if="item.key == 'a-z'" style="float: left"><i class="fa fa-sort-alpha-asc"></i> {{ item.label }}</span>
+                                                                        <span v-else-if="item.key == 'z-a'" style="float: left"><i class="fa fa-sort-alpha-desc"></i> {{ item.label }}</span>
+                                                                        <span v-else-if="item.key == 'manual'" style="float: left"><i class="fa fa-hand-o-up"></i> {{ item.label }}</span>
+                                                                        <span v-else-if="item.key == 'created_asc'" style="float: left"><i class="fa fa-sort-amount-asc"></i> {{ item.label }}</span>
+                                                                        <span v-else style="float: left"><i class="fa fa-sort-amount-desc"></i> {{ item.label }}</span>
+                                                                    </el-option>
                                                                 </el-select>
                                                                 <label class="col-form-label pull-right mr-2">Sắp xếp</label>
                                                             </div>
@@ -95,20 +101,24 @@
                                                             <thead>
                                                             <tr>
                                                                 <th class="text-center" style="width:38px;border-right: 1px solid #ddd;">#</th>
+                                                                <th class="text-center" style="width:38px;border-right: 1px solid #ddd;">TT</th>
                                                                 <th class="text-center" style="width:38px;border-right: 1px solid #ddd;">HA</th>
                                                                 <th style="border-right: 1px solid #ddd;">Tên sản phẩm</th>
+                                                                <th class="text-center" style="border-right: 1px solid #ddd;width:100px;">Ngày tạo</th>
                                                                 <th class="text-center" style="width:50px;"></th>
                                                             </tr>
                                                             </thead>
-                                                            <draggable v-model="list_san_pham" :element="'tbody'">
+                                                            <draggable v-model="list_san_pham" :options="{'disabled':flag_diasebled_draggable, 'animation':'150', 'handle':'.btn-move'}" :element="'tbody'">
                                                                 <tr v-if="loading_sp"><td class="text-center" colspan="4"><i>Đang tải danh sách sản phẩm...</i></td></tr>
-                                                                <tr v-else v-for="n in list_san_pham" title="Kéo thả chuột để sắp xếp vị trí" class="row-sp">
-                                                                    <td class="text-center dichuyen"><i class="fa fa-arrows"></i></td>
+                                                                <tr v-else v-for="(n,index) in list_san_pham" title="Kéo thả chuột để sắp xếp vị trí" class="row-sp">
+                                                                    <td class="text-center dichuyen btn-move"><i class="fa fa-arrows"></i></td>
+                                                                    <td class="text-center dichuyen">{{count_tt(index + 1)}}</td>
                                                                     <td class="text-center">
                                                                         <img :src="parse_img(n)" class="img-sanpham">
                                                                     </td>
                                                                     <td>{{n.ten_sp}}</td>
-                                                                    <td class="text-center"><button title="Xóa khỏi danh mục này" class="btn btn-danger btn-sm"><i class="fa fa-trash-o"></i></button></td>
+                                                                    <td class="text-center">{{short_date(n.created_at)}}</td>
+                                                                    <td class="text-center"><button @click="delete_sp_khoi_dm(n)" title="Xóa khỏi danh mục này" class="btn btn-danger btn-sm"><i class="fa fa-trash-o"></i></button></td>
                                                                 </tr>
                                                             </draggable>
                                                         </table>
@@ -119,7 +129,7 @@
                                                                 <span>Hiển thị</span>
                                                             </div>
                                                             <div class="col-md-1 col-sm-2 col-4 tb-hienthi" style="padding-left: 4px;">
-                                                                <el-select v-model="value" placeholder="10" size="small" @change="danh_sach_san_pham_limit">
+                                                                <el-select v-model="limit" placeholder="10" size="small" @change="danh_sach_san_pham_limit">
                                                                     <el-option v-for="item in options_display" :key="item" :label="item" :value="item"></el-option>
                                                                 </el-select>
                                                             </div>
@@ -185,7 +195,7 @@
         mounted () {
             api_get_danh_muc_san_pham_theo_id(this);
             api_get_all_danh_muc_san_pham(this);
-            api_get_danh_sach_san_pham_theo_danh_muc(this,1);
+            // api_get_danh_sach_san_pham_theo_danh_muc(this,1);
         },
         components: { quillEditor, draggable },
         updated () {
@@ -218,7 +228,7 @@
                 limit: 10,
                 currentPage: 1,
                 loading_sp: false,
-                danh_muc: {danh_muc_id: '', danh_muc_cha: '',alias: '',hienthi: '1',  tieu_de: '', tomtat: '', created_at: Date.now(), ghi_chu: ''},
+                danh_muc: {danh_muc_id: '', danh_muc_cha: '',alias: '',hienthi: '1',  tieu_de: '', tomtat: '', created_at: Date.now(), ghi_chu: '', danhmucsapxep: ''},
                 editorOption: {
                     modules: {
                         toolbar: [
@@ -239,21 +249,30 @@
                         ]
                     }
                 },
-                sap_xep: {label: 'Thủ công',key: 1},
+                sap_xep: {label: 'Thủ công',key: 'manual'},
                 list_sap_xep: [
                     {
                         label: 'Thủ công',
-                        key: 1
+                        key: 'manual'
                     },
                     {
-                        label: 'A - Z',
-                        key: 2
+                        label: 'Tên sản phẩm từ A - Z',
+                        key: 'a-z'
                     },
                     {
-                        label: 'Z - A',
-                        key: 3
+                        label: 'Tên sản phẩm từ Z - A',
+                        key: 'z-a'
+                    },
+                    {
+                        label: 'Ngày tạo',
+                        key: 'created_desc'
+                    },
+                    {
+                        label: 'Ngày tạo',
+                        key: 'created_asc'
                     },
                 ],
+                flag_diasebled_draggable: true,
                 value: ''
             }
         },
@@ -279,6 +298,24 @@
                     return true;
                 }
             },
+            load_select_sap_xep: function (key) {
+                if(key == 'manual') {
+                    this.flag_diasebled_draggable = false;
+                }
+                else {
+                    this.flag_diasebled_draggable = true;
+                    $('.dichchuyen').hover(function () {
+                        $(this).css('cursor','no-drop');
+                    });
+                }
+
+                this.sap_xep = this.list_sap_xep.filter(function (item) {
+                    return (item['key'] == key);
+                })[0];
+            },
+            short_date: function (day) {
+                return day.slice(0,10);
+            },
             getSanPham: function (page = 1) {
                 if(this.flag_search_san_pham){
                     api_search_san_pham_trong_danh_muc(this,page);
@@ -288,10 +325,24 @@
                 this.currentPage = page;
             },
             danh_sach_san_pham_limit: function () {
-
+                if(this.flag_search_san_pham){
+                    api_search_san_pham_trong_danh_muc(this,1);
+                }else{
+                    api_get_danh_sach_san_pham_theo_danh_muc(this,1);
+                }
             },
-            change_sap_xep: function () {
-                
+            change_sap_xep: function (item) {
+                if(item.key == 'manual') {
+                    this.flag_diasebled_draggable = false;
+                }
+                else {
+                    this.flag_diasebled_draggable = true;
+                    $('.dichchuyen').hover(function () {
+                        $(this).css('cursor','no-drop');
+                    });
+                }
+                this.danh_muc.danhmucsapxep = item.key;
+                api_get_danh_sach_san_pham_theo_danh_muc(this,1);
             },
             submit_search: function () {
                 if(this.keyword == '' || this.keyword == null){
@@ -322,34 +373,16 @@
                     this.flag_input_danh_muc = true;
                 }
             },
+            count_tt: function (index) {
+                return ((this.currentPage - 1) * this.limit) + index;
+            },
             submit_danh_muc: function () {
                 this.change_bnt_save();
-                // this.danh_muc = danhmuc;
-                api_sap_xep_san_pham_trong_danh_muc(this);
-                // if(this.flag_submit_danh_muc) {
-                //     this.flag_input_danh_muc = false;
-                //     this.add_danh_muc();
-                // }
-                // else {
-                //     this.nhom = this.nhom_selected;
-                //     this.flag_input_danh_muc = true;
-                //     this.edit_danh_muc();
-                // }
-            },
-            click_danh_muc: function (bp) {
-                $('.row-nhom').removeClass("active-click-row");
-                $('#n' + bp.id).addClass("active-click-row");
-            },
-            add_danh_muc: function () {
-                api_add_danh_muc(this);
-            },
-            edit_danh_muc: function() {
                 api_edit_danh_muc(this);
+                // api_sap_xep_san_pham_trong_danh_muc(this);
             },
-            delete_danh_muc: function(danhmuc) {
-                this.danh_muc = danhmuc;
-                if(this.danh_muc.id <= 0) return -1;
-                api_delete_danh_muc(this);
+            delete_sp_khoi_dm: function(sp) {
+                api_delete_san_pham_trong_danh_muc(this, sp.ma_sp);
             },
             parse_img: function (json) {
                 // console.log(json);

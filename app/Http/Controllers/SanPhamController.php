@@ -91,19 +91,12 @@ class SanPhamController extends Controller
             $sp->ghi_chu           = $request->ghi_chu;
             $sp->save();
 
-//            $thu_tu = sanpham_danhmuc::where('ma_sp', $request->ma_sp)->orderby('order_num', 'desc')->first();
-            try{
-                $thu_tu = sanpham_danhmuc::max(order_num);
-            }
-            catch (\Exception $e){
-                $thu_tu = 0;
-            }
-
             foreach ($request->danh_muc_id as $dm) {
+                $thu_tu = sanpham_danhmuc::where('danh_muc_san_pham_id',$dm["danh_muc_id"])->max('order_num') + 1;
                 $sp_dm                       = new sanpham_danhmuc();
                 $sp_dm->danh_muc_san_pham_id = $dm["danh_muc_id"];
                 $sp_dm->ma_sp                = $request->ma_sp;
-                $sp_dm->order_num               = $thu_tu++;
+                $sp_dm->order_num            = $thu_tu;
                 $sp_dm->save();
             }
             $id_sp_new = san_pham::max('id');
