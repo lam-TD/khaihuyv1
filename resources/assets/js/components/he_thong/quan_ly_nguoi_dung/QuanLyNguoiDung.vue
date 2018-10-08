@@ -26,7 +26,7 @@
                                         <div class="col-md-12 mb-2">
                                             <div class="row">
                                                 <div class="col-md-3">
-                                                    <el-select v-model="nhom_nguoi_dung" value-key="ma_nhom" filterable placeholder="Tất cả nhóm người dùng" size="small" @change="change_nhom_nguoi_dung" no-match-text="Không tìm thấy" no-data-text="Không có dữ liệu" style="width:100%">
+                                                    <el-select v-model="nhom_nguoi_dung_1" value-key="ma_nhom" filterable placeholder="Tất cả nhóm người dùng" size="small" @change="change_nhom_nguoi_dung_1" no-match-text="Không tìm thấy" no-data-text="Không có dữ liệu" style="width:100%">
                                                         <el-option :key="''" :label="'Tất cả nhóm người dùng'" :value="''"></el-option>
                                                         <el-option v-for="item in list_nhom_nguoi_dung" :key="item.id" :label="item.ten_nhom" :value="item">
                                                             <span style="float: left">{{ item.ten_nhom }}</span>
@@ -40,7 +40,7 @@
                                                     </form>
                                                 </div>
                                                 <div class="col-md-4">
-                                                    <button data-toggle="modal" data-target="#myModal" title="Thêm mới tài khoản" class="btn btn-success btn-sm pull-right" style="height: 32px;"><i class="fa fa-plus-circle"></i> Thêm mới</button>
+                                                    <button @click="_nguoi_dung('add')" data-toggle="modal" data-target="#myModal" title="Thêm mới tài khoản" class="btn btn-success btn-sm pull-right" style="height: 32px;"><i class="fa fa-plus-circle"></i> Thêm mới</button>
                                                 </div>
                                             </div>
                                         </div>
@@ -54,11 +54,15 @@
                                                         </div>
                                                     </template>
                                                 </el-table-column>
-                                                <el-table-column type="index" label="TT" align="center" width="40" class-name="center-text"></el-table-column>
-                                                <el-table-column prop="ho_ten" label="Họ tên" align="center" width="100" class-name="center-text"></el-table-column>
+                                                <el-table-column type="index" label="TT" align="center" width="40" class-name="center-text">
+                                                    <template slot-scope="scope">
+                                                        {{count_tt(scope.row)}}
+                                                    </template>
+                                                </el-table-column>
+                                                <el-table-column prop="ho_ten" label="Họ tên" width="200" class-name="no-center-text"></el-table-column>
                                                 <el-table-column prop="username" label="Tên đăng nhập(email)" class-name="no-center-text"></el-table-column>
                                                 <el-table-column prop="ten_vi_tri" label="Vị trí" class-name="no-center-text"></el-table-column>
-                                                <el-table-column prop="" label="Kích hoạt" align="center" class-name="center-text">
+                                                <el-table-column prop="" label="Kích hoạt" align="center" width="100" class-name="center-text">
                                                     <template slot-scope="scope">
                                                         <div v-if="scope.row.active == 1">
                                                             <input type="checkbox" id="md_checkbox_26" class="filled-in chk-col-blue" checked />
@@ -66,7 +70,7 @@
                                                         </div>
                                                         <div v-else>
                                                             <input type="checkbox" id="md_checkbox_" class="filled-in chk-col-blue"/>
-                                                            <label for="md_checkbox_26"></label>
+                                                            <label for="md_checkbox_"></label>
                                                         </div>
                                                     </template>
                                                 </el-table-column>
@@ -79,7 +83,7 @@
                                                     <span>Hiển thị</span>
                                                 </div>
                                                 <div class="col-md-1 col-sm-2 col-4 tb-hienthi" style="padding-left: 4px;">
-                                                    <el-select v-model="limit" placeholder="10" size="small" @change="change_danh_sach_nguoi_dung">
+                                                    <el-select v-model="limit" placeholder="10" size="small" @change="danh_sach_nguoi_dung">
                                                         <el-option v-for="item in options_display" :key="item" :label="item" :value="item"></el-option>
                                                     </el-select>
                                                 </div>
@@ -87,7 +91,7 @@
                                                     <el-pagination :page-size="limit" layout="prev, pager, next" :total="total_nguoi_dung" @current-change="danh_sach_nguoi_dung"></el-pagination>
                                                 </div>
                                                 <div class="col-md-2 col-sm-2 col-6 tb-label">
-                                                    <span class="pull-right">Tổng: {{total_nguoi_dung}} BP</span>
+                                                    <span class="pull-right">Tổng: {{total_nguoi_dung}} tài khoản</span>
                                                 </div>
                                             </div>
                                         </div>
@@ -109,76 +113,90 @@
 
                                             <!-- Modal body -->
                                             <div :disabled="flag_body_modal" class="modal-body">
-                                                <div class="form-group row">
-                                                    <label class="label-form col-md-3 col-form-label">Bộ phận</label>
+                                                <!-- Chon nhan vien -->
+                                                <div v-if="flag_submit_nguoi_dung" class="form-group row">
+                                                    <label class="label-form col-md-3 col-form-label">Nhân viên</label>
                                                     <div class="col-md-9">
-                                                        <el-select v-model="bo_phan" filterable value-key="ma_bo_phan" size="small" placeholder="Chọn bộ phận" style="width: 100%" @change="select_bo_phan" no-match-text="Không tìm thấy" no-data-text="Không có dữ liệu">
+                                                        <el-select v-model="nhan_vien" v-validate="'required'" name="txtchonnhanvien" filterable value-key="ma_nv" size="small" placeholder="Chọn nhân viên chưa có tài khoản" style="width: 100%" @change="select_nhan_vien" no-match-text="Không tìm thấy" no-data-text="Không có dữ liệu">
                                                             <!--<template slot="prefix"><label class="prefix">{{nhan_vien.ma_nv}}</label></template>-->
-                                                            <el-option
-                                                                    v-for="item in list_bo_phan"
-                                                                    :key="item.id"
-                                                                    :label="item.ma_bo_phan"
-                                                                    :value="item">
-                                                                <span style="float: left">{{ item.ma_bo_phan }}</span>
-                                                                <span style="float: right; color: #8492a6; font-size: 13px">{{ item.ten_bo_phan }}</span>
+                                                            <el-option v-for="item in list_nguoi_dung_chua_co_tk" :key="item.ma_nv" :label="item.ho_ten" :value="item">
+                                                                <span style="float: left">{{ item.ho_ten }}</span>
+                                                                <span style="float: right; color: #8492a6; font-size: 13px">{{ item.ma_nv }}</span>
                                                             </el-option>
                                                         </el-select>
-                                                        <small v-show="errors.has('so_bhxh')" class="help text-muted is-danger">Vui lòng nhập số bảo hiểm xã hội</small>
+                                                        <small v-show="errors.has('txtchonnhanvien')" class="help text-muted is-danger">Vui lòng chọn nhân viên</small>
                                                     </div>
                                                 </div>
-
-                                                <div class="form-group row">
-                                                    <label class="label-form col-md-3 col-form-label">Phòng</label>
+                                                <div v-else class="form-group row">
+                                                    <label class="label-form col-md-3 col-form-label">Nhân viên</label>
                                                     <div class="col-md-9">
-                                                        <el-select v-model="phong_ban" size="small" value-key="ma_phong" placeholder="Chọn phòng" style="width: 100%" @change="select_phong" no-match-text="Không tìm thấy" no-data-text="Không có dữ liệu">
-                                                            <!--<template slot="prefix"><label class="prefix">{{nhan_vien.ma_nv}}</label></template>-->
-                                                            <el-option
-                                                                    v-for="item in list_change_phong"
-                                                                    :key="item.id"
-                                                                    :label="item.ma_phong"
-                                                                    :value="item">
-                                                                <span style="float: left">{{ item.ma_phong }}</span>
-                                                                <span style="float: right; color: #8492a6; font-size: 13px">{{ item.ten_phong }}</span>
+                                                        <el-select v-model="nhan_vien" disabled size="small" style="width: 100%">
+                                                            <el-option v-for="item in nhan_vien" :key="item.ho_ten" :label="item.ho_ten" :value="item.ho_ten">
                                                             </el-option>
                                                         </el-select>
                                                     </div>
                                                 </div>
+                                                <!-- End chon nhan vien -->
 
-                                                <div class="form-group row">
+                                                <div v-if="vi_tri !=''" class="form-group row">
                                                     <label class="label-form col-md-3 col-form-label">Vị trí</label>
                                                     <div class="col-md-9">
-                                                        <el-select v-model="vi_tri" value-key="ma_vi_tri" filterable size="small" placeholder="Chọn phòng" style="width: 100%" @change="select_vi_tri" no-match-text="Không tìm thấy" no-data-text="Không có dữ liệu">
-                                                            <!--<template slot="prefix"><label class="prefix">{{nhan_vien.ma_nv}}</label></template>-->
-                                                            <el-option
-                                                                    v-for="item in list_change_vi_tri"
-                                                                    :key="item.ma_vi_tri"
-                                                                    :label="item.ma_vi_tri"
-                                                                    :value="item">
-                                                                <span style="float: left">{{ item.ma_vi_tri }}</span>
-                                                                <span style="float: right; color: #8492a6; font-size: 13px">{{ item.ten_vi_tri }}</span>
-                                                            </el-option>
-                                                        </el-select>
+                                                        <input v-model="vi_tri" type="text" class="form-control form-control-sm" readonly>
                                                     </div>
                                                 </div>
 
                                                 <div class="form-group row">
-                                                    <label class="label-form col-md-3 col-form-label"><b>Mã bộ phận(*)</b></label>
+                                                    <label class="label-form col-md-3 col-form-label">Email</label>
                                                     <div class="col-md-9">
-                                                        <input @input="validate_ma_bp" v-on:keypress="disable_spaces" v-bind:maxlength="7" v-model="nguoi_dung.ma_nguoi_dung" :disabled="flag_input_nguoi_dung" v-validate="'required'" :class="{'border-danger' : errors.has('txtmabophan')}" type="text" name="txtmabophan" class="form-control form-control-sm" id="txtmabophan" aria-describedby="" autofocus>
-                                                        <small v-if="flag_input_ma_nguoi_dung" class="help text-muted is-danger">Mã bộ phận phải có 7 ký tự, bắt đầu bằng BP</small>
+                                                        <input v-bind:maxlength="50" v-model="nguoi_dung.username" :disabled="flag_input_nguoi_dung" v-validate="'required|email'" :class="{'border-danger' : errors.has('txtusername')}" type="text" name="txtusername" class="form-control form-control-sm" id="txtmabophan" aria-describedby="" autofocus placeholder="Tên đăng nhập">
+                                                        <small v-show="errors.has('txtusername')" class="help text-muted is-danger">Email không đúng định dạng</small>
                                                     </div>
                                                 </div>
-                                                <div class="form-group row">
-                                                    <label class="label-form col-md-3 col-form-label"><b>Tên bộ phận(*)</b></label>
+
+                                                <!-- Mat khau -->
+                                                <div v-if="!flag_doi_mk" class="form-group row">
+                                                    <label class="label-form col-md-3 col-form-label">Mật khẩu</label>
                                                     <div class="col-md-9">
-                                                        <input v-model="nguoi_dung.ten_nguoi_dung" v-validate="'required'" :class="{'border-danger' : errors.has('txttenbophan')}" type="text" name="txttenbophan" class="form-control form-control-sm" id="txttenbophan" placeholder="">
-                                                        <small v-show="errors.has('txttenbophan')" class="help text-muted is-danger">Vui lòng nhập tên bộ phận</small>
+                                                        <button type="button" @click="doi_mk" class="btn btn-sm btn-info">Đổi mật khẩu</button>
                                                     </div>
                                                 </div>
-                                                <div class="form-group row">
-                                                    <label class="label-form col-md-3 col-form-label"><b>Diễn giải</b></label>
+
+                                                <div v-if="flag_doi_mk" class="form-group row">
+                                                    <label class="label-form col-md-3 col-form-label">Mật khẩu</label>
                                                     <div class="col-md-9">
-                                                        <textarea v-model="nguoi_dung.dien_giai" type="text" name="txtdiengiai" class="form-control form-control-sm" id="txtdiengiai"></textarea>
+                                                        <input v-model="nguoi_dung.password" v-on:keypress="disable_spaces" v-bind:maxlength="20" v-validate="'required|min:6|max:20'" :class="{'border-danger' : errors.has('txtmk')}" type="password" name="txtmk" class="form-control form-control-sm" id="txtmk" placeholder="">
+                                                        <small v-show="errors.has('txtmk')" class="help text-muted is-danger">Mật khẩu phải có độ dài 6-20 ký tự</small>
+                                                    </div>
+                                                </div>
+
+                                                <div v-if="flag_doi_mk" class="form-group row">
+                                                    <label class="label-form col-md-3 col-form-label">Xác nhận MK</label>
+                                                    <div class="col-md-9">
+                                                        <input v-model="nguoi_dung.password_xn" v-bind:maxlength="20" v-validate="'required|min:6|max:20'" :class="{'border-danger' : errors.has('txtxnmk')}" type="password" name="txtxnmk" class="form-control form-control-sm" id="txttenb" placeholder="">
+                                                        <small v-show="nguoi_dung.password_xn != nguoi_dung.password" class="help text-muted is-danger">Mật khẩu không trùng khớp</small>
+                                                    </div>
+                                                </div>
+                                                <!-- End Mat khau -->
+
+                                                <div class="form-group row">
+                                                    <label class="label-form col-md-3 col-form-label">Nhóm ND</label>
+                                                    <div class="col-md-9">
+                                                        <el-select v-model="nhom_nguoi_dung_2" v-validate="'required'" name="txtnhomnguoidung" filterable value-key="ma_nhom" size="small" placeholder="Chọn nhóm người dùng" style="width: 100%" no-match-text="Không tìm thấy" no-data-text="Không có dữ liệu">
+                                                            <!--<template slot="prefix"><label class="prefix">{{nhan_vien.ma_nv}}</label></template>-->
+                                                            <el-option v-for="item in list_nhom_nguoi_dung" :key="item.ma_nhom" :label="item.ten_nhom" :value="item">
+                                                                <span style="float: left">{{ item.ten_nhom }}</span>
+                                                                <span style="float: right; color: #8492a6; font-size: 13px">{{ item.ma_nhom }}</span>
+                                                            </el-option>
+                                                        </el-select>
+                                                        <small v-show="errors.has('txtnhomnguoidung')" class="help text-muted is-danger">Vui lòng chọn nhóm người dùng</small>
+                                                    </div>
+                                                </div>
+
+                                                <div class="form-group row">
+                                                    <label class="label-form col-md-3 col-form-label">Kích hoạt</label>
+                                                    <div class="col-md-9">
+                                                        <input v-model="nguoi_dung.active" type="checkbox" id="md_checkboxs_" class="filled-in chk-col-blue"/>
+                                                        <label for="md_checkboxs_"></label>
                                                     </div>
                                                 </div>
                                             </div>
@@ -187,7 +205,7 @@
                                             <div class="modal-footer">
                                                 <button type="button" class="btn btn-danger" data-dismiss="modal">Hủy</button>
                                                 <!--<button id="save" type="submit" class="btn btn-primary">Lưu lại</button>-->
-                                                <button :disabled="flag_disabled_submit || errors.has('txttenbophan')" id="save" type="submit" class="btn btn-primary">
+                                                <button :disabled="flag_disabled_submit || errors.has('txttenbophan') || nguoi_dung.password_xn != nguoi_dung.password" id="save" type="submit" class="btn btn-primary">
                                                     <span v-if="flag_btn_save"><i class="fa fa-save"></i> Lưu lại</span>
                                                     <span v-if="!flag_btn_save"><i class="fa fa-spin fa-spinner"></i> Đang xử lý...</span>
                                                 </button>
@@ -211,22 +229,21 @@
 </template>
 
 <script>
-
-    import {api_get_all_bo_phan} from "../../nhan_su/bophan/bo_phan";
-    import {api_get_all_phong_ban_no_paginate} from "../../nhan_su/phongban/phong_ban";
-    import {api_get_all_vi_tri_no_pa} from "../../nhan_su/vitri/vi_tri";
-
     import {api_get_danh_sach_nhom_nguoi_dung_no_paginate} from "./quan_ly_nguoi_dung";
     import {api_get_all_danh_sach_nguoi_dung} from "./quan_ly_nguoi_dung";
+    import {api_get_search_nguoi_dung} from "./quan_ly_nguoi_dung";
+    import {api_get_danh_sach_nhom_nguoi_dung_chua_co_tk} from "./quan_ly_nguoi_dung";
+    import {api_add_nguoi_dung} from "./quan_ly_nguoi_dung";
+    import {api_edit_nguoi_dung} from "./quan_ly_nguoi_dung";
+    import {api_delete_nguoi_dung} from "./quan_ly_nguoi_dung";
+    import {api_get_danh_sach_nguoi_dung_theo_nhom} from "./quan_ly_nguoi_dung";
 
     export default {
         name: 'quanlynguoidung',
         mounted () {
-            api_get_all_bo_phan(this);
-            api_get_all_phong_ban_no_paginate(this);
-            api_get_all_vi_tri_no_pa(this);
             api_get_danh_sach_nhom_nguoi_dung_no_paginate(this);
             api_get_all_danh_sach_nguoi_dung(this,1);
+            api_get_danh_sach_nhom_nguoi_dung_chua_co_tk(this);
         },
         updated () {
             $(document).ready(function() {
@@ -236,11 +253,12 @@
         data () {
             return {
                 list_nhom_nguoi_dung: [],
-                nhom_nguoi_dung: '',
+                nhom_nguoi_dung_1: '',
+                nhom_nguoi_dung_2: '',
                 loading_nguoi_dung: true,
                 list_nguoi_dung: [],
                 total_nguoi_dung: 0,
-                nguoi_dung: { id: 0, ma_nguoi_dung: '', ten_nguoi_dung: '', dien_giai: '' },
+                nguoi_dung: { id: 0, username: '', password: '', password_xn: '', id_nhan_vien: '', id_nhom_nguoi_dung: '', active:0 },
                 flag_btn: true,
                 flag_submit_nguoi_dung: true,
                 flag_input_nguoi_dung: false,
@@ -250,31 +268,21 @@
                 flag_input_ma_nguoi_dung: false,
                 options_display: [10,20,30],
                 limit: 10,
+                currentPage: 1,
+                flag_search: false,
                 keyword: '',
-                list_bo_phan: [],
-                list_phong_ban: [],
+                list_nguoi_dung_chua_co_tk: [],
                 list_vi_tri: [],
-                bo_phan: '',
-                phong_ban: '',
                 vi_tri: '',
+                nhan_vien: '',
                 list_change_phong: [],
                 list_change_vi_tri: [],
+                flag_doi_mk: false
             }
         },
         methods: {
-            select_bo_phan: function (bd) {
-                this.list_change_phong = this.list_phong_ban.filter(function(item){
-                    return (item['id_bo_phan'] == bd.ma_bo_phan);
-                })
-            },
-            select_phong: function (phong) {
-                this.list_change_vi_tri = this.list_vi_tri.filter(function(item){
-                    return (item['id_phong_ban'] == phong.ma_phong);
-                })
-                // this.ttcv.phong_ma = phong.ma_phong;
-            },
-            select_vi_tri: function (vt) {
-                // this.ttcv.vi_tri_ma = vt.ma_vi_tri;
+            select_nhan_vien: function (bd) {
+                this.vi_tri = bd.ten_vi_tri;
             },
             validate_ma_bp: function () {
                 var length_nv = this.nguoi_dung.ma_nguoi_dung.length;
@@ -297,56 +305,80 @@
                     return true;
                 }
             },
-            change_nhom_nguoi_dung: function () {
-
+            change_nhom_nguoi_dung_1: function (mnd) {
+                if(this.nhom_nguoi_dung_1 == ''){
+                    api_get_all_danh_sach_nguoi_dung(this,1);
+                }
+                else{
+                    this.nhom_nguoi_dung_2 = this.list_nhom_nguoi_dung.filter(function (item) {
+                        return (item['ma_nhom'] == mnd.ma_nhom);
+                    })[0];
+                    api_get_danh_sach_nguoi_dung_theo_nhom(this,1,mnd.id);
+                }
             },
-            change_danh_sach_nguoi_dung: function () {
-                
+            danh_sach_nguoi_dung: function (page=1) {
+                if(this.flag_search){
+                    api_get_search_nguoi_dung(this);
+                }
+                else{
+                    api_get_all_danh_sach_nguoi_dung(this,1);
+                }
             },
-            danh_sach_nguoi_dung: function (page) {
-                api_bophan_get(this, page);
-            },
-            _nguoi_dung: function (state, bophan = null) {
+            _nguoi_dung: function (state, nd = null) {
                 if(state == 'add') {
-                    console.log('add nhom');
-                    this.flag_btn = true;
-                    $('.row-nhom').removeClass("active-click-row");
+                    console.log('add')
                     this.flag_submit_nguoi_dung = true;
                     this.flag_input_nguoi_dung = false;
-                    this.nguoi_dung = { id: 0, ma_nguoi_dung: '', ten_nguoi_dung: '', dien_giai: '' }
-                    api_bophan_get_ma_nguoi_dung(this);
+                    this.nguoi_dung = { id: 0, username: '', password: '', password_xn: '', id_nhan_vien: '', id_nhom_nguoi_dung: '', active:0 }
                 }
                 else {
-                    // this.nguoi_dung = bophan;
-                    this.nguoi_dung.id = bophan.id;
-                    this.nguoi_dung.ma_nguoi_dung = bophan.ma_nguoi_dung;
-                    this.nguoi_dung.ten_nguoi_dung = bophan.ten_nguoi_dung;
-                    this.nguoi_dung.dien_giai = bophan.dien_giai;
+                    this.nhan_vien = nd.ho_ten;
+                    this.vi_tri = nd.ten_vi_tri;
+
+                    this.nhom_nguoi_dung_2 = this.list_nhom_nguoi_dung.filter(function (item) {
+                        return (item['ma_nhom'] == nd.ma_nhom);
+                    })[0];
+
+                    this.nguoi_dung.id = nd.user_id;
+                    this.nguoi_dung.username = nd.username;
+                    this.nguoi_dung.active = nd.active;
+
                     this.flag_submit_nguoi_dung = false;
                     this.flag_input_nguoi_dung = true;
                 }
             },
             submit_nguoi_dung: function () {
-                this.change_bnt_save();
-                if(this.flag_submit_nguoi_dung) {
-                    this.flag_input_nguoi_dung = false;
-                    this.add_nguoi_dung();
-                }
-                else {
-                    this.nhom = this.nhom_selected;
-                    this.flag_input_nguoi_dung = true;
-                    this.edit_nguoi_dung();
-                }
+                this.$validator.validateAll().then((result) => {
+                    this.change_bnt_save();
+                    if (result) {
+                        if(this.flag_submit_nguoi_dung) {
+                            this.flag_input_nguoi_dung = false;
+                            this.nguoi_dung.id_nhan_vien = this.nhan_vien.ma_nv;
+                            this.nguoi_dung.id_nhom_nguoi_dung = this.nhom_nguoi_dung_2.id;
+                            // console.log(this.nguoi_dung);
+                            api_add_nguoi_dung(this);
+                        }
+                        else {
+                            this.nguoi_dung.id_nhom_nguoi_dung = this.nhom_nguoi_dung_2.id;
+                            api_edit_nguoi_dung(this);
+                            this.flag_input_nguoi_dung = true;
+                        }
+                    }
+                    else{
+                        this.un_change_bnt_save();
+                    }
+                })
             },
             submit_search: function () {
-
-            },
-            add_nguoi_dung: function () {
-                api_add_nguoi_dung(this);
-            },
-            edit_nguoi_dung: function() {
-                console.log(this.nguoi_dung);
-                api_edit_nguoi_dung(this);
+                if(this.keyword == '' || this.keyword == null)
+                {
+                    this.flag_search = false;
+                    api_get_all_danh_sach_nguoi_dung(this,1);
+                }
+                else{
+                    this.flag_search = true;
+                    api_get_search_nguoi_dung(this);
+                }
             },
             delete_nguoi_dung: function(bp) {
                 this.nguoi_dung = bp;
@@ -361,13 +393,16 @@
                 this.flag_btn_save = true;
                 $('#save').removeAttr('disabled');
             },
-            // scroll_card: function () {
-            //     $('#thunho').closest('.card').find('[data-action="collapse"] i').toggleClass('ti-minus ti-plus');
-            //     $('#thunho').closest('.card').children('.card-body').collapse('toggle');
-            // },
             scroll_card_full_creem: function () {
                 $('#phongto').closest('.card').find('[data-action="expand"] i').toggleClass('mdi-arrow-expand mdi-arrow-compress');
                 $('#phongto').closest('.card').toggleClass('card-fullscreen');
+            },
+            count_tt: function (row) {
+                var index = this.list_nguoi_dung.indexOf(row) + 1;
+                return ((this.currentPage - 1) * this.limit) + index;
+            },
+            doi_mk: function () {
+                this.flag_doi_mk = true;
             }
         }
     }

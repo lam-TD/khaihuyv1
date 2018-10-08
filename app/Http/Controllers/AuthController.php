@@ -118,7 +118,7 @@ class AuthController extends Controller
     {
 //        $lam = PhanQuyenChucNangController::get_list_chuc_nang2(2);
 //        return $this->guard()->user();
-        $cn = $this->get_list_chuc_nang(1);
+        $cn = $this->get_list_chuc_nang($this->guard()->user()->id_nhom_nguoi_dung);
         return response()->json([
             'access_token' => $token,
             'user' =>$this->guard()->user(),
@@ -142,17 +142,17 @@ class AuthController extends Controller
             ->groupBy('id_nhom_chuc_nang', 'ten_nhom', 'nhom_chuc_nang.icon', 'nhom_chuc_nang.thu_tu')
             ->orderBy('nhom_chuc_nang.thu_tu','asc')
             ->get();
-
         $list_chuc_nang = [];
 
         if(count($mcn) > 0){
             foreach ($mcn as $value) {
-                $query = "SELECT pq.id_chuc_nang, pq.ten_chuc_nang, pq.link, pq.thu_tu_chuc_nang, pq.allaction, pq.xem, pq.them, pq.sua, pq.xoa FROM phan_quyen as pq WHERE pq.id_nhom_chuc_nang =";
                 $chucnang = nhom_phan_quyen::join('chuc_nang','nhom_phan_quyen.id_chuc_nang','=','chuc_nang.id')
-                    ->select('id_chuc_nang', 'ten_chuc_nang', 'link', 'chuc_nang.thu_tu', 'allaction', 'xem', 'them', 'sua', 'xoa')
                     ->join('nhom_chuc_nang','nhom_chuc_nang.id','=','chuc_nang.id_nhom_chuc_nang')
-                    ->where('id_nhom_chuc_nang',$value->id_nhom_chuc_nang)
+                    ->where('id_nhom_nguoi_dung', $id_nhom_ng)
+                    ->where('nhom_chuc_nang.id', $value->id_nhom_chuc_nang)
+                    ->where('allaction',1)->orwhere('xem',1)->orwhere('them',1)->orwhere('sua',1)->orwhere('xoa',1)
                     ->orderBy('chuc_nang.thu_tu','asc')
+                    ->select('id_chuc_nang', 'ten_chuc_nang', 'link', 'chuc_nang.thu_tu', 'allaction', 'xem', 'them', 'sua', 'xoa')
                     ->get();
                 $nhom = array(
                     "id_nhom"   => $value->id_nhom_chuc_nang,

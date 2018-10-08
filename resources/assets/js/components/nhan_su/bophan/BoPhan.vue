@@ -185,6 +185,7 @@
 </template>
 
 <script>
+    import {check_url_phan_quyen} from "../../../helper/auth";
 
     import {api_bophan_get} from './bo_phan.js';
     import {api_add_bo_phan} from "./bo_phan";
@@ -194,6 +195,10 @@
 
     export default {
         name: 'bophan',
+        beforeCreate(){
+            console.log('vao');
+            check_url_phan_quyen(this);
+        },
         mounted () {
             this.danh_sach_bo_phan();
         },

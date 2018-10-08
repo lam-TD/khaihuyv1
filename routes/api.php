@@ -197,6 +197,8 @@ Route::group(['middleware' => 'jwt.auth'], function ($router) {
     //    --- Nguoi Dung ---
     Route::get('get-all-danh-sach-nguoi-dung/{limit}', 'NguoiDungController@get_danh_sach_nguoi_dung_paginate');
     Route::get('get-all-danh-sach-nguoi-dung-chua-co-tk', 'NguoiDungController@get_danh_sach_nhan_vien_chua_co_tai_khoan');
+    Route::get('get-danh-sach-nguoi-dung-theo-nhom/{id_nhom}&{limit}', 'NguoiDungController@get_danh_sach_nguoi_dung_theo_nhom');
+    Route::get('tim-kiem-nguoi-dung-theo-nhom/{keyword}', 'NguoiDungController@tim_kiem_nguoi_dung_paginate');
     Route::post('add-nguoi-dung', 'NguoiDungController@add_nguoi_dung');
     Route::post('edit-nguoi-dung', 'NguoiDungController@edit_nguoi_dung');
     Route::get('delete-nguoi-dung/{id}', 'NguoiDungController@delete_nguoi_dung');
