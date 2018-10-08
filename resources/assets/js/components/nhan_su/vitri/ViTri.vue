@@ -96,8 +96,8 @@
                                                     </template>
                                                 </el-table-column>
                                                 <el-table-column type="index" label="TT" align="center" class-name="center-text"></el-table-column>
-                                                <el-table-column prop="ma_vi_tri" label="Mã vị trí" width="120" class-name="no-center-text"></el-table-column>
-                                                <el-table-column prop="ten_vi_tri" label="Tên vị trí" width="180" class-name="no-center-text"></el-table-column>
+                                                <el-table-column prop="ma_vi_tri" label="Mã vị trí" align="center" width="120" class-name="center-text"></el-table-column>
+                                                <el-table-column prop="ten_vi_tri" label="Tên vị trí" class-name="no-center-text"></el-table-column>
                                                 <el-table-column prop="dien_giai" label="Diễn giải" class-name="no-center-text"></el-table-column>
                                             </el-table>
                                         </div>

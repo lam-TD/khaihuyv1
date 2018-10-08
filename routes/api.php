@@ -181,6 +181,7 @@ Route::group(['middleware' => 'jwt.auth'], function ($router) {
     Route::post('delete-tk-ke-toan', 'TaiKhoanKeToanConTroller@add_san_pham');
 });
 
+
 // ================= HE THONG =====================
 Route::group(['middleware' => 'jwt.auth'], function ($router) {
     Route::get('danh-sach-nhom-nguoi-dung', 'HeThongController@get_danh_sach_nhom_nguoi_dung');
@@ -188,6 +189,17 @@ Route::group(['middleware' => 'jwt.auth'], function ($router) {
     Route::post('edit-nhom-nguoi-dung', 'HeThongController@edit_nhom');
     Route::get('delete-nhom-nguoi-dung/{id_nhom}', 'HeThongController@delete_nhom');
     Route::get('danh-sach-nguoi-dung-theo-nhom/{id_nhom}', 'HeThongController@get_danh_sach_nguoi_dung_theo_nhom');
+
+    //    --- Nhom Nguoi Dung ---
+    Route::get('get-danh-sach-nhom-nguoi-dung-no-paginate', 'NhomNguoiDungController@get_danh_sach_nhom_nguoi_dung_no_paginate');
+
+
+    //    --- Nguoi Dung ---
+    Route::get('get-all-danh-sach-nguoi-dung/{limit}', 'NguoiDungController@get_danh_sach_nguoi_dung_paginate');
+    Route::get('get-all-danh-sach-nguoi-dung-chua-co-tk', 'NguoiDungController@get_danh_sach_nhan_vien_chua_co_tai_khoan');
+    Route::post('add-nguoi-dung', 'NguoiDungController@add_nguoi_dung');
+    Route::post('edit-nguoi-dung', 'NguoiDungController@edit_nguoi_dung');
+    Route::get('delete-nguoi-dung/{id}', 'NguoiDungController@delete_nguoi_dung');
 });
 
 // ================= TINH THANH QUAN HUYEN THI XA =============

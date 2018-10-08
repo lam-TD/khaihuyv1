@@ -165,25 +165,25 @@
                                                 </el-table>
                                             </template>
                                         </div>
-                                        <div class="col-md-12">
-                                            <div class="row tb-row-hienthi">
-                                                <div class="col-md-1 col-sm-2 col-8 tb-label pr-0" style="padding-left: 15px;">
-                                                    <span>Hiển thị</span>
-                                                </div>
-                                                <div class="col-md-1 col-sm-2 col-4 tb-hienthi" style="padding-left: 4px;">
-                                                    <el-select v-model="limit" placeholder="10" size="small" @change="danh_sach_danh_muc_limit">
-                                                        <el-option v-for="item in options_display" :key="item" :label="item" :value="item"></el-option>
-                                                    </el-select>
-                                                </div>
-                                                <div class="col-md-8 col-sm-4 col-6" style="padding-left: 0px;">
-                                                    <el-pagination :page-size="limit" layout="prev, pager, next" :total="total_danh_muc" @current-change="danh_sach_danh_muc_" :current-page.sync="currentPage"></el-pagination>
-                                                </div>
-                                                <div class="col-md-2 col-sm-2 col-6 tb-label">
-                                                    <span class="pull-right">Tổng: {{total_danh_muc}} mẫu tin</span>
+                                        <!--<div class="col-md-12">-->
+                                            <!--<div class="row tb-row-hienthi">-->
+                                                <!--<div class="col-md-1 col-sm-2 col-8 tb-label pr-0" style="padding-left: 15px;">-->
+                                                    <!--<span>Hiển thị</span>-->
+                                                <!--</div>-->
+                                                <!--<div class="col-md-1 col-sm-2 col-4 tb-hienthi" style="padding-left: 4px;">-->
+                                                    <!--<el-select v-model="limit" placeholder="10" size="small" @change="danh_sach_danh_muc_limit">-->
+                                                        <!--<el-option v-for="item in options_display" :key="item" :label="item" :value="item"></el-option>-->
+                                                    <!--</el-select>-->
+                                                <!--</div>-->
+                                                <!--<div class="col-md-8 col-sm-4 col-6" style="padding-left: 0px;">-->
+                                                    <!--<el-pagination :page-size="limit" layout="prev, pager, next" :total="total_danh_muc" @current-change="danh_sach_danh_muc_" :current-page.sync="currentPage"></el-pagination>-->
+                                                <!--</div>-->
+                                                <!--<div class="col-md-2 col-sm-2 col-6 tb-label">-->
+                                                    <!--<span class="pull-right">Tổng: {{total_danh_muc}} mẫu tin</span>-->
 
-                                                </div>
-                                            </div>
-                                        </div>
+                                                <!--</div>-->
+                                            <!--</div>-->
+                                        <!--</div>-->
                                     </div>
                                 </div>
                             </div>

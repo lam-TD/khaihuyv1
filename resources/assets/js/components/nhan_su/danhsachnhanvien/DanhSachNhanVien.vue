@@ -118,19 +118,23 @@
                                                 <img @click="load_chi_tiet_nhan_vien(props.row)" :src="'public/image_nhan_vien/'+props.row.avatar" data-toggle="modal" data-target="#exampleModal2" alt="" class="img-sanpham" style="cursor: pointer" title="Click để xem chi tiết">
                                             </template>
                                         </el-table-column>
-                                        <el-table-column prop="ma_nv" label="Mã NV" width="100" class-name="no-center-text"></el-table-column>
+                                        <el-table-column prop="ma_nv" align="center" label="Mã NV" width="100" class-name="center-text"></el-table-column>
                                         <el-table-column label="Tên NV" width="150" class-name="no-center-text">
                                             <template slot-scope="scope">
                                                 <span @click="load_chi_tiet_nhan_vien(scope.row)" class="ten-nv" data-toggle="modal" data-target="#exampleModal2" title="Click để xem chi tiết">{{scope.row.ho_ten}}</span>
                                             </template>
                                         </el-table-column>
-                                        <el-table-column label="Giới tính" width="80" class-name="no-center-text">
+                                        <el-table-column label="Giới tính" align="center" width="80" class-name="center-text">
                                             <template slot-scope="props">
                                                 <span v-if="props.row.gioi_tinh == '0'">Nữ</span><span v-else>Nam</span>
                                             </template>
                                         </el-table-column>
-                                        <el-table-column prop="ngay_sinh"  label="Ngày sinh" width="100" class-name="no-center-text"></el-table-column>
-                                        <el-table-column prop="di_dong_1"  label="Di động" width="120" class-name="no-center-text"></el-table-column>
+                                        <el-table-column align="center" label="Ngày sinh" width="100" class-name="center-text">
+                                            <template slot-scope="scope">
+                                                {{short_date(scope.row.ngay_sinh)}}
+                                            </template>
+                                        </el-table-column>
+                                        <el-table-column prop="di_dong_1" align="center" label="Di động" width="120" class-name="center-text"></el-table-column>
                                         <el-table-column prop="ghi_chu"  label="Ghi chú" class-name="no-center-text"></el-table-column>
                                     </el-table>
                                 </div>
@@ -887,6 +891,18 @@
                 if(value == '' || value == null ) return ;
                 let val = (value/1).toFixed().replace('.', ',')
                 return val.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")
+            },
+            short_date: function (itemday) {
+                var date_ = itemday.slice(0,10);
+                var d     = new Date(date_);
+                var month = '' + (d.getMonth() + 1);
+                var day_   = '' + d.getDate();
+                var year  = d.getFullYear();
+
+                if (month.length < 2) month = '0' + month;
+                if (day_.length < 2) day_ = '0' + day_;
+
+                return [day_,month,year].join('-');
             },
             //get hop dong
             load_hop_dong_nv: function(id_nv)

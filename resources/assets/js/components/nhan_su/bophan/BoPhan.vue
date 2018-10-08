@@ -92,8 +92,8 @@
                                                     </template>
                                                 </el-table-column>
                                                 <el-table-column type="index" label="TT" align="center" width="40" class-name="center-text"></el-table-column>
-                                                <el-table-column prop="ma_bo_phan" label="Mã bộ phận" width="100" class-name="no-center-text"></el-table-column>
-                                                <el-table-column prop="ten_bo_phan" label="Tên bộ phận" width="150" class-name="no-center-text"></el-table-column>
+                                                <el-table-column prop="ma_bo_phan" label="Mã bộ phận" align="center" width="100" class-name="center-text"></el-table-column>
+                                                <el-table-column prop="ten_bo_phan" label="Tên bộ phận" class-name="no-center-text"></el-table-column>
                                                 <el-table-column prop="dien_giai" label="Diễn giải" class-name="no-center-text"></el-table-column>
                                             </el-table>
                                         </div>

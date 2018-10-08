@@ -116,12 +116,20 @@
                                                     </template>
                                                 </el-table-column>
                                                 <el-table-column type="index" label="TT" align="center" class-name="center-text"></el-table-column>
-                                                <el-table-column prop="ma_nv" label="Mã NV" width="100" class-name="no-center-text"></el-table-column>
+                                                <el-table-column prop="ma_nv" label="Mã NV" align="center" width="100" class-name="center-text"></el-table-column>
                                                 <el-table-column prop="ho_ten" label="Tên NV" width="150" class-name="no-center-text"></el-table-column>
                                                 <el-table-column prop="so_hdld" label="Số HĐ" class-name="no-center-text"></el-table-column>
-                                                <el-table-column prop="thoi_han_hd" label="Thời hạn" class-name="no-center-text"></el-table-column>
-                                                <el-table-column prop="ngay_ky" label="Ngày ký" class-name="no-center-text"></el-table-column>
-                                                <el-table-column prop="ngay_kt" label="Ngày kết thúc" class-name="no-center-text"></el-table-column>
+                                                <el-table-column prop="thoi_han_hd" label="Thời hạn" align="center" class-name="center-text"></el-table-column>
+                                                <el-table-column label="Ngày ký" align="center" class-name="center-text">
+                                                    <template slot-scope="scope">
+                                                        {{short_date(scope.row.ngay_ky)}}
+                                                    </template>
+                                                </el-table-column>
+                                                <el-table-column label="Ngày kết thúc" align="center" class-name="center-text">
+                                                    <template slot-scope="scope">
+                                                        {{short_date(scope.row.ngay_kt)}}
+                                                    </template>
+                                                </el-table-column>
                                                 <el-table-column prop="ghi_chu" label="Ghi chú" class-name="no-center-text"></el-table-column>
                                             </el-table>
                                         </div>
@@ -323,9 +331,20 @@
                     this.flag_disabled_submit = false;
                 }
             },
+            short_date: function (itemday) {
+                var date_ = itemday.slice(0,10);
+                var d     = new Date(date_);
+                var month = '' + (d.getMonth() + 1);
+                var day_   = '' + d.getDate();
+                var year  = d.getFullYear();
+
+                if (month.length < 2) month = '0' + month;
+                if (day_.length < 2) day_ = '0' + day_;
+
+                return [day_,month,year].join('-');
+            },
             select_nv: function (nv) {
                 this.lao_dong.ma_nv = nv.ma_nv;
-
             },
             search_lao_dong: function (page = 1) {
                 if(this.keyword == '' || this.keyword == null) {this.flag_search = false; this.danh_sach_lao_dong();}

@@ -126,9 +126,21 @@
                                                 <el-table-column prop="ma_nv" label="Mã NV" align="center" width="100" class-name="center-text"></el-table-column>
                                                 <el-table-column prop="ho_ten" label="Tên NV" width="150" class-name="no-center-text"></el-table-column>
                                                 <el-table-column prop="ho_ten_npt" label="Họ tên NPT" width="150" class-name="no-center-text"></el-table-column>
-                                                <el-table-column prop="ngay_sinh_npt" label="Ngày sinh" align="center" class-name="center-text"></el-table-column>
-                                                <el-table-column prop="tg_giam_tru_tu" label="TG Giảm trừ từ" align="center" width="150" class-name="center-text"></el-table-column>
-                                                <el-table-column prop="tg_giam_tru_den" label="TG Giảm trừ đến" align="center" width="150" class-name="center-text"></el-table-column>
+                                                <el-table-column label="Ngày sinh" align="center" class-name="center-text">
+                                                    <template slot-scope="scope">
+                                                        {{short_date(scope.row.ngay_sinh_npt)}}
+                                                    </template>
+                                                </el-table-column>
+                                                <el-table-column label="TG Giảm trừ từ" align="center" width="150" class-name="center-text">
+                                                    <template slot-scope="scope">
+                                                        {{short_date(scope.row.tg_giam_tru_tu)}}
+                                                    </template>
+                                                </el-table-column>
+                                                <el-table-column label="TG Giảm trừ đến" align="center" width="150" class-name="center-text">
+                                                    <template slot-scope="scope">
+                                                        {{short_date(scope.row.tg_giam_tru_den)}}
+                                                    </template>
+                                                </el-table-column>
                                                 <el-table-column prop="quan_he_nnt" label="Quan hệ" class-name="no-center-text"></el-table-column>
                                             </el-table>
                                         </div>
@@ -351,6 +363,18 @@
                     this.flag_input_ma_phong = false;
                     this.flag_disabled_submit = false;
                 }
+            },
+            short_date: function (itemday) {
+                var date_ = itemday.slice(0,10);
+                var d     = new Date(date_);
+                var month = '' + (d.getMonth() + 1);
+                var day_   = '' + d.getDate();
+                var year  = d.getFullYear();
+
+                if (month.length < 2) month = '0' + month;
+                if (day_.length < 2) day_ = '0' + day_;
+
+                return [day_,month,year].join('-');
             },
             select_npt_theo_nhan_vien: function (nv) {
                 if(nv == null || nv == '') {

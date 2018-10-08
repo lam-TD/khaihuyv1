@@ -106,8 +106,8 @@
                                                     </template>
                                                 </el-table-column>
                                                 <el-table-column type="index" label="TT" align="center" class-name="center-text"></el-table-column>
-                                                <el-table-column prop="ma_phong" label="Mã phòng" width="100" class-name="no-center-text"></el-table-column>
-                                                <el-table-column prop="ten_phong" label="Tên phòng" width="150" class-name="no-center-text"></el-table-column>
+                                                <el-table-column prop="ma_phong" label="Mã phòng" align="center" width="100" class-name="center-text"></el-table-column>
+                                                <el-table-column prop="ten_phong" label="Tên phòng"  class-name="no-center-text"></el-table-column>
                                                 <el-table-column prop="dien_giai" label="Diễn giải" class-name="no-center-text"></el-table-column>
                                             </el-table>
                                         </div>

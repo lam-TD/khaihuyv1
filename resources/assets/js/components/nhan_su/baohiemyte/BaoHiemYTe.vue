@@ -112,8 +112,8 @@
                                                         <button @click="delete_bhyt(scope.row)" class="btn btn-danger btn-sm" title="Xóa"> <i class="fa fa-trash-o"></i> </button>
                                                     </template>
                                                 </el-table-column>
-                                                <el-table-column type="index" label="TT" align="center"class-name="center-text"></el-table-column>
-                                                <el-table-column prop="ma_nv" label="Mã NV" width="100" class-name="no-center-text"></el-table-column>
+                                                <el-table-column type="index" label="TT" align="center" class-name="center-text"></el-table-column>
+                                                <el-table-column prop="ma_nv" label="Mã NV" align="center" width="100" class-name="center-text"></el-table-column>
                                                 <el-table-column prop="ho_ten" label="Tên NV" width="150" class-name="no-center-text"></el-table-column>
                                                 <el-table-column prop="so_bhyt" label="Số BHYT" class-name="no-center-text"></el-table-column>
                                                 <el-table-column prop="noi_kham" label="Nơi khám" class-name="no-center-text"></el-table-column>
