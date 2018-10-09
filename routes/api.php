@@ -201,6 +201,7 @@ Route::group(['middleware' => 'jwt.auth'], function ($router) {
     Route::get('tim-kiem-nguoi-dung-theo-nhom/{keyword}', 'NguoiDungController@tim_kiem_nguoi_dung_paginate');
     Route::post('add-nguoi-dung', 'NguoiDungController@add_nguoi_dung');
     Route::post('edit-nguoi-dung', 'NguoiDungController@edit_nguoi_dung');
+    Route::get('kich-hoat-tk-nguoi-dung/{id}&{active}', 'NguoiDungController@kich_hoat_tk_nguoi_dung');
     Route::get('delete-nguoi-dung/{id}', 'NguoiDungController@delete_nguoi_dung');
 });
 

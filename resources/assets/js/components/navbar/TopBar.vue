@@ -157,7 +157,7 @@
             },
             logout: function () {
                 this.$store.commit("logout");
-                this.$route.push({ path: '/'});
+                this.$router.push({ path: '/'});
             },
             toggle_leftbar: function () {
                 if ($("body").hasClass("mini-sidebar")) {

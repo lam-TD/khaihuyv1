@@ -90,7 +90,7 @@
             authenticate() {
                 this.$store.dispatch('login');
                 this.process_login();
-                login(this.$data.form)
+                login(this.$data.form,this)
                     .then((res) => {
                         this.$store.commit("loginSuccess", res);
                         this.error = false;

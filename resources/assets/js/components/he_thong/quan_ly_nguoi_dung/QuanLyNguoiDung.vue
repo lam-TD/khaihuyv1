@@ -60,21 +60,33 @@
                                                     </template>
                                                 </el-table-column>
                                                 <el-table-column prop="ho_ten" label="Họ tên" width="200" class-name="no-center-text"></el-table-column>
-                                                <el-table-column prop="username" label="Tên đăng nhập(email)" class-name="no-center-text"></el-table-column>
+                                                <el-table-column prop="username" label="Tên đăng nhập(email)" width="250" class-name="no-center-text"></el-table-column>
                                                 <el-table-column prop="ten_vi_tri" label="Vị trí" class-name="no-center-text"></el-table-column>
                                                 <el-table-column prop="" label="Kích hoạt" align="center" width="100" class-name="center-text">
                                                     <template slot-scope="scope">
-                                                        <div v-if="scope.row.active == 1">
-                                                            <input type="checkbox" id="md_checkbox_26" class="filled-in chk-col-blue" checked />
-                                                            <label for="md_checkbox_26"></label>
-                                                        </div>
-                                                        <div v-else>
-                                                            <input type="checkbox" id="md_checkbox_" class="filled-in chk-col-blue"/>
-                                                            <label for="md_checkbox_"></label>
-                                                        </div>
+                                                        <input v-if="scope.row.active == 1" @click="khoa_tai_khoan" :id="scope.row.user_id" type="checkbox" :value="scope.row.active" checked class="form-control form-control-sm">
+                                                        <input v-else @click="khoa_tai_khoan" :id="scope.row.user_id" :value="scope.row.active" type="checkbox" class="form-control form-control-sm">
+
+                                                        <!--<div v-if="scope.row.active == 1">-->
+                                                            <!--<input @click="khoa_tai_khoan" :id="'check' + scope.row.user_id" type="checkbox" value="1" checked class="form-control form-control-sm">-->
+                                                            <!--&lt;!&ndash;<input @click="khoa_tai_khoan" type="checkbox" :id="'check' + scope.row.user_id" value="1" class="filled-in chk-col-blue" checked />&ndash;&gt;-->
+                                                            <!--&lt;!&ndash;<label :for="'check' + scope.row.user_id"></label>&ndash;&gt;-->
+                                                        <!--</div>-->
+                                                        <!--<div v-else>-->
+                                                            <!--<input @click="khoa_tai_khoan" :id="'check' + scope.row.user_id" value="0" type="checkbox" class="form-control form-control-sm">-->
+                                                            <!--&lt;!&ndash;<input @click="khoa_tai_khoan" type="checkbox" :id="'check' + scope.row.user_id" value="0" class="filled-in chk-col-blue"/>&ndash;&gt;-->
+                                                            <!--&lt;!&ndash;<label :for="'check' + scope.row.user_id"></label>&ndash;&gt;-->
+                                                        <!--</div>-->
                                                     </template>
                                                 </el-table-column>
                                             </el-table>
+                                            <el-dialog title="Thông báo" :visible.sync="centerDialogVisible" width="30%" center>
+                                                <h4 class="text-center">{{flag_question_khoa_tk}}</h4>
+                                                <span slot="footer" class="dialog-footer">
+                                                    <el-button @click="submit_khoa_tk('cancel')">Hủy</el-button>
+                                                    <el-button type="primary" @click="submit_khoa_tk('ok')">Đồng ý</el-button>
+                                                  </span>
+                                            </el-dialog>
                                         </div>
 
                                         <div class="col-md-12">
@@ -195,7 +207,7 @@
                                                 <div class="form-group row">
                                                     <label class="label-form col-md-3 col-form-label">Kích hoạt</label>
                                                     <div class="col-md-9">
-                                                        <input v-model="nguoi_dung.active" type="checkbox" id="md_checkboxs_" class="filled-in chk-col-blue"/>
+                                                        <input v-model="nguoi_dung.active" type="checkbox" id="md_checkboxs_" class="filled-in chk-col-blue" style="opacity: 0"/>
                                                         <label for="md_checkboxs_"></label>
                                                     </div>
                                                 </div>
@@ -233,8 +245,10 @@
     import {api_get_all_danh_sach_nguoi_dung} from "./quan_ly_nguoi_dung";
     import {api_get_search_nguoi_dung} from "./quan_ly_nguoi_dung";
     import {api_get_danh_sach_nhom_nguoi_dung_chua_co_tk} from "./quan_ly_nguoi_dung";
+
     import {api_add_nguoi_dung} from "./quan_ly_nguoi_dung";
     import {api_edit_nguoi_dung} from "./quan_ly_nguoi_dung";
+    import {api_kich_hoat_tk_nguoi_dung} from "./quan_ly_nguoi_dung";
     import {api_delete_nguoi_dung} from "./quan_ly_nguoi_dung";
     import {api_get_danh_sach_nguoi_dung_theo_nhom} from "./quan_ly_nguoi_dung";
 
@@ -277,7 +291,11 @@
                 nhan_vien: '',
                 list_change_phong: [],
                 list_change_vi_tri: [],
-                flag_doi_mk: false
+                flag_doi_mk: false,
+                centerDialogVisible: false,
+                flag_question_khoa_tk: '',
+                gia_tri_kich_hoat: 0,
+                id_checkbox_khoa: ''
             }
         },
         methods: {
@@ -323,15 +341,22 @@
                 else{
                     api_get_all_danh_sach_nguoi_dung(this,1);
                 }
+                this.centerDialogVisible = false;
             },
             _nguoi_dung: function (state, nd = null) {
                 if(state == 'add') {
-                    console.log('add')
+                    this.nhan_vien = '';
+                    this.vi_tri = '';
+                    this.nhom_nguoi_dung_2 = '';
+
                     this.flag_submit_nguoi_dung = true;
                     this.flag_input_nguoi_dung = false;
+                    this.flag_doi_mk = true;
                     this.nguoi_dung = { id: 0, username: '', password: '', password_xn: '', id_nhan_vien: '', id_nhom_nguoi_dung: '', active:0 }
                 }
                 else {
+                    this.flag_doi_mk = false;
+
                     this.nhan_vien = nd.ho_ten;
                     this.vi_tri = nd.ten_vi_tri;
 
@@ -342,7 +367,8 @@
                     this.nguoi_dung.id = nd.user_id;
                     this.nguoi_dung.username = nd.username;
                     this.nguoi_dung.active = nd.active;
-
+                    this.nguoi_dung.password = '';
+                    this.nguoi_dung.password_xn = '';
                     this.flag_submit_nguoi_dung = false;
                     this.flag_input_nguoi_dung = true;
                 }
@@ -380,10 +406,53 @@
                     api_get_search_nguoi_dung(this);
                 }
             },
+            submit_khoa_tk: function (state) {
+                if(state == "ok"){
+                    // console.log('gitri: ' + this.gia_tri_kich_hoat)
+                    // console.log('id: ' + this.id_checkbox_khoa);
+                    var em = false;
+                    var em_ = 0;
+                    if(this.gia_tri_kich_hoat == 1)
+                    {
+                        em = false;
+                        em_ = 0;
+                    }
+                    else {
+                        em = true;
+                        em_ = 1;
+                    }
+                    $("#" + this.id_checkbox_khoa).prop("checked", em);
+                    api_kich_hoat_tk_nguoi_dung(this,this.id_checkbox_khoa,em_);
+                }
+                else{
+                    // console.log('huy: ' + this.gia_tri_kich_hoat)
+                    if(this.gia_tri_kich_hoat == 1) { em = true; } else{ em = false; }
+                    $("#" + this.id_checkbox_khoa).prop("checked", em);
+                    // api_kich_hoat_tk_nguoi_dung(this,this.id_checkbox_khoa,em);
+                }
+                this.centerDialogVisible = false;
+
+            },
             delete_nguoi_dung: function(bp) {
                 this.nguoi_dung = bp;
                 if(this.nguoi_dung.id <= 0) return -1;
                 api_delete_nguoi_dung(this);
+            },
+            khoa_tai_khoan: function (event) {
+                this.id_checkbox_khoa = event.target.id;
+                console.log(this.id_checkbox_khoa);
+                var khoa = event.target.value;
+                console.log(khoa);
+                if(khoa == 1){
+                    this.flag_question_khoa_tk = 'Bạn muốn khóa tài khoản này?';
+                    this.gia_tri_kich_hoat = khoa;
+                    this.centerDialogVisible = true;
+                }
+                else{
+                    this.flag_question_khoa_tk = 'Bạn muốn kích hoạt tài khoản này?';
+                    this.gia_tri_kich_hoat = khoa;
+                    this.centerDialogVisible = true;
+                }
             },
             change_bnt_save: function () {
                 this.flag_btn_save = false;
@@ -458,8 +527,14 @@
     }
 
     [type="checkbox"] + label {
-        paddimg: 0;
         margin:0;
         height: 14px !important;
+    }
+
+    [type="checkbox"]:not(:checked), [type="checkbox"]:checked {
+        position: absolute;
+        left: 0px;
+        top:30%;
+        opacity: 1;
     }
 </style>

@@ -124,7 +124,26 @@ export function api_edit_nguoi_dung(vm) {
                 $('.modal-backdrop').css('display','none');
                 vm.change_nhom_nguoi_dung_1(vm.nhom_nguoi_dung_1);
             }
-            else sweetalert(2, 'Lỗi không thêm được!');
+            else sweetalert(2, 'Lỗi không cập nhật được!');
+        })
+        .catch((error) => {
+            console.log(error);
+            sweetalert(2, 'Lỗi không thực hiện được chức năng này!');
+        })
+}
+
+export function api_kich_hoat_tk_nguoi_dung(vm, id, active) {
+    axios({
+        method: 'GET',
+        url: 'api/kich-hoat-tk-nguoi-dung/' + id + '&' + active,
+        headers: {'Authorization':'Bearer ' + vm.$store.state.currentUser.token}
+    })
+        .then((response) => {
+            if(response.data.status == "OK"){
+                sweetalert(1, 'Cập nhật thành công!');
+                vm.change_nhom_nguoi_dung_1(vm.nhom_nguoi_dung_1);
+            }
+            else sweetalert(2, 'Lỗi không cập nhật được!');
         })
         .catch((error) => {
             console.log(error);
@@ -153,6 +172,7 @@ export function api_delete_nguoi_dung(vm) {
                         vm.change_nhom_nguoi_dung_1(vm.nhom_nguoi_dung_1);
                     }
                     else {sweetalert(2, 'Lỗi không xóa được!'); vm.change_nhom_nguoi_dung_1(vm.nhom_nguoi_dung_1);}
+                    api_get_danh_sach_nhom_nguoi_dung_chua_co_tk(vm);
                 })
                 .catch((error) => {
                     sweetalert(2, 'Lỗi không thực hiện được chức năng này!');

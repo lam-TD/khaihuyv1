@@ -27,9 +27,9 @@ class NguoiDungController extends Controller
             ->join('nhan_vien_cong_viec','nhan_vien.ma_nv','=','nhan_vien_cong_viec.nv_ma')
             ->join('vi_tri','nhan_vien_cong_viec.vi_tri_ma','=','vi_tri.ma_vi_tri')
             ->select('users.id as user_id', 'username', 'users.active', 'nhan_vien.ma_nv','nhan_vien.ho_ten', 'vi_tri.ma_vi_tri','vi_tri.ten_vi_tri','nhom_nguoi_dung.ma_nhom','nhom_nguoi_dung.id as id_nhom_nguoi_dung')
-            ->where('username','LIKE','%'.$keyword.'%')
-            ->where('nhan_vien.ho_ten','LIKE','%'.$keyword.'%')
-            ->orderby('users.id','desc')->take(10)->get();
+            ->where('users.username','LIKE','%'.$keyword.'%')
+            ->orwhere('nhan_vien.ho_ten','LIKE','%'.$keyword.'%')
+            ->orderby('users.id','desc')->paginate(10);
         return json_encode($nd);
     }
 
@@ -135,6 +135,17 @@ class NguoiDungController extends Controller
             $nd->save();
         }
 
+        return response()->json([
+            'status' => 'OK',
+            'message' => 'Success'
+        ]);
+    }
+
+    public function kich_hoat_tk_nguoi_dung($id, $active)
+    {
+        $nd = User::find($id);
+        $nd->active = $active;
+        $nd->save();
         return response()->json([
             'status' => 'OK',
             'message' => 'Success'

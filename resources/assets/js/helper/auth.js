@@ -1,7 +1,21 @@
-export function login(credentials) {
+export function login(credentials, vm) {
     return new Promise((res, rej) => {
         axios.post('api/auth/login', credentials)
             .then((response) => {
+                if(response.data.error == "Unauthorized"){
+                    swal({
+                            title: "Tài khoản này đã bị khóa",
+                            type: "warning",
+                            showCancelButton: false,
+                            confirmButtonClass: "btn-danger",
+                            confirmButtonText: "Đồng ý",
+                            closeOnConfirm: true
+                        },
+                        function() {
+                            vm.$store.commit("logout");
+                            vm.$router.push({path: '/'});
+                        });
+                }
                 res(response.data);
             })
             .catch((err) => {
