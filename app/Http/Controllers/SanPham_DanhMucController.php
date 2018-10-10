@@ -16,7 +16,7 @@ class SanPham_DanhMucController extends Controller
                 $danh_sach_san_pham = san_pham::join('sanpham_danhmuc','san_pham.ma_sp','=','sanpham_danhmuc.ma_sp')
                     ->join('danh_muc_san_pham','sanpham_danhmuc.danh_muc_san_pham_id','=','danh_muc_san_pham.danh_muc_id')
                     ->where('danh_muc_san_pham.danh_muc_id',$danh_muc_id)
-                    ->select('san_pham.id','san_pham.ten_sp','san_pham.ma_sp','san_pham.image','san_pham.created_at','sanpham_danhmuc.order_num','sanpham_danhmuc.danh_muc_san_pham_id')
+                    ->select('san_pham.id','san_pham.ten_sp','san_pham.ma_sp','san_pham.image','san_pham.created_at','sanpham_danhmuc.order_num','sanpham_danhmuc.danh_muc_san_pham_id','san_pham.full_vat_dealer','san_pham.full_vat_end_user')
                     ->orderby('order_num','asc')
                     ->paginate($limit);
                 break;
@@ -24,7 +24,7 @@ class SanPham_DanhMucController extends Controller
                 $danh_sach_san_pham = san_pham::join('sanpham_danhmuc','san_pham.ma_sp','=','sanpham_danhmuc.ma_sp')
                     ->join('danh_muc_san_pham','sanpham_danhmuc.danh_muc_san_pham_id','=','danh_muc_san_pham.danh_muc_id')
                     ->where('danh_muc_san_pham.danh_muc_id',$danh_muc_id)
-                    ->select('san_pham.id','san_pham.ten_sp','san_pham.ma_sp','san_pham.image','san_pham.created_at','sanpham_danhmuc.order_num','sanpham_danhmuc.danh_muc_san_pham_id')
+                    ->select('san_pham.id','san_pham.ten_sp','san_pham.ma_sp','san_pham.image','san_pham.created_at','sanpham_danhmuc.order_num','sanpham_danhmuc.danh_muc_san_pham_id','san_pham.full_vat_dealer','san_pham.full_vat_end_user')
                     ->orderby('san_pham.ten_sp','asc')
                     ->paginate($limit);
                 break;
@@ -32,7 +32,7 @@ class SanPham_DanhMucController extends Controller
                 $danh_sach_san_pham = san_pham::join('sanpham_danhmuc','san_pham.ma_sp','=','sanpham_danhmuc.ma_sp')
                     ->join('danh_muc_san_pham','sanpham_danhmuc.danh_muc_san_pham_id','=','danh_muc_san_pham.danh_muc_id')
                     ->where('danh_muc_san_pham.danh_muc_id',$danh_muc_id)
-                    ->select('san_pham.id','san_pham.ten_sp','san_pham.ma_sp','san_pham.image','san_pham.created_at','sanpham_danhmuc.order_num','sanpham_danhmuc.danh_muc_san_pham_id')
+                    ->select('san_pham.id','san_pham.ten_sp','san_pham.ma_sp','san_pham.image','san_pham.created_at','sanpham_danhmuc.order_num','sanpham_danhmuc.danh_muc_san_pham_id','san_pham.full_vat_dealer','san_pham.full_vat_end_user')
                     ->orderby('san_pham.ten_sp','desc')
                     ->paginate($limit);
                 break;
@@ -40,7 +40,7 @@ class SanPham_DanhMucController extends Controller
                 $danh_sach_san_pham = san_pham::join('sanpham_danhmuc','san_pham.ma_sp','=','sanpham_danhmuc.ma_sp')
                     ->join('danh_muc_san_pham','sanpham_danhmuc.danh_muc_san_pham_id','=','danh_muc_san_pham.danh_muc_id')
                     ->where('danh_muc_san_pham.danh_muc_id',$danh_muc_id)
-                    ->select('san_pham.id','san_pham.ten_sp','san_pham.ma_sp','san_pham.image','san_pham.created_at','sanpham_danhmuc.order_num','sanpham_danhmuc.danh_muc_san_pham_id')
+                    ->select('san_pham.id','san_pham.ten_sp','san_pham.ma_sp','san_pham.image','san_pham.created_at','sanpham_danhmuc.order_num','sanpham_danhmuc.danh_muc_san_pham_id','san_pham.full_vat_dealer','san_pham.full_vat_end_user')
                     ->orderby('created_at','desc')
                     ->paginate($limit);
                 break;
@@ -103,7 +103,7 @@ class SanPham_DanhMucController extends Controller
             ->where('sanpham_danhmuc.danh_muc_san_pham_id',$id_danh_muc)
             ->where('san_pham.id','<>',$id_san_pham)
             ->select('san_pham.id','san_pham.danh_muc_id','san_pham.ma_sp','san_pham.ten_sp',
-                'san_pham.net','san_pham.full_vat_dealer','san_pham.full_vat_end_user',
+                'san_pham.net','san_pham.get_danh_sach_san_pham_theo_danh_muc','san_pham.full_vat_end_user',
                 'san_pham.created_at','san_pham.image')
             ->paginate($limit);
         return json_encode($ds);
