@@ -93,4 +93,19 @@ class SanPham_DanhMucController extends Controller
         }
         return 1;
     }
+
+    public function get_danh_sach_san_pham_cung_danh_muc($id_san_pham, $limit)
+    {
+        $ma_sp = san_pham::where('id',$id_san_pham)->first()->ma_sp;
+        $id_danh_muc = sanpham_danhmuc::where('ma_sp', $ma_sp)->first()->danh_muc_san_pham_id;
+
+        $ds = san_pham::join('sanpham_danhmuc','san_pham.ma_sp','=','sanpham_danhmuc.ma_sp')
+            ->where('sanpham_danhmuc.danh_muc_san_pham_id',$id_danh_muc)
+            ->where('san_pham.id','<>',$id_san_pham)
+            ->select('san_pham.id','san_pham.danh_muc_id','san_pham.ma_sp','san_pham.ten_sp',
+                'san_pham.net','san_pham.full_vat_dealer','san_pham.full_vat_end_user',
+                'san_pham.created_at','san_pham.image')
+            ->paginate($limit);
+        return json_encode($ds);
+    }
 }
