@@ -61,8 +61,7 @@ export function api_add_nhom_nguoi_dung(vm) {
             vm.un_change_bnt_save();
             if(response.data == 1){
                 sweetalert(1, 'Thêm thành công!');
-                $('#myModaladd').modal('hide');
-                $('.modal-backdrop').css('display','none');
+                vm.flag_modal_add = false;
                 api_get_all_danh_sach_nhom_nguoi_dung(vm,1);
                 api_get_all_danh_sach_tai_khoan_chua_co_nhom(vm);
             }
@@ -86,11 +85,10 @@ export function api_edit_nhom_nguoi_dung(vm) {
         data: vm.$data.nhom_nguoi_dung
     })
         .then((response) => {
-            vm.un_change_bnt_save();
+            vm.un_change_bnt_save('save_edit');
             if(response.data == 1){
                 sweetalert(1, 'Cập nhật thành công!');
-                $('#myModaladd').modal('hide');
-                $('.modal-backdrop').css('display','none');
+                vm.flag_modal_ = false;
                 api_get_all_danh_sach_nhom_nguoi_dung(vm,1);
                 api_get_all_danh_sach_tai_khoan_chua_co_nhom(vm);
             }
@@ -102,6 +100,7 @@ export function api_edit_nhom_nguoi_dung(vm) {
         .catch((error) => {
             console.log(error);
             sweetalert(2, 'Lỗi không thực hiện được chức năng này!');
+            vm.un_change_bnt_save('save_edit');
         })
 }
 
@@ -152,6 +151,37 @@ export function api_delete_nhom_nguoi_dung(vm) {
                     }
                     else if(parseInt(response.data) == 0){
                         sweetalert(0, 'Nhóm này có chứa tài khoản vui lòng xóa tài khoản ra khỏi nhóm');
+                    }
+                    else {sweetalert(2, 'Lỗi không xóa được!'); vm.change_nhom_nguoi_dung_1(vm.nhom_nguoi_dung_1);}
+                    api_get_all_danh_sach_nhom_nguoi_dung(vm,1);
+                })
+                .catch((error) => {
+                    sweetalert(2, 'Lỗi không thực hiện được chức năng này!');
+                })
+
+        });
+}
+
+export function api_delete_tai_khoan_khoi_nhom_nguoi_dung(vm, id_user) {
+    swal({
+            title: "Bạn có chắc chắn muốn xóa tài khoản khỏi nhóm " + vm.nhom_nguoi_dung.ten_nhom + "?",
+            type: "warning",
+            showCancelButton: true,
+            confirmButtonClass: "btn-danger",
+            confirmButtonText: "Đồng ý",
+            closeOnConfirm: true
+        },
+        function() {
+            axios({
+                method: 'GET',
+                url: 'api/delete-tai-khoan-khoi-nhom-nguoi-dung/' + id_user + '&' + 0,
+                headers: {'Authorization':'Bearer ' + vm.$store.state.currentUser.token}
+            })
+                .then((response) => {
+                    if(parseInt(response.data) == 1) {
+                        sweetalert(1, 'Tài khoản đã được xóa khỏi nhóm!');
+                        api_get_all_danh_sach_tai_khoan_chua_co_nhom(vm);
+                        api_get_all_danh_sach_tai_khoan_theo_nhom(vm);
                     }
                     else {sweetalert(2, 'Lỗi không xóa được!'); vm.change_nhom_nguoi_dung_1(vm.nhom_nguoi_dung_1);}
                     api_get_all_danh_sach_nhom_nguoi_dung(vm,1);

@@ -199,6 +199,7 @@ Route::group(['middleware' => 'jwt.auth'], function ($router) {
     Route::post('add-tai-khoan-vao-nhom-nguoi-dung', 'NhomNguoiDungController@add_tai_khoan_vao_nhom');
     Route::post('edit-nhom-nguoi-dung', 'NhomNguoiDungController@edit_nhom');
     Route::get('delete-nhom-nguoi-dung/{id}', 'NhomNguoiDungController@delete_nhom');
+    Route::get('delete-tai-khoan-khoi-nhom-nguoi-dung/{id_user}&{thay_doi}', 'NhomNguoiDungController@delete_tai_khoan_khoi_nhom');
 
     //    --- Nguoi Dung ---
     Route::get('get-all-danh-sach-nguoi-dung/{limit}', 'NguoiDungController@get_danh_sach_nguoi_dung_paginate');

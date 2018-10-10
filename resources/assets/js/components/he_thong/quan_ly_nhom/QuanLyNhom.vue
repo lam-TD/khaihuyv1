@@ -80,86 +80,73 @@
                             </div>
 
                             <!--Modal add-->
-                            <div class="modal" id="myModaladd">
-                                <div class="modal-dialog modal-lg">
-                                    <div class="modal-content">
-                                        <form @submit.prevent="submit_add_nhom_nguoi_dung" id="form_bop">
-                                            <!-- Modal Header -->
-                                            <div class="modal-header">
-                                                <h4 class="modal-title"><b>Thông tin nhóm người dùng</b></h4>
-                                                <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                            </div>
+                            <!--<div class="modal" id="myModaladd">-->
+                                <!--<div class="modal-dialog modal-lg">-->
+                                    <!--<div class="modal-content">-->
+                                        <!--<form @submit.prevent="submit_add_nhom_nguoi_dung" id="form_bop">-->
+                                            <!--&lt;!&ndash; Modal Header &ndash;&gt;-->
+                                            <!--<div class="modal-header">-->
+                                                <!--<h4 class="modal-title"><b>Thông tin nhóm người dùng</b></h4>-->
+                                                <!--<button type="button" class="close" data-dismiss="modal">&times;</button>-->
+                                            <!--</div>-->
 
-                                            <!-- Modal body -->
-                                            <div class="modal-body">
-                                                <div v-if="flag_submit_nguoi_dung" class="form-group row">
-                                                    <label class="col-md-2 col-form-label label-dd">Mã nhóm</label>
-                                                    <div class="col-md-4 col-dd">
-                                                        <!--<el-input v-validate="'required'" v-model="nhom_nguoi_dung.ma_nhom" size="small"></el-input>-->
-                                                        <input name="txtmanhom" v-validate="'required'" v-bind:maxlength="10" v-model="nhom_nguoi_dung.ma_nhom" type="text" class="form-control form-control-sm">
-                                                        <small v-show="nhom_nguoi_dung.ma_nhom == ''" class="help text-muted is-danger">Vui lòng nhập mã nhóm</small>
-                                                    </div>
+                                            <!--&lt;!&ndash; Modal body &ndash;&gt;-->
+                                            <!--<div class="modal-body">-->
+                                                <!--<div v-if="flag_submit_nguoi_dung" class="form-group row">-->
+                                                    <!--<label class="col-md-2 col-form-label label-dd">Mã nhóm</label>-->
+                                                    <!--<div class="col-md-4 col-dd">-->
+                                                        <!--&lt;!&ndash;<el-input v-validate="'required'" v-model="nhom_nguoi_dung.ma_nhom" size="small"></el-input>&ndash;&gt;-->
+                                                        <!--<input name="txtmanhom" v-validate="'required'" v-bind:maxlength="10" v-model="nhom_nguoi_dung.ma_nhom" type="text" class="form-control form-control-sm">-->
+                                                        <!--<small v-show="nhom_nguoi_dung.ma_nhom == ''" class="help text-muted is-danger">Vui lòng nhập mã nhóm</small>-->
+                                                    <!--</div>-->
 
-                                                    <label class="col-md-2 col-form-label label-dd">Tên nhóm</label>
-                                                    <div class="col-md-4 col-dd">
-                                                        <!--<el-input v-model="nhom_nguoi_dung.ten_nhom" size="small"></el-input>-->
-                                                        <input name="txtmanhom" v-validate="'required'" v-bind:maxlength="100" v-model="nhom_nguoi_dung.ten_nhom" type="text" class="form-control form-control-sm">
-                                                        <small v-show="nhom_nguoi_dung.ten_nhom == ''" class="help text-muted is-danger">Vui lòng nhập tên nhóm</small>
-                                                    </div>
-                                                </div>
+                                                    <!--<label class="col-md-2 col-form-label label-dd">Tên nhóm</label>-->
+                                                    <!--<div class="col-md-4 col-dd">-->
+                                                        <!--&lt;!&ndash;<el-input v-model="nhom_nguoi_dung.ten_nhom" size="small"></el-input>&ndash;&gt;-->
+                                                        <!--<input name="txtmanhom" v-validate="'required'" v-bind:maxlength="100" v-model="nhom_nguoi_dung.ten_nhom" type="text" class="form-control form-control-sm">-->
+                                                        <!--<small v-show="nhom_nguoi_dung.ten_nhom == ''" class="help text-muted is-danger">Vui lòng nhập tên nhóm</small>-->
+                                                    <!--</div>-->
+                                                <!--</div>-->
 
-                                                <div class="form-group row">
-                                                    <label class="col-md-2 col-form-label label-dd">Ghi chú</label>
-                                                    <div class="col-md-10 col-dd">
-                                                        <!--<el-input v-model="nhom_nguoi_dung.ghi_chu" size="small"></el-input>-->
-                                                        <input name="txtmanhom" v-validate="'required'" v-bind:maxlength="200" v-model="nhom_nguoi_dung.ghi_chu" type="text" class="form-control form-control-sm">
-                                                    </div>
-                                                </div>
-                                                <div class="form-group row">
-                                                    <label class="col-md-12 col-form-label label-dd">Danh sách tài khoản chưa có nhóm</label>
-                                                    <div class="col-md-12">
-                                                        <el-table ref="multipleTable" :data="list_tai_khoan_chua_co_nhom" @selection-change="select_tk_vao_nhom" border style="width: 100%" height="300">
-                                                            <el-table-column type="selection" align="center" width="55" class-name="center-text table-pa"></el-table-column>
-                                                            <el-table-column type="index" label="TT" align="center" width="40" class-name="center-text table-pa"></el-table-column>
-                                                            <el-table-column prop="ma_nv" label="Mã NV" align="center" width="200" class-name="center-text table-pa"></el-table-column><el-table-column prop="username" label="Tên đăng nhập" width="250" class-name="no-center-text table-pa"></el-table-column>
-                                                            <el-table-column prop="ten_vi_tri" label="Vị trí" class-name="no-center-text table-pa"></el-table-column>
-                                                        </el-table>
-                                                    </div>
-                                                </div>
-                                            </div>
+                                                <!--<div class="form-group row">-->
+                                                    <!--<label class="col-md-2 col-form-label label-dd">Ghi chú</label>-->
+                                                    <!--<div class="col-md-10 col-dd">-->
+                                                        <!--&lt;!&ndash;<el-input v-model="nhom_nguoi_dung.ghi_chu" size="small"></el-input>&ndash;&gt;-->
+                                                        <!--<input name="txtmanhom" v-validate="'required'" v-bind:maxlength="200" v-model="nhom_nguoi_dung.ghi_chu" type="text" class="form-control form-control-sm">-->
+                                                    <!--</div>-->
+                                                <!--</div>-->
+                                                <!--<div class="form-group row">-->
+                                                    <!--<label class="col-md-12 col-form-label label-dd">Danh sách tài khoản chưa có nhóm</label>-->
+                                                    <!--<div class="col-md-12">-->
+                                                        <!--<el-table ref="multipleTable" :data="list_tai_khoan_chua_co_nhom" @selection-change="select_tk_vao_nhom" border style="width: 100%" height="300">-->
+                                                            <!--<el-table-column type="selection" align="center" width="55" class-name="center-text table-pa"></el-table-column>-->
+                                                            <!--<el-table-column type="index" label="TT" align="center" width="40" class-name="center-text table-pa"></el-table-column>-->
+                                                            <!--<el-table-column prop="ma_nv" label="Mã NV" align="center" width="200" class-name="center-text table-pa"></el-table-column><el-table-column prop="username" label="Tên đăng nhập" width="250" class-name="no-center-text table-pa"></el-table-column>-->
+                                                            <!--<el-table-column prop="ten_vi_tri" label="Vị trí" class-name="no-center-text table-pa"></el-table-column>-->
+                                                        <!--</el-table>-->
+                                                    <!--</div>-->
+                                                <!--</div>-->
+                                            <!--</div>-->
 
-                                            <!-- Modal footer -->
-                                            <div class="modal-footer">
-                                                <button type="button" class="btn btn-danger" data-dismiss="modal">Hủy</button>
-                                                <!--<button id="save" type="submit" class="btn btn-primary">Lưu lại</button>-->
-                                                <button :disabled="nhom_nguoi_dung.ma_nhom == '' || nhom_nguoi_dung.ten_nhom == ''" id="save_add" type="submit" class="btn btn-primary">
-                                                    <span v-if="flag_btn_save"><i class="fa fa-save"></i> Lưu lại</span>
-                                                    <span v-if="!flag_btn_save"><i class="fa fa-spin fa-spinner"></i> Đang xử lý...</span>
-                                                </button>
-                                            </div>
-                                        </form>
-                                    </div>
-                                </div>
-                            </div>
+                                            <!--&lt;!&ndash; Modal footer &ndash;&gt;-->
+                                            <!--<div class="modal-footer">-->
+                                                <!--<button type="button" class="btn btn-danger" data-dismiss="modal">Hủy</button>-->
+                                                <!--&lt;!&ndash;<button id="save" type="submit" class="btn btn-primary">Lưu lại</button>&ndash;&gt;-->
+                                                <!--<button :disabled="nhom_nguoi_dung.ma_nhom == '' || nhom_nguoi_dung.ten_nhom == ''" id="save_add" type="submit" class="btn btn-primary">-->
+                                                    <!--<span v-if="flag_btn_save"><i class="fa fa-save"></i> Lưu lại</span>-->
+                                                    <!--<span v-if="!flag_btn_save"><i class="fa fa-spin fa-spinner"></i> Đang xử lý...</span>-->
+                                                <!--</button>-->
+                                            <!--</div>-->
+                                        <!--</form>-->
+                                    <!--</div>-->
+                                <!--</div>-->
+                            <!--</div>-->
                             <!--End Modal add-->
 
-                            <el-dialog title="Cập nhật thông tin nhóm người dùng" top="8vh" custom-class="modal_new" :visible.sync="flag_modal_">
-                                <el-dialog width="60%" title="Danh sách tài khoản chưa có nhóm" :visible.sync="flag_add_tk_vao_nhom" append-to-body>
-                                    <el-table ref="multipleTable" top="8vh" :data="list_tai_khoan_chua_co_nhom" @selection-change="select_tk_vao_nhom" border style="width: 100%" height="300">
-                                        <el-table-column type="selection" align="center" width="55" class-name="center-text table-pa"></el-table-column>
-                                        <el-table-column type="index" label="TT" align="center" width="40" class-name="center-text table-pa"></el-table-column>
-                                        <el-table-column prop="ma_nv" label="Mã NV" align="center" width="200" class-name="center-text table-pa"></el-table-column><el-table-column prop="username" label="Tên đăng nhập" width="250" class-name="no-center-text table-pa"></el-table-column>
-                                        <el-table-column prop="ten_vi_tri" label="Vị trí" class-name="no-center-text table-pa"></el-table-column>
-                                    </el-table>
-
-                                    <div slot="footer" class="dialog-footer">
-                                        <!--<el-button @click="flag_modal_ = false">Cancel</el-button>-->
-                                        <button type="button" class="btn btn-danger" @click="flag_add_tk_vao_nhom = false">Hủy</button>
-                                        <button type="button" class="btn btn-primary" @click="add_tk_vao_nhom_">Thêm vào nhóm</button>
-                                    </div>
-                                </el-dialog>
+                            <!-- modal add-->
+                            <el-dialog title="Thêm mới nhóm người dùng" top="8vh" custom-class="modal_new" :visible.sync="flag_modal_add">
                                 <template>
-                                    <form id="form_bops">
+                                    <form id="form_bopss">
                                         <div v-if="flag_submit_nguoi_dung" class="form-group row">
                                             <label class="col-md-2 col-form-label label-dd">Mã nhóm</label>
                                             <div class="col-md-4 col-dd">
@@ -185,15 +172,83 @@
                                         </div>
 
                                         <div class="form-group row">
+                                            <label class="col-md-12 col-form-label label-dd">Danh sách tài khoản chưa có nhóm</label>
+                                            <div class="col-md-12 mb-2">
+                                                <el-table ref="multipleTable" :data="list_tai_khoan_chua_co_nhom" @selection-change="select_tk_vao_nhom" border style="width: 100%">
+                                                    <el-table-column type="selection" align="center" width="55" class-name="center-text table-pa"></el-table-column>
+                                                    <el-table-column type="index" label="TT" align="center" width="40" class-name="center-text table-pa"></el-table-column>
+                                                    <el-table-column prop="ma_nv" label="Mã NV" align="center" class-name="center-text table-pa"></el-table-column><el-table-column prop="username" label="Tên đăng nhập" width="250" class-name="no-center-text table-pa"></el-table-column>
+                                                    <el-table-column prop="ten_vi_tri" label="Vị trí" class-name="no-center-text table-pa"></el-table-column>
+                                                </el-table>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </template>
+                                <div slot="footer" class="dialog-footer">
+                                    <!--<el-button @click="flag_modal_ = false">Cancel</el-button>-->
+                                    <button type="button" class="btn btn-danger" @click="flag_modal_add = false">Hủy</button>
+                                    <!--<button id="save" type="submit" class="btn btn-primary">Lưu lại</button>-->
+                                    <button @click="submit_add_nhom_nguoi_dung" :disabled="nhom_nguoi_dung.ma_nhom == '' || nhom_nguoi_dung.ten_nhom == ''" id="save_add" type="button" class="btn btn-primary">
+                                        <span v-if="flag_btn_save"><i class="fa fa-save"></i> Lưu lại</span>
+                                        <span v-if="!flag_btn_save"><i class="fa fa-spin fa-spinner"></i> Đang xử lý...</span>
+                                    </button>
+                                </div>
+                            </el-dialog>
+                            <!--end modal add-->
+
+
+                            <!-- modal edit -->
+                            <el-dialog title="Cập nhật thông tin nhóm người dùng" top="8vh" custom-class="modal_new" :visible.sync="flag_modal_">
+                                <el-dialog width="60%" title="Danh sách tài khoản chưa có nhóm" :visible.sync="flag_add_tk_vao_nhom" append-to-body>
+                                    <el-table ref="multipleTable" top="8vh" :data="list_tai_khoan_chua_co_nhom" @selection-change="select_tk_vao_nhom" border style="width: 100%" height="300">
+                                        <el-table-column type="selection" align="center" width="55" class-name="center-text table-pa"></el-table-column>
+                                        <el-table-column type="index" label="TT" align="center" width="40" class-name="center-text table-pa"></el-table-column>
+                                        <el-table-column prop="ma_nv" label="Mã NV" align="center" width="200" class-name="center-text table-pa"></el-table-column><el-table-column prop="username" label="Tên đăng nhập" width="250" class-name="no-center-text table-pa"></el-table-column>
+                                        <el-table-column prop="ten_vi_tri" label="Vị trí" class-name="no-center-text table-pa"></el-table-column>
+                                    </el-table>
+
+                                    <div slot="footer" class="dialog-footer">
+                                        <!--<el-button @click="flag_modal_ = false">Cancel</el-button>-->
+                                        <button type="button" class="btn btn-danger" @click="flag_add_tk_vao_nhom = false">Hủy</button>
+                                        <button type="button" class="btn btn-primary" @click="add_tk_vao_nhom_">Thêm vào nhóm</button>
+                                    </div>
+                                </el-dialog>
+                                <template>
+                                    <form id="form_bops">
+                                        <div v-if="flag_submit_nguoi_dung" class="form-group row">
+                                            <label class="col-md-2 col-form-label label-dd">Mã nhóm</label>
+                                            <div class="col-md-4 col-dd">
+                                                <!--<el-input v-validate="'required'" v-model="nhom_nguoi_dung.ma_nhom" size="small"></el-input>-->
+                                                <input readonly name="txtmanhom" v-validate="'required'" v-bind:maxlength="10" v-model="nhom_nguoi_dung.ma_nhom" type="text" class="form-control form-control-sm">
+                                                <small v-show="nhom_nguoi_dung.ma_nhom == ''" class="help text-muted is-danger">Vui lòng nhập mã nhóm</small>
+                                            </div>
+
+                                            <label class="col-md-2 col-form-label label-dd">Tên nhóm</label>
+                                            <div class="col-md-4 col-dd">
+                                                <!--<el-input v-model="nhom_nguoi_dung.ten_nhom" size="small"></el-input>-->
+                                                <input name="txtmanhom" v-validate="'required'" v-bind:maxlength="100" v-model="nhom_nguoi_dung.ten_nhom" type="text" class="form-control form-control-sm">
+                                                <small v-show="nhom_nguoi_dung.ten_nhom == ''" class="help text-muted is-danger">Vui lòng nhập tên nhóm</small>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group row">
+                                            <label class="col-md-2 col-form-label label-dd">Ghi chú</label>
+                                            <div class="col-md-10 col-dd">
+                                                <!--<el-input v-model="nhom_nguoi_dung.ghi_chu" size="small"></el-input>-->
+                                                <input name="txtmanhom" v-validate="'required'" v-bind:maxlength="200" v-model="nhom_nguoi_dung.ghi_chu" type="text" class="form-control form-control-sm">
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group row">
                                             <div class="col-md-12 mb-2">
                                                 <label class="col-form-label label-dd">Danh sách tài khoản trong nhóm</label>
                                                 <button type="button" @click="flag_add_tk_vao_nhom = true" class="btn btn-info btn-sm pull-right">Thêm tài khoản vào nhóm</button>
                                             </div>
-                                            <div class="col-md-12">
+                                            <div class="col-md-12 mb-2">
                                                 <el-table :data="list_tk_theo_nhom" border style="width: 100%">
                                                     <el-table-column align="center" width="49" class-name="center-text table-pa button-pa">
                                                         <template slot-scope="scope">
-                                                            <button title="Loại bỏ tài khoản khỏi nhóm" @click="" class="btn btn-danger btn-sm"><i class="fa fa-times"></i></button>
+                                                            <span @click="delete_tai_khoan_khoi_nhom(scope.row)" title="Loại bỏ tài khoản khỏi nhóm" class="transparent-btn"><i style="color:black;font-size: 17px;cursor:pointer" class="fa fa-trash-o"></i></span>
                                                         </template>
                                                     </el-table-column>
                                                     <el-table-column type="index" label="TT" align="center" width="40" class-name="center-text table-pa"></el-table-column>
@@ -201,6 +256,25 @@
                                                     <el-table-column prop="username" label="Tên đăng nhập" class-name="no-center-text table-pa"></el-table-column>
                                                     <el-table-column prop="ten_vi_tri" label="Vị trí" class-name="no-center-text table-pa"></el-table-column>
                                                 </el-table>
+                                            </div>
+
+                                            <div class="col-md-12">
+                                                <div class="row tb-row-hienthi">
+                                                    <div class="col-md-2 col-sm-2 col-8 tb-label pr-0" style="padding-left: 15px;">
+                                                        <span>Hiển thị</span>
+                                                    </div>
+                                                    <div class="col-md-2 col-sm-2 col-4 tb-hienthi" style="padding-left: 4px;">
+                                                        <el-select v-model="limit" placeholder="10" size="small" @change="danh_sach_nhom_nguoi_dung(1)">
+                                                            <el-option v-for="item in options_display" :key="item" :label="item" :value="item"></el-option>
+                                                        </el-select>
+                                                    </div>
+                                                    <div class="col-md-6 col-sm-4 col-6" style="padding-left: 0px;">
+                                                        <el-pagination small :page-size="limit" layout="prev, pager, next" :total="total_nhom_nguoi_dung" @current-change="danh_sach_nhom_nguoi_dung"></el-pagination>
+                                                    </div>
+                                                    <div class="col-md-2 col-sm-2 col-6 tb-label">
+                                                        <span class="pull-right">Tổng: {{total_nhom_nguoi_dung}}</span>
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
                                     </form>
@@ -215,7 +289,7 @@
                                     </button>
                                 </div>
                             </el-dialog>
-
+                            <!-- end modal edit -->
                         </div>
                     </div>
                 </div>
@@ -240,6 +314,7 @@
     import {api_add_tai_khoan_vao_nhom_nguoi_dung} from "./QuanLyNhom_helper";
     import {api_edit_nhom_nguoi_dung} from "./QuanLyNhom_helper";
     import {api_delete_nhom_nguoi_dung} from "./QuanLyNhom_helper";
+    import {api_delete_tai_khoan_khoi_nhom_nguoi_dung} from "./QuanLyNhom_helper";
 
     export default {
         name: 'quanlynguoidung',
@@ -287,6 +362,7 @@
                 flag_question_khoa_tk: '',
                 gia_tri_kich_hoat: 0,
                 id_checkbox_khoa: '',
+                flag_modal_add:false,
                 flag_modal_: false,
                 flag_add_tk_vao_nhom: false,
                 limit_tk_theo_nhom: 10,
@@ -344,6 +420,7 @@
             _nhom_nguoi_dung: function (state, nd = null) {
                 if(state == 'add') {
                     this.nhom_nguoi_dung = {id: '', ma_nhom:'', ten_nhom: '', ghi_chu: '', arr_tk: []}
+                    this.flag_modal_add = true;
                 }
                 else {
                     this.flag_modal_ = true;
@@ -357,6 +434,9 @@
             add_tk_vao_nhom_: function () {
                 api_add_tai_khoan_vao_nhom_nguoi_dung(this);
             },
+            delete_tai_khoan_khoi_nhom: function (user) {
+                api_delete_tai_khoan_khoi_nhom_nguoi_dung(this,user.user_id);
+            },
             submit_add_nhom_nguoi_dung: function () {
                 if(this.nhom_nguoi_dung.ma_nhom == '' || this.nhom_nguoi_dung.ten_nhom == ''){
                     return 1;
@@ -369,7 +449,7 @@
                 if(this.nhom_nguoi_dung.ma_nhom == '' || this.nhom_nguoi_dung.ten_nhom == ''){
                     return 1;
                 }
-                this.change_bnt_save('save_add')
+                this.change_bnt_save('save_edit')
                 api_edit_nhom_nguoi_dung(this);
             },
             submit_search: function () {

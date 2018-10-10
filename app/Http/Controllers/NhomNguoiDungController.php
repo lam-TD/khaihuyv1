@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\nhan_vien;
 use Illuminate\Http\Request;
 use App\nhom_nguoi_dung;
 use App\User;
@@ -79,19 +80,26 @@ class NhomNguoiDungController extends Controller
         return 1;
     }
 
+    public function delete_tai_khoan_khoi_nhom($id_user, $thaydoi)
+    {
+        try{
+            $u = User::find($id_user);
+            $u->id_nhom_nguoi_dung = (int)$thaydoi;
+            $u->save();
+            return 1;
+        }
+        catch (\Exception $e){
+            return$e;
+        }
+
+    }
+
     public function edit_nhom(Request $request)
     {
         $n = nhom_nguoi_dung::find($request->id);
         $n->ten_nhom = $request->ten_nhom;
         $n->ghi_chu  = $request->ghi_chu;
         $n->save();
-        if(count($request->arr_tk) > 0){
-            foreach ($request->arr_tk as $tk){
-                $u = User::find($tk['user_id']);
-                $u->id_nhom_nguoi_dung = $request->id;
-                $u->save();
-            }
-        }
         return 1;
     }
 

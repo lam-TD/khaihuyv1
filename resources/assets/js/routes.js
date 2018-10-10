@@ -26,6 +26,7 @@ import taikhoankho from './components/san_pham/taikhoankho/TaiKhoanKho';
 //======= HE THONG =======
 import quanlynhom from './components/he_thong/quan_ly_nhom/QuanLyNhom.vue';
 import quanlynguoidung from './components/he_thong/quan_ly_nguoi_dung/QuanLyNguoiDung';
+import phanquyenchucnang from './components/he_thong/phan_quyen/PhanQuyenChucNang';
 
 import diachi from './components/he_thong/quan_ly_dia_chi/DiaChi';
 import quanhuyen from './components/he_thong/quan_ly_dia_chi/QuanHuyen';
@@ -118,6 +119,10 @@ export const routes = [
     {
         path: '/quanlynguoidung',
         component: quanlynguoidung
+    },
+    {
+        path: '/phanquyen',
+        component: phanquyenchucnang
     },
     {
         path: '/tinhthanh',
