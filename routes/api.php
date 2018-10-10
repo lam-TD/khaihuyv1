@@ -244,6 +244,9 @@ Route::get('delete-phuong-xa/{id}', 'PhuongXaController@delete_phuong_xa');
 // ======== DON VI TINH ===========
 Route::get('get-dvt', 'DonViTinhController@get_dvt');
 
-// ====== TEST ======
-
+// ====== TRANG CHU ======
 Route::get('get-danh-muc-san-pham-web', 'DanhMucController@get_danh_muc');
+
+Route::get('get-all-san-pham-paginate/{limit}', 'SanPhamController@get_list_san_pham_paginate');
+Route::get('get-san-pham-theo-id/{id_sp}', 'SanPhamController@get_thong_tin_san_pham_theo_id');
+Route::get('get-danh-muc-san-pham', 'DanhMucController@get_all_danh_muc_san_pham');
