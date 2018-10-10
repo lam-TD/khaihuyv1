@@ -26,12 +26,12 @@
                                         <div class="col-md-4">
                                             <div class="row">
                                                 <div class="col-md-12" style="font-weight: 500;margin-bottom: 5px;">
-                                                    <span style="margin-top: 8px;">Danh sách nhóm người dùng</span>
+                                                    <span style="margin-top: 8px;display: block">Danh sách nhóm người dùng</span>
                                                 </div>
                                                 <div class="col-md-12 mb-2">
                                                     <el-table highlight-current-row @current-change="click_chon_nhom" :data="list_nhom_nguoi_dung_paginate" border style="width: 100%">
                                                         <el-table-column prop="ma_nhom" label="Mã nhóm" class-name="no-center-text"></el-table-column>
-                                                        <el-table-column prop="ten_nhom" label="Tên nhóm" class-name="no-center-text"></el-table-column>
+                                                        <el-table-column prop="ten_nhom" label="Tên nhóm" class-name="no-center-text" show-overflow-tooltip></el-table-column>
                                                     </el-table>
                                                 </div>
                                                 <div class="col-md-12">
@@ -50,9 +50,9 @@
                                             <div class="row">
                                                 <div class="col-md-12" style="margin-bottom: 5px;">
                                                     <div class="row">
-                                                        <div class="col-md-4"><span style="font-weight: 500;height: 100%;margin-top: 8px;display: block">Danh sách chức năng</span></div>
-                                                        <div class="col-md-6 label-dd">
-                                                            <el-select v-model="value" size="small" placeholder="Select" class="pull-right">
+                                                        <div class="col-md-6"><span style="font-weight: 500;height: 100%;margin-top: 8px;display: block">Danh sách chức năng</span></div>
+                                                        <div class="col-md-4 label-dd">
+                                                            <el-select v-model="value" size="small" placeholder="Select" class="pull-right" style="width: 100%">
                                                                 <el-option v-for="item in list_chuc_nang" :key="item.value" :label="item.label" :value="item.value"></el-option>
                                                             </el-select>
                                                         </div>
@@ -66,7 +66,7 @@
                                                 <div class="col-md-12 mb-2">
                                                     <el-table @selection-change="check_chuc_nang" :data="list_nhom_nguoi_dung_paginate" border style="width: 100%">
                                                         <el-table-column prop="ma_nhom" label="Tên chức năng" class-name="no-center-text"></el-table-column>
-                                                        <el-table-column prop="ten_nhom" label="" class-name="no-center-text"></el-table-column>
+                                                        <el-table-column type="selection" label="Kích hoạt" width="100" align="center" class-name="center-text"></el-table-column>
                                                     </el-table>
                                                 </div>
                                                 <div class="col-md-12">
@@ -129,7 +129,8 @@
         data () {
             return {
                 list_nhom_nguoi_dung_paginate: [],
-                list_chuc_nang: []
+                list_chuc_nang: [],
+                limit: 10
             }
         },
         methods: {

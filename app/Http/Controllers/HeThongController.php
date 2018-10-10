@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\chuc_nang;
+use App\nhom_chuc_nang;
 use Illuminate\Http\Request;
 use App\nhom_nguoi_dung;
 use App\nhom_phan_quyen;
@@ -75,5 +77,19 @@ class HeThongController extends Controller
         $ds_nguoi_dung = User::select('id','username','active', 'id_nhom_nguoi_dung')
             ->where('id_nhom_nguoi_dung', $id_nhom)->orderby('id', 'desc')->paginate(10);
         return json_encode($ds_nguoi_dung);
+    }
+
+    public function get_danh_sach_nhom_chuc_nang ()
+    {
+        $ncn = nhom_chuc_nang::orderby('id')->get();
+        return json_encode($ncn);
+    }
+
+    public function get_chuc_nang_theo_nhom($id_nhom)
+    {
+        $cn = chuc_nang::where('id_nhom_chuc_nang',$id_nhom)
+            ->orderby('thu_tu','asc')
+            ->get();
+        return json_encode($cn);
     }
 }
