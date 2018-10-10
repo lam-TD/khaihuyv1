@@ -192,7 +192,13 @@ Route::group(['middleware' => 'jwt.auth'], function ($router) {
 
     //    --- Nhom Nguoi Dung ---
     Route::get('get-danh-sach-nhom-nguoi-dung-no-paginate', 'NhomNguoiDungController@get_danh_sach_nhom_nguoi_dung_no_paginate');
-
+    Route::get('get-danh-sach-nhom-nguoi-dung-paginate/{limit}', 'NhomNguoiDungController@get_danh_sach_nhom_nguoi_dung');
+    Route::get('get-danh-sach-tai-khoan-theo-nhom-paginate/{id_nhom}&{limit}', 'NhomNguoiDungController@get_danh_sach_tai_khoan_theo_nhom');
+    Route::get('get-danh-sach-tai-khoan-chua-co-nhom', 'NhomNguoiDungController@get_danh_sach_tai_khoan_chua_co_nhom');
+    Route::post('add-nhom-nguoi-dung', 'NhomNguoiDungController@add_nhom');
+    Route::post('add-tai-khoan-vao-nhom-nguoi-dung', 'NhomNguoiDungController@add_tai_khoan_vao_nhom');
+    Route::post('edit-nhom-nguoi-dung', 'NhomNguoiDungController@edit_nhom');
+    Route::get('delete-nhom-nguoi-dung/{id}', 'NhomNguoiDungController@delete_nhom');
 
     //    --- Nguoi Dung ---
     Route::get('get-all-danh-sach-nguoi-dung/{limit}', 'NguoiDungController@get_danh_sach_nguoi_dung_paginate');
@@ -240,3 +246,4 @@ Route::get('get-dvt', 'DonViTinhController@get_dvt');
 
 // ====== TEST ======
 
+Route::get('get-danh-muc-san-pham-web', 'DanhMucController@get_danh_muc');

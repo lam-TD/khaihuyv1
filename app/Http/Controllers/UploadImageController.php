@@ -32,7 +32,6 @@ class UploadImageController extends Controller
             }
             else{
                 $arr_image = json_decode($sp->image);
-                array_push($arr_image, $name);
                 $result = array_merge($arr_image, $name_img);
                 san_pham::where('id',$id)->update(['image' => json_encode($result)]);
 //                return $result;

@@ -12,7 +12,7 @@ class NguoiDungController extends Controller
     public function get_danh_sach_nguoi_dung_paginate($limit = 10)
     {
         $nd = User::join('nhan_vien','users.id_nhan_vien','=','nhan_vien.ma_nv')
-            ->join('nhom_nguoi_dung','users.id_nhom_nguoi_dung','=','nhom_nguoi_dung.id')
+            ->leftjoin('nhom_nguoi_dung','users.id_nhom_nguoi_dung','=','nhom_nguoi_dung.id')
             ->join('nhan_vien_cong_viec','nhan_vien.ma_nv','=','nhan_vien_cong_viec.nv_ma')
             ->join('vi_tri','nhan_vien_cong_viec.vi_tri_ma','=','vi_tri.ma_vi_tri')
             ->select('users.id as user_id', 'username', 'users.active', 'nhan_vien.ma_nv','nhan_vien.ho_ten', 'vi_tri.ma_vi_tri','vi_tri.ten_vi_tri','nhom_nguoi_dung.ma_nhom','nhom_nguoi_dung.id as id_nhom_nguoi_dung')

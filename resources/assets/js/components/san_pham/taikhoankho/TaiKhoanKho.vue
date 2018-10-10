@@ -84,7 +84,7 @@
                                                 <div class="form-group row">
                                                     <label class="label-form col-md-3 col-form-label"><b>Mã TK(*)</b></label>
                                                     <div class="col-md-9">
-                                                        <input v-model="tk_kho.ma_tk" :disabled="flag_input_tk_kho" v-validate="'required'" :class="{'border-danger' : errors.has('txtmabophan')}" type="text" name="txtmabophan" class="form-control form-control-sm" id="txtmabophan" aria-describedby="" autofocus>
+                                                        <input v-model="tk_kho.ma_tk" v-bind:maxlength="4" :disabled="flag_input_tk_kho" v-validate="'required'" :class="{'border-danger' : errors.has('txtmabophan')}" type="text" name="txtmabophan" class="form-control form-control-sm" id="txtmabophan" aria-describedby="" autofocus>
                                                         <small v-if="flag_input_ma_tk_kho" class="help text-muted is-danger">Vui lòng nhập mã tài khoản</small>
                                                     </div>
 

@@ -240,42 +240,71 @@ export function api_upload_image_san_pham(vm, id_san_pham, type) {
     let formData = new FormData();
     let elem = document.querySelector('.el-upload__input');
     console.log(elem.files);
-    if(elem.files.length == 0 && type == 1){
-        sweetalert(1, 'Thêm mới thành công!');
-        vm.$router.push({path: '/danhsachsanpham'});
-        return 1;
-    }
 
-    if(elem.files.length == 0 && type == 2){
-        sweetalert(1, 'Cập nhật thành công!');
-        vm.$router.push({path: '/danhsachsanpham'});
-        return 1;
-    }
-
-
-    for (let i = 0; i < elem.files.length; i++) {
-        formData.append(`file[${i}]`, elem.files[i]);
-    }
-
-    axios({
-        method: 'POST',
-        url: 'api/upload-img/' + id_san_pham,
-        headers: {'Authorization':'Bearer ' + vm.$store.state.currentUser.token},
-        data: formData
-    })
-        .then((response) => {
-            console.log(response.data);
-            if(response.data == 1){
-                sweetalert(1, 'Thêm sản phẩm thành công!');
-            }
-            else{
-                sweetalert(0, 'Lỗi không thêm được ảnh sản phẩm!');
-            }
+    if(type == 1){
+        if(elem.files.length == 0){
+            sweetalert(1, 'Thêm mới thành công!');
             vm.$router.push({path: '/danhsachsanpham'});
-        })
-        .catch((error) => {
-            console.log(error);
-        })
+        }
+        else{
+            for (let i = 0; i < elem.files.length; i++) {
+                formData.append(`file[${i}]`, elem.files[i]);
+            }
+
+            axios({
+                method: 'POST',
+                url: 'api/upload-img/' + id_san_pham,
+                headers: {'Authorization':'Bearer ' + vm.$store.state.currentUser.token},
+                data: formData
+            })
+                .then((response) => {
+                    console.log(response.data);
+                    if(response.data == 1){
+                        sweetalert(1, 'Thêm sản phẩm thành công!');
+                    }
+                    else{
+                        sweetalert(0, 'Lỗi không thêm được ảnh sản phẩm!');
+                    }
+                    vm.$router.push({path: '/danhsachsanpham'});
+                })
+                .catch((error) => {
+                    console.log(error);
+                })
+        }
+    }
+
+    if(type == 2){
+        if(elem.files.length == 0){
+            sweetalert(1, 'Cập nhật thành công!');
+            vm.$router.push({path: '/danhsachsanpham'});
+            return 1;
+        }
+        else{
+            for (let i = 0; i < elem.files.length; i++) {
+                formData.append(`file[${i}]`, elem.files[i]);
+            }
+
+            axios({
+                method: 'POST',
+                url: 'api/upload-img/' + id_san_pham,
+                headers: {'Authorization':'Bearer ' + vm.$store.state.currentUser.token},
+                data: formData
+            })
+                .then((response) => {
+                    console.log(response.data);
+                    if(response.data == 1){
+                        sweetalert(1, 'Cập nhật thành công!');
+                    }
+                    else{
+                        sweetalert(0, 'Lỗi không thêm được ảnh sản phẩm!');
+                    }
+                    vm.$router.push({path: '/danhsachsanpham'});
+                })
+                .catch((error) => {
+                    console.log(error);
+                })
+        }
+    }
 }
 
 export function api_delete_img_san_pham(vm, mane_img) {

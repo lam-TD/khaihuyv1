@@ -231,6 +231,9 @@ label {
         display: none;
     }
 
+    .modal_new {
+        width: 90% !important;
+    }
 }
 
 @media (min-width: 768px){
@@ -388,6 +391,25 @@ td.tensp .cell {
     overflow: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;
+}
+
+table thead tr th.table-pa, td.table-pa {
+    padding: 0 !important;
+}
+
+td.button-pa {
+    padding-top: 5px !important;
+    padding-bottom: 5px !important;
+}
+
+.el-checkbox {
+    margin-bottom: 3px;
+}
+
+.modal_new .el-dialog__header, .modal_new .el-dialog__footer{
+    background-color: #f5f5f5;
+    font-weight: 500;
+    padding: 15px;
 }
 
 /*//*/

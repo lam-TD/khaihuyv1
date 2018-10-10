@@ -33,6 +33,48 @@ class DanhMucController extends Controller
         }
     }
 
+    public function get_danh_muc()
+    {
+        $dm_lon = danh_muc_san_pham::orderBy('danh_muc_id', 'asc')->where('danh_muc_cha',0)->get()->toArray();
+//        return $dm_lon;
+        $arr_ = [];
+        if(count($dm_lon) > 0){
+            foreach ($dm_lon as $item){
+                $arr_[] = array(
+                    'danh_muc_id' => $item['danh_muc_id'],
+                    'tieu_de' => $item["tieu_de"],
+                    'danh_muc_cha' => $item["danh_muc_cha"],
+                    'tomtat' => $item["tomtat"],
+                    'hienthi' => $item["hienthi"],
+                    'thu_tu' => $item["thutu"],
+                    'danh_muc_con' => $this->get_danh_muc_con($item['danh_muc_id'])
+                );
+            }
+        }
+        return $arr_;
+    }
+
+    function get_danh_muc_con ($danh_muc_cha) {
+        $arr_lon = [];
+        $arr_con = danh_muc_san_pham::where('danh_muc_cha',$danh_muc_cha)->get()->toArray();;
+        if(count($arr_con) > 0){
+            foreach ($arr_con as $item){
+//                $arr_lam = [];
+                $arr_lon[] = array(
+                    'danh_muc_id' => $item['danh_muc_id'],
+                    'tieu_de' => $item["tieu_de"],
+                    'danh_muc_cha' => $item["danh_muc_cha"],
+                    'tomtat' => $item["tomtat"],
+                    'hienthi' => $item["hienthi"],
+                    'thu_tu' => $item["thutu"],
+                    'danh_muc_con' => $this->get_danh_muc_con($item['danh_muc_id'])
+                );
+
+            }
+        }
+        return $arr_lon;
+    }
+
     public function get_all_danh_muc_pa($limit)
     {
         $dm = danh_muc_san_pham::orderBy('danh_muc_id', 'asc')->paginate($limit);
