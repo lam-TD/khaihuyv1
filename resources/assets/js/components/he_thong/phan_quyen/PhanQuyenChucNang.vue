@@ -52,7 +52,7 @@
                                                     <div class="row">
                                                         <div class="col-md-6"><span style="font-weight: 500;height: 100%;margin-top: 8px;display: block">Danh sách chức năng</span></div>
                                                         <div class="col-md-4 label-dd">
-                                                            <el-select v-model="nhom_chuc_nang" value-key="id" size="small" placeholder="Select" :loading="flag_nhom_chuc_nang" class="pull-right" style="width: 100%">
+                                                            <el-select v-model="nhom_chuc_nang" @change="change_nhom_chuc_nang" value-key="id" size="small" placeholder="Select" :loading="flag_nhom_chuc_nang" class="pull-right" style="width: 100%">
                                                                 <el-option :label="'Tất cả nhóm chức năng'" :value="''"></el-option>
                                                                 <el-option v-for="item in list_nhom_chuc_nang" :key="item.id" :label="item.ten_nhom" :value="item">
                                                                     <template>
@@ -162,9 +162,11 @@
                 api_get_all_danh_sach_nhom_nguoi_dung(this, page)
             },
             click_chon_nhom: function (nhom) {
-                console.log(nhom);
                 this.nhom_nguoi_dung = nhom;
                 api_get_chuc_nang_theo_nhom(this,1);
+            },
+            change_nhom_chuc_nang: function () {
+
             },
             check_chuc_nang: function () {
 
@@ -176,10 +178,10 @@
                 if(data.length > 0){
                     $.each(data, function(idx, obj){
                         (obj.all == 1)       ? $('#all' + obj.id).prop('checked', true)  : $('#all' + obj.id).prop('checked', false);
-                        (obj.xem == 1)       ? $('#x' + obj.id).prop('checked', true)  : $('#x' + obj.id).prop('checked', false);
-                        (obj.them == 1)      ? $('#t' + obj.id).prop('checked', true)  : $('#t' + obj.id).prop('checked', false);
-                        (obj.sua == 1)       ? $('#s' + obj.id).prop('checked', true)  : $('#s' + obj.id).prop('checked', false);
-                        (obj.xoa == 1)       ? $('#de' + obj.id).prop('checked',true)  : $('#de' + obj.id).prop('checked', false);
+                        (obj.xem == 1)       ? $('#x' + obj.id).prop('checked', true)    : $('#x' + obj.id).prop('checked', false);
+                        (obj.them == 1)      ? $('#t' + obj.id).prop('checked', true)    : $('#t' + obj.id).prop('checked', false);
+                        (obj.sua == 1)       ? $('#s' + obj.id).prop('checked', true)    : $('#s' + obj.id).prop('checked', false);
+                        (obj.xoa == 1)       ? $('#de' + obj.id).prop('checked',true)    : $('#de' + obj.id).prop('checked', false);
                     });
                 }
                 else{

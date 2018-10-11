@@ -47,6 +47,7 @@ class DanhMucController extends Controller
                     'tomtat' => $item["tomtat"],
                     'hienthi' => $item["hienthi"],
                     'thu_tu' => $item["thutu"],
+                    'id_assoc' => $item["danhmuc_id_assoc"],
                     'danh_muc_con' => $this->get_danh_muc_con($item['danh_muc_id'])
                 );
             }
@@ -67,6 +68,7 @@ class DanhMucController extends Controller
                     'tomtat' => $item["tomtat"],
                     'hienthi' => $item["hienthi"],
                     'thu_tu' => $item["thutu"],
+                    'id_assoc' => $item["danhmuc_id_assoc"],
                     'danh_muc_con' => $this->get_danh_muc_con($item['danh_muc_id'])
                 );
 

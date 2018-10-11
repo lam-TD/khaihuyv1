@@ -32,7 +32,6 @@ export function api_get_chuc_nang_theo_nhom(vm, type) {
                 vm.list_chuc_nang_cua_nhom = response.data;
                 vm.check_quyen_cho_nhom(response.data);
             }
-
         })
         .catch((error) => {
             console.log(error);

@@ -102,18 +102,20 @@ class HeThongController extends Controller
         return json_encode($cn);
     }
 
-//    public function get_chuc_nang_theo_nhom($id_nhom, $type)
-//    {
-//        if($type == 100){
-//            $cn = chuc_nang::orderby('thu_tu','asc')
-//                ->get();
-//        }
-//        else{
-//            $cn = chuc_nang::where('id_nhom_chuc_nang',$id_nhom)
-//                ->select('id', 'ten_chuc_nang', 'thu_tu','id_nhom_chuc_nang')
-//                ->orderby('id','asc')
-//                ->get();
-//        }
-//        return json_encode($cn);
-//    }
+    public function get_chuc_nang_theo_nhom_nguoi_dung_va_nhom_chuc_nang($id_nhom_nd, $id_nhom_cn, $type)
+    {
+        if($type == "all"){
+            $cn = chuc_nang::join('nhom_chuc_nang','chuc_nang.id_nhom_chuc_nang','=','nhom_chuc_nang.id')
+                ->orderby('thu_tu','asc')->get();
+        }
+        else{
+            $cn = chuc_nang::join('nhom_phan_quyen','chuc_nang.id','=','nhom_phan_quyen.id_chuc_nang')
+                ->join('nhom_nguoi_dung','nhom_phan_quyen.id_nhom_nguoi_dung','=','nhom_nguoi_dung.id')
+                ->join('nhom_chuc_nang','chuc_nang.id_nhom_chuc_nang','=','nhom_chuc_nang.id')
+                ->where('nhom_chuc_nang.id',$id_nhom_cn)
+                ->where('nhom_nguoi_dung.id.id',$id_nhom_nd)
+                ->get();
+        }
+        return json_encode($cn);
+    }
 }
