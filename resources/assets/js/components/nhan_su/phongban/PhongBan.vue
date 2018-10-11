@@ -44,7 +44,7 @@
                                     </div>
                                 </div>
                                 <div class="col-md-8 col-sm-6 col-12">
-                                    <button @click="_phong_ban('add')" title="Thêm mới phòng" type="button" data-toggle="modal" data-target="#myModal" class="btn btn-success waves-effect waves-dark pull-right btn-full-width">
+                                    <button v-if="flag_cn.add" @click="_phong_ban('add')" title="Thêm mới phòng" type="button" data-toggle="modal" data-target="#myModal" class="btn btn-success waves-effect waves-dark pull-right btn-full-width">
                                         <i class="fa fa-plus-circle"></i> Thêm mới
                                     </button>
                                 </div>
@@ -56,53 +56,14 @@
                                     <!--&lt;!&ndash;<button @click="_phong_ban('add')" title="Thêm mới phòng" type="button" data-toggle="modal" data-target="#myModal" class="btn btn-circle btn-lg btn-success waves-effect waves-dark"><i class="fa fa-plus"></i></button>&ndash;&gt;-->
                                 <!--</h2>-->
                                 <div class="message-widget contact-widget">
-                                    <!--<div class="table-responsive">-->
-                                        <!--<table class="table table-hover">-->
-                                            <!--<thead>-->
-                                                <!--<tr style="border-top: 1px solid #ddd">-->
-                                                    <!--<th class="text-center" style="width: 100px;">#</th>-->
-                                                    <!--<th>Mã phòng</th>-->
-                                                    <!--<th>Tên phòng</th>-->
-                                                    <!--<th>Diễn giải</th>-->
-                                                <!--</tr>-->
-                                            <!--</thead>-->
-                                            <!--<tbody class="body-table loading-item">-->
-                                                <!--<tr v-if="loading_phong_ban">-->
-                                                    <!--<td class="text-center" colspan="6"><b><i><i class="fa fa-spin fa-spinner"></i> Đang tải danh sách phòng...</i></b></td>-->
-                                                <!--</tr>-->
-                                                <!--<tr v-else-if="list_phong_ban.length <= 0">-->
-                                                    <!--<td class="text-center" colspan="6"><b><i>Chưa có phòng</i></b></td>-->
-                                                <!--</tr>-->
-                                                <!--<tr v-else-if="list_phong_ban.length > 0" v-for="n in list_phong_ban" :id="'n' + n.id" class="row-nhom" @click="click_phong_ban(n)">-->
-                                                    <!--<td class="text-center" style="padding-right: 0">-->
-                                                        <!--<button @click="_phong_ban('edit',n)" id="edit_nhom" type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#myModal">-->
-                                                            <!--<i class="fa fa-edit"></i>-->
-                                                        <!--</button>-->
-                                                        <!--<button @click="delete_phong_ban(n)" type="button" class="btn btn-danger btn-sm">-->
-                                                            <!--<i class="fa fa-trash"></i>-->
-                                                        <!--</button>-->
-                                                    <!--</td>-->
-                                                    <!--<td>{{n.ma_phong}}</td>-->
-                                                    <!--<td>{{n.ten_phong}}</td>-->
-                                                    <!--<td>{{n.dien_giai}}</td>-->
-                                                <!--</tr>-->
-                                            <!--</tbody>-->
-                                        <!--</table>-->
-                                        <!--<el-pagination-->
-                                                <!--:page-size="10"-->
-                                                <!--layout="prev, pager, next"-->
-                                                <!--:total="total_phong_ban"-->
-                                                <!--@current-change="danh_sach_phong_ban">-->
-                                        <!--</el-pagination>-->
-                                    <!--</div>-->
                                     <!--//-->
                                     <div class="row">
                                         <div class="col-md-12" style="margin-bottom: 10px;">
                                             <el-table :data="list_phong_ban" border style="width: 100%">
                                                 <el-table-column label="#" width="90" align="center" class-name="center-text">
                                                     <template slot-scope="scope" class="text-center" style="width: 100%">
-                                                        <button @click="_phong_ban('edit', scope.row)" data-toggle="modal" data-target="#myModal" class="btn btn-info btn-sm" title="Cập nhật thông tin phòng ban"> <i class="fa fa-edit"></i> </button>
-                                                        <button @click="delete_phong_ban(scope.row)" class="btn btn-danger btn-sm" title="Xóa"> <i class="fa fa-trash-o"></i> </button>
+                                                        <button v-if="flag_cn.edit" @click="_phong_ban('edit', scope.row)" data-toggle="modal" data-target="#myModal" class="btn btn-info btn-sm" title="Cập nhật thông tin phòng ban"> <i class="fa fa-edit"></i> </button>
+                                                        <button v-if="flag_cn.delete" @click="delete_phong_ban(scope.row)" class="btn btn-danger btn-sm" title="Xóa"> <i class="fa fa-trash-o"></i> </button>
                                                     </template>
                                                 </el-table-column>
                                                 <el-table-column type="index" label="TT" align="center" class-name="center-text"></el-table-column>
@@ -210,6 +171,9 @@
 </template>
 
 <script>
+    import {check_url_phan_quyen} from "../../../helper/auth";
+    import {check_quyen_chuc_nang} from "../../../helper/auth";
+
     import {api_get_all_bo_phan} from "../bophan/bo_phan";
     import {api_get_all_phong_ban} from "./phong_ban";
     import {api_get_danh_sach_phong_theo_bo_phan} from './phong_ban';
@@ -222,20 +186,13 @@
     export default {
         name: 'bophan',
         components:{SelectLam},
+        beforeCreate(){
+            check_url_phan_quyen(this);
+        },
         mounted () {
+            check_quyen_chuc_nang(this);
             api_get_all_bo_phan(this);
             api_get_all_phong_ban(this, 1);
-        },
-        updated () {
-            // let vm = this;
-            // $(document).ready(function() {
-            //     $('.select2').select2({
-            //         placeholder: 'Chọn bộ phận'
-            //     });
-            //     $('#select_phong_1').on('select2:select', function (e) {
-            //         vm.change_phong_ban();
-            //     });
-            // });
         },
         data () {
             return {
@@ -259,7 +216,8 @@
                 limit: 10,
                 currentPage: 1,
                 flag_disabled_bo_phan: false,
-                id_old: ''
+                id_old: '',
+                flag_cn: {add: false, edit: false, delete: false}
             }
         },
         methods: {

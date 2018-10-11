@@ -28,9 +28,11 @@ export function check_url_phan_quyen(vm) {
     var path = vm.$route.path;
     var arr_path_chuc_nang_user_dang_co = vm.$store.state.currentUser.chuc_nang;
     var arr = [];
+    var arr_cn = null;
     for(let i = 0; i < arr_path_chuc_nang_user_dang_co.length; i++){
         for(let j = 0; j < arr_path_chuc_nang_user_dang_co[i].chuc_nang.length; j++){
             arr.push(arr_path_chuc_nang_user_dang_co[i].chuc_nang[j].link);
+            arr_cn = arr_path_chuc_nang_user_dang_co[i].chuc_nang;
         }
     }
 
@@ -43,6 +45,27 @@ export function check_url_phan_quyen(vm) {
         })
         if(typeof check_path == "undefined"){
             vm.$router.push({path: '/'});
+        }
+        // else{
+        //     (arr_cn[0].xem)  ? vm.flag_cn.add    = true : vm.flag_cn.add    = false;
+        //     (arr_cn[0].them) ? vm.flag_cn.edit   = true : vm.flag_cn.edit   = false;
+        //     (arr_cn[0].sua)  ? vm.flag_cn.delete = true : vm.flag_cn.delete = false;
+        // }
+    }
+}
+
+export function check_quyen_chuc_nang(vm) {
+    var path = vm.$route.path;
+
+    var arr_path_chuc_nang_user_dang_co = vm.$store.state.currentUser.chuc_nang;
+    var arr_cn = [];
+    for(let i = 0; i < arr_path_chuc_nang_user_dang_co.length; i++){
+        for(let j = 0; j < arr_path_chuc_nang_user_dang_co[i].chuc_nang.length; j++){
+            if(arr_path_chuc_nang_user_dang_co[i].chuc_nang[j].link == path){
+                (arr_path_chuc_nang_user_dang_co[i].chuc_nang[j].them)  ? vm.flag_cn.add    = true : vm.flag_cn.add    = false;
+                (arr_path_chuc_nang_user_dang_co[i].chuc_nang[j].sua)   ? vm.flag_cn.edit   = true : vm.flag_cn.edit   = false;
+                (arr_path_chuc_nang_user_dang_co[i].chuc_nang[j].xoa)   ? vm.flag_cn.delete = true : vm.flag_cn.delete = false;
+            }
         }
     }
 }

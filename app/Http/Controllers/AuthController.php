@@ -156,7 +156,7 @@ class AuthController extends Controller
                     ->where('nhom_chuc_nang.id', $value->id_nhom_chuc_nang)
 //                    ->where('allaction','>',0)->orwhere('xem','>',0)->orwhere('them','>',0)->orwhere('sua','>',0)->orwhere('xoa','>',0)
                     ->orderBy('chuc_nang.thu_tu','asc')
-                    ->select('id_chuc_nang', 'ten_chuc_nang', 'link', 'chuc_nang.thu_tu', 'allaction', 'xem', 'them', 'sua', 'xoa')
+                    ->select('id_chuc_nang', 'ten_chuc_nang', 'link', 'chuc_nang.thu_tu', 'allaction as all', 'xem', 'them', 'sua', 'xoa')
                     ->get();
                 $nhom = array(
                     "id_nhom"   => $value->id_nhom_chuc_nang,

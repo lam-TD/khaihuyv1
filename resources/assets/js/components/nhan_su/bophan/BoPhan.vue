@@ -11,7 +11,7 @@
                     <div class="card content-lam">
                         <div class="card-header">
                             <div class="card-actions">
-                                <a @click="_bo_phan('add')" title="Thêm mới bộ phận" data-toggle="modal" data-target="#myModal" class="btn btn-success waves-effect waves-dark btn-white" style="color: white"><i class="fa fa-plus-circle"></i> Thêm mới</a>
+                                <a v-if="flag_cn.add" @click="_bo_phan('add')" title="Thêm mới bộ phận" data-toggle="modal" data-target="#myModal" class="btn btn-success waves-effect waves-dark btn-white" style="color: white"><i class="fa fa-plus-circle"></i> Thêm mới</a>
                                 <!--<a @click="scroll_card" id="thunho" class="" data-action="collapse"><i class="ti-minus"></i></a>-->
                                 <a @click="scroll_card_full_creem" id="phongto" class="btn-minimize" data-action="expand"><i class="mdi mdi-arrow-expand"></i></a>
                                 <!--<a class="btn-close" data-action="close"><i class="ti-close"></i></a>-->
@@ -25,69 +25,14 @@
                                     <!---->
                                 <!--</dic>-->
                                 <div class="message-widget contact-widget">
-                                    <!--<div class="row">-->
-                                        <!--<div class="col-md-6">-->
-                                            <!--<h4 class="card-title">Danh sách bộ phận</h4>-->
-                                        <!--</div>-->
-                                        <!--<div class="col-md-6">-->
-                                            <!--<button @click="_bo_phan('add')" title="Thêm mới bộ phận" type="button" data-toggle="modal" data-target="#myModal" class="btn btn-success waves-effect waves-dark pull-right">-->
-                                                <!--<i class="fa fa-plus-circle"></i> Thêm mới-->
-                                            <!--</button>-->
-                                        <!--</div>-->
-                                    <!--</div>-->
-
-                                    <!--<div class="table-responsive">-->
-                                        <!--<table class="table table-hover">-->
-                                            <!--<thead>-->
-                                            <!--<tr>-->
-                                                <!--<th class="text-center" style="width: 100px;">#</th>-->
-                                                <!--<th class="text-center">TT</th>-->
-                                                <!--<th>Mã bộ phận</th>-->
-                                                <!--<th>Tên bộ phận</th>-->
-                                                <!--<th>Diễn giải</th>-->
-                                                <!--&lt;!&ndash;<th>Ngày tạo</th>&ndash;&gt;-->
-                                            <!--</tr>-->
-                                            <!--</thead>-->
-                                            <!--<tbody class="body-table loading-item">-->
-                                            <!--<tr v-if="loading_bo_phan">-->
-                                                <!--<td class="text-center" colspan="6"><b><i><i class="fa fa-spin fa-spinner"></i> Đang tải danh sách bộ phận...</i></b></td>-->
-                                            <!--</tr>-->
-                                            <!--<tr v-else-if="list_bo_phan.length <= 0">-->
-                                                <!--<td class="text-center" colspan="6"><b><i>Chưa có bộ phận</i></b></td>-->
-                                            <!--</tr>-->
-                                            <!--<tr v-else v-for="(n, index) in list_bo_phan" :id="'n' + n.id" class="row-nhom" @click="click_bo_phan(n)">-->
-                                                <!--<td class="text-center" style="padding-right: 0">-->
-                                                    <!--<button @click="_bo_phan('edit',n)" id="edit_nhom" type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#myModal">-->
-                                                        <!--<i class="fa fa-edit"></i>-->
-                                                    <!--</button>-->
-                                                    <!--<button @click="delete_bo_phan(n)" type="button" class="btn btn-danger btn-sm">-->
-                                                        <!--<i class="fa fa-trash"></i>-->
-                                                    <!--</button>-->
-                                                <!--</td>-->
-                                                <!--<td class="text-center">{{index + 1}}</td>-->
-                                                <!--<td>{{n.ma_bo_phan}}</td>-->
-                                                <!--<td>{{n.ten_bo_phan}}</td>-->
-                                                <!--<td>{{n.dien_giai}}</td>-->
-                                                <!--&lt;!&ndash;<td>{{n.created_at}}</td>&ndash;&gt;-->
-                                            <!--</tr>-->
-                                            <!--</tbody>-->
-                                        <!--</table>-->
-                                        <!--<el-pagination-->
-                                                <!--:page-size="10"-->
-                                                <!--layout="prev, pager, next"-->
-                                                <!--:total="total_bo_phan"-->
-                                                <!--@current-change="danh_sach_bo_phan">-->
-                                        <!--</el-pagination>-->
-                                    <!--</div>-->
-                                    <!--//-->
                                     <div class="row">
                                         <div class="col-md-12" style="margin-bottom: 10px;">
                                             <el-table :data="list_bo_phan" border style="width: 100%">
                                                 <el-table-column label="#" width="90" align="center" class-name="center-text">
                                                     <template slot-scope="scope" align="center">
                                                         <div class="text-center">
-                                                            <button @click="_bo_phan('edit', scope.row)" data-toggle="modal" data-target="#myModal" class="btn btn-info btn-sm" title="Cập nhật thông tin bộ phận"> <i class="fa fa-edit"></i> </button>
-                                                            <button @click="delete_bo_phan(scope.row)" class="btn btn-danger btn-sm" title="Xóa"> <i class="fa fa-trash-o"></i> </button>
+                                                            <button v-if="flag_cn.edit" @click="_bo_phan('edit', scope.row)" data-toggle="modal" data-target="#myModal" class="btn btn-info btn-sm" title="Cập nhật thông tin bộ phận"> <i class="fa fa-edit"></i> </button>
+                                                            <button v-if="flag_cn.delete" @click="delete_bo_phan(scope.row)" class="btn btn-danger btn-sm" title="Xóa"> <i class="fa fa-trash-o"></i> </button>
                                                         </div>
                                                     </template>
                                                 </el-table-column>
@@ -186,6 +131,7 @@
 
 <script>
     import {check_url_phan_quyen} from "../../../helper/auth";
+    import {check_quyen_chuc_nang} from "../../../helper/auth";
 
     import {api_bophan_get} from './bo_phan.js';
     import {api_add_bo_phan} from "./bo_phan";
@@ -196,10 +142,10 @@
     export default {
         name: 'bophan',
         beforeCreate(){
-            console.log('vao');
             check_url_phan_quyen(this);
         },
         mounted () {
+            check_quyen_chuc_nang(this);
             this.danh_sach_bo_phan();
         },
         updated () {
@@ -221,7 +167,8 @@
                 flag_disabled_submit: false,
                 flag_input_ma_bo_phan: false,
                 options_display: [10,20,30],
-                limit: 10
+                limit: 10,
+                flag_cn: {add: false, edit: false, delete: false}
             }
         },
         methods: {

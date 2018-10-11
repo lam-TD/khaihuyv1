@@ -35,7 +35,7 @@
                                     </div>
                                 </div>
                                 <div class="col-md-8 col-sm-6 col-12">
-                                    <button @click="_vi_tri('add')" title="Thêm mới phòng" type="button" data-toggle="modal" data-target="#myModal" class="btn btn-success waves-effect waves-dark pull-right btn-full-width">
+                                    <button v-if="flag_cn.add" @click="_vi_tri('add')" title="Thêm mới phòng" type="button" data-toggle="modal" data-target="#myModal" class="btn btn-success waves-effect waves-dark pull-right btn-full-width">
                                         <i class="fa fa-plus-circle"></i> Thêm mới
                                     </button>
                                 </div>
@@ -91,8 +91,8 @@
                                             <el-table :data="list_vi_tri" style="width: 100%" border :empty-text="loading_vi_tri">
                                                 <el-table-column prop="name" label="#" width="90" align="center" class-name="center-text">
                                                     <template slot-scope="scope" class="text-center" style="width: 100%">
-                                                        <button @click="_vi_tri('edit', scope.row)" data-toggle="modal" data-target="#myModal" class="btn btn-info btn-sm" title="Cập nhật thông tin vị trí"> <i class="fa fa-edit"></i> </button>
-                                                        <button @click="delete_vi_tri(scope.row)" class="btn btn-danger btn-sm" title="Xóa"> <i class="fa fa-trash-o"></i> </button>
+                                                        <button v-if="flag_cn.edit" @click="_vi_tri('edit', scope.row)" data-toggle="modal" data-target="#myModal" class="btn btn-info btn-sm" title="Cập nhật thông tin vị trí"> <i class="fa fa-edit"></i> </button>
+                                                        <button v-if="flag_cn.delete" @click="delete_vi_tri(scope.row)" class="btn btn-danger btn-sm" title="Xóa"> <i class="fa fa-trash-o"></i> </button>
                                                     </template>
                                                 </el-table-column>
                                                 <el-table-column type="index" label="TT" align="center" class-name="center-text"></el-table-column>
@@ -203,6 +203,9 @@
 
 <script>
     // import {api_get_all_bo_phan} from "../bophan/bo_phan";
+    import {check_url_phan_quyen} from "../../../helper/auth";
+    import {check_quyen_chuc_nang} from "../../../helper/auth";
+
     import {api_get_all_vi_tri} from "./vi_tri";
     import {api_get_vi_tri_theo_phong} from "./vi_tri";
     import {api_get_all_phong_ban_no_paginate} from "../phongban/phong_ban";
@@ -214,12 +217,13 @@
 
     export default {
         name: 'bophan',
+        beforeCreate(){
+            check_url_phan_quyen(this);
+        },
         mounted () {
-            // this.danh_sach_phong_ban();
+            check_quyen_chuc_nang(this);
             api_group_all_phong_ban_theo_bo_phan(this);
             api_get_all_vi_tri(this,1);
-        },
-        updated () {
         },
         data () {
             return {
@@ -243,7 +247,8 @@
                 options_display: [10,20,30],
                 limit: 10,
                 currentPage: 1,
-                flag_disabled_phong: false
+                flag_disabled_phong: false,
+                flag_cn: {add: false, edit: false, delete: false}
             }
         },
         methods: {
