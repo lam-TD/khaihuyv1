@@ -250,7 +250,6 @@ Route::get('get-dvt', 'DonViTinhController@get_dvt');
 // ====== TRANG CHU ======
 
     //---- Danh Muc ---
-Route::get('get-danh-muc-san-pham-web', 'DanhMucController@get_danh_muc');
 
 Route::get('get-all-san-pham-web/{limit}', 'SanPhamController@get_list_san_pham_paginate');
 Route::get('get-san-pham-theo-id-web/{id_sp}', 'SanPhamController@get_thong_tin_san_pham_theo_id');
