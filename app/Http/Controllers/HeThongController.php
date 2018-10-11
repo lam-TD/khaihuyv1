@@ -85,11 +85,35 @@ class HeThongController extends Controller
         return json_encode($ncn);
     }
 
-    public function get_chuc_nang_theo_nhom($id_nhom)
+    public function get_chuc_nang_theo_nhom($id_nhom, $type)
     {
-        $cn = chuc_nang::where('id_nhom_chuc_nang',$id_nhom)
-            ->orderby('thu_tu','asc')
-            ->get();
+        if($type == "all"){
+            $cn = chuc_nang::orderby('thu_tu','asc')
+                ->get();
+        }
+        else{
+            $cn = chuc_nang::join('nhom_phan_quyen','chuc_nang.id','=','nhom_phan_quyen.id_chuc_nang')
+                ->join('nhom_nguoi_dung','nhom_phan_quyen.id_nhom_nguoi_dung','=','nhom_nguoi_dung.id')
+                ->where('nhom_nguoi_dung.id',$id_nhom)
+                ->select('chuc_nang.id', 'ten_chuc_nang', 'thu_tu','id_nhom_chuc_nang','allaction as all','xem','them','sua','xoa')
+                ->orderby('id','asc')
+                ->get();
+        }
         return json_encode($cn);
     }
+
+//    public function get_chuc_nang_theo_nhom($id_nhom, $type)
+//    {
+//        if($type == 100){
+//            $cn = chuc_nang::orderby('thu_tu','asc')
+//                ->get();
+//        }
+//        else{
+//            $cn = chuc_nang::where('id_nhom_chuc_nang',$id_nhom)
+//                ->select('id', 'ten_chuc_nang', 'thu_tu','id_nhom_chuc_nang')
+//                ->orderby('id','asc')
+//                ->get();
+//        }
+//        return json_encode($cn);
+//    }
 }
