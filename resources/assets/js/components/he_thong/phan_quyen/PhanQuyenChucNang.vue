@@ -37,7 +37,7 @@
                                                 <div class="col-md-12">
                                                     <div class="row tb-row-hienthi">
                                                         <div class="col-md-7 col-sm-4 col-6" style="padding-left: 0px;">
-                                                            <el-pagination small :page-size="limit" :pager-count="pager_count_nhom" layout="prev, pager, next" :total="total_nhom_nguoi_dung" @current-change="get_nhom_nguoi_dung"></el-pagination>
+                                                            <el-pagination small :page-size="limit" layout="prev, pager, next" :total="total_nhom_nguoi_dung" @current-change="get_nhom_nguoi_dung"></el-pagination>
                                                         </div>
                                                         <div class="col-md-5 col-sm-2 col-6 tb-label">
                                                             <span class="pull-right">Tổng: {{total_nhom_nguoi_dung}}</span>
@@ -52,7 +52,7 @@
                                                     <div class="row">
                                                         <div class="col-md-6"><span style="font-weight: 500;height: 100%;margin-top: 8px;display: block">Danh sách chức năng</span></div>
                                                         <div class="col-md-4 label-dd">
-                                                            <el-select v-model="nhom_chuc_nang" @change="change_nhom_chuc_nang" value-key="id" size="small" placeholder="Select" :loading="flag_nhom_chuc_nang" class="pull-right" style="width: 100%">
+                                                            <el-select :disabled="flag_chon_nhom" v-model="nhom_chuc_nang" @change="change_nhom_chuc_nang" value-key="id" size="small" placeholder="Select" :loading="flag_nhom_chuc_nang" class="pull-right" style="width: 100%">
                                                                 <el-option :label="'Tất cả nhóm chức năng'" :value="''"></el-option>
                                                                 <el-option v-for="item in list_nhom_chuc_nang" :key="item.id" :label="item.ten_nhom" :value="item">
                                                                     <template>
@@ -62,14 +62,14 @@
                                                             </el-select>
                                                         </div>
                                                         <div class="col-md-2">
-                                                            <button @click="submit_phan_quyen" type="button" class="btn btn-sm btn-info pull-right" style="height: 100%;width: 100%"><i class="fa fa-save"></i> Lưu lại</button>
+                                                            <button :disabled="flag_chon_nhom" @click="submit_phan_quyen" type="button" class="btn btn-sm btn-info pull-right" style="height: 100%;width: 100%"><i class="fa fa-save"></i> Lưu lại</button>
                                                             <!--<el-button type="primary" size="small"><i class="fa fa-save"></i> Lưu lại</el-button>-->
                                                         </div>
                                                     </div>
                                                 </div>
 
                                                 <div class="col-md-12 mb-2">
-                                                    <el-table @selection-change="check_chuc_nang" :data="list_chuc_nang" border max-height="530" style="width: 100%">
+                                                    <el-table :v-loading="'true'" @selection-change="check_chuc_nang" :data="list_chuc_nang" border max-height="530" empty-text="Vui lòng chọn nhóm người dùng" style="width: 100%">
                                                         <el-table-column prop="ten_chuc_nang" label="Tên chức năng" class-name="no-center-text"></el-table-column>
                                                         <el-table-column label="All" width="80" align="center" class-name="center-text">
                                                             <template slot-scope="scope">
@@ -132,13 +132,15 @@
     import {api_get_all_danh_sach_nhom_nguoi_dung} from "../quan_ly_nhom/QuanLyNhom_helper";
     import {api_get_nhom_chuc_nang} from "./phan_quyen_chuc_nang";
     import {api_get_chuc_nang_theo_nhom} from "./phan_quyen_chuc_nang";
+    import {api_get_chuc_nang_theo_nhom_nguoi_dung_va_nhom_chuc_nang} from "./phan_quyen_chuc_nang";
+    import {api_save_phan_quyen} from "./phan_quyen_chuc_nang";
 
     export default {
         name: 'quanlynguoidung',
         mounted () {
             api_get_all_danh_sach_nhom_nguoi_dung(this);
             api_get_nhom_chuc_nang(this);
-            api_get_chuc_nang_theo_nhom(this,"all");
+            // api_get_chuc_nang_theo_nhom(this,"all");
         },
         data () {
             return {
@@ -154,6 +156,7 @@
                 pager_count_nhom: 4,
                 flag_nhom_chuc_nang: false,
                 flag_chuc_nang: false,
+                flag_chon_nhom: true
 
             }
         },
@@ -163,10 +166,18 @@
             },
             click_chon_nhom: function (nhom) {
                 this.nhom_nguoi_dung = nhom;
-                api_get_chuc_nang_theo_nhom(this,1);
+                api_get_chuc_nang_theo_nhom(this,"all");
+                this.flag_chon_nhom = false;
             },
-            change_nhom_chuc_nang: function () {
-
+            change_nhom_chuc_nang: function (ncn) {
+                if(ncn == ''){
+                    api_get_chuc_nang_theo_nhom(this,"all");
+                }
+                else{
+                    console.log(this.nhom_nguoi_dung);
+                    this.nhom_chuc_nang = ncn;
+                    api_get_chuc_nang_theo_nhom_nguoi_dung_va_nhom_chuc_nang(this, this.nhom_nguoi_dung.id, ncn.id);
+                }
             },
             check_chuc_nang: function () {
 
@@ -191,15 +202,19 @@
             submit_phan_quyen: function () {
                 let arr = [];
                 $.each(this.list_chuc_nang, function(idx, obj){
-                    var all = $('#a' + obj.id).prop('checked') ? 1 : 0;
-                    var xem = $('#x' + obj.id).prop('checked') ? 1 : 0;
-                    var them = $('#t' + obj.id).prop('checked') ? 1 : 0;
-                    var sua = $('#s' + obj.id).prop('checked') ? 1 : 0;
-                    var xoa = $('#de' + obj.id).prop('checked') ? 1 : 0;
+                    var all  = $('#all' + obj.id).prop('checked')  ? 1 : 0;
+                    var xem  = $('#x' + obj.id).prop('checked')  ? 1 : 0;
+                    var them = $('#t' + obj.id).prop('checked')  ? 1 : 0;
+                    var sua  = $('#s' + obj.id).prop('checked')  ? 1 : 0;
+                    var xoa  = $('#de' + obj.id).prop('checked') ? 1 : 0;
                     var item = {id: obj.id, all: all, xem: xem, them: them, sua: sua, xoa: xoa};
                     arr.push(item);
                 });
-                console.log(arr);
+                let phan_quyen = {
+                    id_nhom_nguoi_dung: this.nhom_nguoi_dung.id,
+                    arr_cn: arr
+                }
+                api_save_phan_quyen(this, phan_quyen);
             },
             change_bnt_save: function (id) {
                 this.flag_btn_save = false;

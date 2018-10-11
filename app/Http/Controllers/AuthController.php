@@ -154,7 +154,7 @@ class AuthController extends Controller
                     ->join('nhom_chuc_nang','nhom_chuc_nang.id','=','chuc_nang.id_nhom_chuc_nang')
                     ->where('id_nhom_nguoi_dung', $id_nhom_ng)
                     ->where('nhom_chuc_nang.id', $value->id_nhom_chuc_nang)
-//                    ->where('allaction',1)->orwhere('xem',1)->orwhere('them',1)->orwhere('sua',1)->orwhere('xoa',1)
+//                    ->where('allaction','>',0)->orwhere('xem','>',0)->orwhere('them','>',0)->orwhere('sua','>',0)->orwhere('xoa','>',0)
                     ->orderBy('chuc_nang.thu_tu','asc')
                     ->select('id_chuc_nang', 'ten_chuc_nang', 'link', 'chuc_nang.thu_tu', 'allaction', 'xem', 'them', 'sua', 'xoa')
                     ->get();

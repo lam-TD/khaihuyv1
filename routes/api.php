@@ -212,6 +212,10 @@ Route::group(['middleware' => 'jwt.auth'], function ($router) {
     Route::post('edit-nguoi-dung', 'NguoiDungController@edit_nguoi_dung');
     Route::get('kich-hoat-tk-nguoi-dung/{id}&{active}', 'NguoiDungController@kich_hoat_tk_nguoi_dung');
     Route::get('delete-nguoi-dung/{id}', 'NguoiDungController@delete_nguoi_dung');
+
+    //    --- Phan Quyen ---
+    Route::get('get-chuc-nang-theo-nhom-nguoi-dung-va-nhom-chuc-nang/{id_nhom_nd}&{id_nhom_cn}&{type}', 'HeThongController@get_chuc_nang_theo_nhom_nguoi_dung_va_nhom_chuc_nang');
+    Route::post('save-phan-quyen', 'HeThongController@save_phan_quyen');
 });
 
 // ================= TINH THANH QUAN HUYEN THI XA =============
