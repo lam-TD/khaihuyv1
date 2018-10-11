@@ -253,7 +253,7 @@ Route::get('get-dvt', 'DonViTinhController@get_dvt');
 
 Route::get('get-all-san-pham-web/{limit}', 'SanPhamController@get_list_san_pham_paginate');
 Route::get('get-san-pham-theo-id-web/{id_sp}', 'SanPhamController@get_thong_tin_san_pham_theo_id');
-Route::get('get-danh-muc-san-pham-web', 'DanhMucController@get_all_danh_muc_san_pham');
+Route::get('get-danh-muc-san-pham-web', 'DanhMucController@get_danh_muc');
 
     //---- Load San Pham Theo Danh Muc + Sap Xep ---
 Route::get('get-danh-sach-san-pham-theo-danh-muc-web/{danh_muc_id}&{limit}&{type_sort}', 'SanPham_DanhMucController@get_danh_sach_san_pham_theo_danh_muc');
