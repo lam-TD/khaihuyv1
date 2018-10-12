@@ -100,7 +100,7 @@
                                             </div>
                                         </div>
                                         <div class="col-md-6">
-                                            <button @click="_nhan_vien('add')" class="btn btn-success pull-right" data-toggle="modal" data-target="#modal_nv_tt_ca_nhan"><i class="fa fa-plus-circle"></i> Thêm mới </button>
+                                            <button v-if="flag_cn.add" @click="_nhan_vien('add')" class="btn btn-success pull-right" data-toggle="modal" data-target="#modal_nv_tt_ca_nhan"><i class="fa fa-plus-circle"></i> Thêm mới </button>
                                         </div>
                                     </div>
                                 </div>
@@ -108,8 +108,8 @@
                                     <el-table :data="dsnhanvien" style="width: 100%" border empty-text="Chưa có dữ liệu">
                                         <el-table-column prop="name" label="#" width="90" align="center" class-name="center-text">
                                             <template slot-scope="scope" class="text-center" style="width: 100%">
-                                                <button @click="_nhan_vien('edit', scope.row)" data-toggle="modal" data-target="#modal_nv_tt_ca_nhan" class="btn btn-info btn-sm" title="Cập nhật thông tin cá nhân"> <i class="fa fa-edit"></i> </button>
-                                                <button @click="delete_all_thong_tin_nv(scope.row.id)" class="btn btn-danger btn-sm" title="Xóa"> <i class="fa fa-trash-o"></i> </button>
+                                                <button v-if="flag_cn.edit" @click="_nhan_vien('edit', scope.row)" data-toggle="modal" data-target="#modal_nv_tt_ca_nhan" class="btn btn-info btn-sm" title="Cập nhật thông tin cá nhân"> <i class="fa fa-edit"></i> </button>
+                                                <button v-if="flag_cn.delete" @click="delete_all_thong_tin_nv(scope.row.id)" class="btn btn-danger btn-sm" title="Xóa"> <i class="fa fa-trash-o"></i> </button>
                                             </template>
                                         </el-table-column>
                                         <el-table-column type="index" label="TT" align="center" class-name="center-text"></el-table-column>
@@ -135,7 +135,7 @@
                                             </template>
                                         </el-table-column>
                                         <el-table-column prop="di_dong_1" align="center" label="Di động" width="120" class-name="center-text"></el-table-column>
-                                        <el-table-column prop="ghi_chu"  label="Ghi chú" class-name="no-center-text"></el-table-column>
+                                        <el-table-column prop="ghi_chu" label="Ghi chú" class-name="no-center-text"></el-table-column>
                                     </el-table>
                                 </div>
                                 <!--<div class="col-md-12">-->
@@ -745,6 +745,9 @@
 </template>
 
 <script>
+    import {check_url_phan_quyen} from "../../../helper/auth";
+    import {check_quyen_chuc_nang} from "../../../helper/auth";
+
     import {api_add_nhan_vien_thong_tin_ca_nhan} from "./nhan_vien";
     import {api_get_nhan_vien} from "./nhan_vien";
     import {api_edit_nhan_vien_thong_tin_ca_nhan} from "./nhan_vien";
@@ -772,12 +775,16 @@
 
     export default {
         name: 'danhsachnhanvien',
+        beforeCreate(){
+            check_url_phan_quyen(this);
+        },
         created () {
             api_get_tinh(this);
             api_get_quan_huyen(this);
             api_get_phuong_xa(this);
         },
         mounted () {
+            check_quyen_chuc_nang(this);
             this.getNhanVien();
         },
         computed: {
@@ -882,7 +889,8 @@
                 //
                 nv_thong_tin_ca_nhan: '',
                 options_display: [10,20,30],
-                limit: 10
+                limit: 10,
+                flag_cn: {add: false, edit: false, delete: false}
             }
         },
         methods: {

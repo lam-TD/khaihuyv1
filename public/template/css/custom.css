@@ -441,5 +441,9 @@ td.button-pa {
     padding-top: 6px !important;
 }
 
+td.click-tb:hover {
+    cursor: pointer;
+}
+
 /*//*/
 

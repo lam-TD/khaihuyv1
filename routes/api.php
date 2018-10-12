@@ -266,4 +266,4 @@ Route::get('get-danh-sach-san-pham-theo-danh-muc-web/{danh_muc_id}&{limit}&{type
 Route::get('get-danh-sach-san-pham-cung-loai-web/{id_san_pham}&{limit}', 'SanPham_DanhMucController@get_danh_sach_san_pham_cung_danh_muc');
 
     //---- Tim Kiem San Pham ---
-Route::get('get-search-san-pham-web/{keyword}&{limit}', 'SanPhamController@search_san_pham');
+Route::get('get-search-san-pham-web/{keyword}&{limit}', 'SanPhamController@search_san_pham_web');

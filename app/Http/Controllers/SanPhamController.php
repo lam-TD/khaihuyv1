@@ -51,18 +51,18 @@ class SanPhamController extends Controller
     }
 
     public function search_san_pham($keyword, $limit)
-    {
-        $sp = san_pham::join('don_vi_tinh', 'san_pham.dvt_id', '=', 'don_vi_tinh.id')
-            ->join('danh_muc_san_pham','san_pham.danh_muc_id', '=', 'danh_muc_san_pham.danh_muc_id')
-            ->select('san_pham.id','san_pham.danh_muc_id','danh_muc_san_pham.tieu_de','san_pham.ma_sp','san_pham.ten_sp','san_pham.dvt_id',
-                'san_pham.net','san_pham.dien_giai','san_pham.full_vat_dealer','san_pham.full_vat_end_user',
-                'san_pham.created_at','san_pham.image','don_vi_tinh.ten_dvt')
-            ->orwhere('san_pham.ma_sp','LIKE','%'.$keyword.'%')
-            ->orwhere('san_pham.ten_sp','LIKE','%'.$keyword.'%')
-            ->orderby('id','desc')
-            ->paginate($limit);
-        return ($sp);
-    }
+{
+    $sp = san_pham::join('don_vi_tinh', 'san_pham.dvt_id', '=', 'don_vi_tinh.id')
+        ->join('danh_muc_san_pham','san_pham.danh_muc_id', '=', 'danh_muc_san_pham.danh_muc_id')
+        ->select('san_pham.id','san_pham.danh_muc_id','danh_muc_san_pham.tieu_de','san_pham.ma_sp','san_pham.ten_sp','san_pham.dvt_id',
+            'san_pham.net','san_pham.dien_giai','san_pham.full_vat_dealer','san_pham.full_vat_end_user',
+            'san_pham.created_at','san_pham.image','don_vi_tinh.ten_dvt')
+        ->orwhere('san_pham.ma_sp','LIKE','%'.$keyword.'%')
+        ->orwhere('san_pham.ten_sp','LIKE','%'.$keyword.'%')
+        ->orderby('id','desc')
+        ->paginate($limit);
+    return ($sp);
+}
 
     public function add_san_pham(Request $request)
     {
@@ -223,5 +223,22 @@ class SanPhamController extends Controller
         else{
             return 2;
         }
+    }
+
+
+//    -------------- WEB -------------
+    public function search_san_pham_web($keyword, $limit)
+    {
+        $sp = san_pham::join('don_vi_tinh', 'san_pham.dvt_id', '=', 'don_vi_tinh.id')
+            ->join('danh_muc_san_pham','san_pham.danh_muc_id', '=', 'danh_muc_san_pham.danh_muc_id')
+            ->select('san_pham.id','san_pham.danh_muc_id','danh_muc_san_pham.tieu_de','san_pham.ma_sp','san_pham.ten_sp','san_pham.dvt_id',
+                'san_pham.net','san_pham.dien_giai','san_pham.full_vat_dealer','san_pham.full_vat_end_user',
+                'san_pham.created_at','san_pham.image','don_vi_tinh.ten_dvt')
+            ->orwhere('danh_muc_san_pham.tieu_de','LIKE','%'.$keyword.'%')
+            ->orwhere('san_pham.ten_sp','LIKE','%'.$keyword.'%')
+            ->orwhere('san_pham.full_vat_end_user','LIKE','%'.$keyword.'%')
+            ->orderby('id','desc')
+            ->paginate($limit);
+        return ($sp);
     }
 }

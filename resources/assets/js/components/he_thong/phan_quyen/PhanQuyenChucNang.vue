@@ -30,8 +30,8 @@
                                                 </div>
                                                 <div class="col-md-12 mb-2">
                                                     <el-table highlight-current-row @current-change="click_chon_nhom" :data="list_nhom_nguoi_dung_paginate" border style="width: 100%">
-                                                        <el-table-column prop="ma_nhom" label="Mã nhóm" class-name="no-center-text"></el-table-column>
-                                                        <el-table-column prop="ten_nhom" label="Tên nhóm" class-name="no-center-text" show-overflow-tooltip></el-table-column>
+                                                        <el-table-column title="Click chọn nhóm để phân quyền" prop="ma_nhom" label="Mã nhóm" class-name="no-center-text click-tb"></el-table-column>
+                                                        <el-table-column prop="ten_nhom" label="Tên nhóm" class-name="no-center-text click-tb" show-overflow-tooltip></el-table-column>
                                                     </el-table>
                                                 </div>
                                                 <div class="col-md-12">
@@ -73,12 +73,12 @@
                                                         <el-table-column prop="ten_chuc_nang" label="Tên chức năng" class-name="no-center-text"></el-table-column>
                                                         <el-table-column label="All" width="80" align="center" class-name="center-text">
                                                             <template slot-scope="scope">
-                                                                <input @click="all_quyen" :id="'all' + scope.row.id" :checked="scope.row.all == 1" type="checkbox" class="form-control form-control-sm">
+                                                                <input @click="all_quyen(scope.row.id)" :id="'all' + scope.row.id" :checked="scope.row.all == 1" type="checkbox" class="form-control form-control-sm">
                                                             </template>
                                                         </el-table-column>
                                                         <el-table-column label="Xem" width="80" align="center" class-name="center-text">
                                                             <template slot-scope="scope">
-                                                                <input type="checkbox" :id="'x' + scope.row.id" :value="scope.row.xem" :checked="scope.row.xem == 1" class="form-control form-control-sm">
+                                                                <input @click="single_quyen(scope.row.id,'x' + scope.row.id)" type="checkbox" :id="'x' + scope.row.id" :value="scope.row.xem" :checked="scope.row.xem == 1" class="form-control form-control-sm">
                                                             </template>
                                                         </el-table-column>
                                                         <el-table-column label="Thêm"  width="80" align="center" class-name="center-text">
@@ -182,17 +182,46 @@
             check_chuc_nang: function () {
 
             },
-            all_quyen: function () {
-                
+            all_quyen: function (id_phan_tu) {
+                if($('#all' + id_phan_tu).prop('checked')){
+                    $('#all' + id_phan_tu).prop('checked', true)
+                    $('#x'   + id_phan_tu).prop('checked', true)
+                    $('#t'   + id_phan_tu).prop('checked', true)
+                    $('#s'   + id_phan_tu).prop('checked', true)
+                    $('#de'  + id_phan_tu).prop('checked', true)
+                }
+                else{
+                    $('#all' + id_phan_tu).prop('checked', false)
+                    $('#x'   + id_phan_tu).prop('checked', false)
+                    $('#t'   + id_phan_tu).prop('checked', false)
+                    $('#s'   + id_phan_tu).prop('checked', false)
+                    $('#de'  + id_phan_tu).prop('checked', false)
+                }
+            },
+            single_quyen: function (id_phan_tu, id_phan_tu_con) {
+                if($('#all' + id_phan_tu).prop('checked')){
+                    $('#all' + id_phan_tu).prop('checked', false)
+                    $('#x'   + id_phan_tu).prop('checked', false)
+                    $('#t'   + id_phan_tu).prop('checked', false)
+                    $('#s'   + id_phan_tu).prop('checked', false)
+                    $('#de'  + id_phan_tu).prop('checked', false)
+                }
+                else{
+                    $('#all' + id_phan_tu).prop('checked', false)
+                    $('#x'   + id_phan_tu).prop('checked', false)
+                    $('#t'   + id_phan_tu).prop('checked', false)
+                    $('#s'   + id_phan_tu).prop('checked', false)
+                    $('#de'  + id_phan_tu).prop('checked', false)
+                }
             },
             check_quyen_cho_nhom: function(data) {
                 if(data.length > 0){
                     $.each(data, function(idx, obj){
-                        (obj.all == 1)       ? $('#all' + obj.id).prop('checked', true)  : $('#all' + obj.id).prop('checked', false);
-                        (obj.xem == 1)       ? $('#x' + obj.id).prop('checked', true)    : $('#x' + obj.id).prop('checked', false);
-                        (obj.them == 1)      ? $('#t' + obj.id).prop('checked', true)    : $('#t' + obj.id).prop('checked', false);
-                        (obj.sua == 1)       ? $('#s' + obj.id).prop('checked', true)    : $('#s' + obj.id).prop('checked', false);
-                        (obj.xoa == 1)       ? $('#de' + obj.id).prop('checked',true)    : $('#de' + obj.id).prop('checked', false);
+                        (obj.all  == 1) ? $('#all' + obj.id).prop('checked', true) : $('#all' + obj.id).prop('checked', false);
+                        (obj.xem  == 1) ? $('#x'   + obj.id).prop('checked', true) : $('#x'   + obj.id).prop('checked', false);
+                        (obj.them == 1) ? $('#t'   + obj.id).prop('checked', true) : $('#t'   + obj.id).prop('checked', false);
+                        (obj.sua  == 1) ? $('#s'   + obj.id).prop('checked', true) : $('#s'   + obj.id).prop('checked', false);
+                        (obj.xoa  == 1) ? $('#de'  + obj.id).prop('checked', true) : $('#de'  + obj.id).prop('checked', false);
                     });
                 }
                 else{
