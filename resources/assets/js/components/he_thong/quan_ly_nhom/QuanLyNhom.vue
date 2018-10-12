@@ -31,17 +31,17 @@
                                                     </form>
                                                 </div>
                                                 <div class="col-md-7">
-                                                    <button @click="_nhom_nguoi_dung('add')" data-toggle="modal" data-target="#myModaladd" title="Thêm mới nhóm người dùng" class="btn btn-success btn-sm pull-right" style="height: 32px;"><i class="fa fa-plus-circle"></i> Thêm mới</button>
+                                                    <button v-if="flag_cn.add" @click="_nhom_nguoi_dung('add')" data-toggle="modal" data-target="#myModaladd" title="Thêm mới nhóm người dùng" class="btn btn-success btn-sm pull-right" style="height: 32px;"><i class="fa fa-plus-circle"></i> Thêm mới</button>
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="col-md-12" style="margin-bottom: 10px;">
                                             <el-table :data="list_nhom_nguoi_dung_paginate" border style="width: 100%">
-                                                <el-table-column label="#" width="90" align="center" class-name="center-text">
+                                                <el-table-column v-if="flag_cn.edit || flag_cn.delete" label="#" width="90" align="center" class-name="center-text">
                                                     <template slot-scope="scope" align="center">
                                                         <div class="text-center">
-                                                            <button @click="_nhom_nguoi_dung('edit', scope.row)" data-toggle="modal" data-target="#myModal" class="btn btn-info btn-sm" title="Cập nhật thông tin bộ phận"> <i class="fa fa-edit"></i> </button>
-                                                            <button @click="delete_nhom_nguoi_dung(scope.row)" class="btn btn-danger btn-sm" title="Xóa"> <i class="fa fa-trash-o"></i> </button>
+                                                            <button v-if="flag_cn.edit" @click="_nhom_nguoi_dung('edit', scope.row)" data-toggle="modal" data-target="#myModal" class="btn btn-info btn-sm" title="Cập nhật thông tin bộ phận"> <i class="fa fa-edit"></i> </button>
+                                                            <button v-if="flag_cn.delete" @click="delete_nhom_nguoi_dung(scope.row)" class="btn btn-danger btn-sm" title="Xóa"> <i class="fa fa-trash-o"></i> </button>
                                                         </div>
                                                     </template>
                                                 </el-table-column>
@@ -304,6 +304,8 @@
 </template>
 
 <script>
+    import {check_url_phan_quyen} from "../../../helper/auth";
+    import {check_quyen_chuc_nang} from "../../../helper/auth";
 
     import {api_get_danh_sach_nhom_nguoi_dung_no_paginate} from "../quan_ly_nguoi_dung/quan_ly_nguoi_dung";
     import {api_get_all_danh_sach_nhom_nguoi_dung} from "./QuanLyNhom_helper";
@@ -318,7 +320,11 @@
 
     export default {
         name: 'quanlynguoidung',
+        beforeCreate(){
+            check_url_phan_quyen(this);
+        },
         mounted () {
+            check_quyen_chuc_nang(this);
             api_get_all_danh_sach_nhom_nguoi_dung(this);
             api_get_danh_sach_nhom_nguoi_dung_no_paginate(this);
             api_get_all_danh_sach_tai_khoan_chua_co_nhom(this);
@@ -367,7 +373,8 @@
                 flag_add_tk_vao_nhom: false,
                 limit_tk_theo_nhom: 10,
                 list_tk_theo_nhom: [],
-                total_tk_theo_nhom: 0
+                total_tk_theo_nhom: 0,
+                flag_cn: {add: false, edit: false, delete: false}
             }
         },
         methods: {

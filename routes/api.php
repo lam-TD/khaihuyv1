@@ -259,11 +259,11 @@ Route::get('get-all-san-pham-web/{limit}', 'SanPhamController@get_list_san_pham_
 Route::get('get-san-pham-theo-id-web/{id_sp}', 'SanPhamController@get_thong_tin_san_pham_theo_id');
 Route::get('get-danh-muc-san-pham-web', 'DanhMucController@get_danh_muc');
 
-    //---- Load San Pham Theo Danh Muc + Sap Xep ---
+    //---- Load San Pham Theo Danh Muc + Sap Xep ----
 Route::get('get-danh-sach-san-pham-theo-danh-muc-web/{danh_muc_id}&{limit}&{type_sort}', 'SanPham_DanhMucController@get_danh_sach_san_pham_theo_danh_muc');
 
-    //---- San Pham cung loai ---
+    //---- San Pham cung loai ----
 Route::get('get-danh-sach-san-pham-cung-loai-web/{id_san_pham}&{limit}', 'SanPham_DanhMucController@get_danh_sach_san_pham_cung_danh_muc');
 
-    //---- Tim Kiem San Pham ---
+    //---- Tim Kiem San Pham ----
 Route::get('get-search-san-pham-web/{keyword}&{limit}', 'SanPhamController@search_san_pham_web');

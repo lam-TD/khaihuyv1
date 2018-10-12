@@ -59,7 +59,7 @@
                                     <div class="row">
                                         <div class="col-md-12" style="margin-bottom: 10px;">
                                             <el-table :data="list_bhyt" border style="width: 100%">
-                                                <el-table-column label="#" width="90" align="center" class-name="center-text">
+                                                <el-table-column v-if="flag_cn.edit || flag_cn.delete" label="#" width="90" align="center" class-name="center-text">
                                                     <template slot-scope="scope" class="text-center" style="width: 100%">
                                                         <button v-if="flag_cn.edit" @click="_bhyt('edit', scope.row)" data-toggle="modal" data-target="#myModal" class="btn btn-info btn-sm" title="Cập nhật thông tin bảo hiểm y tế"> <i class="fa fa-edit"></i> </button>
                                                         <button v-if="flag_cn.delete" @click="delete_bhyt(scope.row)" class="btn btn-danger btn-sm" title="Xóa"> <i class="fa fa-trash-o"></i> </button>

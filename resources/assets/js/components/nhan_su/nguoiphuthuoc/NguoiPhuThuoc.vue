@@ -53,7 +53,7 @@
                                     </div>
                                 </div>
                                 <div class="col-md-6 col-sm-6 col-12">
-                                    <button @click="_npt('add')" title="Thêm mới phòng" type="button" data-toggle="modal" data-target="#myModal" class="btn btn-success waves-effect waves-dark pull-right btn-full-width">
+                                    <button v-if="flag_cn.add" @click="_npt('add')" title="Thêm mới phòng" type="button" data-toggle="modal" data-target="#myModal" class="btn btn-success waves-effect waves-dark pull-right btn-full-width">
                                         <i class="fa fa-plus-circle"></i> Thêm mới
                                     </button>
                                 </div>
@@ -65,61 +65,13 @@
                                 <!--&lt;!&ndash;<button @click="_npt('add')" title="Thêm mới phòng" type="button" data-toggle="modal" data-target="#myModal" class="btn btn-circle btn-lg btn-success waves-effect waves-dark"><i class="fa fa-plus"></i></button>&ndash;&gt;-->
                                 <!--</h2>-->
                                 <div class="message-widget contact-widget">
-                                    <!--<div class="table-responsive">-->
-                                        <!--<table class="table table-hover" id="table_npt">-->
-                                            <!--<thead>-->
-                                            <!--<tr style="border-top: 1px solid #ddd">-->
-                                                <!--<th scope="col" class="text-center">#</th>-->
-                                                <!--<th scope="col">TT</th>-->
-                                                <!--<th scope="col">Mã NV</th>-->
-                                                <!--<th scope="col">Tên NV</th>-->
-                                                <!--<th scope="col">Họ tên NPT</th>-->
-                                                <!--<th scope="col">Ngày sinh</th>-->
-                                                <!--<th scope="col">Từ - đến ngày</th>-->
-                                                <!--<th scope="col">Ghi chú</th>-->
-                                            <!--</tr>-->
-                                            <!--</thead>-->
-                                            <!--<tbody class="body-table loading-item">-->
-                                                <!--<tr v-if="loading_npt">-->
-                                                    <!--<td class="" colspan="12"><b><i><i class="fa fa-spin fa-spinner"></i> Đang tải danh sách phòng...</i></b></td>-->
-                                                <!--</tr>-->
-                                                <!--<tr v-else-if="list_npt.length <= 0">-->
-                                                    <!--<td class="text-center" colspan="12"><b><i>Chưa có thân nhân</i></b></td>-->
-                                                <!--</tr>-->
-                                                <!--<tr v-for="(n, index) in list_npt" :id="'n' + n.id" class="row-nhom" @click="click_npt(n)">-->
-                                                    <!--<td class="text-left" style="padding-right: 0">-->
-                                                        <!--<button @click="_npt('edit',n)" id="edit_nhom" type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#myModal">-->
-                                                            <!--<i class="fa fa-edit"></i>-->
-                                                        <!--</button>-->
-                                                        <!--<button @click="delete_npt(n)" type="button" class="btn btn-danger btn-sm">-->
-                                                            <!--<i class="fa fa-trash"></i>-->
-                                                        <!--</button>-->
-                                                    <!--</td>-->
-                                                    <!--<td>{{ index + 1 }}</td>-->
-                                                    <!--<td>{{n.ma_nv}}</td>-->
-                                                    <!--<td>{{n.ho_ten}}</td>-->
-                                                    <!--<td>{{n.ho_ten_npt}}</td>-->
-                                                    <!--<td>{{n.ngay_sinh_npt}}</td>-->
-                                                    <!--<td>{{n.tg_giam_tru_tu}} - {{n.tg_giam_tru_den}}</td>-->
-                                                    <!--<td>{{n.ghi_chu}}</td>-->
-                                                <!--</tr>-->
-                                            <!--</tbody>-->
-                                        <!--</table>-->
-                                        <!--<el-pagination-->
-                                                <!--:page-size="10"-->
-                                                <!--layout="prev, pager, next"-->
-                                                <!--:total="total_npt"-->
-                                                <!--@current-change="danh_sach_npt">-->
-                                        <!--</el-pagination>-->
-                                    <!--</div>-->
-                                    <!--//-->
                                     <div class="row mt-2">
                                         <div class="col-md-12" style="margin-bottom: 10px;">
                                             <el-table :data="list_npt" border style="width: 100%">
-                                                <el-table-column label="#" width="90" align="center" class-name="center-text">
+                                                <el-table-column v-if="flag_cn.edit || flag_cn.delete" label="#" width="90" align="center" class-name="center-text">
                                                     <template slot-scope="scope" class="text-center" style="width: 100%">
-                                                        <button @click="_npt('edit',scope.row)" data-toggle="modal" data-target="#myModal" class="btn btn-info btn-sm" title="Cập nhật thông tin cá nhân"> <i class="fa fa-edit"></i> </button>
-                                                        <button @click="delete_npt(scope.row)" class="btn btn-danger btn-sm" title="Xóa"> <i class="fa fa-trash-o"></i> </button>
+                                                        <button v-if="flag_cn.edit" @click="_npt('edit',scope.row)" data-toggle="modal" data-target="#myModal" class="btn btn-info btn-sm" title="Cập nhật thông tin cá nhân"> <i class="fa fa-edit"></i> </button>
+                                                        <button v-if="flag_cn.delete" @click="delete_npt(scope.row)" class="btn btn-danger btn-sm" title="Xóa"> <i class="fa fa-trash-o"></i> </button>
                                                     </template>
                                                 </el-table-column>
                                                 <el-table-column type="index" label="TT" align="center" class-name="center-text"></el-table-column>
@@ -303,19 +255,24 @@
 </template>
 
 <script>
+    import {check_url_phan_quyen} from "../../../helper/auth";
+    import {check_quyen_chuc_nang} from "../../../helper/auth";
+
     import {api_get_all_danh_sach_npt} from "./nguoi_phu_thuoc";
     import {api_nhan_vien_get_all_no_pa} from "../../helper/nhan_vien";
     import {api_get_danh_sach_npt_theo_nhan_vien} from './nguoi_phu_thuoc';
     import {api_add_npt} from "./nguoi_phu_thuoc";
     import {api_edit_npt} from "./nguoi_phu_thuoc";
     import {api_delete_npt} from "./nguoi_phu_thuoc";
-    import SelectLam from '../../helper/select_lam';
-
 
     export default {
-        name: 'bophan',
-        components:{SelectLam},
+        name: 'nguoiphuthuoc',
+        components:{},
+        beforeCreate(){
+            check_url_phan_quyen(this);
+        },
         mounted () {
+            check_quyen_chuc_nang(this);
             api_nhan_vien_get_all_no_pa(this);
             api_get_all_danh_sach_npt(this,1);
         },
@@ -339,7 +296,8 @@
                 error_select_nhan_vien: true,
                 options_display: [10,20,30],
                 limit: 10,
-                currentPage: 1
+                currentPage: 1,
+                flag_cn: {add: false, edit: false, delete: false}
             }
         },
         methods: {

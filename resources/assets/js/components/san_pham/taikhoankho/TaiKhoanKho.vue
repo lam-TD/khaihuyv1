@@ -11,7 +11,7 @@
                     <div class="card content-lam">
                         <div class="card-header">
                             <div class="card-actions">
-                                <a @click="_tk_kho('add')" title="Thêm mới bộ phận" data-toggle="modal" data-target="#myModal" class="btn btn-success waves-effect waves-dark btn-white" style="color: white"><i class="fa fa-plus-circle"></i> Thêm mới</a>
+                                <a v-if="flag_cn.add" @click="_tk_kho('add')" title="Thêm mới bộ phận" data-toggle="modal" data-target="#myModal" class="btn btn-success waves-effect waves-dark btn-white" style="color: white"><i class="fa fa-plus-circle"></i> Thêm mới</a>
                                 <!--<a @click="scroll_card" id="thunho" class="" data-action="collapse"><i class="ti-minus"></i></a>-->
                                 <a @click="scroll_card_full_creem" id="phongto" class="btn-minimize" data-action="expand"><i class="mdi mdi-arrow-expand"></i></a>
                                 <!--<a class="btn-close" data-action="close"><i class="ti-close"></i></a>-->
@@ -28,10 +28,10 @@
                                     <div class="row">
                                         <div class="col-md-12" style="margin-bottom: 10px;">
                                             <el-table :data="list_tk_kho" border style="width: 100%">
-                                                <el-table-column label="#" width="90" align="center"  class-name="center-text">
+                                                <el-table-column v-if="flag_cn.edit || flag_cn.delete" label="#" width="90" align="center"  class-name="center-text">
                                                     <template slot-scope="scope" class="text-center" style="width: 100%">
-                                                        <button @click="_tk_kho('edit', scope.row)" data-toggle="modal" data-target="#myModal" class="btn btn-info btn-sm" title="Cập nhật thông tin bộ phận"> <i class="fa fa-edit"></i> </button>
-                                                        <button @click="delete_tk_kho(scope.row)" class="btn btn-danger btn-sm" title="Xóa"> <i class="fa fa-trash-o"></i> </button>
+                                                        <button v-if="flag_cn.edit" @click="_tk_kho('edit', scope.row)" data-toggle="modal" data-target="#myModal" class="btn btn-info btn-sm" title="Cập nhật thông tin bộ phận"> <i class="fa fa-edit"></i> </button>
+                                                        <button v-if="flag_cn.delete" @click="delete_tk_kho(scope.row)" class="btn btn-danger btn-sm" title="Xóa"> <i class="fa fa-trash-o"></i> </button>
                                                     </template>
                                                 </el-table-column>
 
@@ -132,15 +132,21 @@
 </template>
 
 <script>
+    import {check_url_phan_quyen} from "../../../helper/auth";
+    import {check_quyen_chuc_nang} from "../../../helper/auth";
+
     import {api_tk_kho_get_paginate} from "./tai_khoan_kho";
     import {api_add_tk_kho} from "./tai_khoan_kho";
     import {api_edit_tk_kho} from "./tai_khoan_kho";
     import {api_delete_tk_kho} from "./tai_khoan_kho";
-    // import {api_bophan_get_ma_tk_kho} from "./tk_kho";
 
     export default {
-        name: 'bophan',
+        name: 'taikhoankho',
+        beforeCreate(){
+            check_url_phan_quyen(this);
+        },
         mounted () {
+            check_quyen_chuc_nang(this);
             api_tk_kho_get_paginate(this, 1);
         },
         updated () {
@@ -162,7 +168,8 @@
                 flag_disabled_submit: false,
                 flag_input_ma_tk_kho: false,
                 options_display: [10,20,30],
-                limit: 10
+                limit: 10,
+                flag_cn: {add: false, edit: false, delete: false}
             }
         },
         methods: {

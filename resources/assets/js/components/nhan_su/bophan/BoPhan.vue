@@ -28,7 +28,7 @@
                                     <div class="row">
                                         <div class="col-md-12" style="margin-bottom: 10px;">
                                             <el-table :data="list_bo_phan" border style="width: 100%">
-                                                <el-table-column label="#" width="90" align="center" class-name="center-text">
+                                                <el-table-column v-if="flag_cn.edit || flag_cn.delete" label="#" width="90" align="center" class-name="center-text">
                                                     <template slot-scope="scope" align="center">
                                                         <div class="text-center">
                                                             <button v-if="flag_cn.edit" @click="_bo_phan('edit', scope.row)" data-toggle="modal" data-target="#myModal" class="btn btn-info btn-sm" title="Cập nhật thông tin bộ phận"> <i class="fa fa-edit"></i> </button>

@@ -47,7 +47,7 @@
                                     </div>
                                 </div>
                                 <div class="col-md-6">
-                                    <button @click="_lao_dong('add')" title="Thêm mới bộ phận" type="button" data-toggle="modal" data-target="#myModal" class="btn btn-success waves-effect waves-dark pull-right">
+                                    <button v-if="flag_cn.add" @click="_lao_dong('add')" title="Thêm mới bộ phận" type="button" data-toggle="modal" data-target="#myModal" class="btn btn-success waves-effect waves-dark pull-right">
                                         <i class="fa fa-plus-circle"></i> Thêm mới
                                     </button>
                                 </div>
@@ -57,62 +57,13 @@
 
                                 <!--</h2>-->
                                 <div class="message-widget contact-widget">
-                                    <!--<div class="table-responsive">-->
-                                        <!--<table class="table table-hover">-->
-                                            <!--<thead>-->
-                                            <!--<tr style="border-top: 1px solid #ddd">-->
-                                                <!--<th class="text-center">#</th>-->
-                                                <!--<th>Mã NV</th>-->
-                                                <!--<th>Tên nhân viên</th>-->
-                                                <!--<th>Số HĐ</th>-->
-                                                <!--<th class="text-center">Thời hạn</th>-->
-                                                <!--<th>Ngày ký</th>-->
-                                                <!--<th>Ngày KT</th>-->
-                                                <!--<th>Ghi chú</th>-->
-                                                <!--&lt;!&ndash;<th>Ngày tạo</th>&ndash;&gt;-->
-                                            <!--</tr>-->
-                                            <!--</thead>-->
-                                            <!--<tbody class="body-table loading-item">-->
-                                            <!--<tr v-if="loading_lao_dong">-->
-                                                <!--<td class="text-center" colspan="8"><b><i><i class="fa fa-spin fa-spinner"></i> Đang tải danh sách...</i></b></td>-->
-                                            <!--</tr>-->
-                                            <!--<tr v-else-if="list_lao_dong.length <= 0">-->
-                                                <!--<td class="text-center" colspan="8"><b><i>Chưa có hợp đồng lao động</i></b></td>-->
-                                            <!--</tr>-->
-                                            <!--<tr v-else v-for="n in list_lao_dong" :id="'n' + n.id" class="row-nhom" @click="click_lao_dong(n)">-->
-                                                <!--<td class="text-left" style="padding-right: 0">-->
-                                                    <!--<button @click="_lao_dong('edit',n)" id="edit_nhom" type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#myModal">-->
-                                                        <!--<i class="fa fa-edit"></i>-->
-                                                    <!--</button>-->
-                                                    <!--<button @click="delete_lao_dong(n)" type="button" class="btn btn-danger btn-sm">-->
-                                                        <!--<i class="fa fa-trash"></i>-->
-                                                    <!--</button>-->
-                                                <!--</td>-->
-                                                <!--<td>{{n.ma_nv}}</td>-->
-                                                <!--<td>{{n.ho_ten}}</td>-->
-                                                <!--<td>{{n.so_hdld}}</td>-->
-                                                <!--<td class="text-center">{{n.thoi_han_hd}}</td>-->
-                                                <!--<td>{{n.ngay_ky}}</td>-->
-                                                <!--<td>{{n.ngay_kt}}</td>-->
-                                                <!--<td>{{n.ghi_chu}}</td>-->
-                                            <!--</tr>-->
-                                            <!--</tbody>-->
-                                        <!--</table>-->
-                                        <!--<el-pagination-->
-                                                <!--:page-size="10"-->
-                                                <!--layout="prev, pager, next"-->
-                                                <!--:total="total_lao_dong"-->
-                                                <!--@current-change="danh_sach_lao_dong">-->
-                                        <!--</el-pagination>-->
-                                    <!--</div>-->
-                                    <!--//-->
                                     <div class="row">
                                         <div class="col-md-12" style="margin-bottom: 10px;">
                                             <el-table :data="list_lao_dong" border style="width: 100%">
-                                                <el-table-column label="#" width="90" align="center" class-name="center-text">
+                                                <el-table-column v-if="flag_cn.edit || flag_cn.delete" label="#" width="90" align="center" class-name="center-text">
                                                     <template slot-scope="scope" class="text-center" style="width: 100%">
-                                                        <button @click="_lao_dong('edit', scope.row)" data-toggle="modal" data-target="#myModal" class="btn btn-info btn-sm" title="Cập nhật thông tin hợp đồng lao động"> <i class="fa fa-edit"></i> </button>
-                                                        <button @click="delete_lao_dong(scope.row)" class="btn btn-danger btn-sm" title="Xóa"> <i class="fa fa-trash-o"></i> </button>
+                                                        <button v-if="flag_cn.edit" @click="_lao_dong('edit', scope.row)" data-toggle="modal" data-target="#myModal" class="btn btn-info btn-sm" title="Cập nhật thông tin hợp đồng lao động"> <i class="fa fa-edit"></i> </button>
+                                                        <button v-if="flag_cn.delete" @click="delete_lao_dong(scope.row)" class="btn btn-danger btn-sm" title="Xóa"> <i class="fa fa-trash-o"></i> </button>
                                                     </template>
                                                 </el-table-column>
                                                 <el-table-column type="index" label="TT" align="center" class-name="center-text"></el-table-column>
@@ -273,17 +224,24 @@
 </template>
 
 <script>
+    import {check_url_phan_quyen} from "../../../helper/auth";
+    import {check_quyen_chuc_nang} from "../../../helper/auth";
+
     import {api_get_all_lao_dong} from './lao_dong';
     import {api_add_lao_dong} from "./lao_dong";
     import {api_edit_lao_dong} from "./lao_dong";
     import {api_delete_lao_dong} from "./lao_dong";
-    import {select_lam} from "../../helper/selectlam";
+
     import {api_search_all_lao_dong} from "./lao_dong";
     import {api_nhan_vien_get_all_no_pa} from "../../helper/nhan_vien";
 
     export default {
-        name: 'bophan',
+        name: 'thongtinlaodong',
+        beforeCreate(){
+            check_url_phan_quyen(this);
+        },
         mounted () {
+            check_quyen_chuc_nang(this);
             this.danh_sach_lao_dong(1);
             api_nhan_vien_get_all_no_pa(this);
         },
@@ -315,7 +273,8 @@
                 flag_disable_manv: false,
                 options_display: [10,20,30],
                 limit: 10,
-                currentPage: 1
+                currentPage: 1,
+                flag_cn: {add: false, edit: false, delete: false}
             }
         },
         methods: {

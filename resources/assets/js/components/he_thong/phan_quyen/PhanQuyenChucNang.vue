@@ -206,13 +206,6 @@
                     $('#s'   + id_phan_tu).prop('checked', false)
                     $('#de'  + id_phan_tu).prop('checked', false)
                 }
-                else{
-                    $('#all' + id_phan_tu).prop('checked', false)
-                    $('#x'   + id_phan_tu).prop('checked', false)
-                    $('#t'   + id_phan_tu).prop('checked', false)
-                    $('#s'   + id_phan_tu).prop('checked', false)
-                    $('#de'  + id_phan_tu).prop('checked', false)
-                }
             },
             check_quyen_cho_nhom: function(data) {
                 if(data.length > 0){

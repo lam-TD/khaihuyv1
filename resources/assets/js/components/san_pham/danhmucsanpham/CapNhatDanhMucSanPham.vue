@@ -192,6 +192,9 @@
 
     export default {
         name: 'capnhatdanhmucsanpham',
+        beforeCreate(){
+            check_url_phan_quyen(this);
+        },
         mounted () {
             api_get_danh_muc_san_pham_theo_id(this);
             api_get_all_danh_muc_san_pham(this);

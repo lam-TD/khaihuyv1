@@ -123,17 +123,17 @@
                                                     </div>
                                                 </div>
                                                 <div class="col-md-6" style="margin-bottom:5px;">
-                                                    <button @click="__danh_muc('add')" class="btn btn-success pull-right" data-toggle="modal" data-target="#modal_danh_muc_san_pham"><i class="fa fa-plus-circle"></i> Thêm mới </button>
+                                                    <button v-if="flag_cn.add" @click="__danh_muc('add')" class="btn btn-success pull-right" data-toggle="modal" data-target="#modal_danh_muc_san_pham"><i class="fa fa-plus-circle"></i> Thêm mới </button>
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="col-md-12">
                                             <template>
                                                 <el-table border :data="list_danh_muc" stripe style="width: 100%">
-                                                    <el-table-column label="Thao tác" width="90" align="center" class-name="center-text">
+                                                    <el-table-column v-if="flag_cn.edit || flag_cn.delete" label="Thao tác" width="90" align="center" class-name="center-text">
                                                         <template slot-scope="scope" class="text-center" style="width: 100%">
-                                                            <router-link :to="{path: '/capnhatdanhmucsanpham', query: { id: scope.row.danh_muc_id }}" class="btn btn-info btn-sm" title="Cập nhật danh mục"> <i class="fa fa-edit"></i></router-link>
-                                                            <button @click="delete_danh_muc(scope.row)" class="btn btn-danger btn-sm" title="Xóa"> <i class="fa fa-trash-o"></i> </button>
+                                                            <router-link v-if="flag_cn.edit" :to="{path: '/capnhatdanhmucsanpham', query: { id: scope.row.danh_muc_id }}" class="btn btn-info btn-sm" title="Cập nhật danh mục"> <i class="fa fa-edit"></i></router-link>
+                                                            <button v-if="flag_cn.delete" @click="delete_danh_muc(scope.row)" class="btn btn-danger btn-sm" title="Xóa"> <i class="fa fa-trash-o"></i> </button>
                                                         </template>
                                                     </el-table-column>
 
@@ -285,6 +285,8 @@
 
     import { quillEditor } from 'vue-quill-editor';
 
+    import {check_url_phan_quyen} from "../../../helper/auth";
+    import {check_quyen_chuc_nang} from "../../../helper/auth";
 
     import {api_get_all_danh_muc_san_pham} from "./danh_muc_san_pham";
     import {api_get_all_danh_muc_san_pham_pa} from "./danh_muc_san_pham";
@@ -294,7 +296,11 @@
 
     export default {
         name: 'danhmucsanpham',
+        beforeCreate(){
+            check_url_phan_quyen(this);
+        },
         mounted () {
+            check_quyen_chuc_nang(this);
             api_get_all_danh_muc_san_pham(this);
             api_get_all_danh_muc_san_pham_pa(this, 1);
         },
@@ -346,7 +352,8 @@
                             ['link', 'image', 'video']
                         ]
                     }
-                }
+                },
+                flag_cn: {add: false, edit: false, delete: false}
             }
         },
         methods: {

@@ -29,7 +29,7 @@
                                     </div>
                                 </div>
                                 <div class="col-md-6">
-                                    <button @click="_tinh('add')" title="Thêm mới bộ phận" type="button" data-toggle="modal" data-target="#myModalTinh" class="btn btn-success waves-effect waves-dark pull-right">
+                                    <button v-if="flag_cn.add" @click="_tinh('add')" title="Thêm mới bộ phận" type="button" data-toggle="modal" data-target="#myModalTinh" class="btn btn-success waves-effect waves-dark pull-right">
                                         <i class="fa fa-plus-circle"></i> Thêm mới
                                     </button>
                                 </div>
@@ -43,10 +43,10 @@
                                         <div v-show="loading_tinh" class="col-md-12"><i>Đang tải danh sách tỉnh...</i></div>
                                         <div class="col-md-12" style="margin-bottom: 10px;">
                                             <el-table :data="list_tinh_thanh_pa" border style="width: 100%">
-                                                <el-table-column label="#" width="90" align="center" class-name="center-text">
+                                                <el-table-column v-if="flag_cn.edit || flag_cn.delete" label="#" width="90" align="center" class-name="center-text">
                                                     <template slot-scope="scope" class="text-center" style="width: 100%">
-                                                        <button @click="_tinh('edit', scope.row)" data-toggle="modal" data-target="#myModalTinh" class="btn btn-info btn-sm" title="Cập nhật thông tin cá nhân"> <i class="fa fa-edit"></i> </button>
-                                                        <button @click="delete_tinh(scope.row)" class="btn btn-danger btn-sm" title="Xóa"> <i class="fa fa-trash-o"></i> </button>
+                                                        <button v-if="flag_cn.edit" @click="_tinh('edit', scope.row)" data-toggle="modal" data-target="#myModalTinh" class="btn btn-info btn-sm" title="Cập nhật thông tin cá nhân"> <i class="fa fa-edit"></i> </button>
+                                                        <button v-if="flag_cn.delete" @click="delete_tinh(scope.row)" class="btn btn-danger btn-sm" title="Xóa"> <i class="fa fa-trash-o"></i> </button>
                                                     </template>
                                                 </el-table-column>
                                                 <el-table-column type="index" label="TT" align="center" class-name="center-text"></el-table-column>
@@ -134,6 +134,8 @@
 </template>
 
 <script>
+    import {check_url_phan_quyen} from "../../../helper/auth";
+    import {check_quyen_chuc_nang} from "../../../helper/auth";
 
     import {api_get_tinh} from "./dia_chi";
 
@@ -145,8 +147,12 @@
 
 
     export default {
-        name: 'bophan',
+        name: 'diachi',
+        beforeCreate(){
+            check_url_phan_quyen(this);
+        },
         mounted () {
+            check_quyen_chuc_nang(this);
             api_get_tinh_thanh_paginate(this,1,10);
         },
         updated () {
@@ -168,6 +174,7 @@
                 options_display: [10,20,30],
                 flag_body_modal: false,
                 flag_btn_save: true,
+                flag_cn: {add: false, edit: false, delete: false}
             }
         },
         methods: {

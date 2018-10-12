@@ -31,16 +31,16 @@
                                                     </div>
                                                 </div>
                                                 <div class="col-md-6">
-                                                    <router-link to="/sanpham/themmoi" class="btn btn-success pull-right" title="Thêm mới sản phẩm" style="height: 38px;padding: 6px 20px;"><i class="fa fa-plus-circle"></i> Thêm mới </router-link>
+                                                    <router-link v-if="flag_cn.add" to="/sanpham/themmoi" class="btn btn-success pull-right" title="Thêm mới sản phẩm" style="height: 38px;padding: 6px 20px;"><i class="fa fa-plus-circle"></i> Thêm mới </router-link>
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="col-md-12">
                                             <el-table :data="list_san_pham" style="width: 100%" border>
-                                                <el-table-column prop="name" label="#" width="90" align="center" class-name="center-text">
+                                                <el-table-column v-if="flag_cn.edit || flag_cn.delete" label="#" width="90" align="center" class-name="center-text">
                                                     <template slot-scope="scope" class="text-center" style="width: 100%">
-                                                        <router-link :to="{path: '/sanpham/capnhat' , query: { id: scope.row.id }}" class="btn btn-info btn-sm" title="Cập nhật thông tin sản phẩm"> <i class="fa fa-edit"></i> </router-link>
-                                                        <button @click="delete_san_pham(scope.row)" class="btn btn-danger btn-sm" title="Xóa sản phẩm"> <i class="fa fa-trash-o"></i> </button>
+                                                        <router-link v-if="flag_cn.edit" :to="{path: '/sanpham/capnhat' , query: { id: scope.row.id }}" class="btn btn-info btn-sm" title="Cập nhật thông tin sản phẩm"> <i class="fa fa-edit"></i> </router-link>
+                                                        <button v-if="flag_cn.delete" @click="delete_san_pham(scope.row)" class="btn btn-danger btn-sm" title="Xóa sản phẩm"> <i class="fa fa-trash-o"></i> </button>
                                                     </template>
                                                 </el-table-column>
 
@@ -115,13 +115,20 @@
 </template>
 
 <script>
+    import {check_url_phan_quyen} from "../../../helper/auth";
+    import {check_quyen_chuc_nang} from "../../../helper/auth";
+
     import {api_get_danh_sach_san_pham_paginate} from "./san_pham";
     import {api_get_search_san_pham_paginate} from "./san_pham";
     import {api_delete_san_pham} from "./san_pham";
 
     export default {
         name: 'danhsachsanpham',
+        beforeCreate(){
+            check_url_phan_quyen(this);
+        },
         mounted () {
+            check_quyen_chuc_nang(this);
             api_get_danh_sach_san_pham_paginate(this, 1);
         },
         updated () {
@@ -145,7 +152,8 @@
                 flag_submit_search: false,
                 sp: { id: '', ma_sp: '', ten_sp: '' },
                 options_display: [10,20,30],
-                value: ''
+                value: '',
+                flag_cn: {add: false, edit: false, delete: false}
             }
         },
         methods: {

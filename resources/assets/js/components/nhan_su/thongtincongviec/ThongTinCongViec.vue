@@ -28,7 +28,7 @@
                                     </div>
                                 </div>
                                 <div class="col-md-6">
-                                    <button @click="_ttcv('add')" title="Thêm mới bộ phận" type="button" data-toggle="modal" data-target="#myModal" class="btn btn-success waves-effect waves-dark pull-right">
+                                    <button v-if="flag_cn.add" @click="_ttcv('add')" title="Thêm mới bộ phận" type="button" data-toggle="modal" data-target="#myModal" class="btn btn-success waves-effect waves-dark pull-right">
                                         <i class="fa fa-plus-circle"></i> Thêm mới
                                     </button>
                                 </div>
@@ -41,10 +41,10 @@
                                     <div class="row">
                                         <div class="col-md-12" style="margin-bottom: 10px;">
                                             <el-table :data="list_ttcv" border style="width: 100%">
-                                                <el-table-column label="#" width="90" align="center" class-name="center-text">
+                                                <el-table-column v-if="flag_cn.edit || flag_cn.delete" label="#" width="90" align="center" class-name="center-text">
                                                     <template slot-scope="scope" class="text-center" style="width: 100%">
-                                                        <button @click="_ttcv('edit', scope.row)" data-toggle="modal" data-target="#myModal" class="btn btn-info btn-sm" title="Cập nhật thông tin cá nhân"> <i class="fa fa-edit"></i> </button>
-                                                        <button @click="delete_ttcv(scope.row)" class="btn btn-danger btn-sm" title="Xóa"> <i class="fa fa-trash-o"></i> </button>
+                                                        <button v-if="flag_cn.edit" @click="_ttcv('edit', scope.row)" data-toggle="modal" data-target="#myModal" class="btn btn-info btn-sm" title="Cập nhật thông tin cá nhân"> <i class="fa fa-edit"></i> </button>
+                                                        <button v-if="flag_cn.delete" @click="delete_ttcv(scope.row)" class="btn btn-danger btn-sm" title="Xóa"> <i class="fa fa-trash-o"></i> </button>
                                                     </template>
                                                 </el-table-column>
                                                 <el-table-column type="index" label="TT" align="center" class-name="center-text"></el-table-column>
@@ -292,6 +292,9 @@
 </template>
 
 <script>
+    import {check_url_phan_quyen} from "../../../helper/auth";
+    import {check_quyen_chuc_nang} from "../../../helper/auth";
+
     import {api_get_all_ttcv} from './thong_tin_cong_viec';
     import {api_add_ttcv} from "./thong_tin_cong_viec";
     import {api_edit_ttcv} from "./thong_tin_cong_viec";
@@ -307,7 +310,11 @@
 
     export default {
         name: 'thongtincongviec',
+        beforeCreate(){
+            check_url_phan_quyen(this);
+        },
         mounted () {
+            check_quyen_chuc_nang(this);
             this.danh_sach_ttcv(1);
             api_nhan_vien_get_all_no_pa(this);
             api_get_all_bo_phan(this);
@@ -360,7 +367,8 @@
                 index_ttcv: 1,
                 options_display: [10,20,30],
                 limit: 10,
-                currentPage: 1
+                currentPage: 1,
+                flag_cn: {add: false, edit: false, delete: false}
             }
         },
         methods: {
