@@ -56,53 +56,6 @@
 
                                 <!--</h2>-->
                                 <div class="message-widget contact-widget">
-                                    <!--<div class="table-responsive">-->
-                                        <!--<table class="table table-hover">-->
-                                            <!--<thead>-->
-                                            <!--<tr style="border-top: 1px solid #ddd">-->
-                                                <!--<th class="text-center">#</th>-->
-                                                <!--<th>Mã NV</th>-->
-                                                <!--<th>Tên nhân viên</th>-->
-                                                <!--<th>Số BHYT</th>-->
-                                                <!--<th>Số BHXH</th>-->
-                                                <!--<th>Nơi khám</th>-->
-                                                <!--<th>Địa chỉ khám</th>-->
-                                                <!--<th>Ghi chú</th>-->
-                                            <!--</tr>-->
-                                            <!--</thead>-->
-                                            <!--<tbody class="body-table loading-item">-->
-                                            <!--<tr v-if="loading_bhyt">-->
-                                                <!--<td class="text-center" colspan="8"><b><i><i class="fa fa-spin fa-spinner"></i> Đang tải danh sách...</i></b></td>-->
-                                            <!--</tr>-->
-                                            <!--<tr v-else-if="list_bhyt.length <= 0">-->
-                                                <!--<td class="text-center" colspan="8"><b><i>Chưa có bảo hiểm y tế</i></b></td>-->
-                                            <!--</tr>-->
-                                            <!--<tr v-else v-for="n in list_bhyt" :id="'n' + n.id" class="row-nhom" @click="click_bhyt(n)">-->
-                                                <!--<td class="text-left" style="padding-right: 0">-->
-                                                    <!--<button @click="_bhyt('edit',n)" id="edit_nhom" type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#myModal">-->
-                                                        <!--<i class="fa fa-edit"></i>-->
-                                                    <!--</button>-->
-                                                    <!--<button @click="delete_bhyt(n)" type="button" class="btn btn-danger btn-sm">-->
-                                                        <!--<i class="fa fa-trash"></i>-->
-                                                    <!--</button>-->
-                                                <!--</td>-->
-                                                <!--<td>{{n.ma_nv}}</td>-->
-                                                <!--<td>{{n.ho_ten}}</td>-->
-                                                <!--<td>{{n.so_bhyt}}</td>-->
-                                                <!--<td>{{n.so_bhxh}}</td>-->
-                                                <!--<td>{{n.noi_kham}}</td>-->
-                                                <!--<td>{{n.dia_chi_kham}}</td>-->
-                                                <!--<td>{{n.ghi_chu}}</td>-->
-                                            <!--</tr>-->
-                                            <!--</tbody>-->
-                                        <!--</table>-->
-                                        <!--<el-pagination-->
-                                                <!--:page-size="10"-->
-                                                <!--layout="prev, pager, next"-->
-                                                <!--:total="total_bhyt"-->
-                                                <!--@current-change="danh_sach_bhyt">-->
-                                        <!--</el-pagination>-->
-                                    <!--</div>-->
                                     <div class="row">
                                         <div class="col-md-12" style="margin-bottom: 10px;">
                                             <el-table :data="list_bhyt" border style="width: 100%">
@@ -281,6 +234,9 @@
 </template>
 
 <script>
+    import {check_url_phan_quyen} from "../../../helper/auth";
+    import {check_quyen_chuc_nang} from "../../../helper/auth";
+
     import {api_get_all_bhyt} from './bao_hiem_y_te';
     import {api_add_bhyt} from "./bao_hiem_y_te";
     import {api_edit_bhyt} from "./bao_hiem_y_te";
@@ -295,8 +251,12 @@
     import {api_get_item_phuong_xa_bhyt_noi_kham} from "../../../helper/tinh_thanh";
 
     export default {
-        name: 'bophan',
+        name: 'baohiemyte',
+        beforeCreate(){
+            check_url_phan_quyen(this);
+        },
         mounted () {
+            check_quyen_chuc_nang(this);
             this.danh_sach_bhyt(1);
             api_nhan_vien_get_all_no_pa(this);
             api_get_tinh(this);
@@ -339,7 +299,8 @@
                 flag_disable_manv: false,
                 options_display: [10,20,30],
                 limit: 10,
-                currentPage: 1
+                currentPage: 1,
+                flag_cn: {add: false, edit: false, delete: false}
             }
         },
         methods: {
