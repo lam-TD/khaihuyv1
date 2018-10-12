@@ -69,16 +69,57 @@
                                         </div>
                                     </li>
                                     <li role="separator" class="divider"></li>
-                                    <li><a href="#"><i class="ti-user"></i> Thông tin tài khoản</a></li>
+                                    <li><a @click="flag_modal_add = 'true'"><i class="ti-user"></i> Thông tin tài khoản</a></li>
                                     <li role="separator" class="divider"></li>
                                     <li><a href="" @click="logout"><i class="fa fa-power-off"></i> Đăng xuất</a></li>
                                 </ul>
                             </div>
                         </li>
                     </ul>
+
                 </div>
             </nav>
         </header>
+
+        <el-dialog title="Thông tin tài khoản" top="8vh" width="50%" custom-class="modal_new" :visible.sync="flag_modal_add">
+            <template>
+                <form id="form_bopss">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <el-upload class="avatar-uploader" action="https://jsonplaceholder.typicode.com/posts/" :show-file-list="false">
+                                <img v-if="imageUrl" :src="imageUrl" class="avatar">
+                                <i v-else class="el-icon-plus avatar-uploader-icon"></i>
+                            </el-upload>
+                        </div>
+                        <div class="col-md-8">
+                            <div class="form-group row">
+                                <label class="col-md-12 col-form-label label-dd">Tên đăng nhập</label>
+                                <div class="col-md-12 col-dd">
+                                    <input name="txtmanhom" v-validate="'required'" v-bind:maxlength="100" v-model="info_user.username" type="text" class="form-control form-control-sm">
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="col-md-12 col-form-label label-dd">Avatar</label>
+                                <div class="col-md-12 col-dd">
+                                    <input name="txtmanhom" v-validate="'required'" v-bind:maxlength="100" v-model="info_user.avatar" type="text" class="form-control form-control-sm">
+                                    <!--<small v-show="nhom_nguoi_dung.ten_nhom == ''" class="help text-muted is-danger">Vui lòng nhập tên nhóm</small>-->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </template>
+            <div slot="footer" class="dialog-footer">
+                <!--<el-button @click="flag_modal_ = false">Cancel</el-button>-->
+                <button type="button" class="btn btn-danger" @click="flag_modal_add = false">Hủy</button>
+
+                <!--<button id="save_add" type="button" class="btn btn-primary">-->
+                <!--<span v-if="flag_btn_save"><i class="fa fa-save"></i> Lưu lại</span>-->
+                <!--<span v-if="!flag_btn_save"><i class="fa fa-spin fa-spinner"></i> Đang xử lý...</span>-->
+                <!--</button>-->
+            </div>
+        </el-dialog>
+        <!--end modal add-->
 
         <aside class="left-sidebar">
             <!-- Sidebar scroll-->
@@ -112,38 +153,6 @@
     </div>
 
 </template>
-<style scoped>
-    .ul-chuc-nang .active
-    {
-        color: #000000;
-        font-weight: 500;
-    }
-
-    .scroll-sidebar {
-        overflow-x: hidden !important;
-        overflow-y: auto !important;;
-        /*direction:rtl;*/
-    }
-
-    #style-4::-webkit-scrollbar-track
-    {
-        -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
-        background-color: #F5F5F5;
-    }
-
-    #style-4::-webkit-scrollbar
-    {
-        width: 7px;
-        background-color: #ddd;
-    }
-
-    #style-4::-webkit-scrollbar-thumb
-    {
-        background-color: #ddd;
-        border: 1px solid #555555;
-        border-radius: 10px;
-    }
-</style>
 <script>
     export default {
         name: 'top-bar',
@@ -168,7 +177,10 @@
         },
         data(){
             return {
-                user: []
+                user: [],
+                flag_modal_add: false,
+                info_user: {username: '', avatar: ''},
+                imageUrl: 'public/image_nhan_vien/1537234842.jpeg'
             }
         },
         methods: {
@@ -233,3 +245,60 @@
     }
     // import '../../../../../public/template/js/custom';
 </script>
+
+<style scoped>
+    .ul-chuc-nang .active
+    {
+        color: #000000;
+        font-weight: 500;
+    }
+
+    .scroll-sidebar {
+        overflow-x: hidden !important;
+        overflow-y: auto !important;;
+        /*direction:rtl;*/
+    }
+
+    #style-4::-webkit-scrollbar-track
+    {
+        /*-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);*/
+        background-color: #fff;
+    }
+
+    #style-4::-webkit-scrollbar
+    {
+        width: 5px;
+        background-color: #ddd;
+    }
+
+    #style-4::-webkit-scrollbar-thumb
+    {
+        background-color: #ddd;
+        border: 1px solid #ddd;
+        border-radius: 10px;
+    }
+
+    .avatar-uploader .el-upload {
+        border: 1px dashed #d9d9d9;
+        border-radius: 6px;
+        cursor: pointer;
+        position: relative;
+        overflow: hidden;
+    }
+    .avatar-uploader .el-upload:hover {
+        border-color: #409EFF;
+    }
+    .avatar-uploader-icon {
+        font-size: 28px;
+        color: #8c939d;
+        width: 178px;
+        height: 178px;
+        line-height: 178px;
+        text-align: center;
+    }
+    .avatar {
+        width: 178px;
+        height: 178px;
+        display: block;
+    }
+</style>
