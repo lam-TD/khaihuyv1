@@ -290,16 +290,19 @@ tr.thutu, td.thutu {
 
 /**/
 .topbar {
-    background: #ededed;
+    /*background: #ededed;*/
+    background: #00acc1;
 }
 .topbar .navbar-light .navbar-nav .nav-item > a.nav-link {
     color: #515356 !important;
 }
 .topbar .navbar-header {
-    background: #dddddd;
+    /*background: #dddddd;*/
+    background: #fff;
 }
 .card-no-border .left-sidebar, .card-no-border .sidebar-nav {
-    background: #dddddd;
+    /*background: #dddddd;*/
+    background: #fff;
 }
 .sidebar-nav > ul > li > a i
 {
@@ -311,7 +314,7 @@ tr.thutu, td.thutu {
 }
 .page-wrapper
 {
-    background: #f7f7f7;
+    background: #eef5f9;
 }
 .sidebar-nav ul li a.active i, .sidebar-nav ul li a:hover i
 {
@@ -346,11 +349,13 @@ tr.thutu, td.thutu {
     }
     .slimScrollDiv
     {
-        background: #dddddd;
+        /*background: #dddddd;*/
+        background: #fff;
     }
     .card-no-border .left-sidebar, .card-no-border .sidebar-nav:hover
     {
-        background: #dddddd00;
+        /*background: #dddddd00;*/
+        background: #fff;
     }
 
     .tb-row-hienthi {

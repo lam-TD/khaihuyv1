@@ -83,7 +83,7 @@
         <aside class="left-sidebar">
             <!-- Sidebar scroll-->
             <div class="slimScrollDiv" style="position: relative; overflow: hidden; width: auto; height: 100%;">
-                <div class="scroll-sidebar" style="overflow: hidden; width: auto; height: 100%;">
+                <div id="style-4" class="scroll-sidebar" style="overflow: hidden; width: auto; height: 100%;">
                     <!-- Sidebar navigation-->
                     <nav class="sidebar-nav active">
                         <ul id="sidebarnav">
@@ -112,11 +112,36 @@
     </div>
 
 </template>
-<style>
+<style scoped>
     .ul-chuc-nang .active
     {
         color: #000000;
         font-weight: 500;
+    }
+
+    .scroll-sidebar {
+        overflow-x: hidden !important;
+        overflow-y: auto !important;;
+        /*direction:rtl;*/
+    }
+
+    #style-4::-webkit-scrollbar-track
+    {
+        -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+        background-color: #F5F5F5;
+    }
+
+    #style-4::-webkit-scrollbar
+    {
+        width: 7px;
+        background-color: #ddd;
+    }
+
+    #style-4::-webkit-scrollbar-thumb
+    {
+        background-color: #ddd;
+        border: 1px solid #555555;
+        border-radius: 10px;
     }
 </style>
 <script>
