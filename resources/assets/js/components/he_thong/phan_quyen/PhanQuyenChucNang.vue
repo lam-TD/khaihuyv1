@@ -83,17 +83,17 @@
                                                         </el-table-column>
                                                         <el-table-column label="Thêm"  width="80" align="center" class-name="center-text">
                                                             <template slot-scope="scope">
-                                                                <input type="checkbox" :id="'t' + scope.row.id" :value="scope.row.them" :checked="scope.row.them == 1" class="form-control form-control-sm">
+                                                                <input @click="single_quyen(scope.row.id,'x' + scope.row.id)" type="checkbox" :id="'t' + scope.row.id" :value="scope.row.them" :checked="scope.row.them == 1" class="form-control form-control-sm">
                                                             </template>
                                                         </el-table-column>
                                                         <el-table-column label="Sửa" width="80" align="center" class-name="center-text">
                                                             <template slot-scope="scope">
-                                                                <input type="checkbox" :id="'s' + scope.row.id" :value="scope.row.sua" :checked="scope.row.sua == 1" class="form-control form-control-sm">
+                                                                <input @click="single_quyen(scope.row.id,'x' + scope.row.id)" type="checkbox" :id="'s' + scope.row.id" :value="scope.row.sua" :checked="scope.row.sua == 1" class="form-control form-control-sm">
                                                             </template>
                                                         </el-table-column>
                                                         <el-table-column label="Xóa" width="80" align="center" class-name="center-text">
                                                             <template slot-scope="scope">
-                                                                <input type="checkbox" :id="'de' + scope.row.id" :value="scope.row.xoa" :checked="scope.row.xoa == 1" class="form-control form-control-sm">
+                                                                <input @click="single_quyen(scope.row.id,'x' + scope.row.id)" type="checkbox" :id="'de' + scope.row.id" :value="scope.row.xoa" :checked="scope.row.xoa == 1" class="form-control form-control-sm">
                                                             </template>
                                                         </el-table-column>
                                                     </el-table>
@@ -129,6 +129,9 @@
 </template>
 
 <script>
+    import {check_url_phan_quyen} from "../../../helper/auth";
+    import {check_quyen_chuc_nang} from "../../../helper/auth";
+
     import {api_get_all_danh_sach_nhom_nguoi_dung} from "../quan_ly_nhom/QuanLyNhom_helper";
     import {api_get_nhom_chuc_nang} from "./phan_quyen_chuc_nang";
     import {api_get_chuc_nang_theo_nhom} from "./phan_quyen_chuc_nang";
@@ -137,6 +140,9 @@
 
     export default {
         name: 'quanlynguoidung',
+        beforeCreate(){
+            check_url_phan_quyen(this);
+        },
         mounted () {
             api_get_all_danh_sach_nhom_nguoi_dung(this);
             api_get_nhom_chuc_nang(this);

@@ -1,81 +1,5 @@
 <template id="danhsachnhanvien">
     <div class="row">
-        <!--<div class="col-md-12 lamlam">-->
-            <!--<div class="card content-lam">-->
-                <!--<div class="card-header">-->
-                    <!--<div class="card-actions">-->
-                        <!--<a class="" data-action="collapse"><i class="ti-minus"></i></a>-->
-                        <!--<a class="btn-minimize" data-action="expand"><i class="mdi mdi-arrow-expand"></i></a>-->
-                        <!--<a class="btn-close" data-action="close"><i class="ti-close"></i></a>-->
-                    <!--</div>-->
-                    <!--<h4 class="card-title m-b-0">Danh sách nhân viên</h4>-->
-                <!--</div>-->
-                <!--<div class="card-body">-->
-                    <!--<div class="row" style="margin-bottom: 5px;">-->
-                        <!--<div class="col-md-6">-->
-                            <!--<div class="form-group">-->
-                                <!--<form @submit.prevent="submit_search_thong_tin_nhan_vien">-->
-                                    <!--<input v-model="key_word" type="text" id="timkiem" class="form-control" placeholder="Nhập từ khóa để tìm kiếm...">-->
-                                    <!--<button type="submit" class="btn btn-info btn-sm btntimkiem" name="button">Tìm kiếm</button>-->
-                                <!--</form>-->
-                            <!--</div>-->
-                        <!--</div>-->
-                        <!--<div class="col-md-6">-->
-                            <!--<button @click="_nhan_vien('add')" class="btn btn-success pull-right" data-toggle="modal" data-target="#modal_nv_tt_ca_nhan"><i class="fa fa-plus-circle"></i> Thêm mới </button>-->
-                        <!--</div>-->
-                    <!--</div>-->
-                    <!--<div class="table-responsive">-->
-                        <!--<table v-on:scroll="scroll_table" class="table table-hover table-fixed mb-0" id="table_nhanvien">-->
-                            <!--<thead>-->
-                                <!--<tr style="border-top: 1px solid #ddd;">-->
-                                    <!--<th class="text-center">#</th>-->
-                                    <!--<th class="text-center" style="width: 50px;">TT</th>-->
-                                    <!--<th class="text-center">Ảnh</th>-->
-                                    <!--<th style="">Mã</th>-->
-                                    <!--<th style="">Tên nhân viên</th>-->
-                                    <!--<th>G/T</th>-->
-                                    <!--<th>Ngày sinh</th>-->
-
-
-                                    <!--<th>Di động 1</th>-->
-                                    <!--<th>Ghi chú</th>-->
-                                <!--</tr>-->
-                            <!--</thead>-->
-                            <!--<tbody>-->
-                                <!--<tr v-if="loading_dsnv"><td colspan="19" style="width: 100%"><b><i class="fa fa-spin fa-spinner"></i> Loading...</b></td></tr>-->
-                                <!--<tr v-if="dsnhanvien.length>0" v-for="(n, index) in dsnhanvien">-->
-                                    <!--<td class="text-nowrap">-->
-                                        <!--<button @click="_nhan_vien('edit', n)" data-toggle="modal" data-target="#modal_nv_tt_ca_nhan" class="btn btn-info btn-sm" title="Cập nhật thông tin cá nhân"> <i class="fa fa-edit"></i> </button>-->
-                                        <!--<button @click="delete_all_thong_tin_nv(n.id)" class="btn btn-danger btn-sm" title="Xóa"> <i class="fa fa-trash-o"></i> </button>-->
-                                    <!--</td>-->
-                                    <!--<td class="text-center">{{index + 1}}</td>-->
-                                    <!--<td><img :src="'public/image_nhan_vien/' + n.avatar" alt="Chưa có ảnh" class="img-nv" data-toggle="modal" data-target="#"></td>-->
-                                    <!--<td style="width:100px;">{{n.ma_nv}}</td>-->
-                                    <!--<td> <span @click="_nhan_vien('edit', n)" data-toggle="modal" data-target="#exampleModal2" class="ten-nv">{{n.ho_ten}}</span></td>-->
-                                    <!--<td><span v-if="n.gioi_tinh">Nam</span><span v-else>Nữ</span></td>-->
-
-                                    <!--<td class="hidden-text" style="width:400px;">{{n.thuong_tru}}</td>-->
-                                    <!--<td>{{n.di_dong_1}}</td>-->
-                                    <!--<td>{{n.ghi_chu}}</td>-->
-                                <!--</tr>-->
-                            <!--</tbody>-->
-                        <!--</table>-->
-
-                        <!--<el-pagination-->
-                                <!--:page-size="10"-->
-                                <!--layout="prev, pager, next"-->
-                                <!--:total="dsnhanvien_total"-->
-                                <!--@current-change="getNhanVien">-->
-                        <!--</el-pagination>-->
-                    <!--</div>-->
-                    <!--&lt;!&ndash; nd table &ndash;&gt;-->
-
-
-                    <!--&lt;!&ndash;&lt;!&ndash; Modal &ndash;&gt;&ndash;&gt;-->
-                <!--</div>-->
-            <!--</div>-->
-        <!--</div>-->
-
         <div class="col-md-12">
             <div class="card content-lam mb-0 pb-0">
                 <div class="card-header">
@@ -196,13 +120,8 @@
                                                             <!--<el-radio :label="0">Nữ</el-radio>-->
                                                             <!--<el-radio :label="1">Nam</el-radio>-->
                                                         <!--</el-radio-group>-->
-                                                        <el-select v-model="nhan_vien.gioi_tinh" placeholder="Select" size="small" style="width: 100%">
-                                                            <el-option
-                                                                    v-for="item in list_gioi_tinh"
-                                                                    :key="item.value"
-                                                                    :label="item.label"
-                                                                    :value="item.value">
-                                                            </el-option>
+                                                        <el-select v-model="gioi_tinh" value-key="value" placeholder="Select" size="small" style="width: 100%">
+                                                            <el-option v-for="item in list_gioi_tinh" :key="item.value" :label="item.label" :value="item"> </el-option>
                                                         </el-select>
                                                     </div>
                                                 </div>
@@ -890,6 +809,7 @@
                 nv_thong_tin_ca_nhan: '',
                 options_display: [10,20,30],
                 limit: 10,
+                gioi_tinh: '',
                 flag_cn: {add: false, edit: false, delete: false}
             }
         },
@@ -1058,6 +978,7 @@
                             di_dong_2: '', dt_ban: '', mst_cn: '', mst_cn_noi_cap: '', cc_thue_cap: '', avatar: '',
                             image: '', tinh_trang: 0, tam_tru_tinh_thanh: '', thuong_tru_tinh_thanh: ''
                     }
+                    this.gioi_tinh = this.list_gioi_tinh[0];
                     this.nv_tam_tru.quan_huyen = this.nv_tam_tru.tinh_thanh = this.nv_tam_tru.phuong_xa = '';
                     this.nv_thuong_tru.quan_huyen = this.nv_thuong_tru.tinh_thanh = this.nv_thuong_tru.phuong_xa = '';
                 }
@@ -1083,16 +1004,24 @@
                     this.flag_submit_nhan_vien_tt_ca_nhan = false;
                     this.flag_input_nhan_vien_tt = true;
                     // set detail nv;
-                    this.nhan_vien.id = nv.id;this.nhan_vien.ma_nv = nv.ma_nv;this.nhan_vien.ho_ten = nv.ho_ten;this.nhan_vien.avatar = nv.avatar;this.nhan_vien.gioi_tinh = nv.gioi_tinh;this.nhan_vien.ngay_sinh = nv.ngay_sinh;this.nhan_vien.noi_sinh = nv.noi_sinh;this.nhan_vien.quoc_tich = nv.quoc_tich;
-                    this.nhan_vien.thuong_tru = nv.thuong_tru;this.nhan_vien.tam_tru = nv.tam_tru;this.nhan_vien.noi_sinh = nv.noi_sinh;this.nhan_vien.so_cmnd = nv.so_cmnd;this.nhan_vien.scmnd_noi_cap = nv.scmnd_noi_cap;
-                    this.nhan_vien.scmnd_ngay_cap = nv.scmnd_ngay_cap;this.nhan_vien.di_dong_1 = nv.di_dong_1;this.nhan_vien.di_dong_2 = nv.di_dong_2;this.nhan_vien.dt_ban = nv.dt_ban;
-                    this.nhan_vien.mst_cn = nv.mst_cn;this.nhan_vien.mst_cn_noi_cap = nv.mst_cn_noi_cap;this.nhan_vien.cc_thue_cap = nv.cc_thue_cap;this.nhan_vien.tam_tru_tinh_thanh = nv.tam_tru_tinh_thanh;this.nhan_vien.thuong_tru_tinh_thanh = nv.thuong_tru_tinh_thanh;
-                    this.nhan_vien.noi_sinh_tinh_thanh = nv.noi_sinh_tinh_thanh;this.nhan_vien.ghi_chu = nv.ghi_chu;
+                    this.nhan_vien.id             = nv.id;this.nhan_vien.ma_nv                       = nv.ma_nv;this.nhan_vien.ho_ten = nv.ho_ten;
+                    this.nhan_vien.avatar         = nv.avatar;this.nhan_vien.gioi_tinh               = nv.gioi_tinh;
+                    this.nhan_vien.ngay_sinh      = nv.ngay_sinh;this.nhan_vien.noi_sinh             = nv.noi_sinh;this.nhan_vien.quoc_tich = nv.quoc_tich;
+                    this.nhan_vien.thuong_tru     = nv.thuong_tru;this.nhan_vien.tam_tru             = nv.tam_tru;this.nhan_vien.noi_sinh = nv.noi_sinh;
+                    this.nhan_vien.so_cmnd        = nv.so_cmnd;this.nhan_vien.scmnd_noi_cap          = nv.scmnd_noi_cap;
+                    this.nhan_vien.scmnd_ngay_cap = nv.scmnd_ngay_cap;this.nhan_vien.di_dong_1       = nv.di_dong_1;this.nhan_vien.di_dong_2 = nv.di_dong_2;
+                    this.nhan_vien.dt_ban         = nv.dt_ban;this.nhan_vien.mst_cn                  = nv.mst_cn;this.nhan_vien.mst_cn_noi_cap = nv.mst_cn_noi_cap;
+                    this.nhan_vien.cc_thue_cap    = nv.cc_thue_cap;this.nhan_vien.tam_tru_tinh_thanh = nv.tam_tru_tinh_thanh;
+                    this.nhan_vien.thuong_tru_tinh_thanh = nv.thuong_tru_tinh_thanh;
+                    this.nhan_vien.noi_sinh_tinh_thanh   = nv.noi_sinh_tinh_thanh;this.nhan_vien.ghi_chu = nv.ghi_chu;
+                    this.gioi_tinh = this.list_gioi_tinh.filter(function (item) {
+                        return (item['value'] == nv.gioi_tinh)
+                    })[0];
                 }
             },
             submit_nhan_vien_thong_tin_ca_nhan: function () {
-                this.nhan_vien.noi_sinh_tinh_thanh = this.nv_noi_sinh.quan_huyen.ma_quan_huyen;
-                this.nhan_vien.tam_tru_tinh_thanh = this.nv_tam_tru.phuong_xa.phuongxa_id;
+                this.nhan_vien.noi_sinh_tinh_thanh   = this.nv_noi_sinh.quan_huyen.ma_quan_huyen;
+                this.nhan_vien.tam_tru_tinh_thanh    = this.nv_tam_tru.phuong_xa.phuongxa_id;
                 this.nhan_vien.thuong_tru_tinh_thanh = this.nv_thuong_tru.phuong_xa.phuongxa_id;
                 this.change_bnt_save('save');
                 if(this.flag_submit_nhan_vien_tt_ca_nhan) {

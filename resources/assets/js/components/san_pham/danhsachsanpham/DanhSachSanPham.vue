@@ -48,13 +48,17 @@
 
                                                 <el-table-column  prop="date" label="Hình ảnh" align="center" width="80" class-name="center-text">
                                                     <template slot-scope="scope">
-                                                        <img :src="parse_img(scope.row)" alt="" class="img-sanpham">
+                                                        <img @click="edit_sanpham(scope.row)" :src="parse_img(scope.row)" alt="" title="Click để xem chi tiết sản phẩm" class="img-sanpham">
                                                     </template>
                                                 </el-table-column>
 
                                                 <el-table-column prop="ma_sp" label="Mã SP" align="center" width="100" class-name="center-text"></el-table-column>
 
-                                                <el-table-column prop="ten_sp" label="Tên SP" class-name="no-center-text tensp" width="180"></el-table-column>
+                                                <el-table-column label="Tên SP" class-name="no-center-text tensp" width="180">
+                                                    <template slot-scope="scope">
+                                                        <span @click="edit_sanpham(scope.row)" class="click-ten-sp" title="Click để xem chi tiết sản phẩm">{{scope.row.ten_sp}}</span>
+                                                    </template>
+                                                </el-table-column>
 
                                                 <el-table-column prop="dien_giai" label="Diễn giải" width="180" class-name="no-center-text">
                                                     <template slot-scope="scope">
@@ -174,6 +178,11 @@
             sort_date: function (day) {
                 return day.slice(0,10);
             },
+            edit_sanpham: function (sanpham) {
+                if(this.flag_cn.edit){
+                    this.$router.push({ path: '/sanpham/capnhat', query: { id: sanpham.id }})
+                }
+            },
             getSanPham: function (page = 1) {
                 this.loading_bo_phan = true;
                 // api_get_danh_sach_san_pham_paginate(this, page);
@@ -283,6 +292,10 @@
         height: 50px;
     }
 
+    .img-sanpham:hover {
+        cursor: pointer;
+    }
+
     .el-table thead.is-group th {
         font-weight: 600 !important;
         text-align: center;
@@ -312,6 +325,12 @@
 
     .has-gutter tr th .cell {
         font-weight: 800;
+    }
+
+    .click-ten-sp:hover {
+        font-weight: 500;
+        text-decoration: underline;
+        cursor: pointer;
     }
 
 </style>
