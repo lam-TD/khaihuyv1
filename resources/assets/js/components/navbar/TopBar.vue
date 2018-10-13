@@ -81,19 +81,15 @@
             </nav>
         </header>
 
-        <el-dialog title="Thông tin tài khoản" top="8vh" width="20%" custom-class="modal_new" :visible.sync="flag_modal_add">
+        <el-dialog title="Thông tin tài khoản" top="8vh" width="25%" custom-class="modal_new" :visible.sync="flag_modal_add">
             <template>
                 <form id="form_bopss">
                     <div class="row">
-                        <div class="col-md-8 pb-2">
-                            <el-upload class="avatar-uploader" action="https://jsonplaceholder.typicode.com/posts/" :show-file-list="false">
-                                <img v-if="imageUrl" :src="imageUrl" class="avatar">
-                                <i v-else class="el-icon-plus avatar-uploader-icon"></i>
-                            </el-upload>
-                        </div>
-                        <div class="col-md-10 offset-1">
-                            <div class="form-group row">
-                                <!--<el-input placeholder="Type something" prefix-icon="el-icon-search" v-model="input21" size="small"></el-input>-->
+                        <div class="card">
+                            <img class="card-img-top" src="public/assets/images/background/profile-bg.jpg" alt="Card image cap">
+                            <div class="card-body little-profile text-center">
+                                <div class="pro-img"><img src="public/assets/images/users/4.jpg" alt="user" /></div>
+                                <h3 class="m-b-0">{{user.username}}</h3>
                             </div>
                         </div>
                     </div>

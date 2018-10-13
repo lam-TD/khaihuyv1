@@ -212,6 +212,7 @@
                 if(this.keyword == '' || this.keyword == null){
                     this.flag_submit_search = false;
                     api_get_danh_sach_san_pham_paginate(this, 1);
+                    return 1;
                 }
                 this.flag_submit_search = true;
                 api_get_search_san_pham_paginate(this,1);
