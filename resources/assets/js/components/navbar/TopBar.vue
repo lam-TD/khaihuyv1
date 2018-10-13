@@ -81,29 +81,19 @@
             </nav>
         </header>
 
-        <el-dialog title="Thông tin tài khoản" top="8vh" width="50%" custom-class="modal_new" :visible.sync="flag_modal_add">
+        <el-dialog title="Thông tin tài khoản" top="8vh" width="20%" custom-class="modal_new" :visible.sync="flag_modal_add">
             <template>
                 <form id="form_bopss">
                     <div class="row">
-                        <div class="col-md-4">
+                        <div class="col-md-8 pb-2">
                             <el-upload class="avatar-uploader" action="https://jsonplaceholder.typicode.com/posts/" :show-file-list="false">
                                 <img v-if="imageUrl" :src="imageUrl" class="avatar">
                                 <i v-else class="el-icon-plus avatar-uploader-icon"></i>
                             </el-upload>
                         </div>
-                        <div class="col-md-8">
+                        <div class="col-md-10 offset-1">
                             <div class="form-group row">
-                                <label class="col-md-12 col-form-label label-dd">Tên đăng nhập</label>
-                                <div class="col-md-12 col-dd">
-                                    <input name="txtmanhom" v-validate="'required'" v-bind:maxlength="100" v-model="info_user.username" type="text" class="form-control form-control-sm">
-                                </div>
-                            </div>
-                            <div class="form-group row">
-                                <label class="col-md-12 col-form-label label-dd">Avatar</label>
-                                <div class="col-md-12 col-dd">
-                                    <input name="txtmanhom" v-validate="'required'" v-bind:maxlength="100" v-model="info_user.avatar" type="text" class="form-control form-control-sm">
-                                    <!--<small v-show="nhom_nguoi_dung.ten_nhom == ''" class="help text-muted is-danger">Vui lòng nhập tên nhóm</small>-->
-                                </div>
+                                <!--<el-input placeholder="Type something" prefix-icon="el-icon-search" v-model="input21" size="small"></el-input>-->
                             </div>
                         </div>
                     </div>
@@ -297,8 +287,9 @@
         text-align: center;
     }
     .avatar {
-        width: 178px;
-        height: 178px;
+        width: 100%;
+        height: 100%;
         display: block;
+        border-radius: 50%;
     }
 </style>

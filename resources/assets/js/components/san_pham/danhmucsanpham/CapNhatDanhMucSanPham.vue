@@ -178,6 +178,7 @@
     import '../../../../../../node_modules/quill/dist/quill.bubble.css'
     import draggable from 'vuedraggable';
     import { quillEditor } from 'vue-quill-editor';
+    import {tao_slug} from "../../../helper/create_slug";
 
     import {api_get_all_danh_muc_san_pham} from "./danh_muc_san_pham";
     import {api_get_danh_muc_san_pham_theo_id} from "./danh_muc_san_pham";
@@ -193,7 +194,7 @@
     export default {
         name: 'capnhatdanhmucsanpham',
         beforeCreate(){
-            check_url_phan_quyen(this);
+            // check_url_phan_quyen(this);
         },
         mounted () {
             api_get_danh_muc_san_pham_theo_id(this);
@@ -390,6 +391,7 @@
             },
             submit_danh_muc: function () {
                 this.change_bnt_save();
+                this.danh_muc.alias = tao_slug(this.danh_muc.tieu_de);
                 api_edit_danh_muc(this);
                 // api_sap_xep_san_pham_trong_danh_muc(this);
             },

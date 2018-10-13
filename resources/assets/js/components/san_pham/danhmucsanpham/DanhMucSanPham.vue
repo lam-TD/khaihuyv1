@@ -219,11 +219,7 @@
                                             <div class="form-group row border-form">
                                                 <label class=" col-md-2 col-3 col-form-label">Mô tả:</label>
                                                 <div class="col-md-10 col-9 tt-dacbiet">
-                                                    <quill-editor v-model="danh_muc.tomtat"
-                                                                  ref="myQuillEditor"
-                                                                  :options="editorOption"
-                                                                  @blur="onEditorBlur($event)"
-                                                                  @focus="onEditorFocus($event)"
+                                                    <quill-editor v-model="danh_muc.tomtat" ref="myQuillEditor" :options="editorOption" @blur="onEditorBlur($event)" @focus="onEditorFocus($event)"
                                                                   @ready="onEditorReady($event)">
                                                     </quill-editor>
                                                 </div>
@@ -284,6 +280,7 @@
     import '../../../../../../node_modules/quill/dist/quill.bubble.css'
 
     import { quillEditor } from 'vue-quill-editor';
+    import {tao_slug} from "../../../helper/create_slug";
 
     import {check_url_phan_quyen} from "../../../helper/auth";
     import {check_quyen_chuc_nang} from "../../../helper/auth";
@@ -429,12 +426,14 @@
             },
             submit_danh_muc: function () {
                 this.change_bnt_save();
+                this.danh_muc.alias = tao_slug(this.danh_muc.tieu_de);
+                console.log(tao_slug(this.danh_muc.tieu_de))
                 if(this.flag_submit_danh_muc) {
                     this.flag_input_danh_muc = false;
                     this.add_danh_muc();
                 }
                 else {
-                    this.nhom = this.nhom_selected;
+                    // this.nhom = this.nhom_selected;
                     this.flag_input_danh_muc = true;
                     this.edit_danh_muc();
                 }

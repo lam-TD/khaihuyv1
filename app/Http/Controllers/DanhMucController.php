@@ -46,6 +46,7 @@ class DanhMucController extends Controller
                     'danh_muc_cha' => $item["danh_muc_cha"],
                     'tomtat' => $item["tomtat"],
                     'hienthi' => $item["hienthi"],
+                    'alias' => $item["alias"],
                     'thu_tu' => $item["thutu"],
                     'id_assoc' => $item["danhmuc_id_assoc"],
                     'danh_muc_con' => $this->get_danh_muc_con($item['danh_muc_id'])
@@ -68,6 +69,7 @@ class DanhMucController extends Controller
                     'tomtat' => $item["tomtat"],
                     'hienthi' => $item["hienthi"],
                     'thu_tu' => $item["thutu"],
+                    'alias' => $item["alias"],
                     'id_assoc' => $item["danhmuc_id_assoc"],
                     'danh_muc_con' => $this->get_danh_muc_con($item['danh_muc_id'])
                 );
@@ -101,9 +103,10 @@ class DanhMucController extends Controller
         $dm = new danh_muc_san_pham();
         $dm->tieu_de      = $request->tieu_de;
         $dm->danh_muc_cha = $request->danh_muc_cha;
-        $dm->tomtat      = $request->tomtat;
-        $dm->hienthi     = $request->hienthi;
-        $dm->ghi_chu = $request->ghi_chu;
+        $dm->tomtat       = $request->tomtat;
+        $dm->hienthi      = $request->hienthi;
+        $dm->alias        = $request->alias;
+        $dm->ghi_chu      = $request->ghi_chu;
         $dm->save();
         return 1;
     }
@@ -116,6 +119,7 @@ class DanhMucController extends Controller
         $dm->danh_muc_cha = $request->danh_muc_cha;
         $dm->tomtat       = $request->tomtat;
         $dm->hienthi      = $request->hienthi;
+        $dm->alias        = $request->alias;
         $dm->ghi_chu      = $request->ghi_chu;
         $dm->danhmucsapxep      = $request->danhmucsapxep;
         $dm->update();
