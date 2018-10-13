@@ -240,7 +240,7 @@
     import {api_get_all_tk_ke_toan_edit_sp} from "./san_pham";
     import {api_get_all_danh_muc_san_pham_edit_sp} from "./san_pham";
     import {sweetalert} from "../../../helper/sweetalert";
-
+    import {tao_slug} from "../../../helper/create_slug";
     import {api_get_thong_tin_san_pham_theo_id} from "./san_pham";
     import {api_edit_san_pham} from "./san_pham";
     import {api_delete_img_san_pham} from "./san_pham";
@@ -312,8 +312,7 @@
                 this.sp.danh_muc_id = this.danh_muc;
                 this.sp.dvt_id = this.don_vi_tinh.id;
                 this.sp.distri = this.distri_lam;
-                console.log(this.tk_ke_toan.ma_tk);
-                // return 1;
+                this.sp.alias_sp = tao_slug(this.sp.ten_sp);
                 api_edit_san_pham(this);
             },
             parse_img: function () {

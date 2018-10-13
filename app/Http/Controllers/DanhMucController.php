@@ -73,7 +73,6 @@ class DanhMucController extends Controller
                     'id_assoc' => $item["danhmuc_id_assoc"],
                     'danh_muc_con' => $this->get_danh_muc_con($item['danh_muc_id'])
                 );
-
             }
         }
         return $arr_lon;

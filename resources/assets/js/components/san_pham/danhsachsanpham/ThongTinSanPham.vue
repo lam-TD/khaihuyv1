@@ -245,7 +245,7 @@
     import {api_get_all_tk_ke_toan} from "./san_pham";
     import {api_get_all_danh_muc_san_pham} from "../danhmucsanpham/danh_muc_san_pham";
     import {sweetalert} from "../../../helper/sweetalert";
-
+    import {tao_slug} from "../../../helper/create_slug";
     import {api_get_ma_san_pham_ke_tiep} from "./san_pham";
     import {api_add_san_pham} from "./san_pham";
     import { quillEditor } from 'vue-quill-editor';
@@ -285,7 +285,7 @@
         data () {
             return {
                 currentRoute: this.$route.query.id,
-                sp: { id: '', ma_sp: '', ten_sp: '', dvt_id: '', net: '', warranty: '', dien_giai: '', full_vat_dealer: '', full_vat_end_user: '', deal_1: 0, deal_2: 0, deal_3: 0, deal_1_sl: '', deal_2_sl: '', deal_3_sl: '', distri: '', cong_dv: '', danh_muc_id: [], tk_ke_toan_id: '', image: '', hien_thi: 1, ghi_chu: ''},
+                sp: { id: '', ma_sp: '', ten_sp: '', dvt_id: '', net: '', warranty: '', dien_giai: '', full_vat_dealer: '', full_vat_end_user: '', deal_1: 0, deal_2: 0, deal_3: 0, deal_1_sl: '1', deal_2_sl: '1', deal_3_sl: '1', distri: '', cong_dv: '', danh_muc_id: [], tk_ke_toan_id: '', image: '', hien_thi: 1, ghi_chu: '', alias_sp: ''},
                 distri_sp: 0,
                 list_dvt: [],
                 don_vi_tinh: '',
@@ -357,11 +357,9 @@
             },
             onSubmit: function () {
                 this.sp.danh_muc_id = this.danh_muc;
-                // console.log(this.sp);
-                // return 1;
-                // this.sp.danh_muc_id = this.danh_muc.danh_muc_id;
                 this.sp.dvt_id = this.don_vi_tinh.id
                 this.sp.distri = this.distri_lam;
+                this.sp.alias_sp = tao_slug(this.sp.ten_sp);
                 // this.sp.tk_ke_toan_id = this.tk_ke_toan.ma_tk;
                 // console.log(this.tk_ke_toan.ma_tk);
                 this.$validator.validateAll().then((result) => {
@@ -382,7 +380,6 @@
                 })
             },
             change_tk_ke_toan: function (tk) {
-                console.log(tk);
                 this.sp.tk_ke_toan_id = tk.ma_tk;
             },
             tinh_trung_bnh_cong_distri: function () {

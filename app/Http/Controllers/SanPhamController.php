@@ -87,6 +87,7 @@ class SanPhamController extends Controller
             $sp->distri            = $request->distri;
             $sp->cong_dv           = $request->cong_dv;
             $sp->tk_ke_toan_id     = $request->tk_ke_toan_id;
+            $sp->alias_sp          = $request->alias_sp;
             $sp->hien_thi          = $request->hien_thi;
             $sp->ghi_chu           = $request->ghi_chu;
             $sp->save();
@@ -164,6 +165,7 @@ class SanPhamController extends Controller
             $sp->distri            = $request->distri;
             $sp->cong_dv           = $request->cong_dv;
             $sp->tk_ke_toan_id     = $request->tk_ke_toan_id;
+            $sp->alias_sp          = $request->alias_sp;
             $sp->hien_thi          = 1;
             $sp->ghi_chu           = $request->ghi_chu;
             $sp->save();
@@ -233,7 +235,7 @@ class SanPhamController extends Controller
             ->join('danh_muc_san_pham','san_pham.danh_muc_id', '=', 'danh_muc_san_pham.danh_muc_id')
             ->select('san_pham.id','san_pham.danh_muc_id','danh_muc_san_pham.tieu_de','san_pham.ma_sp','san_pham.ten_sp','san_pham.dvt_id',
                 'san_pham.net','san_pham.dien_giai','san_pham.full_vat_dealer','san_pham.full_vat_end_user',
-                'san_pham.created_at','san_pham.image','don_vi_tinh.ten_dvt')
+                'san_pham.created_at','san_pham.image','don_vi_tinh.ten_dvt','san_pham.alias_sp')
             ->orwhere('danh_muc_san_pham.tieu_de','LIKE','%'.$keyword.'%')
             ->orwhere('san_pham.ten_sp','LIKE','%'.$keyword.'%')
             ->orwhere('san_pham.full_vat_end_user','LIKE','%'.$keyword.'%')
