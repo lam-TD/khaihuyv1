@@ -8,6 +8,12 @@ use App\quan_huyen;
 
 class QuanHuyenController extends Controller
 {
+    public function get_all_quan_huyen($limit = 10)
+    {
+        $quanhuyen = quan_huyen::orderby('ma_quan_huyen','desc')->paginate($limit);
+        return $quanhuyen;
+    }
+
     //danh sach quan huyen
     public function get_list_quan_huyen($ma_tinh, $limit = 10)
     {

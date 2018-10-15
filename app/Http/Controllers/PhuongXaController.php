@@ -8,6 +8,13 @@ use App\phuong_xa;
 
 class PhuongXaController extends Controller
 {
+    public function get_all_list_phuong_xa($limit = 10)
+    {
+        $phuongxa = phuong_xa::orderby('phuongxa_id', 'desc')
+            ->paginate($limit);
+        return $phuongxa;
+    }
+
     //danh sach phuong xa
     public function get_list_phuong_xa_theo_quan_huyen_paginate($ma_quan_huyen,$limit)
     {
@@ -18,7 +25,7 @@ class PhuongXaController extends Controller
 
     public function get_list_search_phuong_xa_theo_quan_huyen_paginate($keyword, $ma_quan_huyen,$limit)
     {
-        $phuongxa = phuong_xa::where('ten_quan_huyen','LIKE', '%'.$keyword.'%')->where('quanhuyen_id',$ma_quan_huyen)->orderby('phuongxa_id', 'desc')
+        $phuongxa = phuong_xa::where('ten_phuong_xa','LIKE', '%'.$keyword.'%')->where('quanhuyen_id',$ma_quan_huyen)->orderby('phuongxa_id', 'desc')
             ->paginate($limit);
         return $phuongxa;
     }

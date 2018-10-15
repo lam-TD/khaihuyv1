@@ -237,13 +237,16 @@ Route::post('edit-tinh-thanh', 'TinhThanhController@edit_tinh_thanh');
 Route::get('delete-tinh-thanh/{ma_tinh}', 'TinhThanhController@delete_tinh_thanh');
 
 // ========== QUAN HUYEN ==========
+Route::get('get-all-list-quan-huyen/{limit}', 'QuanHuyenController@get_all_quan_huyen');
 Route::get('get-list-quan-huyen/{ma_tinh}&{limit}', 'QuanHuyenController@get_list_quan_huyen');
 Route::get('get-list-search-quan-huyen/{keyword}&{ma_tinh}&{limit}', 'QuanHuyenController@get_list_search_quan_huyen');
 Route::post('add-quan-huyen', 'QuanHuyenController@add_quan_huyen');
 Route::post('edit-quan-huyen', 'QuanHuyenController@edit_quan_huyen');
 Route::get('delete-quan-huyen/{id}', 'QuanHuyenController@delete_quan_huyen');
 // ===========PHUONG XA ============
+Route::get('get-all-list-phuong-xa/{limit}', 'PhuongXaController@get_all_list_phuong_xa');
 Route::get('get-list-phuong-xa-theo-quan-huyen-paginate/{ma_quan_huyen}&{limit}', 'PhuongXaController@get_list_phuong_xa_theo_quan_huyen_paginate');
+Route::get('get-search-phuong-xa-theo-quan-huyen-paginate/{keyword}&{ma_quan_huyen}&{limit}', 'PhuongXaController@get_list_search_phuong_xa_theo_quan_huyen_paginate');
 Route::post('add-phuong-xa', 'PhuongXaController@add_phuong_xa');
 Route::post('edit-phuong-xa/{id}', 'PhuongXaController@edit_phuong_xa');
 Route::get('delete-phuong-xa/{id}', 'PhuongXaController@delete_phuong_xa');

@@ -20,7 +20,8 @@
                         <div class="card-body collapse show">
                             <div class="row" style="padding-bottom:6px;">
                                 <div class="col-md-3">
-                                    <el-select v-model="tinh_thanh" value-key="ma_tinh" filterable size="small" placeholder="Tỉnh thành phố" @change="load_quan_huyen" no-match-text="Không tìm thấy" no-data-text="Không có dữ liệu" style="width: 100%">
+                                    <el-select v-model="tinh_thanh_2" value-key="ma_tinh" filterable size="small" placeholder="Tỉnh thành phố" @change="load_quan_huyen" no-match-text="Không tìm thấy" no-data-text="Không có dữ liệu" style="width: 100%">
+                                        <el-option :label="'Tất cả quận huyện'" :value="''"> </el-option>
                                         <el-option v-for="item in list_tinh_thanh" :key="item.ma_tinh" :label="item.ten_tinh" :value="item"> </el-option>
                                     </el-select>
                                 </div>
@@ -97,7 +98,7 @@
                                                 <div class="form-group row">
                                                     <label class="label-form col-md-3 col-form-label">Tỉnh thành(*)</label>
                                                     <div class="col-md-9">
-                                                        <el-select v-model="tinh_thanh" value-key="ma_tinh" filterable size="small" placeholder="Tỉnh thành phố" @change="load_quan_huyen" no-match-text="Không tìm thấy" no-data-text="Không có dữ liệu" style="width: 100%">
+                                                        <el-select v-model="tinh_thanh" value-key="ma_tinh" filterable size="small" placeholder="Tỉnh thành phố" no-match-text="Không tìm thấy" no-data-text="Không có dữ liệu" style="width: 100%">
                                                             <el-option v-for="item in list_tinh_thanh" :key="item.ma_tinh" :label="item.ten_tinh" :value="item"> </el-option>
                                                         </el-select>
                                                         <!--<small v-show="errors.has('so_qh')" class="help text-muted is-danger">Vui lòng chọn tỉnh thành</small>-->
@@ -147,6 +148,7 @@
     import {api_get_tinh} from "./dia_chi";
     import {api_get_quan_huyen} from "../../../helper/tinh_thanh";
 
+    import {api_all_get_quan_huyen_paginate} from "./dia_chi";
     import {api_get_quan_huyen_theo_tinh_paginate} from "./dia_chi";
     import {api_add_quan_huyen} from "./dia_chi";
     import {api_edit_quan_huyen} from "./dia_chi";
@@ -165,7 +167,8 @@
             check_quyen_chuc_nang(this);
             api_get_tinh(this);
             api_get_quan_huyen(this);
-            api_get_quan_huyen_theo_tinh_paginate(this, this.tinh_thanh.ma_tinh,1);
+            api_all_get_quan_huyen_paginate(this,1);
+            // api_get_quan_huyen_theo_tinh_paginate(this, this.tinh_thanh.ma_tinh,1);
         },
         updated () {
             $(document).ready(function() {
@@ -186,29 +189,47 @@
                 tinh_thanh_qh: '',
                 tinh_thanh: '',
                 quan_huyen_new: {ma_quan_huyen: '', ten_quan_huyen: '', ma_tinh: ''},
+                tinh_thanh_2: '',
                 index_qh: 1,
                 options_display: [10,20,30],
                 flag_body_modal: false,
                 flag_btn_save: true,
                 flag_disabled_submit: true,
-                flag_cn: {add: false, edit: false, delete: false}
+                flag_cn: {add: false, edit: false, delete: false},
+                currentPage: 1
             }
         },
         methods: {
             change_hien_thi_qh: function (limit) {
                 this.limit_qh = limit;
-                api_get_quan_huyen_theo_tinh_paginate(this, this.tinh_thanh.ma_tinh,1);
+                if(this.tinh_thanh == '' || this.tinh_thanh == null){
+                    api_all_get_quan_huyen_paginate(this,1);
+                }
+                else{
+                    api_get_quan_huyen_theo_tinh_paginate(this, this.tinh_thanh.ma_tinh,1);
+                }
             },
             load_quan_huyen: function (tinh) {
-                api_get_quan_huyen_theo_tinh_paginate(this, tinh.ma_tinh,1);
+                if(tinh == '' || tinh == null){
+                    api_all_get_quan_huyen_paginate(this,1);
+                }
+                else{
+                    api_get_quan_huyen_theo_tinh_paginate(this, tinh.ma_tinh,1);
+                }
             },
             get_list_qh: function (page) {
                 this.loading_tinh = true;
                 if(this.flag_search_tinh){
-                    api_get_search_quan_huyen_theo_tinh_paginate(this,this.tinh_thanh.ma_tinh,page);
+                    api_get_search_quan_huyen_theo_tinh_paginate(this,this.tinh_thanh_2.ma_tinh,page);
                 }
                 else{
-                    api_get_quan_huyen_theo_tinh_paginate(this, this.tinh_thanh.ma_tinh,page);
+                    // api_get_quan_huyen_theo_tinh_paginate(this, this.tinh_thanh.ma_tinh,page);
+                    if(this.tinh_thanh_2 == '' || this.tinh_thanh_2 == null){
+                        api_all_get_quan_huyen_paginate(this,page);
+                    }
+                    else{
+                        api_get_quan_huyen_theo_tinh_paginate(this, this.tinh_thanh_2.ma_tinh,page);
+                    }
                 }
             },
             search_qh: function () {
@@ -248,6 +269,9 @@
                 this.quan_huyen_new.ma_quan_huyen = bh.ma_quan_huyen;
                 this.quan_huyen_new.ma_tinh = bh.ma_tinh;
                 api_delete_quan_huyen(this);
+            },
+            count_tt: function (index) {
+                return ((this.currentPage - 1) * this.limit_qh) + index;
             },
             change_bnt_save: function () {
                 this.flag_btn_save = false;

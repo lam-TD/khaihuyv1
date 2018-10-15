@@ -8,8 +8,8 @@ export function api_get_tinh(vm) {
     })
         .then((response) => {
             vm.list_tinh_thanh = response.data;
-            vm.tinh_thanh = response.data[0];
-            api_get_quan_huyen_theo_tinh_paginate(vm,response.data[0].ma_tinh,1);
+            // vm.tinh_thanh = response.data[0];
+            // api_get_quan_huyen_theo_tinh_paginate(vm,response.data[0].ma_tinh,1);
         })
         .catch((error) => {
 
@@ -24,7 +24,7 @@ export function api_get_tinh_cua_phuong_xa(vm) {
         .then((response) => {
             vm.list_tinh_thanh = response.data;
             vm.tinh_thanh = response.data[0];
-            api_get_quan_huyen_cua_phuong_xa(vm, response.data[0].ma_tinh);
+            // api_get_quan_huyen_cua_phuong_xa(vm, response.data[0].ma_tinh);
         })
         .catch((error) => {
 
@@ -42,7 +42,7 @@ export function api_get_quan_huyen_cua_phuong_xa(vm, ma_tinh) {
                 return (item['ma_tinh'] == ma_tinh);
             });
             vm.quan_huyen = vm.list_change_quan_huyen[0];
-            api_get_phuong_xa_theo_quan_huyen_paginate(vm, vm.quan_huyen.ma_quan_huyen, 1);
+            // api_get_phuong_xa_theo_quan_huyen_paginate(vm, vm.quan_huyen.ma_quan_huyen, 1);
         })
         .catch((error) => {
 
@@ -65,6 +65,8 @@ export function api_get_tinh_thanh_paginate(vm, page, limit=10) {
             console.log(error);
         })
 }
+
+
 
 export function api_get_search_tinh_thanh_paginate(vm, page, limit=10) {
     axios({
@@ -174,6 +176,21 @@ export function api_delete_tinh_thanh(vm) {
 }
 
 //
+export function api_all_get_quan_huyen_paginate(vm, page) {
+    axios({
+        method: 'GET',
+        url: 'api/get-all-list-quan-huyen/' + vm.limit_qh + '?page=' + page
+    })
+        .then((response) => {
+            vm.list_qh = response.data.data;
+            // console.log(vm.list_qh);
+            vm.total_qh = response.data.total;
+        })
+        .catch((error) => {
+            console.log(error);
+        })
+}
+
 export function api_get_quan_huyen_theo_tinh_paginate(vm, ma_tinh, page) {
     axios({
         method: 'GET',
@@ -218,7 +235,13 @@ export function api_add_quan_huyen(vm) {
                 sweetalert(1, 'Thêm thành công!');
                 $('#myModalquan').modal('hide');
                 $('.modal-backdrop').css('display','none');
-                api_get_quan_huyen_theo_tinh_paginate(vm,vm.quan_huyen_new.ma_tinh,1);
+                if(vm.tinh_thanh_2 == '' || vm.tinh_thanh_2 == null){
+                    api_all_get_quan_huyen_paginate(this,1);
+                }
+                else{
+                    api_get_quan_huyen_theo_tinh_paginate(vm, vm.tinh_thanh.ma_tinh,1);
+                }
+                // api_get_quan_huyen_theo_tinh_paginate(vm,vm.quan_huyen_new.ma_tinh,1);
             }
             else if(response.data == 0){
                 vm.loading_qh = false;
@@ -246,7 +269,13 @@ export function api_edit_quan_huyen(vm) {
                 sweetalert(1, 'Cập nhật thành công!');
                 $('#myModalquan').modal('hide');
                 $('.modal-backdrop').css('display','none');
-                api_get_quan_huyen_theo_tinh_paginate(vm,vm.quan_huyen_new.ma_tinh,1);
+                // api_get_quan_huyen_theo_tinh_paginate(vm,vm.quan_huyen_new.ma_tinh,1);
+                if(vm.tinh_thanh_2 == '' || vm.tinh_thanh_2 == null){
+                    api_all_get_quan_huyen_paginate(vm,1);
+                }
+                else{
+                    api_get_quan_huyen_theo_tinh_paginate(vm, vm.tinh_thanh.ma_tinh,1);
+                }
             }
             else if(response.data == 0){
                 sweetalert(0, 'Mã nhóm vừa chọn đã tồn tại!');
@@ -278,7 +307,13 @@ export function api_delete_quan_huyen(vm) {
                 .then((response) => {
                     if(response.data == 1) {
                         sweetalert(1, 'Quận huyện vừa chọn đã được xóa!');
-                        api_get_quan_huyen_theo_tinh_paginate(vm,vm.quan_huyen_new.ma_tinh,1);
+                        if(vm.tinh_thanh_2 == '' || vm.tinh_thanh_2 == null){
+                            api_all_get_quan_huyen_paginate(vm,1);
+                        }
+                        else{
+                            api_get_quan_huyen_theo_tinh_paginate(vm, vm.tinh_thanh.ma_tinh,1);
+                        }
+                        // api_get_quan_huyen_theo_tinh_paginate(vm,vm.quan_huyen_new.ma_tinh,1);
                         vm.loading_qh = false;
                     }
                     else if(response.data == 0){
@@ -291,6 +326,21 @@ export function api_delete_quan_huyen(vm) {
                 })
 
         });
+}
+
+export function api_get_all_phuong_xa(vm, page) {
+    axios({
+        method: 'GET',
+        url: 'api/get-all-list-phuong-xa/' + vm.limit_px + '?page=' + page
+    })
+        .then((response) => {
+            vm.list_px = response.data.data;
+            // console.log(vm.list_px);
+            vm.total_px = response.data.total;
+        })
+        .catch((error) => {
+            console.log(error);
+        })
 }
 
 export function api_get_phuong_xa_theo_quan_huyen_paginate(vm, ma_quan_huyen, page) {
@@ -311,11 +361,11 @@ export function api_get_phuong_xa_theo_quan_huyen_paginate(vm, ma_quan_huyen, pa
 export function api_get_search_phuong_xa_theo_quan_huyen(vm, ma_quan_huyen, page) {
     axios({
         method: 'GET',
-        url: 'api/get-list-search-quan-huyen/' + vm.keyword_qh + '&' + ma_tinh + '&' + vm.limit_qh + '?page=' + page
+        url: 'api/get-search-phuong-xa-theo-quan-huyen-paginate/' + vm.keyword_px + '&' + ma_quan_huyen + '&' + vm.limit_px + '?page=' + page
     })
         .then((response) => {
-            vm.list_qh = response.data.data;
-            vm.total_qh = response.data.total;
+            vm.list_px = response.data.data;
+            vm.total_px = response.data.total;
         })
         .catch((error) => {
             console.log(error);
@@ -336,7 +386,15 @@ export function api_add_phuong_xa(vm) {
                 sweetalert(1, 'Thêm thành công!');
                 $('#myModalquan').modal('hide');
                 $('.modal-backdrop').css('display','none');
-                api_get_phuong_xa_theo_quan_huyen_paginate(vm, vm.phuong_xa_new.quanhuyen_id,1);
+                if(vm.quan_huyen_2 == null || vm.quan_huyen_2 == ''){
+                    api_get_all_phuong_xa(vm,1);
+                    this.currentPage = 1;
+                }
+                else{
+                    api_get_phuong_xa_theo_quan_huyen_paginate(vm, vm.quan_huyen_2.ma_quan_huyen, 1);
+                    this.currentPage = 1;
+                }
+                // api_get_phuong_xa_theo_quan_huyen_paginate(vm, vm.phuong_xa_new.quanhuyen_id,1);
             }
             else if(response.data == 0){
                 vm.loading_qh = false;
@@ -364,7 +422,15 @@ export function api_edit_phuong_xa(vm) {
                 sweetalert(1, 'Cập nhật thành công!');
                 $('#myModalquan').modal('hide');
                 $('.modal-backdrop').css('display','none');
-                api_get_phuong_xa_theo_quan_huyen_paginate(vm, vm.phuong_xa_new.quanhuyen_id,1);
+                if(vm.quan_huyen_2 == null || vm.quan_huyen_2 == ''){
+                    api_get_all_phuong_xa(vm,1);
+                    this.currentPage = 1;
+                }
+                else{
+                    api_get_phuong_xa_theo_quan_huyen_paginate(vm, vm.quan_huyen_2.ma_quan_huyen, 1);
+                    this.currentPage = 1;
+                }
+                // api_get_phuong_xa_theo_quan_huyen_paginate(vm, vm.phuong_xa_new.quanhuyen_id,1);
             }
             else if(response.data == 0){
                 sweetalert(0, 'Mã nhóm vừa chọn đã tồn tại!');
@@ -396,7 +462,15 @@ export function api_delete_phuong_xa(vm) {
                 .then((response) => {
                     if(response.data == 1) {
                         sweetalert(1, 'Quận huyện vừa chọn đã được xóa!');
-                        api_get_phuong_xa_theo_quan_huyen_paginate(vm, vm.phuong_xa_new.quanhuyen_id,1);
+                        if(vm.quan_huyen_2 == null || vm.quan_huyen_2 == ''){
+                            api_get_all_phuong_xa(vm,1);
+                            this.currentPage = 1;
+                        }
+                        else{
+                            api_get_phuong_xa_theo_quan_huyen_paginate(vm, vm.quan_huyen_2.ma_quan_huyen, 1);
+                            this.currentPage = 1;
+                        }
+                        // api_get_phuong_xa_theo_quan_huyen_paginate(vm, vm.phuong_xa_new.quanhuyen_id,1);
                         vm.loading_qh = false;
                     }
                     else if(response.data == 0){
